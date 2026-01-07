@@ -1,55 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Search,
-  Menu,
-  ChevronDown,
-  User,
-  Heart,
-  Settings,
-  Twitter,
-  Facebook,
-  Linkedin,
-  Instagram,
-  TrendingUp,
-  Library,
-  GraduationCap,
-  Award,
-} from "lucide-react";
-
-const cardData = [
-  {
-    title: "Trending Courses",
-    desc: "Your chance to be a trending expert in IT industries and make a successful career.",
-    color: "bg-[#1ecd6e]",
-    icon: TrendingUp,
-  },
-  {
-    title: "Books & Library",
-    desc: "Access our vast digital library with over 10 million items and specialized research tools.",
-    color: "bg-[#f8c12c]",
-    icon: Library,
-  },
-  {
-    title: "Certified Teachers",
-    desc: "Get professional education and reliable consultation by our team of world-class instructors.",
-    color: "bg-[#307ad5]",
-    icon: GraduationCap,
-  },
-  {
-    title: "Certification",
-    desc: "Receive a globally recognized certificate upon successful completion of your rigorous classes.",
-    color: "bg-[#ea51a0]",
-    icon: Award,
-  },
-];
+import { Search, Menu, ChevronDown, User, Heart, Settings } from "lucide-react";
 
 const Hero = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen flex flex-col font-sans overflow-hidden">
+    <div className="relative min-h-[80vh] flex flex-col font-sans overflow-hidden">
       {/* Background with Dark Overlay */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
@@ -60,7 +18,6 @@ const Hero = () => {
 
       {/* --- NAVBAR SECTION --- */}
       <header className="relative z-50 w-full">
-        {/* Main Header */}
         <div className="py-6 px-6 flex items-center justify-between gap-4 container mx-auto">
           {/* Logo Section */}
           <div className="flex items-center gap-2 min-w-fit cursor-pointer">
@@ -89,7 +46,7 @@ const Hero = () => {
             <input
               type="text"
               placeholder="Search courses..."
-              className="flex-1 h-full px-4 text-white outline-none text-sm font-medium"
+              className="flex-1 h-full px-4 text-white bg-transparent border border-white/20 outline-none text-sm font-medium placeholder:text-gray-400"
             />
             <button className="bg-[#3858e9] h-full px-6 flex items-center justify-center rounded-r-sm hover:bg-blue-600 text-white transition">
               <Search size={20} />
@@ -143,43 +100,6 @@ const Hero = () => {
               Explore Courses
             </button>
           </motion.div>
-        </div>
-      </div>
-
-      {/* --- FEATURE CARDS SECTION --- */}
-      <div className="relative z-10 w-full translate-y-6">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
-            {cardData.map((card, idx) => {
-              const IconComponent = card.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  whileHover={{
-                    y: -35,
-                    scale: 1.05,
-                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.6)",
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className={`${card.color} p-10 text-white flex flex-col gap-5 cursor-pointer z-10 relative overflow-hidden`}
-                >
-                  <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-2 shadow-inner">
-                    <IconComponent
-                      size={32}
-                      strokeWidth={2.5}
-                      className="drop-shadow-md"
-                    />
-                  </div>
-                  <h3 className="text-xl font-black uppercase tracking-widest leading-tight">
-                    {card.title}
-                  </h3>
-                  <p className="text-sm font-medium leading-relaxed opacity-95">
-                    {card.desc}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
         </div>
       </div>
     </div>
