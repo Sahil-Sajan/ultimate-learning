@@ -54,7 +54,7 @@ const TopNav = () => {
               >
                 Add Course
               </Link>
-              <span className="absolute -top-4 -right-2 bg-pink-500 text-[10px] text-white px-1.5 py-0.5 rounded uppercase font-bold tracking-wider">
+              <span className="absolute -top-2.5 -right-2 bg-pink-500 text-[10px] text-white px-1.5 py-0.5 rounded uppercase font-bold tracking-wider">
                 Hot
               </span>
             </div>

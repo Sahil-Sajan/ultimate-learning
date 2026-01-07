@@ -1,14 +1,14 @@
-import CategoryGrid from '@/components/Home/CategoryGrid.'
-import Hero from '@/components/Home/Hero'
-import React from 'react'
+import FeaturesSection from "@/components/Home/FeatureSection";
+import Hero from "@/components/Home/Hero";
 
 const page = () => {
   return (
-    <div>
+    <>
       <Hero />
-      <CategoryGrid />
-    </div>
-  )
-}
 
-export default page
+      <FeaturesSection />
+    </>
+  );
+};
+
+export default page;
