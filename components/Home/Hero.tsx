@@ -4,7 +4,7 @@ import React from 'react';
 const Hero = () => {
   return (
     <div className="relative min-h-screen flex flex-col font-sans overflow-hidden">
-      {/* Background Image with accurate Masterstudy blue-tint overlay */}
+      
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{ 
@@ -13,7 +13,7 @@ const Hero = () => {
       />
 
       {/* Main Hero Content Area */}
-      <div className="relative z-10 flex-grow flex items-center">
+      <div className="relative z-10 grow flex items-center">
         <div className="container mx-auto px-6 md:px-12 py-20">
           <div className="max-w-2xl">
             <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6 tracking-tight">
@@ -30,8 +30,8 @@ const Hero = () => {
       </div>
 
       {/* Feature Cards Bottom Strip - IMPROVED WITH MX-AUTO AND HOVER */}
-      <div className="relative z-10 w-full mb-2">
-        <div className="container mx-auto px-6">
+      <div className="relative z-10 w-full">
+        <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 overflow-hidden rounded-xl shadow-2xl">
             {/* Green Card */}
             <div className="bg-[#1ecd6e] p-12 text-white flex flex-col gap-5 transition-all duration-300 ease-in-out hover:-translate-y-4 hover:brightness-110 cursor-pointer">
