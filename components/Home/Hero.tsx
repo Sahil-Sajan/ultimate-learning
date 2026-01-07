@@ -1,74 +1,185 @@
-"use client"
-import React from 'react';
+"use client";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Search,
+  Menu,
+  ChevronDown,
+  User,
+  Heart,
+  Settings,
+  Twitter,
+  Facebook,
+  Linkedin,
+  Instagram,
+  TrendingUp,
+  Library,
+  GraduationCap,
+  Award,
+} from "lucide-react";
+
+const cardData = [
+  {
+    title: "Trending Courses",
+    desc: "Your chance to be a trending expert in IT industries and make a successful career.",
+    color: "bg-[#1ecd6e]",
+    icon: TrendingUp,
+  },
+  {
+    title: "Books & Library",
+    desc: "Access our vast digital library with over 10 million items and specialized research tools.",
+    color: "bg-[#f8c12c]",
+    icon: Library,
+  },
+  {
+    title: "Certified Teachers",
+    desc: "Get professional education and reliable consultation by our team of world-class instructors.",
+    color: "bg-[#307ad5]",
+    icon: GraduationCap,
+  },
+  {
+    title: "Certification",
+    desc: "Receive a globally recognized certificate upon successful completion of your rigorous classes.",
+    color: "bg-[#ea51a0]",
+    icon: Award,
+  },
+];
 
 const Hero = () => {
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
   return (
     <div className="relative min-h-screen flex flex-col font-sans overflow-hidden">
-      {/* Background Image with accurate Masterstudy blue-tint overlay */}
-      <div 
+      {/* Background with Dark Overlay */}
+      <div
         className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{ 
-          backgroundImage: `linear-gradient(rgba(30, 41, 59, 0.75), rgba(30, 41, 59, 0.85)), url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80')` 
+        style={{
+          backgroundImage: `linear-gradient(rgba(30, 41, 59, 0.75), rgba(30, 41, 59, 0.85)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80')`,
         }}
       />
 
-      {/* Main Hero Content Area */}
-      <div className="relative z-10 flex-grow flex items-center">
-        <div className="container mx-auto px-6 md:px-12 py-20">
-          <div className="max-w-2xl">
-            <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6 tracking-tight">
-              Start Investing in <br /> Yourself
-            </h1>
-            <p className="text-xl text-gray-200 mb-10 max-w-lg leading-relaxed">
-              With over 1200 courses in 18 subjects, you're guaranteed to find something that's right for you.
-            </p>
-            <button className="bg-[#1e73be] hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full text-sm uppercase transition-all duration-300 shadow-lg">
-              Join for Free
+      {/* --- NAVBAR SECTION --- */}
+      <header className="relative z-50 w-full">
+        {/* Main Header */}
+        <div className="py-6 px-6 flex items-center justify-between gap-4 container mx-auto">
+          {/* Logo Section */}
+          <div className="flex items-center gap-2 min-w-fit cursor-pointer">
+            <div className="bg-white text-black p-1.5 rounded-sm font-bold text-xl">
+              <span className="border-2 border-black px-1">UL</span>
+            </div>
+            <div className="flex flex-col leading-none uppercase">
+              <span className="text-2xl font-bold text-white">Ultimate</span>
+              <span className="text-xl font-light tracking-[0.2em] text-gray-300">
+                Learning
+              </span>
+            </div>
+          </div>
+
+          {/* Search bar with Category dropdown */}
+          <div className="flex flex-1 max-w-2xl items-center h-12 ml-4 shadow-2xl">
+            <button
+              onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+              className="bg-gray-100 text-[#3858e9] font-bold px-5 h-full flex items-center gap-2 rounded-l-sm hover:bg-white transition"
+            >
+              <Menu size={18} />
+              <span className="text-xs tracking-widest uppercase">
+                Category
+              </span>
+            </button>
+            <input
+              type="text"
+              placeholder="Search courses..."
+              className="flex-1 h-full px-4 text-white outline-none text-sm font-medium"
+            />
+            <button className="bg-[#3858e9] h-full px-6 flex items-center justify-center rounded-r-sm hover:bg-blue-600 text-white transition">
+              <Search size={20} />
             </button>
           </div>
+
+          {/* User Profile & Actions */}
+          <div className="flex items-center gap-6 ml-2">
+            <div className="relative bg-[#3858e9] flex items-center gap-2 py-2.5 px-5 rounded-full cursor-pointer hover:bg-blue-600 transition shadow-lg">
+              <User size={18} className="text-white" />
+              <span className="text-xs font-bold text-white hidden sm:inline">
+                Hey, Demo Instructor
+              </span>
+              <ChevronDown size={14} className="text-white" />
+            </div>
+            <Heart
+              size={24}
+              className="text-white cursor-pointer hover:text-red-400 transition"
+            />
+            <Settings
+              size={24}
+              className="text-white cursor-pointer hover:rotate-90 transition-transform duration-500"
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* --- HERO CONTENT --- */}
+      <div className="relative z-10 grow flex items-center">
+        <div className="container mx-auto px-6 md:px-12 py-10">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-4xl"
+          >
+            <div className="h-1.5 w-24 bg-[#f8c12c] mb-10" />
+            <h1 className="text-6xl md:text-[90px] font-black text-white leading-[0.95] mb-10 tracking-tighter uppercase">
+              Learn Anything <br />
+              <span className="font-extralight text-gray-300 italic">
+                With Expert
+              </span>{" "}
+              <br />
+              <span className="text-[#f8c12c]">Teachers</span>
+            </h1>
+            <p className="text-gray-300 text-lg mb-10 max-w-xl font-medium">
+              Join 10,000+ students already learning from the world's most
+              experienced industry experts and change your career path today.
+            </p>
+            <button className="bg-[#1e73be] hover:bg-blue-700 text-white font-black py-6 px-14 rounded-sm text-sm uppercase transition-all shadow-2xl hover:scale-105 active:scale-95 tracking-[0.2em]">
+              Explore Courses
+            </button>
+          </motion.div>
         </div>
       </div>
 
-      {/* Feature Cards Bottom Strip - IMPROVED WITH MX-AUTO AND HOVER */}
-      <div className="relative z-10 w-full mb-2">
+      {/* --- FEATURE CARDS SECTION --- */}
+      <div className="relative z-10 w-full translate-y-6">
         <div className="container mx-auto px-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 overflow-hidden rounded-xl shadow-2xl">
-            {/* Green Card */}
-            <div className="bg-[#1ecd6e] p-12 text-white flex flex-col gap-5 transition-all duration-300 ease-in-out hover:-translate-y-4 hover:brightness-110 cursor-pointer">
-                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 14l9-5-9-5-9 5 9 5z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /></svg>
-                <h3 className="text-xl font-extrabold uppercase tracking-tight">Trending Courses</h3>
-                <p className="text-sm font-medium leading-[1.6] opacity-90">
-                Your chance to be a trending expert in IT industries and make a successful career after completion of our courses.
-                </p>
-            </div>
-
-            {/* Yellow Card */}
-            <div className="bg-[#f8c12c] p-12 text-white flex flex-col gap-5 transition-all duration-300 ease-in-out hover:-translate-y-4 hover:brightness-110 cursor-pointer">
-                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                <h3 className="text-xl font-extrabold uppercase tracking-tight">Books & Library</h3>
-                <p className="text-sm font-medium leading-[1.6] opacity-90">
-                Masterstudy is one of the world's busiest public library systems, with over 10 million books, movies and other items to.
-                </p>
-            </div>
-
-            {/* Blue Card */}
-            <div className="bg-[#307ad5] p-12 text-white flex flex-col gap-5 transition-all duration-300 ease-in-out hover:-translate-y-4 hover:brightness-110 cursor-pointer">
-                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
-                <h3 className="text-xl font-extrabold uppercase tracking-tight">Certified Teachers</h3>
-                <p className="text-sm font-medium leading-[1.6] opacity-90">
-                Get professional education and reliable consultation by our team of certified teachers and instructors.
-                </p>
-            </div>
-
-            {/* Pink Card */}
-            <div className="bg-[#ea51a0] p-12 text-white flex flex-col gap-5 transition-all duration-300 ease-in-out hover:-translate-y-4 hover:brightness-110 cursor-pointer">
-                <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <h3 className="text-xl font-extrabold uppercase tracking-tight">Certification</h3>
-                <p className="text-sm font-medium leading-[1.6] opacity-90">
-                Upon successful completion receive a certificate showing your achievement for completing one of our rigorous classes.
-                </p>
-            </div>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
+            {cardData.map((card, idx) => {
+              const IconComponent = card.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  whileHover={{
+                    y: -35,
+                    scale: 1.05,
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.6)",
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  className={`${card.color} p-10 text-white flex flex-col gap-5 cursor-pointer z-10 relative overflow-hidden`}
+                >
+                  <div className="bg-white/20 w-16 h-16 rounded-full flex items-center justify-center mb-2 shadow-inner">
+                    <IconComponent
+                      size={32}
+                      strokeWidth={2.5}
+                      className="drop-shadow-md"
+                    />
+                  </div>
+                  <h3 className="text-xl font-black uppercase tracking-widest leading-tight">
+                    {card.title}
+                  </h3>
+                  <p className="text-sm font-medium leading-relaxed opacity-95">
+                    {card.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
