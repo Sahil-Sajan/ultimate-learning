@@ -1,13 +1,14 @@
-import FeatureCards from "@/components/Home/FeatureCards";
+import FeatureCards from "@/components/Home/CategoryGrid.";
 import FeaturesSection from "@/components/Home/FeatureSection";
 import Hero from "@/components/Home/Hero";
 
-export default function Home() {
+const page = () => {
   return (
-    <>
+    <div>
       <Hero />
-      {/* <FeatureCards /> */}
-      <FeaturesSection />
-    </>
+      <CategoryGrid />
+    </div>
   );
-}
+};
+
+export default page;
