@@ -45,9 +45,9 @@ const cardData = [
 const Hero = () => {
   return (
     <div className="w-full bg-white font-sans overflow-x-hidden">
-      {/* 1. HERO SECTION (W/ INCREASED HEIGHT FOR BETTER OVERLAP) */}
-      <section className="relative h-[95vh] min-h-187.5 w-full flex flex-col">
-        {/* Original Background & Overlay */}
+      {/* 1. HERO SECTION */}
+      <section className="relative h-[95vh] min-h-[750px] w-full flex flex-col">
+        {/* Background & Overlay */}
         <div
           className="absolute inset-0 z-0 bg-cover bg-center"
           style={{
@@ -70,42 +70,36 @@ const Hero = () => {
               </div>
             </div>
 
-                <span className="text-xs tracking-widest uppercase">
-                  Category
-                </span>
+            {/* Search Bar */}
+            <div className="hidden lg:flex items-center flex-1 max-w-xl h-12 bg-white rounded-sm overflow-hidden ml-8">
+              <button className="flex items-center gap-2 px-4 text-gray-500 hover:bg-gray-100 transition h-full border-r">
+                <Menu size={18} />
+                <span className="text-xs tracking-widest uppercase">Category</span>
               </button>
               <input
                 type="text"
                 placeholder="Search courses..."
                 className="flex-1 h-full px-4 text-black bg-white outline-none text-sm font-medium"
               />
-              <button className="bg-[#3858e9] h-full px-6 flex items-center justify-center rounded-r-sm text-white transition">
+              <button className="bg-[#3858e9] h-full px-6 flex items-center justify-center text-white transition">
                 <Search size={20} />
               </button>
             </div>
 
+            {/* Actions */}
             <div className="flex items-center gap-6">
               <div className="relative bg-[#3858e9] flex items-center gap-2 py-2.5 px-5 rounded-full cursor-pointer hover:bg-blue-600 transition shadow-lg text-white">
                 <User size={18} />
-
                 <span className="text-xs font-bold hidden sm:inline">Demo Instructor</span>
                 <ChevronDown size={14} />
               </div>
               <Heart size={24} className="text-white cursor-pointer hover:text-red-400 transition" />
               <Settings size={24} className="text-white cursor-pointer hover:rotate-90 transition-transform duration-500" />
+            </div>
+          </div>
+        </header>
 
-                <span className="text-xs font-bold hidden sm:inline">
-                  Demo Instructor
-                </span>
-                <ChevronDown size={14} />
-              </div>
-              <Heart
-                size={24}
-                className="text-white cursor-pointer hover:text-red-400 transition"
-              />
-              <Settings
-                size={24}
-                className="text-white cursor-pointer hover:rotate-90 transition-transform duration-500"
+        {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-6 grow flex flex-col justify-center items-start pt-10">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -119,29 +113,26 @@ const Hero = () => {
               <span className="font-extralight text-gray-300 italic">With Expert</span> <br />
               <span className="text-[#f8c12c]">Teachers</span>
             </h1>
+            <button className="bg-[#3858e9] text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-blue-600 transition shadow-2xl">
               Explore Courses
             </button>
           </motion.div>
         </div>
 
-        {/* --- THE OVERLAPPING CARDS (NOW INSIDE SECTION TO SHOW BG ON HOVER) --- */}
+        {/* Overlapping Cards */}
         <div className="relative z-30 container mx-auto max-w-6xl px-4 lg:px-0 translate-y-1/2">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
             {cardData.map((card, idx) => {
               const Icon = card.icon;
               return (
                 <motion.div
                   key={idx}
-                  whileHover={{ y: -25 }} // Lift higher on hover
+                  whileHover={{ y: -25 }}
                   transition={{ type: "spring", stiffness: 200, damping: 15 }}
                   className={`${card.color} p-10 text-white flex flex-col gap-6 min-h-80 cursor-pointer`}
                 >
                   <div className="mb-2">
-                    <Icon
-                      size={56}
-                      strokeWidth={1.2}
-                      className="text-white opacity-95"
-                    />
+                    <Icon size={56} strokeWidth={1.2} className="text-white opacity-95" />
                   </div>
                   <h3 className="text-xl font-black uppercase tracking-tight leading-none">
                     {card.title}
@@ -156,8 +147,8 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* 2. SPACING FOR NEXT CONTENT */}
-      <div className="h-75 w-full bg-white" />
+      {/* Spacing for Next Content */}
+      <div className="h-64 w-full bg-white" />
     </div>
   );
 };
