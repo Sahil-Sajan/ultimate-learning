@@ -1,16 +1,8 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
-import { usePathname } from "next/navigation";
+
+import React, { useState } from "react";
+import { Search, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Search,
-  Menu,
-  ChevronDown,
-  User,
-  Heart,
-  Settings,
-  ChevronRight,
-} from "lucide-react";
 
 // Categories Data with Sub-menus (Max 4 items each)
 const categoriesData = [
@@ -33,148 +25,166 @@ const categoriesData = [
 ];
 
 const Navbar = () => {
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [activeSubMenu, setActiveSubMenu] = useState<number | null>(null);
-  const dropdownRef = useRef<HTMLDivElement | null>(null);
-  const pathname = usePathname();
-
-  const mainNavBg = "bg-[#1e272e]";
-
-  // Outside click handler
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsCategoryOpen(false);
-        setActiveSubMenu(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
-    <header className="relative z-50 w-full shadow-lg">
-      <div
-        className={`${mainNavBg} py-4 px-8 flex items-center justify-between gap-4 transition-colors duration-500`}
-      >
-        {/* Logo Section */}
-        <div className="flex items-center gap-3 min-w-fit cursor-pointer group">
-          <div className="border-2 border-white p-1 rounded-md">
-            <div className="bg-white text-black px-1.5 py-0.5 font-black text-xl leading-none">
-              UL
-            </div>
-          </div>
-          <div className="flex flex-col leading-tight uppercase">
-            <span className="text-xl font-extrabold text-white tracking-tight">
-              Ultimate
-            </span>
-            <span className="text-sm font-light tracking-[0.3em] text-gray-400 -mt-1">
-              Learning
-            </span>
-          </div>
-        </div>
-
-        {/* Search Bar & Category Dropdown */}
-        <div className="flex flex-1 max-w-3xl items-center h-11 ml-8 bg-white rounded-sm relative">
-          <div className="relative h-full" ref={dropdownRef}>
-            <button
-              onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-              className="text-yellow-500 font-bold px-5 h-full flex items-center gap-2 hover:bg-gray-50 transition border-r border-gray-100"
-            >
-              <Menu size={18} />
-              <span className="text-[11px] tracking-widest uppercase">
-                Category
+    <>
+      <nav className="w-full bg-white border-b border-gray-100 font-sans sticky top-0 z-100 shadow-sm">
+        <div className="max-w-350 mx-auto px-4 sm:px-6 h-20 sm:h-24 flex items-center justify-between gap-4">
+          {/* LOGO */}
+          <div className="flex items-center gap-3 cursor-pointer shrink-0">
+            <div className="border-[3px] border-[#f8c12c] p-1.5 flex items-center justify-center">
+              <span className="text-[#f8c12c] font-bold text-2xl leading-none">
+                UL
               </span>
-            </button>
-
-            {/* Main Dropdown Menu */}
-            <AnimatePresence>
-              {isCategoryOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute top-[110%] left-0 w-64 bg-white shadow-2xl rounded-md z-[60] border border-gray-100 py-2"
-                  onMouseLeave={() => setActiveSubMenu(null)}
-                >
-                  {categoriesData.map((cat, i) => (
-                    <div
-                      key={i}
-                      onMouseEnter={() => setActiveSubMenu(i)}
-                      className={`px-5 py-3 text-sm flex justify-between items-center cursor-pointer transition-colors ${
-                        activeSubMenu === i
-                          ? "bg-[#3858f6] text-white"
-                          : "text-gray-700 hover:bg-gray-50"
-                      }`}
-                    >
-                      {cat.name}
-                      <ChevronRight
-                        size={14}
-                        className={
-                          activeSubMenu === i ? "opacity-100" : "opacity-30"
-                        }
-                      />
-
-                      {/* Sub-Menu */}
-                      {activeSubMenu === i && (
-                        <motion.div
-                          initial={{ opacity: 0, x: 10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          className="absolute top-0 left-full ml-1 w-60 bg-white shadow-2xl rounded-md border border-gray-100 overflow-hidden"
-                        >
-                          {cat.sub.map((item, idx) => (
-                            <div
-                              key={idx}
-                              className="px-5 py-3 text-sm text-gray-600 hover:bg-gray-100 hover:text-[#3858f6] border-b border-gray-50 last:border-0 transition-all"
-                            >
-                              {item}
-                            </div>
-                          ))}
-                        </motion.div>
-                      )}
-                    </div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <input
-            type="text"
-            placeholder="Search courses..."
-            className="flex-1 h-full px-5 text-gray-700 outline-none text-sm font-normal"
-          />
-
-          <button className="bg-[#3858f6] h-full px-6 flex items-center justify-center hover:bg-blue-700 text-white transition">
-            <Search size={19} />
-          </button>
-        </div>
-
-        {/* User Actions Section */}
-        <div className="flex items-center gap-5 ml-4">
-          <div className="flex items-center gap-2 bg-yellow-500 py-2.5 px-6 rounded-full cursor-pointer hover:bg-blue-700 transition">
-            <User size={16} className="text-white" />
-            <span className="text-xs font-bold text-white whitespace-nowrap">
-              Demo Instructor
+            </div>
+            <span className="text-2xl font-black tracking-tighter text-[#1e293b] uppercase hidden sm:block">
+              Ultimate
+              <span className="font-medium p-2 text-gray-600">Learning</span>
             </span>
-            <ChevronDown size={14} className="text-white ml-1" />
           </div>
 
-          <div className="bg-gray-800/50 p-2.5 rounded-full cursor-pointer hover:bg-gray-700 transition group">
-            <Heart size={20} className="text-white group-hover:fill-white" />
+          {/* DESKTOP NAV */}
+          <div className="hidden xl:flex items-center gap-8 flex-1 justify-end">
+            <ul className="flex items-center gap-6 text-[12px] font-bold uppercase tracking-widest">
+              {[
+                "Home",
+                "Courses",
+                "Certificate",
+                "About Us",
+                "Degrees",
+                "Profile",
+              ].map((item) => (
+                <li
+                  key={item}
+                  className="cursor-pointer hover:text-[#f8c12c] transition"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            {/*  SMOOTH SEARCH */}
+            <motion.div
+              initial={false}
+              animate={{
+                width: isSearchOpen ? 300 : 44,
+              }}
+              transition={{ type: "spring", stiffness: 260, damping: 22 }}
+              className={`flex items-center bg-gray-50 rounded-md overflow-hidden border-2 ${
+                isSearchOpen ? "border-[#f8c12c]" : "border-transparent"
+              }`}
+            >
+              <motion.div
+                whileTap={{ scale: 0.9 }}
+                onClick={() => setIsSearchOpen(true)}
+                className={`p-2 cursor-pointer shrink-0 ${
+                  isSearchOpen
+                    ? "text-gray-400"
+                    : "border-2 border-[#f8c12c] text-[#f8c12c] hover:bg-[#f8c12c] hover:text-white"
+                }`}
+              >
+                <Search size={18} />
+              </motion.div>
+
+              <AnimatePresence>
+                {isSearchOpen && (
+                  <motion.input
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 10 }}
+                    transition={{ duration: 0.2 }}
+                    autoFocus
+                    type="text"
+                    placeholder="Search..."
+                    className="w-full bg-transparent px-2 py-2 text-sm outline-none font-medium"
+                  />
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence>
+                {isSearchOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    onClick={() => setIsSearchOpen(false)}
+                    className="mx-2 cursor-pointer text-gray-400 hover:text-black"
+                  >
+                    <X size={18} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           </div>
 
-          <Settings
-            size={22}
-            className="text-white cursor-pointer hover:rotate-90 transition-transform duration-500"
-          />
+          {/* MOBILE ACTIONS */}
+          <div className="xl:hidden flex items-center gap-3">
+            <Search
+              size={22}
+              className="text-[#f8c12c] cursor-pointer"
+              onClick={() => setIsSearchOpen(!isSearchOpen)}
+            />
+            <Menu
+              size={28}
+              className="cursor-pointer"
+              onClick={() => setIsDrawerOpen(true)}
+            />
+          </div>
         </div>
-      </div>
-    </header>
+      </nav>
+
+      {/* MOBILE RIGHT DRAWER */}
+      <AnimatePresence>
+        {isDrawerOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black z-200"
+              onClick={() => setIsDrawerOpen(false)}
+            />
+
+            <motion.aside
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 260, damping: 30 }}
+              className="fixed top-0 right-0 h-full w-[80%] sm:w-90 bg-white z-300 shadow-2xl px-6 py-6"
+            >
+              <div className="flex justify-end mb-6">
+                <X
+                  size={28}
+                  className="cursor-pointer hover:text-[#f8c12c]"
+                  onClick={() => setIsDrawerOpen(false)}
+                />
+              </div>
+
+              <div className="flex flex-col gap-6 text-sm font-bold uppercase tracking-widest">
+                {[
+                  "Home",
+                  "Courses",
+                  "Certificate",
+                  "About Us",
+                  "Degrees",
+                  "Profile",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="cursor-pointer hover:text-[#f8c12c]"
+                    onClick={() => setIsDrawerOpen(false)}
+                  >
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
