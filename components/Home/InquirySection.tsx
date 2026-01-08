@@ -1,142 +1,126 @@
+"use client";
 import React from "react";
-import Image from "next/image";
-import { BookOpen, Award, Zap } from "lucide-react";
+import { motion } from "framer-motion";
 
-const CommunitySection: React.FC = () => {
-  const avatars = [
-    "https://i.pravatar.cc/150?u=1",
-    "https://i.pravatar.cc/150?u=2",
-    "https://i.pravatar.cc/150?u=3",
-    "https://i.pravatar.cc/150?u=4",
-  ];
-
+const InquirySection = () => {
   return (
-    <section className="w-full bg-[#f8f9fb] py-12 md:py-20 px-4 md:px-12 lg:px-24 overflow-hidden font-sans">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        {/* Left Column: Content */}
-        <div className="space-y-8 order-2 lg:order-1 text-center lg:text-left">
-          <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight lg:whitespace-nowrap">
-              Creating a community of <br /> learners.
+    <section className="relative w-full min-h-[45vh] py-12 flex items-center overflow-hidden">
+      {/* Background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `linear-gradient(180deg, rgba(8,10,20,0.75), rgba(8,10,20,0.85)), url('/cg-4.webp')`,
+        }}
+      />
+
+      <div className="text-black relative z-10 container mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* LEFT CONTENT */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="text-white max-w-xl"
+          >
+            <span className="inline-flex items-center gap-2 bg-white/10 px-4 py-1.5 rounded-full text-xs font-semibold tracking-widest uppercase mb-5 border border-white/15">
+              Free Demo Class
+            </span>
+
+            <h2 className="text-3xl md:text-4xl font-extrabold leading-tight mb-5">
+              Upgrade Your Skills with <br />
+              <span className="text-[#f8c12c]">Expert Guidance</span>
             </h2>
-            <p className="text-gray-500 text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
-              We&apos;re dedicated to transforming education by providing a
-              diverse range of high-quality courses that cater to learners of
-              all levels.
+
+            <p className="text-gray-300 text-base leading-relaxed max-w-lg">
+              Learn through structured courses, interactive quizzes, and expert
+              mentorship. Track progress, gain certifications, and grow faster
+              with practical learning.
             </p>
-          </div>
 
-          {/* Feature List */}
-          <div className="space-y-6 md:space-y-8 text-left max-w-xl mx-auto lg:mx-0">
-            <div className="flex gap-5">
-              <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-purple-600" />
+            <div className="mt-6 flex items-center gap-6 text-sm text-gray-300">
+              <div>
+                <span className="text-[#f8c12c] font-bold text-lg">20k+</span>
+                <p>Students</p>
               </div>
               <div>
-                <h4 className="text-xl font-bold text-gray-900">
-                  Learn from anywhere
-                </h4>
-                <p className="text-gray-500 mt-1">
-                  Learning from anywhere has become a transform aspect of modern
-                  education.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-5">
-              <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-                <Award className="w-6 h-6 text-pink-500" />
+                <span className="text-[#f8c12c] font-bold text-lg">150+</span>
+                <p>Courses</p>
               </div>
               <div>
-                <h4 className="text-xl font-bold text-gray-900">
-                  Expert Mentors
-                </h4>
-                <p className="text-gray-500 mt-1">
-                  Expert mentors are invaluable assets in any field, providing
-                  seasoned guidance.
-                </p>
+                <span className="text-[#f8c12c] font-bold text-lg">4.9★</span>
+                <p>Ratings</p>
               </div>
             </div>
+          </motion.div>
 
-            <div className="flex gap-5">
-              <div className="flex-shrink-0 w-12 h-12 bg-cyan-100 rounded-full flex items-center justify-center">
-                <Zap className="w-6 h-6 text-cyan-500" />
-              </div>
-              <div>
-                <h4 className="text-xl font-bold text-gray-900">
-                  Learn in demand skills
-                </h4>
-                <p className="text-gray-500 mt-1">
-                  In today&apos;s rapidly evolving job market, learning skills
-                  is crucial.
-                </p>
-              </div>
-            </div>
-          </div>
+          {/* RIGHT FORM */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="bg-white/95 backdrop-blur-xl shadow-[0_30px_80px_rgba(0,0,0,0.35)] p-7 md:p-8 w-full max-w-md mx-auto"
+          >
+            <h3 className="text-2xl font-bold text-gray-900 mb-2 text-center">
+              Get Started Today
+            </h3>
+            <p className="text-sm text-gray-500 text-center mb-6">
+              Fill the form and our team will contact you
+            </p>
 
-          {/* Action Buttons - Fixed Responsive Width */}
-          <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
-            <button className="w-full sm:w-auto bg-[#ff4d6d] hover:bg-[#e63958] text-white px-8 py-3.5 rounded-full font-bold transition-all shadow-lg shadow-pink-100">
-              Enroll as Student
-            </button>
-            <button className="w-full sm:w-auto bg-[#0f172a] hover:bg-black text-white px-8 py-3.5 rounded-full font-bold transition-all">
-              Apply as Tutor
-            </button>
-          </div>
-        </div>
-
-        {/* Right Column: Image Composition */}
-        <div className="relative h-100 md:h-125 lg:h-150 w-full max-w-125 lg:max-w-none mx-auto order-1 lg:order-2">
-          {/* Main Large Image */}
-          <div className="absolute top-0 right-0 w-[80%] lg:w-[85%] h-[85%] lg:h-[90%] rounded-[40px] overflow-hidden shadow-2xl z-10 border-4 border-white">
-            <Image
-              src="/cg-1.webp"
-              alt="Student writing"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-
-          {/* Smaller Overlapping Image */}
-          <div className="absolute bottom-4 left-0 lg:bottom-0 lg:left-4 w-[55%] lg:w-[50%] h-[50%] lg:h-[55%] rounded-[30px] overflow-hidden shadow-2xl z-30 border-[6px] lg:border-[10px] border-white">
-            <Image
-              src="/homecard2.png"
-              alt="Student with backpack"
-              fill
-              className="object-cover"
-            />
-          </div>
-
-          {/* Floating Enrolled Badge */}
-          <div className="absolute top-8 right-0 lg:-right-6 bg-white p-3 lg:p-4 rounded-2xl lg:rounded-3xl shadow-2xl z-40 flex flex-col items-center gap-2 border border-gray-50 min-w-[140px] lg:min-w-[180px]">
-            <div className="flex -space-x-2 lg:-space-x-3">
-              {avatars.map((url, i) => (
-                <div
-                  key={i}
-                  className="w-8 h-8 lg:w-10 lg:h-10 rounded-full border-2 border-white overflow-hidden relative shadow-sm"
-                >
-                  <Image
-                    src={url}
-                    alt={`Enrolled student ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    unoptimized
+            <form className="space-y-4">
+              {[
+                {
+                  label: "Your Name",
+                  type: "text",
+                  placeholder: "John Auranzeb",
+                },
+                {
+                  label: "Email Address",
+                  type: "email",
+                  placeholder: "john@email.com",
+                },
+                {
+                  label: "Phone Number",
+                  type: "tel",
+                  placeholder: "+92 300 0000000",
+                },
+              ].map((field, i) => (
+                <div key={i}>
+                  <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">
+                    {field.label}
+                  </label>
+                  <input
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-[#f8c12c]/40 outline-none transition text-sm"
                   />
                 </div>
               ))}
-            </div>
-            <p className="text-[11px] lg:text-[13px] font-bold text-gray-900">
-              <span className="text-[#ff4d6d]">35K+</span> Students Enrolled
-            </p>
-          </div>
 
-          {/* Decorative Element */}
-          <div className="absolute bottom-1/4 right-0 w-24 h-24 lg:w-32 lg:h-32 bg-[#00d084] rounded-3xl -z-10 translate-x-8 translate-y-8 lg:translate-x-12 lg:translate-y-12"></div>
+              <div>
+                <label className="block text-xs font-semibold text-gray-500 mb-2 uppercase tracking-wide">
+                  Course
+                </label>
+                <select className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-[#f8c12c]/40 outline-none transition text-sm">
+                  <option value="">Select a Course</option>
+                  <option>Graphic & Web Design</option>
+                  <option>Software Development</option>
+                  <option>Music & Creative Arts</option>
+                </select>
+              </div>
+
+              <button className="w-full bg-[#f8c12c] hover:bg-[#eab308] text-black font-bold py-3 rounded-xl uppercase tracking-widest text-xs transition-all active:scale-95 shadow-lg mt-4">
+                Request Free Lesson
+              </button>
+            </form>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
 
-export default CommunitySection;
+export default InquirySection;

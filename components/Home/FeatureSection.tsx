@@ -1,14 +1,26 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { Users, Languages, Puzzle, HomeIcon } from "lucide-react";
+import { motion, Variants } from "framer-motion";
+import { Users, Languages, Puzzle, HomeIcon, LucideIcon } from "lucide-react";
 
-const featureData = [
+/* ---------------- TYPES ---------------- */
+
+interface FeatureItem {
+  title: string;
+  desc: string;
+  img: string;
+  icon: LucideIcon;
+  iconBg: string;
+}
+
+/* ---------------- DATA ---------------- */
+
+const featureData: FeatureItem[] = [
   {
     title: "One-to One or Group Lessons",
     desc: "Let's Learn English is a course for English learners. Certified American English teachers designed the course for beginners.",
-    img: "/fs-1.avif", // Ensure these match your public folder names
+    img: "/fs-1.avif",
     icon: Users,
     iconBg: "bg-[#ff4b4b]",
   },
@@ -35,8 +47,9 @@ const featureData = [
   },
 ];
 
-// Animation variants for the container and children
-const containerVariants = {
+/* ---------------- ANIMATION VARIANTS ---------------- */
+
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -46,7 +59,7 @@ const containerVariants = {
   },
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
@@ -55,7 +68,9 @@ const cardVariants = {
   },
 };
 
-const FeaturesSection = () => {
+/* ---------------- COMPONENT ---------------- */
+
+const FeaturesSection: React.FC = () => {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -72,7 +87,7 @@ const FeaturesSection = () => {
               variants={cardVariants}
               className="flex flex-col items-center text-center group"
             >
-              {/* Image Container with Floating Icon */}
+              {/* Image Container */}
               <div className="relative mb-8">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
@@ -87,7 +102,7 @@ const FeaturesSection = () => {
                   />
                 </motion.div>
 
-                {/* Floating Action Icon */}
+                {/* Floating Icon */}
                 <div
                   className={`absolute bottom-2 right-2 ${item.iconBg} p-3 rounded-full text-white shadow-md z-10`}
                 >
@@ -95,11 +110,11 @@ const FeaturesSection = () => {
                 </div>
               </div>
 
-              {/* Text Content */}
+              {/* Text */}
               <h3 className="text-xl font-bold text-gray-800 mb-4 px-2 leading-tight">
                 {item.title}
               </h3>
-              <p className="text-gray-500 text-sm leading-relaxed max-w-[250px]">
+              <p className="text-gray-500 text-sm leading-relaxed max-w-62.5">
                 {item.desc}
               </p>
             </motion.div>

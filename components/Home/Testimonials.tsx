@@ -1,164 +1,159 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
-
-// Swiper Imports
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
 // Swiper Styles
 import "swiper/css";
-import "swiper/css/navigation";
 
-interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  image: string;
-  content: string;
-  rating: number;
-}
-
-const Feedback: Testimonial[] = [
+/* ---------------- DATA (10 ITEMS) ---------------- */
+const testimonialData = [
   {
     id: 1,
-    name: "Brenda Slaton",
-    role: "Designer",
-    // Make sure these names match the files in your /public folder
-    image: "/cs-1.avif",
-    content:
-      "This mentor helped me understand concepts that I had been struggling with for weeks.",
-    rating: 5,
+    name: "Xatashi Froust",
+    text: "The response to your MasterStudy has been really overwhelming! Those who participated in the workshop are spreading the word here on campus and the 'buzz' is on.",
+    image: "/cs-1.webp",
   },
   {
     id: 2,
-    name: "Adrian Dennis",
-    role: "Developer",
-    image: "/cs-2.webp",
-    content: "I've learned so much from my mentor's personal experience.",
-    rating: 5,
+    name: "Linda Green",
+    text: "It is no exaggeration to say this MasterStudy experience was transformative—both professionally and personally. This workshop will long remain a high point of my life.",
+    image: "/cs-1.avif",
   },
   {
     id: 3,
-    name: "Adrian Coztanza",
-    role: "Architect",
+    name: "Abigail Johnson",
+    text: "I couldn't imagine myself settling down so quickly without the experience I gained through the Foundation Program. Highly recommended!",
     image: "/cs-3.webp",
-    content:
-      "The advice was useful, but I wish my mentor had been more available for follow-up discussions.",
-    rating: 5,
   },
   {
     id: 4,
-    name: "John Doe",
-    role: "Engineer",
-    image: "/cs-4.webp",
-    content:
-      "Great insights and a very professional approach to teaching technical skills.",
-    rating: 5,
+    name: "Daniel Craig",
+    text: "The courses were extremely practical and well-structured. I landed my dream job within 3 months of finishing the certification.",
+    image: "/cg-4.webp",
+  },
+  {
+    id: 5,
+    name: "Emma Watson",
+    text: "The learning environment is inspiring and very supportive. The instructors actually care about your individual progress.",
+    image: "/cg-5.webp",
+  },
+  {
+    id: 6,
+    name: "Michael Jordan",
+    text: "This platform helped me sharpen my leadership skills and grow my business confidently. A true game changer for entrepreneurs.",
+    image: "/cg-6.avif",
+  },
+  {
+    id: 7,
+    name: "Natalie Portman",
+    text: "A perfect blend of theory and real-world application. Truly outstanding depth in every single module I took.",
+    image: "/cs-2.webp",
+  },
+  {
+    id: 8,
+    name: "Robert Downey",
+    text: "One of the best learning platforms I’ve ever experienced. The UI is clean and the content is top-tier industry standard.",
+    image: "/cg-8.webp",
+  },
+  {
+    id: 9,
+    name: "Chris Evans",
+    text: "Clear concepts, amazing instructors, and hands-on experience throughout. I feel much more prepared for my career now.",
+    image: "/cs-3.webp",
+  },
+  {
+    id: 10,
+    name: "Sophia Loren",
+    text: "Vous devez profiter de la vie. MasterStudy makes learning a pleasure rather than a chore. It is simply beautiful.",
+    image: "/cs-1.avif",
   },
 ];
 
-const Testimonial: React.FC = () => {
-  return (
-    <section className="w-full bg-[#f8f9fb] py-16 px-4 md:px-12 overflow-hidden relative">
-      {/* Background Decorative Blur */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-green-100 rounded-full blur-3xl opacity-30 -translate-x-1/2 -translate-y-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-pink-100 rounded-full blur-3xl opacity-30 translate-x-1/2 translate-y-1/2"></div>
+/* ---------------- COMPONENT ---------------- */
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        {/* Header */}
-        <div className="text-center mb-20 space-y-3">
-          <span className="text-[#ff4d6d] font-bold text-sm tracking-wide border-b-2 border-[#ff4d6d] pb-1">
-            Featured Instructors
-          </span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#0f172a]">
-            Top Class & Professional Instructors
+const Testimonials = () => {
+  return (
+    <section className="py-20 bg-[#f0f4f7]">
+      <div className="container mx-auto px-6 max-w-7xl">
+        {/* HEADER AREA */}
+        <div className="flex justify-between items-end mb-12">
+          <h2 className="text-5xl font-bold text-[#2d394b] tracking-tight">
+            Testimonials
           </h2>
-          <p className="text-gray-500 text-sm">
-            Words from Those Who&apos;ve Experienced Real Growth
-          </p>
+
+          {/* Custom Navigation Buttons (Chevron Function) */}
+          <div className="flex gap-3">
+            <button className="swiper-prev-custom w-12 h-12 flex items-center justify-center border-2 border-[#ccd6e0] text-[#3858e9] rounded-sm hover:bg-[#3858e9] hover:text-white transition-all duration-300">
+              <ChevronLeft size={24} />
+            </button>
+            <button className="swiper-next-custom w-12 h-12 flex items-center justify-center border-2 border-[#ccd6e0] text-[#3858e9] rounded-sm hover:bg-[#3858e9] hover:text-white transition-all duration-300">
+              <ChevronRight size={24} />
+            </button>
+          </div>
         </div>
 
-        {/* Carousel Container */}
-        <div className="relative group px-10">
-          {/* Left Arrow */}
-          <button className="testimonial-prev absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-all border border-gray-100">
-            <ChevronLeft className="w-6 h-6 text-gray-400" />
-          </button>
-
-          {/* Right Arrow */}
-          <button className="testimonial-next absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition-all border border-gray-100">
-            <ChevronRight className="w-6 h-6 text-gray-400" />
-          </button>
-
-          <Swiper
-            modules={[Navigation, Autoplay, Pagination]}
-            spaceBetween={30}
-            slidesPerView={1}
-            loop={true}
-            navigation={{
-              prevEl: ".testimonial-prev",
-              nextEl: ".testimonial-next",
-            }}
-            autoplay={{ delay: 4000 }}
-            breakpoints={{
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
-            }}
-            className="!overflow-visible"
-          >
-            {Feedback.map((item) => (
-              <SwiperSlide key={item.id} className="pt-12 pb-8">
-                <div className="bg-white rounded-2xl p-8 pt-16 shadow-[0_10px_30px_rgba(0,0,0,0.04)] border border-gray-50 text-center relative h-full">
-                  {/* Floating Avatar */}
-                  <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24">
-                    <div className="relative w-full h-full rounded-full border-[6px] border-white shadow-md overflow-hidden bg-white">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className="object-cover"
-                        unoptimized // Ensures local public images render without config errors
-                      />
-                    </div>
-                    {/* Quote Icon Badge */}
-                    <div className="absolute bottom-0 right-0 bg-[#ff4d6d] p-1.5 rounded-full border-4 border-white">
-                      <Quote className="w-3 h-3 text-white fill-white rotate-180" />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="space-y-4">
-                    <div>
-                      <h4 className="text-xl font-bold text-gray-900">
-                        {item.name}
-                      </h4>
-                      <p className="text-gray-400 text-sm">{item.role}</p>
-                    </div>
-
-                    <p className="text-gray-500 text-[15px] leading-relaxed italic">
-                      &quot;{item.content}&quot;
-                    </p>
-
-                    {/* Star Rating */}
-                    <div className="flex justify-center gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className="w-4 h-4 text-[#f59e0b] fill-[#f59e0b]"
-                        />
-                      ))}
-                    </div>
+        {/* SWIPER SLIDER */}
+        <Swiper
+          modules={[Navigation, Autoplay]}
+          spaceBetween={30}
+          slidesPerView={1}
+          loop={true}
+          autoplay={{ delay: 5000, disableOnInteraction: false }}
+          navigation={{
+            prevEl: ".swiper-prev-custom",
+            nextEl: ".swiper-next-custom",
+          }}
+          breakpoints={{
+            768: { slidesPerView: 2 },
+          }}
+          className="pb-10"
+        >
+          {testimonialData.map((item) => (
+            <SwiperSlide key={item.id}>
+              <div className="bg-white p-10 md:p-14 rounded-md shadow-sm border border-gray-100 flex flex-col items-center text-center h-full">
+                {/* Profile Image */}
+                <div className="relative w-28 h-28 mb-8">
+                  <div className="absolute inset-0 rounded-full border-4 border-gray-50 shadow-inner overflow-hidden">
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      className="object-cover"
+                    />
                   </div>
                 </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+
+                {/* Name */}
+                <h4 className="text-xl font-bold text-[#2d394b] mb-6">
+                  {item.name}
+                </h4>
+
+                {/* Quote Text */}
+                <p className="text-[#697585] text-lg leading-relaxed mb-8 font-medium italic">
+                  “{item.text}”
+                </p>
+
+                {/* Rating Stars */}
+                <div className="flex gap-1 mt-auto">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      size={20}
+                      fill="#f8c12c"
+                      className="text-[#f8c12c]"
+                    />
+                  ))}
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </section>
   );
 };
 
-export default Testimonial;
+export default Testimonials;
