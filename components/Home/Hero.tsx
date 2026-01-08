@@ -1,10 +1,18 @@
-"use client"
+"use client";
 
 import React from "react";
 import { motion } from "framer-motion";
-import { 
-  User, Search, Menu, Heart, Settings, ChevronDown, 
-  Rocket, BookOpen, Users, GraduationCap 
+import {
+  User,
+  Search,
+  Menu,
+  Heart,
+  Settings,
+  ChevronDown,
+  Rocket,
+  BookOpen,
+  Users,
+  GraduationCap,
 } from "lucide-react";
 
 const cardData = [
@@ -56,16 +64,21 @@ const Hero = () => {
               </div>
               <div className="flex flex-col leading-none uppercase">
                 <span className="text-2xl font-bold text-white">Ultimate</span>
-                <span className="text-xl font-light tracking-[0.2em] text-gray-300">Learning</span>
+                <span className="text-xl font-light tracking-[0.2em] text-gray-300">
+                  Learning
+                </span>
               </div>
             </div>
 
-            <div className="hidden lg:flex flex-1 max-w-2xl items-center h-12 ml-4 shadow-2xl">
-              <button className="bg-white text-[#3858e9] font-bold px-5 h-full flex items-center gap-2 rounded-l-sm transition">
-                <Menu size={18} />
-                <span className="text-xs tracking-widest uppercase">Category</span>
+                <span className="text-xs tracking-widest uppercase">
+                  Category
+                </span>
               </button>
-              <input type="text" placeholder="Search courses..." className="flex-1 h-full px-4 text-black bg-white outline-none text-sm font-medium" />
+              <input
+                type="text"
+                placeholder="Search courses..."
+                className="flex-1 h-full px-4 text-black bg-white outline-none text-sm font-medium"
+              />
               <button className="bg-[#3858e9] h-full px-6 flex items-center justify-center rounded-r-sm text-white transition">
                 <Search size={20} />
               </button>
@@ -74,16 +87,25 @@ const Hero = () => {
             <div className="flex items-center gap-6">
               <div className="relative bg-[#3858e9] flex items-center gap-2 py-2.5 px-5 rounded-full cursor-pointer hover:bg-blue-600 transition shadow-lg text-white">
                 <User size={18} />
+
                 <span className="text-xs font-bold hidden sm:inline">Demo Instructor</span>
                 <ChevronDown size={14} />
               </div>
               <Heart size={24} className="text-white cursor-pointer hover:text-red-400 transition" />
               <Settings size={24} className="text-white cursor-pointer hover:rotate-90 transition-transform duration-500" />
-            </div>
-          </div>
-        </header>
 
-        {/* Hero Content */}
+                <span className="text-xs font-bold hidden sm:inline">
+                  Demo Instructor
+                </span>
+                <ChevronDown size={14} />
+              </div>
+              <Heart
+                size={24}
+                className="text-white cursor-pointer hover:text-red-400 transition"
+              />
+              <Settings
+                size={24}
+                className="text-white cursor-pointer hover:rotate-90 transition-transform duration-500"
         <div className="relative z-10 container mx-auto px-6 grow flex flex-col justify-center items-start pt-10">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -97,7 +119,6 @@ const Hero = () => {
               <span className="font-extralight text-gray-300 italic">With Expert</span> <br />
               <span className="text-[#f8c12c]">Teachers</span>
             </h1>
-            <button className="bg-[#1e73be] hover:bg-blue-700 text-white font-black py-5 px-14 rounded-sm text-sm uppercase transition-all shadow-2xl tracking-[0.2em]">
               Explore Courses
             </button>
           </motion.div>
@@ -116,7 +137,11 @@ const Hero = () => {
                   className={`${card.color} p-10 text-white flex flex-col gap-6 min-h-80 cursor-pointer`}
                 >
                   <div className="mb-2">
-                    <Icon size={56} strokeWidth={1.2} className="text-white opacity-95" />
+                    <Icon
+                      size={56}
+                      strokeWidth={1.2}
+                      className="text-white opacity-95"
+                    />
                   </div>
                   <h3 className="text-xl font-black uppercase tracking-tight leading-none">
                     {card.title}
