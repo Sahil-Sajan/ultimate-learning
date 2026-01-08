@@ -33,7 +33,7 @@ const courseFeatures = [
 
 export default function WhyCourses() {
   return (
-    <section className="bg-[#fafafa] py-24 px-6">
+    <section className="bg-white py-24 px-6">
       <div className="max-w-5xl mx-auto">
         {/* --- PROFESSIONAL HEADING SECTION --- */}
         <motion.div

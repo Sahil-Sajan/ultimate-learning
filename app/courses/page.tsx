@@ -11,6 +11,8 @@ import {
   List,
   User,
 } from "lucide-react";
+import Navbar2 from "@/ui/Navbar2";
+import Navbar from "@/ui/Navbar";
 
 // 1. TypeScript Interface
 interface Course {
@@ -39,7 +41,7 @@ const courses: Course[] = [
     status: "Special",
     rating: 4.8,
     image:
-      "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=400&q=80",
+      "/course5.webp",
   },
   {
     id: 2,
@@ -52,7 +54,7 @@ const courses: Course[] = [
     status: "Hot",
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&q=80",
+      "/course6.webp",
   },
   {
     id: 3,
@@ -76,7 +78,7 @@ const courses: Course[] = [
     level: "Beginner",
     status: "Normal",
     rating: 3.8,
-    image: "course-1.webp",
+    image: "/couse-1.webp",
   },
   {
     id: 5,
@@ -113,7 +115,7 @@ const courses: Course[] = [
     status: "New",
     rating: 4.7,
     image:
-      "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&q=80",
+      "/course7.webp",
   },
   {
     id: 8,
@@ -138,7 +140,7 @@ const courses: Course[] = [
     status: "Normal",
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80",
+      "/course-3.webp",
   },
   {
     id: 10,
@@ -163,7 +165,7 @@ const courses: Course[] = [
     status: "Normal",
     rating: 4.1,
     image:
-      "https://images.unsplash.com/photo-1498579150354-977475b7ea0b?w=400&q=80",
+      "/courses-2.avif",
   },
   {
     id: 12,
@@ -176,7 +178,7 @@ const courses: Course[] = [
     status: "New",
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?w=400&q=80",
+      "couse-1.webp",
   },
   {
     id: 13,
@@ -201,7 +203,7 @@ const courses: Course[] = [
     status: "Normal",
     rating: 3.9,
     image:
-      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=400&q=80",
+      "/courses-4.avif",
   },
   {
     id: 15,
@@ -214,7 +216,7 @@ const courses: Course[] = [
     status: "Special",
     rating: 4.9,
     image:
-      "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&q=80",
+      "/cg-1.webp",
   },
 ];
 
@@ -258,6 +260,8 @@ export default function CourseCatalog() {
   }, [selectedCats, selectedStatus, selectedLevels, minRating]);
 
   return (
+     <>
+    
     <div className="min-h-screen bg-white font-sans text-slate-800 pb-20">
       {/* HEADER SECTION */}
       <header className="max-w-7xl mx-auto px-10 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
@@ -277,7 +281,7 @@ export default function CourseCatalog() {
             </button>
           </div>
 
-          <div className="flex border border-slate-200 rounded overflow-hidden h-[42px]">
+          <div className="flex border border-slate-200 rounded overflow-hidden h-10.5">
             <div className="bg-yellow-500 text-white px-3 flex items-center text-xs font-bold uppercase">
               Sort By:
             </div>
@@ -301,9 +305,9 @@ export default function CourseCatalog() {
       {/* PAGE BODY */}
       <div className="max-w-7xl mx-auto px-10 flex flex-col lg:flex-row gap-10 items-start relative">
         {/* SIDE FILTER - STICKY AND INCREASED HEIGHT */}
-        <aside className="w-full lg:w-72 flex-shrink-0 lg:sticky lg:top-8 self-start">
-          <div className="bg-white border border-slate-200 rounded-sm shadow-sm flex flex-col min-h-[800px]">
-            <div className="flex-grow">
+        <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-8 self-start">
+          <div className="bg-white border border-slate-200 rounded-sm shadow-sm flex flex-col min-h-200">
+            <div className="grow">
               <FilterSection title="Category" icon={<Minus size={18} />}>
                 {categories.map((cat) => (
                   <FilterItem
@@ -412,7 +416,7 @@ export default function CourseCatalog() {
         </aside>
 
         {/* MAIN GRID */}
-        <section className="flex-grow">
+        <section className="grow">
           <div className="bg-slate-50 p-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-6 flex justify-between px-4 border border-slate-100">
             <span>Featured Courses</span>
             <span className="text-slate-400 cursor-pointer hover:text-slate-600">
@@ -426,7 +430,7 @@ export default function CourseCatalog() {
                 key={course.id}
                 className="bg-white border border-slate-200 flex flex-col group hover:shadow-xl transition-all duration-300"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                <div className="relative aspect-4/3 overflow-hidden bg-slate-100">
                   <img
                     src={course.image}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -450,7 +454,7 @@ export default function CourseCatalog() {
                   </div>
                 </div>
 
-                <div className="p-5 flex flex-col flex-grow">
+                <div className="p-5 flex flex-col grow">
                   <div className="text-[11px] font-bold text-yellow-600 uppercase tracking-widest mb-1">
                     {course.category}
                   </div>
@@ -476,13 +480,13 @@ export default function CourseCatalog() {
                         {course.level}
                       </span>
                     </div>
-                    <div className="w-[1px] h-6 bg-slate-100"></div>
+                    <div className="w-px h-6 bg-slate-100"></div>
                     <div className="flex flex-col items-center">
                       <span className="text-[14px] font-bold text-slate-600 uppercase mt-1">
                         Modules
                       </span>
                     </div>
-                    <div className="w-[1px] h-6 bg-slate-100"></div>
+                    <div className="w-px h-6 bg-slate-100"></div>
                     <div className="flex flex-col items-center">
                       <span className="text-[14px] font-bold text-slate-600 uppercase mt-1">
                         Lifetime
@@ -502,6 +506,7 @@ export default function CourseCatalog() {
         </section>
       </div>
     </div>
+    </>
   );
 }
 

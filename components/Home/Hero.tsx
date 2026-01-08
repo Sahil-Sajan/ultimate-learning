@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   User,
   Search,
@@ -13,41 +13,65 @@ import {
   BookOpen,
   Users,
   GraduationCap,
+  ChevronRight,
 } from "lucide-react";
 
-const cardData = [
+// Updated Data with Sub-categories (Max 4 each)
+const categoriesData = [
   {
-    title: "Trending Courses",
-    desc: "Your chance to be a trending expert in IT industries and make a successful career after completion of our courses.",
-    color: "bg-[#1ecd6e]",
-    icon: Rocket,
+    name: "Software Development",
+    sub: ["Web Development", "Mobile Apps", "Python Data Science", "Cloud Computing"],
   },
   {
-    title: "Books & Library",
-    desc: "Masterstudy is one of the world's busiest public library systems, with over 10 million books, movies and other items to.",
-    color: "bg-[#f8c12c]",
-    icon: BookOpen,
+    name: "Business & Marketing",
+    sub: ["Digital Marketing", "SEO Strategy", "Financial Analysis", "Entrepreneurship"],
   },
   {
-    title: "Certified Teachers",
-    desc: "Get professional education and reliable consultation by our team of certified teachers and instructors.",
-    color: "bg-[#307ad5]",
-    icon: Users,
+    name: "Design & Photography",
+    sub: ["UI/UX Design", "Graphic Design", "Photoshop Masterclass", "Video Editing"],
   },
   {
-    title: "Certification",
-    desc: "Upon successful completion receive a certificate showing your achievement for completing one of our rigorous classes.",
-    color: "bg-[#ea51a0]",
-    icon: GraduationCap,
+    name: "Health & Fitness",
+    sub: ["Yoga & Meditation", "Nutrition Plans", "Body Building", "Mental Health"],
+  },
+  {
+    name: "Music & Art",
+    sub: ["Guitar Basics", "Music Production", "Oil Painting", "Digital Illustration"],
   },
 ];
 
+const cardData = [
+  { title: "Trending Courses", desc: "Your chance to be a trending expert...", color: "bg-[#1ecd6e]", icon: Rocket },
+  { title: "Books & Library", desc: "Masterstudy is one of the world's...", color: "bg-[#f8c12c]", icon: BookOpen },
+  { title: "Certified Teachers", desc: "Get professional education...", color: "bg-[#307ad5]", icon: Users },
+  { title: "Certification", desc: "Upon successful completion...", color: "bg-[#ea51a0]", icon: GraduationCap },
+];
+
 const Hero = () => {
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [activeSubMenu, setActiveSubMenu] = useState<number | null>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsCategoryOpen(false);
+        setActiveSubMenu(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <div className="w-full bg-white font-sans overflow-x-hidden">
-      {/* 1. HERO SECTION */}
-      <section className="relative h-[95vh] min-h-[750px] w-full flex flex-col">
-        {/* Background & Overlay */}
+      <section className="relative h-[95vh] min-h-187.5 w-full flex flex-col">
+        {/* Background */}
         <div
           className="absolute inset-0 z-0 bg-cover bg-center"
           style={{
@@ -58,43 +82,96 @@ const Hero = () => {
         {/* Navbar */}
         <header className="relative z-50 w-full">
           <div className="py-6 px-6 flex items-center justify-between gap-4 container mx-auto">
+            {/* Logo */}
             <div className="flex items-center gap-2 min-w-fit cursor-pointer">
-              <div className="bg-white text-black p-1.5 rounded-sm font-bold text-xl">
-                <span className="border-2 border-black px-1">UL</span>
+              <div className="bg-yellow-500 text-white p-1.5 rounded-sm font-bold text-xl">
+                <span className="border-2 border-white px-1">UL</span>
               </div>
-              <div className="flex flex-col leading-none uppercase">
-                <span className="text-2xl font-bold text-white">Ultimate</span>
-                <span className="text-xl font-light tracking-[0.2em] text-gray-300">
-                  Learning
-                </span>
+              <div className="flex flex-col leading-none uppercase text-white">
+                <span className="text-2xl font-bold">Ultimate</span>
+                <span className="text-xl font-light tracking-[0.2em]">Learning</span>
               </div>
             </div>
 
-            {/* Search Bar */}
-            <div className="hidden lg:flex items-center flex-1 max-w-xl h-12 bg-white rounded-sm overflow-hidden ml-8">
-              <button className="flex items-center gap-2 px-4 text-gray-500 hover:bg-gray-100 transition h-full border-r">
-                <Menu size={18} />
-                <span className="text-xs tracking-widest uppercase">Category</span>
-              </button>
+            {/* Search Bar with NESTED Dropdown */}
+            <div className="hidden lg:flex items-center flex-1 max-w-xl h-12 bg-white rounded-sm ml-8 relative">
+              <div className="relative h-full" ref={dropdownRef}>
+                <button
+                  onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                  className="flex items-center gap-2 px-4 text-gray-700 hover:bg-gray-100 transition h-full border-r font-bold"
+                >
+                  <Menu size={18} className="text-yellow-500" />
+                  <span className="text-xs tracking-widest uppercase">Category</span>
+                </button>
+
+                <AnimatePresence>
+                  {isCategoryOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      className="absolute top-[110%] left-0 w-64 bg-white shadow-2xl rounded-md z-60 border border-gray-100"
+                      onMouseLeave={() => setActiveSubMenu(null)}
+                    >
+                      {categoriesData.map((cat, i) => (
+                        <div
+                          key={i}
+                          onMouseEnter={() => setActiveSubMenu(i)}
+                          className={`px-5 py-4 text-sm flex justify-between items-center cursor-pointer transition-colors border-b border-gray-50 last:border-0 ${
+                            activeSubMenu === i
+                              ? "bg-yellow-500 text-white"
+                              : "text-gray-700 hover:bg-gray-50"
+                          }`}
+                        >
+                          {cat.name}
+                          <ChevronRight
+                            size={14}
+                            className={activeSubMenu === i ? "opacity-100" : "opacity-30"}
+                          />
+
+                          {/* SUB-MENU */}
+                          {activeSubMenu === i && (
+                            <motion.div
+                              initial={{ opacity: 0, x: 10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              className="absolute top-0 left-full ml-1 w-60 bg-white shadow-2xl rounded-md border border-gray-100 overflow-hidden"
+                            >
+                              {cat.sub.map((item, idx) => (
+                                <div
+                                  key={idx}
+                                  className="px-5 py-4 text-sm text-gray-600 hover:bg-gray-100 hover:text-yellow-600 border-b border-gray-50 last:border-0 transition-all"
+                                >
+                                  {item}
+                                </div>
+                              ))}
+                            </motion.div>
+                          )}
+                        </div>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <input
                 type="text"
                 placeholder="Search courses..."
                 className="flex-1 h-full px-4 text-black bg-white outline-none text-sm font-medium"
               />
-              <button className="bg-[#3858e9] h-full px-6 flex items-center justify-center text-white transition">
+              <button className="bg-yellow-500 h-full px-6 flex items-center justify-center text-white transition hover:bg-yellow-600">
                 <Search size={20} />
               </button>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-6">
-              <div className="relative bg-[#3858e9] flex items-center gap-2 py-2.5 px-5 rounded-full cursor-pointer hover:bg-blue-600 transition shadow-lg text-white">
+            <div className="flex items-center gap-6 text-white">
+              <div className="relative bg-yellow-500 flex items-center gap-2 py-2.5 px-5 rounded-full cursor-pointer hover:bg-yellow-600 transition shadow-lg">
                 <User size={18} />
                 <span className="text-xs font-bold hidden sm:inline">Demo Instructor</span>
                 <ChevronDown size={14} />
               </div>
-              <Heart size={24} className="text-white cursor-pointer hover:text-red-400 transition" />
-              <Settings size={24} className="text-white cursor-pointer hover:rotate-90 transition-transform duration-500" />
+              <Heart size={24} className="cursor-pointer hover:text-red-400 transition" />
+              <Settings size={24} className="cursor-pointer hover:rotate-90 transition-transform duration-500" />
             </div>
           </div>
         </header>
@@ -107,19 +184,19 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
           >
-            <div className="h-1.5 w-24 bg-[#f8c12c] mb-10" />
+            <div className="h-1.5 w-24 bg-yellow-500 mb-10" />
             <h1 className="text-6xl md:text-[80px] font-black text-white leading-[0.95] mb-10 tracking-tighter uppercase">
               Learn Anything <br />
               <span className="font-extralight text-gray-300 italic">With Expert</span> <br />
-              <span className="text-[#f8c12c]">Teachers</span>
+              <span className="text-yellow-500">Teachers</span>
             </h1>
-            <button className="bg-[#3858e9] text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-blue-600 transition shadow-2xl">
+            <button className="bg-yellow-500 text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-yellow-600 transition shadow-2xl">
               Explore Courses
             </button>
           </motion.div>
         </div>
 
-        {/* Overlapping Cards */}
+        {/* Cards */}
         <div className="relative z-30 container mx-auto max-w-6xl px-4 lg:px-0 translate-y-1/2">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
             {cardData.map((card, idx) => {
@@ -131,13 +208,11 @@ const Hero = () => {
                   transition={{ type: "spring", stiffness: 200, damping: 15 }}
                   className={`${card.color} p-10 text-white flex flex-col gap-6 min-h-80 cursor-pointer`}
                 >
-                  <div className="mb-2">
-                    <Icon size={56} strokeWidth={1.2} className="text-white opacity-95" />
-                  </div>
-                  <h3 className="text-xl font-black uppercase tracking-tight leading-none">
+                  <Icon size={56} strokeWidth={1.2} className="opacity-95 text-white" />
+                  <h3 className="text-xl font-black uppercase tracking-tight">
                     {card.title}
                   </h3>
-                  <p className="text-[15px] font-normal leading-relaxed text-white/90">
+                  <p className="text-[15px] font-normal leading-relaxed opacity-90">
                     {card.desc}
                   </p>
                 </motion.div>
@@ -147,7 +222,6 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Spacing for Next Content */}
       <div className="h-64 w-full bg-white" />
     </div>
   );

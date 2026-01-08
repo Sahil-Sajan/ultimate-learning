@@ -74,12 +74,12 @@ const InquirySection = () => {
                 {
                   label: "Your Name",
                   type: "text",
-                  placeholder: "John Auranzeb",
+                  placeholder: "Shahzaib Ahmed",
                 },
                 {
                   label: "Email Address",
                   type: "email",
-                  placeholder: "john@email.com",
+                  placeholder: "Shahzaib@email.com",
                 },
                 {
                   label: "Phone Number",

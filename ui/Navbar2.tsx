@@ -25,7 +25,7 @@ const Navbar2 = () => {
 
           {/* DESKTOP NAV */}
           <div className="hidden xl:flex items-center gap-8 flex-1 justify-end">
-            <ul className="flex items-center gap-6 text-[12px] font-bold uppercase tracking-widest">
+            <ul className="flex items-center gap-6 text-[12px] font-bold uppercase tracking-widest text-black">
               {["Home", "Courses", "Certificate", "About Us", "Degrees", "Profile"].map(
                 (item) => (
                   <li key={item} className="cursor-pointer hover:text-[#f8c12c] transition">

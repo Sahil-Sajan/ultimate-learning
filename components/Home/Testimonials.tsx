@@ -5,16 +5,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
-// Swiper Styles
+
 import "swiper/css";
 
-/* ---------------- DATA (10 ITEMS) ---------------- */
 const testimonialData = [
   {
     id: 1,
     name: "Xatashi Froust",
     text: "The response to your MasterStudy has been really overwhelming! Those who participated in the workshop are spreading the word here on campus and the 'buzz' is on.",
-    image: "/cs-1.webp",
+    image: "/cg-5.webp",
   },
   {
     id: 2,
@@ -34,66 +33,38 @@ const testimonialData = [
     text: "The courses were extremely practical and well-structured. I landed my dream job within 3 months of finishing the certification.",
     image: "/cg-4.webp",
   },
-  {
-    id: 5,
-    name: "Emma Watson",
-    text: "The learning environment is inspiring and very supportive. The instructors actually care about your individual progress.",
-    image: "/cg-5.webp",
-  },
-  {
-    id: 6,
-    name: "Michael Jordan",
-    text: "This platform helped me sharpen my leadership skills and grow my business confidently. A true game changer for entrepreneurs.",
-    image: "/cg-6.avif",
-  },
-  {
-    id: 7,
-    name: "Natalie Portman",
-    text: "A perfect blend of theory and real-world application. Truly outstanding depth in every single module I took.",
-    image: "/cs-2.webp",
-  },
-  {
-    id: 8,
-    name: "Robert Downey",
-    text: "One of the best learning platforms I’ve ever experienced. The UI is clean and the content is top-tier industry standard.",
-    image: "/cg-8.webp",
-  },
-  {
-    id: 9,
-    name: "Chris Evans",
-    text: "Clear concepts, amazing instructors, and hands-on experience throughout. I feel much more prepared for my career now.",
-    image: "/cs-3.webp",
-  },
-  {
-    id: 10,
-    name: "Sophia Loren",
-    text: "Vous devez profiter de la vie. MasterStudy makes learning a pleasure rather than a chore. It is simply beautiful.",
-    image: "/cs-1.avif",
-  },
+ 
 ];
-
-/* ---------------- COMPONENT ---------------- */
 
 const Testimonials = () => {
   return (
-    <section className="py-20 bg-[#f0f4f7]">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-6 max-w-7xl">
         {/* HEADER AREA */}
-        <div className="flex justify-between items-end mb-12">
-          <h2 className="text-5xl font-bold text-[#2d394b] tracking-tight">
-            Testimonials
-          </h2>
+       {/* HEADER AREA */}
+<div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
+  <div className="flex flex-col gap-3">
+    <div className="flex items-center gap-3">
+      <div className="w-1.5 h-10 bg-yellow-500 rounded-full" /> {/* Professional accent line */}
+      <h2 className="text-5xl md:text-6xl font-extrabold text-black tracking-tight">
+        Testimonials
+      </h2>
+    </div>
+    <p className="text-black text-lg font-medium ml-4">
+      What our happy students say about their experience
+    </p>
+  </div>
 
-          {/* Custom Navigation Buttons (Chevron Function) */}
-          <div className="flex gap-3">
-            <button className="swiper-prev-custom w-12 h-12 flex items-center justify-center border-2 border-[#ccd6e0] text-[#3858e9] rounded-sm hover:bg-[#3858e9] hover:text-white transition-all duration-300">
-              <ChevronLeft size={24} />
-            </button>
-            <button className="swiper-next-custom w-12 h-12 flex items-center justify-center border-2 border-[#ccd6e0] text-[#3858e9] rounded-sm hover:bg-[#3858e9] hover:text-white transition-all duration-300">
-              <ChevronRight size={24} />
-            </button>
-          </div>
-        </div>
+  {/* Custom Navigation Buttons */}
+  <div className="flex gap-3 ml-4 md:ml-0">
+    <button className="swiper-prev-custom w-14 h-14 flex items-center justify-center border-2 border-gray-100 text-black rounded-full hover:bg-yellow-500 hover:border-yellow-500 hover:text-white transition-all duration-300 shadow-sm">
+      <ChevronLeft size={28} />
+    </button>
+    <button className="swiper-next-custom w-14 h-14 flex items-center justify-center border-2 border-gray-100 text-black rounded-full hover:bg-yellow-500 hover:border-yellow-500 hover:text-white transition-all duration-300 shadow-sm">
+      <ChevronRight size={28} />
+    </button>
+  </div>
+</div>
 
         {/* SWIPER SLIDER */}
         <Swiper
@@ -109,13 +80,15 @@ const Testimonials = () => {
           breakpoints={{
             768: { slidesPerView: 2 },
           }}
-          className="pb-10"
+         
+          className="pb-10 flex! items-stretch!" 
         >
           {testimonialData.map((item) => (
-            <SwiperSlide key={item.id}>
+            <SwiperSlide key={item.id} className="h-auto"> 
               <div className="bg-white p-10 md:p-14 rounded-md shadow-sm border border-gray-100 flex flex-col items-center text-center h-full">
+                
                 {/* Profile Image */}
-                <div className="relative w-28 h-28 mb-8">
+                <div className="relative w-28 h-28 mb-8 shrink-0">
                   <div className="absolute inset-0 rounded-full border-4 border-gray-50 shadow-inner overflow-hidden">
                     <Image
                       src={item.image}
@@ -127,16 +100,16 @@ const Testimonials = () => {
                 </div>
 
                 {/* Name */}
-                <h4 className="text-xl font-bold text-[#2d394b] mb-6">
+                <h4 className="text-xl font-bold text-black mb-6">
                   {item.name}
                 </h4>
 
-                {/* Quote Text */}
-                <p className="text-[#697585] text-lg leading-relaxed mb-8 font-medium italic">
+                
+                <p className="text-black text-lg leading-relaxed mb-8 font-medium italic grow">
                   “{item.text}”
                 </p>
 
-                {/* Rating Stars */}
+                
                 <div className="flex gap-1 mt-auto">
                   {[...Array(5)].map((_, i) => (
                     <Star
