@@ -1,5 +1,8 @@
+import CategoryGrid from "@/components/Home/CategoryGrid.";
+import ContactFooter from "@/components/Home/ContactFooter";
 import FeaturesSection from "@/components/Home/FeatureSection";
 import Hero from "@/components/Home/Hero";
+import WhyCourses from "@/components/Home/WhyCourses";
 
 const page = () => {
   return (
@@ -7,6 +10,9 @@ const page = () => {
       <Hero />
 
       <FeaturesSection />
+      <CategoryGrid />
+      <WhyCourses />
+      <ContactFooter />
     </>
   );
 };
