@@ -25,7 +25,7 @@ export const courses: any[] = [
     rating: 4.8,
     reviews: 154,
     image:
-      "/course5.webp",
+      "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=400&q=80",
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ export const courses: any[] = [
     rating: 4.5,
     reviews: 82,
     image:
-      "/course6.webp",
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&q=80",
   },
   {
     id: 3,
@@ -109,7 +109,7 @@ export const courses: any[] = [
     rating: 4.7,
     reviews: 320,
     image:
-      "/course7.webp",
+      "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&q=80",
   },
   {
     id: 8,
@@ -137,13 +137,13 @@ export const courses: any[] = [
     rating: 4.4,
     reviews: 76,
     image:
-      "/course-3.webp",
+      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80",
   },
+];
 
-  {
-    id: 10,
-    title: "Cybersecurity Basics",
-    description: "Protect networks and learn hacking.",
+export default function CourseCatalog() {
+  const [selectedCats, setSelectedCats] = useState<string[]>(["IT & Software"]);
+
   return (
     <div className="min-h-screen bg-[#FDFCFD] pb-20">
       {/* 1. TOP BREADCRUMB SECTION */}

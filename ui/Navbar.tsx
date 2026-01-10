@@ -11,25 +11,6 @@ import {
   X,
 } from "lucide-react";
 
-const categoriesData = [
-  {
-    name: "Software Development",
-    sub: ["Web Development", "Mobile Apps", "Python Data Science", "Cloud Computing"],
-  },
-  {
-    name: "Business & Marketing",
-    sub: ["Digital Marketing", "SEO Strategy", "Financial Analysis", "Entrepreneurship"],
-  },
-  {
-    name: "Design & Photography",
-    sub: ["UI/UX Design", "Graphic Design", "Photoshop Masterclass", "Video Editing"],
-  },
-  {
-    name: "Health & Fitness",
-    sub: ["Yoga & Meditation", "Nutrition Plans", "Body Building", "Mental Health"],
-  },
-];
-
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -143,12 +124,12 @@ const Navbar = () => {
           </div>
 
           {/* Auth Section */}
-
-          {/* Auth Section */}
-<div className="flex items-center gap-4">
-  <Link href="/login">
-    <button className="hidden sm:block text-[15px] font-medium text-white/90 hover:text-white transition-colors cursor-pointer">
-      Sign In
+          <div className="flex items-center gap-4">
+            <Link
+              href="/signin"
+              className="hidden sm:block text-[15px] font-medium text-white/90 hover:text-white transition-colors"
+            >
+              Sign In
             </Link>
             <Link href="/register">
               <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white px-8 py-2.5 rounded-full text-[15px] font-medium transition-all shadow-md active:scale-95">
@@ -156,20 +137,14 @@ const Navbar = () => {
               </button>
             </Link>
 
-
-  <Link href="/register">
-    <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white px-8 py-2.5 rounded-full text-[15px] font-medium transition-all shadow-md active:scale-95 cursor-pointer">
-      Register
-    </button>
-
-  {/* Mobile Menu Toggle */}
-  <button
-    className="lg:hidden p-2 text-white"
-    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-  >
-    {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-  </button>
-</div>
+            {/* Mobile Menu Toggle */}
+            <button
+              className="lg:hidden p-2 text-white"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
+          </div>
         </div>
       </div>
 
