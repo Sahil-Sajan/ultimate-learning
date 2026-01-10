@@ -1,21 +1,17 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   Star,
   ChevronDown,
-  Minus,
-  Plus,
   Search,
   LayoutGrid,
-  List,
-  User,
+  Heart,
+  ChevronRight,
 } from "lucide-react";
-import Navbar from "@/ui/Navbar";
-import Navbar2 from "@/ui/Navbar2";
 
-// 1. Exporting Data so Detail Page can use it (Or move to a separate data.ts)
+// Updated data with review counts to prevent "undefined" values
 export const courses: any[] = [
   {
     id: 1,
@@ -27,6 +23,7 @@ export const courses: any[] = [
     level: "Advanced",
     status: "Special",
     rating: 4.8,
+    reviews: 154,
     image:
       "/course5.webp",
   },
@@ -40,6 +37,7 @@ export const courses: any[] = [
     level: "Intermediate",
     status: "Hot",
     rating: 4.5,
+    reviews: 82,
     image:
       "/course6.webp",
   },
@@ -53,6 +51,7 @@ export const courses: any[] = [
     level: "Beginner",
     status: "New",
     rating: 4.2,
+    reviews: 210,
     image:
       "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80",
   },
@@ -66,6 +65,7 @@ export const courses: any[] = [
     level: "Beginner",
     status: "Normal",
     rating: 3.8,
+    reviews: 45,
     image:
       "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&q=80",
   },
@@ -79,6 +79,7 @@ export const courses: any[] = [
     level: "Beginner",
     status: "Hot",
     rating: 4.9,
+    reviews: 512,
     image:
       "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&q=80",
   },
@@ -92,6 +93,7 @@ export const courses: any[] = [
     level: "Intermediate",
     status: "Special",
     rating: 4.6,
+    reviews: 98,
     image:
       "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&q=80",
   },
@@ -105,6 +107,7 @@ export const courses: any[] = [
     level: "Beginner",
     status: "New",
     rating: 4.7,
+    reviews: 320,
     image:
       "/course7.webp",
   },
@@ -118,6 +121,7 @@ export const courses: any[] = [
     level: "Advanced",
     status: "Hot",
     rating: 4.8,
+    reviews: 415,
     image:
       "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&q=80",
   },
@@ -131,389 +135,284 @@ export const courses: any[] = [
     level: "Beginner",
     status: "Normal",
     rating: 4.4,
+    reviews: 76,
     image:
       "/course-3.webp",
   },
+
   {
     id: 10,
     title: "Cybersecurity Basics",
     description: "Protect networks and learn hacking.",
-    instructor: "Kevin Mitnick",
-    price: 55.0,
-    category: "Software Development",
-    level: "Intermediate",
-    status: "Special",
-    rating: 4.3,
-    image:
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&q=80",
-  },
-  {
-    id: 11,
-    title: "Cooking Italian Classics",
-    description: "Master the art of authentic pasta.",
-    instructor: "Chef Mario",
-    price: 34.0,
-    category: "Material Design",
-    level: "Beginner",
-    status: "Normal",
-    rating: 4.1,
-    image:
-      "/courses-2.avif",
-  },
-  {
-    id: 12,
-    title: "UI/UX Case Studies",
-    description: "Build a portfolio that gets hired.",
-    instructor: "Don Norman",
-    price: 65.0,
-    category: "Material Design",
-    level: "Intermediate",
-    status: "New",
-    rating: 4.5,
-    image:
-      "couse-1.webp",
-  },
-  {
-    id: 13,
-    title: "Rust Programming",
-    description: "Safe and fast systems programming.",
-    instructor: "Steve Klabnik",
-    price: 42.0,
-    category: "Software Development",
-    level: "Advanced",
-    status: "Hot",
-    rating: 4.7,
-    image:
-      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=400&q=80",
-  },
-  {
-    id: 14,
-    title: "Mobile Photography",
-    description: "Take stunning photos with phones.",
-    instructor: "Chase Jarvis",
-    price: 20.0,
-    category: "Photography",
-    level: "Beginner",
-    status: "Normal",
-    rating: 3.9,
-    image:
-      "/courses-4.avif",
-  },
-  {
-    id: 15,
-    title: "Music Theory 101",
-    description: "Foundations of composition.",
-    instructor: "Hans Zimmer",
-    price: 99.0,
-    category: "Music",
-    level: "Advanced",
-    status: "Special",
-    rating: 4.9,
-    image:
-      "/cg-1.webp",
-  },
-];
-
-const categories = [
-  "Art",
-  "Music",
-  "Exercise",
-  "Software Development",
-  "Material Design",
-  "Photography",
-];
-const statuses = ["Hot", "New", "Special"];
-const levels = ["Beginner", "Intermediate", "Advanced"];
-const ratings = [4.5, 4.0, 3.5, 3.0];
-
-export default function CourseCatalog() {
-  const [selectedCats, setSelectedCats] = useState<string[]>([]);
-  const [selectedStatus, setSelectedStatus] = useState<string[]>([]);
-  const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
-  const [minRating, setMinRating] = useState<number | null>(null);
-  const [showPriceOptions, setShowPriceOptions] = useState(false);
-
-  const resetAll = () => {
-    setSelectedCats([]);
-    setSelectedStatus([]);
-    setSelectedLevels([]);
-    setMinRating(null);
-  };
-
-  const filteredCourses = useMemo(() => {
-    return courses.filter((c) => {
-      const catMatch =
-        selectedCats.length === 0 || selectedCats.includes(c.category);
-      const statusMatch =
-        selectedStatus.length === 0 || selectedStatus.includes(c.status);
-      const lvlMatch =
-        selectedLevels.length === 0 || selectedLevels.includes(c.level);
-      const ratingMatch = minRating === null || c.rating >= minRating;
-      return catMatch && statusMatch && lvlMatch && ratingMatch;
-    });
-  }, [selectedCats, selectedStatus, selectedLevels, minRating]);
-
   return (
-    <>
-      <Navbar />
-      <div className="min-h-screen bg-white font-sans text-slate-800 pb-20">
-        <header className="max-w-7xl mx-auto px-10 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <h1 className="text-5xl font-black text-slate-900 tracking-tighter">
-            Courses
-          </h1>
+    <div className="min-h-screen bg-[#FDFCFD] pb-20">
+      {/* 1. TOP BREADCRUMB SECTION */}
+      <div className="w-full bg-gradient-to-r from-pink-50 to-blue-50 py-16 text-center">
+        <h1 className="text-3xl font-bold text-[#1D2026] mb-2">Course Grid</h1>
+        <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+          <Link href="/" className="hover:text-[#FF5B5C]">
+            Home
+          </Link>
+          <span className="text-[#FF5B5C]">—</span>
+          <span>Course Grid</span>
+        </div>
+      </div>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex border border-slate-200 rounded overflow-hidden">
-              <input
-                type="text"
-                placeholder="Search Courses"
-                className="px-4 py-2 w-64 outline-none text-sm text-slate-500"
-              />
-              <button className="bg-yellow-500 p-2.5 text-white hover:bg-yellow-600 transition-colors">
-                <Search size={18} strokeWidth={3} />
-              </button>
-            </div>
-            {/* View Icons */}
-            <div className="flex border border-slate-200 rounded overflow-hidden">
-              <button className="p-2.5 border-r border-slate-200 text-yellow-500 hover:bg-slate-50">
-                <LayoutGrid size={20} />
-              </button>
-              <button className="p-2.5 text-slate-300 hover:bg-slate-50">
-                <List size={20} />
-              </button>
+      <div className="max-w-[1440px] mx-auto px-6 mt-12">
+        {/* 2. FILTER TOP BAR */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 text-[#6E7485] font-medium">
+              <span className="bg-[#FF5B5C] text-white p-2 rounded-md">
+                <LayoutGrid size={18} />
+              </span>
+              <span>Showing 1-9 of {courses.length} results</span>
             </div>
           </div>
-        </header>
 
-        <div className="max-w-7xl mx-auto px-10 flex flex-col lg:flex-row gap-10 items-start relative">
-          {/* SIDEBAR */}
-          <aside className="w-full lg:w-72 shrink-0 lg:sticky lg:top-8 self-start">
-            <div className="bg-white border border-slate-200 rounded-sm shadow-sm flex flex-col min-h-200">
-              <div className="grow">
-                <FilterSection title="Category" icon={<Minus size={18} />}>
-                  {categories.map((cat) => (
-                    <FilterItem
-                      key={cat}
-                      label={cat}
-                      checked={selectedCats.includes(cat)}
-                      onChange={() =>
-                        setSelectedCats((p) =>
-                          p.includes(cat)
-                            ? p.filter((x) => x !== cat)
-                            : [...p, cat]
-                        )
-                      }
-                    />
-                  ))}
-                </FilterSection>
-
-                <FilterSection title="Status" icon={<Minus size={18} />}>
-                  {statuses.map((st) => (
-                    <FilterItem
-                      key={st}
-                      label={st}
-                      checked={selectedStatus.includes(st)}
-                      onChange={() =>
-                        setSelectedStatus((p) =>
-                          p.includes(st)
-                            ? p.filter((x) => x !== st)
-                            : [...p, st]
-                        )
-                      }
-                    />
-                  ))}
-                </FilterSection>
-
-                <FilterSection title="Rating" icon={<Minus size={18} />}>
-                  {ratings.map((r) => (
-                    <label
-                      key={r}
-                      className="flex items-center gap-4 mb-4 cursor-pointer group"
-                    >
-                      <input
-                        type="radio"
-                        name="rating"
-                        className="w-5 h-5 accent-yellow-500"
-                        onChange={() => setMinRating(r)}
-                        checked={minRating === r}
-                      />
-                      <div className="flex gap-1 items-center">
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={18}
-                            fill={i < Math.floor(r) ? "#EAB308" : "none"}
-                            stroke={i < Math.floor(r) ? "#EAB308" : "#CBD5E1"}
-                          />
-                        ))}
-                        <span className="text-[18px] text-slate-500 ml-2 font-bold">
-                          {r}
-                        </span>
-                      </div>
-                    </label>
-                  ))}
-                </FilterSection>
-
-                <div className="p-6 border-b border-slate-100">
-                  <div
-                    className="flex justify-between items-center text-lg font-bold text-slate-700 cursor-pointer"
-                    onClick={() => setShowPriceOptions(!showPriceOptions)}
-                  >
-                    Price{" "}
-                    {showPriceOptions ? (
-                      <Minus size={24} className="text-yellow-500" />
-                    ) : (
-                      <Plus size={24} className="text-yellow-500" />
-                    )}
-                  </div>
-                  {showPriceOptions && (
-                    <div className="mt-6 space-y-4 animate-in fade-in duration-300">
-                      <FilterItem
-                        label="Free"
-                        checked={false}
-                        onChange={() => {}}
-                      />
-                      <FilterItem
-                        label="Paid"
-                        checked={false}
-                        onChange={() => {}}
-                      />
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="p-8 bg-slate-50 mt-auto border-t border-slate-100">
-                <button className="w-full bg-yellow-500 text-white py-5 rounded text-[14px] font-black uppercase tracking-widest hover:bg-yellow-600 shadow-sm transition-all active:scale-95">
-                  Show Results
-                </button>
-                <button
-                  onClick={resetAll}
-                  className="w-full mt-6 text-[13px] text-slate-400 uppercase font-bold text-center hover:text-slate-600 flex items-center justify-center gap-2"
-                >
-                  <span className="rotate-45 font-light text-xl">+</span> Reset
-                  all
-                </button>
-              </div>
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <select className="appearance-none bg-white border border-gray-200 px-4 py-2.5 pr-10 rounded-lg text-sm text-[#1D2026] outline-none">
+                <option>Newly Published</option>
+              </select>
+              <ChevronDown
+                className="absolute right-3 top-3 text-gray-400"
+                size={16}
+              />
             </div>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search"
+                className="border border-gray-200 px-4 py-2.5 rounded-lg text-sm outline-none w-64"
+              />
+              <Search
+                className="absolute right-3 top-3 text-gray-400"
+                size={16}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* 3. SIDEBAR FILTERS */}
+          <aside className="w-full lg:w-[300px] flex flex-col gap-6">
+            <FilterBox title="Categories">
+              {[
+                "Backend",
+                "CSS",
+                "Frontend",
+                "General",
+                "IT & Software",
+                "Photography",
+                "Programming Language",
+              ].map((cat) => (
+                <FilterCheckbox
+                  key={cat}
+                  label={cat}
+                  checked={selectedCats.includes(cat)}
+                  count={cat === "CSS" ? 2 : 3}
+                />
+              ))}
+              <button className="text-[#FF5B5C] text-sm font-semibold mt-2 text-left">
+                See More
+              </button>
+            </FilterBox>
+
+            <FilterBox title="Instructors">
+              {["Kerry White", "Hinata Hyuga", "John Doe", "Nicole Brown"].map(
+                (ins) => (
+                  <FilterCheckbox
+                    key={ins}
+                    label={ins}
+                    checked={ins === "Nicole Brown"}
+                    count={10}
+                  />
+                )
+              )}
+            </FilterBox>
+
+            <FilterBox title="Price">
+              <div className="space-y-3">
+                <FilterCheckbox label="All" count={10} checked />
+                <FilterCheckbox label="Free" count={5} />
+                <FilterCheckbox label="Paid" count={3} />
+              </div>
+            </FilterBox>
+
+            <FilterBox title="Range">
+              <input
+                type="range"
+                className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]"
+              />
+              <div className="flex justify-between mt-2 text-xs text-gray-500">
+                <span>$0</span>
+                <span>$2985.0</span>
+              </div>
+            </FilterBox>
           </aside>
 
-          {/* MAIN GRID */}
-          <section className="grow">
-            <div className="bg-slate-50 p-2 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-6 flex justify-between px-4 border border-slate-100">
-              <span>Featured Courses</span>
-              <span className="text-slate-400 cursor-pointer hover:text-slate-600">
-                → Show all
-              </span>
-            </div>
-
+          {/* 4. COURSE GRID */}
+          <main className="flex-1">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredCourses.map((course) => (
+              {courses.map((course) => (
                 <div
                   key={course.id}
-                  className="bg-white border border-slate-200 flex flex-col group hover:shadow-xl transition-all duration-300"
+                  className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 group"
                 >
-                  {/* Link wrapper for Image */}
+                  {/* Image Container with Link */}
                   <Link
                     href={`/courses/${course.id}`}
-                    className="relative aspect-4/3 overflow-hidden bg-slate-100 block"
+                    className="relative h-[200px] block cursor-pointer"
                   >
                     <img
                       src={course.image}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       alt={course.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    {course.status !== "Normal" && (
-                      <div className="absolute top-0 right-0 bg-yellow-500 text-white text-[9px] font-black px-3 py-1 uppercase italic z-10">
-                        {course.status}
-                      </div>
-                    )}
-                    <div className="absolute bottom-0 right-0 bg-slate-900 text-white text-[15px] px-3 py-1 font-black">
-                      {course.price === 0 ? (
-                        <span className="text-green-400">FREE</span>
-                      ) : (
-                        `$${course.price.toFixed(2)}`
-                      )}
+                    <button
+                      className="absolute top-3 left-3 bg-white/90 p-2 rounded-full text-gray-600 hover:text-red-500 shadow-sm"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <Heart size={18} />
+                    </button>
+                    <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-md p-2 rounded-full text-white">
+                      <LayoutGrid size={16} />
                     </div>
                   </Link>
 
-                  <div className="p-5 flex flex-col grow">
-                    <div className="text-[11px] font-bold text-yellow-600 uppercase tracking-widest mb-1">
-                      {course.category}
-                    </div>
-                    <Link href={`/courses/${course.id}`}>
-                      <h3 className="font-bold text-[20px] text-slate-800 leading-snug mb-2 hover:text-yellow-600 transition-colors line-clamp-1">
-                        {course.title}
-                      </h3>
-                    </Link>
-                    <p className="text-[15px] text-slate-500 mb-4 line-clamp-2 h-10">
-                      {course.description}
-                    </p>
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="w-6 h-6 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
-                        <User size={14} />
+                  {/* Content Area */}
+                  <div className="p-5">
+                    <div className="flex justify-between items-center mb-3">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full bg-orange-100 overflow-hidden">
+                          <img
+                            src={`https://i.pravatar.cc/150?u=${course.id}`}
+                            alt="instructor"
+                          />
+                        </div>
+                        <span className="text-xs text-gray-500 font-medium">
+                          {course.instructor}
+                        </span>
                       </div>
-                      <span className="text-sm font-medium text-slate-500">
-                        {course.instructor}
+                      <span className="bg-gray-50 text-gray-500 text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-wider">
+                        {course.category}
                       </span>
                     </div>
 
-                    <div className="mt-auto border-t border-slate-100 pt-4 flex justify-between items-center text-[12px] font-bold text-slate-400 uppercase">
-                      <span>{course.level}</span>
-                      <div className="w-px h-4 bg-slate-100"></div>
-                      <span>Modules</span>
-                      <div className="w-px h-4 bg-slate-100"></div>
-                      <span>Lifetime</span>
+                    {/* Title with Link */}
+                    <Link href={`/courses/${course.id}`}>
+                      <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-[44px] cursor-pointer">
+                        {course.title}
+                      </h3>
+                    </Link>
+
+                    <div className="flex items-center gap-1 mb-4">
+                      <div className="flex items-center gap-0.5">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            size={14}
+                            fill={i < 4 ? "#FFB133" : "none"}
+                            stroke={i < 4 ? "#FFB133" : "#D1D5DB"}
+                          />
+                        ))}
+                      </div>
+                      <span className="text-sm font-bold text-[#1D2026] ml-1">
+                        {course.rating}
+                      </span>
+                      <span className="text-xs text-gray-400">
+                        ({course.reviews} Reviews)
+                      </span>
+                    </div>
+
+                    <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+                      <span className="text-xl font-bold text-[#FF5B5C]">
+                        ${course.price}
+                      </span>
+
+                      {/* Button with Link */}
+                      <Link href={`/courses/${course.id}`}>
+                        <button className="flex items-center gap-1 bg-[#1D2026] text-white text-[11px] font-bold px-4 py-2 rounded-full hover:bg-[#FF5B5C] transition-all">
+                          View Course <ChevronRight size={14} />
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-          </section>
+
+            {/* Pagination */}
+            <div className="flex justify-center mt-12 gap-2">
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FF5B5C] text-white font-bold">
+                1
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100">
+                2
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100">
+                3
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100">
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </main>
         </div>
       </div>
-    </>
-  );
-}
-
-// Helper Components
-function FilterSection({
-  title,
-  children,
-  icon,
-}: {
-  title: string;
-  children: React.ReactNode;
-  icon: React.ReactNode;
-}) {
-  return (
-    <div className="p-6 border-b border-slate-100 last:border-0">
-      <h3 className="font-bold text-lg mb-6 flex justify-between items-center text-slate-800 uppercase tracking-wide">
-        {title} <span className="text-slate-300">{icon}</span>
-      </h3>
-      <div className="flex flex-col">{children}</div>
     </div>
   );
 }
 
-function FilterItem({
-  label,
-  checked,
-  onChange,
+// Sidebar Helper Components
+function FilterBox({
+  title,
+  children,
 }: {
-  label: string;
-  checked: boolean;
-  onChange: () => void;
+  title: string;
+  children: React.ReactNode;
 }) {
   return (
-    <label className="flex items-center gap-4 mb-4 text-[16px] text-slate-500 font-bold cursor-pointer hover:text-yellow-600 transition-colors">
-      <input
-        type="checkbox"
-        className="w-5 h-5 border-slate-300 rounded accent-yellow-500"
-        checked={checked}
-        onChange={onChange}
-      />
-      {label}
+    <div className="bg-white border border-gray-100 rounded-xl p-6">
+      <h3 className="text-[#1D2026] font-bold text-lg mb-6 flex justify-between items-center">
+        {title} <ChevronDown size={18} className="text-gray-400" />
+      </h3>
+      <div className="flex flex-col gap-4">{children}</div>
+    </div>
+  );
+}
+
+function FilterCheckbox({
+  label,
+  checked = false,
+  count = 0,
+}: {
+  label: string;
+  checked?: boolean;
+  count?: number;
+}) {
+  return (
+    <label className="flex items-center justify-between group cursor-pointer">
+      <div className="flex items-center gap-3">
+        <div
+          className={`w-5 h-5 rounded border transition-all flex items-center justify-center ${
+            checked
+              ? "bg-[#FF5B5C] border-[#FF5B5C]"
+              : "border-gray-200 group-hover:border-[#FF5B5C]"
+          }`}
+        >
+          {checked && <div className="w-2 h-2 bg-white rounded-full" />}
+        </div>
+        <span
+          className={`text-sm ${
+            checked ? "text-[#1D2026] font-bold" : "text-gray-500"
+          }`}
+        >
+          {label}
+        </span>
+      </div>
+      <span className="text-xs text-gray-400">({count})</span>
     </label>
   );
 }
