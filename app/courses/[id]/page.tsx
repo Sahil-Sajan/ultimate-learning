@@ -3,387 +3,383 @@
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import { courses } from "../page";
-import Navbar from "@/ui/Navbar";
+
 import {
   Star,
-  User,
   Clock,
-  BookOpen,
   Play,
-  CheckCircle2,
-  Heart,
+  Video,
+  Users,
+  FileText,
+  Monitor,
+  Award,
+  ChevronDown,
+  MessageSquare,
   Share2,
-  BarChart,
-  ShoppingCart,
+  Heart,
 } from "lucide-react";
-import Link from "next/link";
 
 export default function CourseDetailPage() {
   const { id } = useParams();
-  const [activeTab, setActiveTab] = useState("Description");
+  const [openSection, setOpenSection] = useState(0);
 
   const course = courses.find((c) => c.id === Number(id));
 
-  // 1. Get 10 Popular Courses (Cycling the list to ensure it's full)
-  const popularSidebar = [...courses, ...courses].slice(0, 10);
-
-  // 2. Get Related Courses
-  const relatedCourses = courses.filter((c) => c.id !== Number(id)).slice(0, 3);
-
   if (!course)
-    return (
-      <div className="p-20 text-center font-bold text-slate-900">
-        Course not found
-      </div>
-    );
+    return <div className="p-20 text-center font-bold">Course not found</div>;
 
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen bg-white font-sans text-slate-700 pb-20">
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          {/* HEADER SECTION */}
-          <div className="flex justify-between items-start mb-4">
-            <div className="flex items-center gap-2 text-[20px] font-black text-slate-400 uppercase tracking-widest">
-              <span>{course.category}</span>
-              {course.status !== "Normal" && (
-                <span className="bg-[#f39c12] text-white px-2 py-0.5 rounded-sm text-[17px] font-black uppercase italic ml-2">
-                  {course.status}
+      <div className="min-h-screen bg-[#F8F9FB] font-sans text-slate-700">
+        {/* HERO SECTION - DARK PURPLE/NAVY */}
+        <div className="bg-[#1D1B26] text-white pt-12 pb-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="lg:w-2/3">
+              <h1 className="text-3xl font-bold mb-4">
+                The Complete Web Developer Course 2.0
+              </h1>
+              <p className="text-slate-400 text-sm mb-6">
+                Learn Video Development by building 25 real-world web mobile
+                apps using HTML, CSS, Javascript, PHP, Python.
+              </p>
+
+              <div className="flex flex-wrap gap-4 items-center text-xs mb-8">
+                <div className="flex items-center gap-1.5">
+                  <Video size={14} className="text-[#ff5374]" />
+                  <span>12+ Lesson</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Clock size={14} className="text-[#f4c150]" />
+                  <span>9hr 30min</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <Users size={14} className="text-[#ff5374]" />
+                  <span>32 students enrolled</span>
+                </div>
+                <span className="bg-[#f4c150] text-slate-900 px-2 py-0.5 rounded text-[10px] font-bold uppercase">
+                  Web Development
                 </span>
-              )}
-            </div>
-            <div className="flex gap-4 text-slate-400 text-[20px] font-bold">
-              <button className="flex items-center gap-1.5 hover:text-slate-900 transition-colors uppercase">
-                <Share2 size={20} /> Share
-              </button>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <img
+                  src="/nicole-avatar.jpg"
+                  className="w-10 h-10 rounded-full border border-slate-700"
+                  alt="Nicole Brown"
+                />
+                <div>
+                  <p className="font-semibold text-sm">Nicole Brown</p>
+                  <p className="text-xs text-slate-500">Instructor</p>
+                </div>
+                <div className="flex items-center gap-1 ml-4 text-[#f4c150]">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={12} fill="currentColor" />
+                  ))}
+                  <span className="text-white text-xs ml-1">4.5 (20)</span>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
 
-          <h1 className="text-[42px] font-black text-[#0f2137] mb-6 leading-none tracking-tighter">
-            {course.title} from professional
-          </h1>
+        {/* MAIN CONTENT AREA */}
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-3 gap-8 -mt-10 pb-20">
+          <div className="lg:col-span-2 space-y-6 mt-16">
+            {/* OVERVIEW SECTION */}
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-slate-100">
+              <h2 className="text-xl font-bold mb-6">Overview</h2>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="font-bold text-md mb-3">Course Description</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed">
+                    Embark on a transformative journey into the world of AI with
+                    ChatGPT, Midjourney, and prompt engineering. This course
+                    will get you familiar with generative AI and the effective
+                    use of ChatGPT.
+                  </p>
+                </div>
 
-          {/* STATS BAR */}
-          <div className="flex flex-wrap items-center gap-10 mb-5 pb-10 border-b border-slate-100">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
-                <User size={20} />
-              </div>
-              <div className="leading-tight">
-                <p className="text-[18px] text-slate-400 font-black uppercase tracking-widest">
-                  Instructor
-                </p>
-                <p className="font-bold text-[#0f2137] text-[18px]">
-                  {course.instructor}
-                </p>
+                <div>
+                  <h3 className="font-bold text-md mb-3">
+                    What you&apos;ll learn
+                  </h3>
+                  <ul className="grid md:grid-cols-2 gap-y-2 text-sm text-slate-500 italic">
+                    {[
+                      "Become a UI designer",
+                      "Build & test a full website",
+                      "Master Adobe XD",
+                      "Create mobile app prototypes",
+                    ].map((item, i) => (
+                      <li key={i} className="flex gap-2 items-center">
+                        <span className="text-[#ff5374] font-bold">•</span>{" "}
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="font-bold text-md mb-3">Requirements</h3>
+                  <ul className="space-y-2 text-sm text-slate-500 italic">
+                    <li>• You will need a copy of Adobe XD 2019 or above</li>
+                    <li>• No previous design experience is needed</li>
+                  </ul>
+                </div>
               </div>
             </div>
-            <div className="leading-tight">
-              <p className="text-[18px] text-slate-400 font-black uppercase tracking-widest">
-                Enrolled
-              </p>
-              <p className="font-bold text-[#0f2137] text-[18px]">
-                1,240 students
-              </p>
-            </div>
-            <div className="flex items-center gap-2 leading-tight">
-              <div className="flex text-[#f39c12] text-[18px]">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    size={16}
-                    fill={
-                      i < Math.floor(course.rating) ? "currentColor" : "none"
-                    }
-                    strokeWidth={2}
-                  />
-                ))}
-              </div>
-              <span className="font-black text-[#0f2137] text-[18px]">
-                {course.rating}{" "}
-                <span className="text-black text-[18px] font-bold ml-1 ">
-                  / 5.0
+
+            {/* CURRICULUM SECTION */}
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-slate-100">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-bold">Course Content</h2>
+                <span className="text-xs text-slate-400">
+                  92 Lectures{" "}
+                  <span className="text-[#ff5374] ml-2">10:56:11</span>
                 </span>
-              </span>
-            </div>
-          </div>
+              </div>
 
-          <div className="flex flex-col lg:flex-row gap-12">
-            {/* LEFT COLUMN */}
-            <div className="flex-grow">
-              <div className="flex gap-8 border-b border-slate-200 mb-6 overflow-x-auto no-scrollbar">
-                {["Description", "Curriculum", "FAQ", "Notice", "Reviews"].map(
-                  (tab) => (
-                    <button
-                      key={tab}
-                      onClick={() => setActiveTab(tab)}
-                      className={`pb-4 text-[18px] font-black uppercase tracking-widest transition-all relative ${
-                        activeTab === tab
-                          ? "text-[#f39c12] border-b-2 border-[#f39c12]"
-                          : "text-slate-400 hover:text-slate-600"
-                      }`}
+              <div className="border border-slate-100 rounded">
+                {["Getting Started", "The Brief", "Mastering Low Fidelity"].map(
+                  (section, idx) => (
+                    <div
+                      key={idx}
+                      className="border-b border-slate-100 last:border-0"
                     >
-                      {tab}
-                    </button>
+                      <button
+                        onClick={() =>
+                          setOpenSection(openSection === idx ? -1 : idx)
+                        }
+                        className="w-full flex items-center justify-between p-4 bg-[#F8F9FB] text-sm font-bold"
+                      >
+                        <span>{section}</span>
+                        <ChevronDown
+                          size={16}
+                          className={openSection === idx ? "rotate-180" : ""}
+                        />
+                      </button>
+                      {openSection === idx && (
+                        <div className="p-4 space-y-4 bg-white">
+                          {[1, 2, 3, 4, 5].map((lesson) => (
+                            <div
+                              key={lesson}
+                              className="flex items-center justify-between text-xs"
+                            >
+                              <div className="flex items-center gap-3">
+                                <Play size={12} className="text-[#ff5374]" />
+                                <span className="text-slate-600">
+                                  Lecture {lesson}: Introduction to the Course
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-4">
+                                <button className="text-[#4e3796] font-semibold">
+                                  Preview
+                                </button>
+                                <span className="text-slate-400">12:30</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   )
                 )}
               </div>
-
-              <div className="bg-slate-100 aspect-video rounded-sm overflow-hidden mb-12 border border-slate-200 shadow-sm">
-                <img
-                  src={course.image}
-                  className="w-full h-full object-cover"
-                  alt={course.title}
-                />
-              </div>
-
-              <div className="space-y-12 mb-12">
-                <section>
-                  <h2 className="text-[28px] font-black text-[#0f2137] mb-6 tracking-normal uppercase">
-                    What you'll learn
-                  </h2>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {[
-                      `Master ${course.category} fundamentals`,
-                      "Industry standard projects",
-                      "Direct support from experts",
-                      "Lifetime access to materials",
-                    ].map((item, i) => (
-                      <div
-                        key={i}
-                        className="flex gap-3 text-slate-600 font-bold text-[20px]"
-                      >
-                        <CheckCircle2
-                          size={18}
-                          className="text-[#f39c12] shrink-0"
-                        />{" "}
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                <section className="bg-slate-50 border border-slate-200 rounded-sm">
-                  <h2 className="text-[22px] font-black text-[#0f2137] mb-4 tracking-tighter uppercase">
-                    Targeted Audience
-                  </h2>
-                  <ul className="space-y-3 text-slate-500 font-medium text-[20px]">
-                    <li className="flex gap-2">
-                      <span>•</span> {course.level} learners looking to
-                      specialize in {course.category}.
-                    </li>
-                    <li className="flex gap-2">
-                      <span>•</span> Professionals wanting to upgrade their
-                      skills with {course.instructor}.
-                    </li>
-                    <li className="flex gap-2">
-                      <span>•</span> Anyone looking to start a career in
-                      technical {course.category}.
-                    </li>
-                  </ul>
-                </section>
-              </div>
             </div>
 
-            {/* RIGHT SIDEBAR */}
-            <aside className="w-full lg:w-[350px] shrink-0 space-y-10">
-              <div className="bg-white border border-slate-200 shadow-xl shadow-slate-100">
-                <div className="p-8 border-b border-slate-100">
-                  <div className="text-center mb-6">
-                    <p className="text-[17px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">
-                      Course Price
-                    </p>
-                    <h2 className="text-6xl font-black text-[#0f2137]">
-                      {course.price === 0
-                        ? "FREE"
-                        : `$${course.price.toFixed(2)}`}
-                    </h2>
+            {/* ABOUT INSTRUCTOR */}
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-slate-100">
+              <h2 className="text-xl font-bold mb-6">About the Instructor</h2>
+              <div className="flex gap-4 mb-6">
+                <img
+                  src="/nicole-avatar.jpg"
+                  className="w-16 h-16 rounded-full"
+                  alt="Nicole"
+                />
+                <div className="space-y-1">
+                  <h4 className="font-bold text-[#4e3796]">Nicole Brown</h4>
+                  <p className="text-xs text-slate-400">UX/UI Designer</p>
+                  <div className="flex text-[#f4c150] gap-0.5">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} size={12} fill="currentColor" />
+                    ))}
+                    <span className="text-slate-900 text-[10px] ml-1 font-bold">
+                      4.5
+                    </span>
                   </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-4 gap-4 mb-6 text-[10px] font-bold uppercase text-slate-500 border-b border-slate-50 pb-6">
+                <div className="flex flex-col gap-1">
+                  <Video size={14} className="text-[#ff5374]" /> 5 Courses
+                </div>
+                <div className="flex flex-col gap-1">
+                  <FileText size={14} className="text-[#f4c150]" /> 511 Lesson
+                </div>
+                <div className="flex flex-col gap-1">
+                  <Clock size={14} className="text-[#ff5374]" /> 9hr 30min
+                </div>
+                <div className="flex flex-col gap-1">
+                  <Users size={14} className="text-[#4e3796]" /> 270,858
+                  Students
+                </div>
+              </div>
+              <p className="text-sm text-slate-500 leading-relaxed italic">
+                Nicole Brown, with 7+ years Experience. Guarantee of
+                High-Quality Work. Skills: Web Design, UI Design, Mobile Design,
+                Photoshop, Illustrator, HTML, CSS...
+              </p>
+            </div>
 
+            {/* POST A COMMENT */}
+            <div className="bg-white p-8 rounded-lg shadow-sm border border-slate-100">
+              <h2 className="text-xl font-bold mb-6">Post A comment</h2>
+              <div className="grid md:grid-cols-2 gap-4 mb-4">
+                <input
+                  type="text"
+                  placeholder="Name"
+                  className="p-3 bg-[#F8F9FB] border border-slate-100 rounded text-sm outline-none focus:border-pink-300"
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  className="p-3 bg-[#F8F9FB] border border-slate-100 rounded text-sm outline-none focus:border-pink-300"
+                />
+              </div>
+              <input
+                type="text"
+                placeholder="Subject"
+                className="w-full p-3 bg-[#F8F9FB] border border-slate-100 rounded text-sm mb-4 outline-none focus:border-pink-300"
+              />
+              <textarea
+                placeholder="Comments"
+                rows={4}
+                className="w-full p-3 bg-[#F8F9FB] border border-slate-100 rounded text-sm mb-4 outline-none focus:border-pink-300"
+              />
+              <button className="bg-[#4e3796] text-white px-8 py-3 rounded text-sm font-bold">
+                Submit
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT SIDEBAR STICKY CARD */}
+          <aside>
+            <div className="sticky top-6 bg-white rounded-xl shadow-xl overflow-hidden border border-slate-100">
+              <div className="relative group p-4">
+                <div className="relative aspect-video rounded-lg overflow-hidden">
+                  <img
+                    src={course.image}
+                    alt="Preview"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                    <div className="w-12 h-12 bg-white/40 backdrop-blur rounded-full flex items-center justify-center">
+                      <Play fill="white" size={20} className="ml-1" />
+                    </div>
+                  </div>
+                  <div className="absolute top-2 right-2 bg-[#17a2b8] text-white text-[10px] font-bold px-2 py-1 rounded">
+                    2.0
+                  </div>
+                </div>
+              </div>
+
+              <div className="px-6 pb-6">
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-2xl font-black text-[#17a2b8]">
+                    FREE
+                  </span>
+                  <span className="text-slate-300 line-through text-xs font-bold">
+                    $99.00
+                  </span>
+                  <span className="text-slate-400 text-xs">50% off</span>
+                </div>
+
+                <div className="flex gap-2 mb-4">
+                  <button className="flex-grow flex items-center justify-center gap-1 border border-slate-100 py-2 rounded text-[10px] font-bold text-slate-600">
+                    <Heart size={12} /> Add to Wishlist
+                  </button>
+                  <button className="flex-grow flex items-center justify-center gap-1 border border-slate-100 py-2 rounded text-[10px] font-bold text-slate-600">
+                    <Share2 size={12} /> Share
+                  </button>
+                </div>
+
+                {/* PINK ENROLL BUTTON */}
+                <button className="w-full bg-[#ff5374] text-white py-3 rounded text-sm font-bold uppercase tracking-wider hover:bg-[#e64a68] transition-colors mb-8 shadow-lg shadow-pink-100">
+                  Enroll Now
+                </button>
+
+                <div className="space-y-4">
+                  <h4 className="font-bold text-sm text-slate-900 border-b border-slate-50 pb-2">
+                    Includes
+                  </h4>
                   <div className="space-y-3">
-                    <button className="w-full bg-[#f39c12] text-white py-5 rounded-sm font-black uppercase text-[17px] tracking-widest hover:bg-[#e67e22] transition-all shadow-lg shadow-orange-100">
-                      Continue Learning
-                    </button>
-                    <div className="grid grid-cols-2 gap-3">
-                      <button className="flex items-center justify-center gap-2 border cursor-pointer border-slate-200 py-3 text-[14px] font-black text-[#0f2137] uppercase hover:bg-slate-50 transition-colors">
-                        <ShoppingCart size={14} /> Add to Cart
-                      </button>
-                      <button className="flex items-center justify-center gap-2 border cursor-pointer border-slate-200 py-3 text-[14px] font-black text-[#0f2137] uppercase hover:bg-slate-50 transition-colors">
-                        <Heart size={14} /> Wishlist
-                      </button>
+                    <SidebarRow
+                      icon={<Video size={14} />}
+                      text="11 hours on-demand video"
+                    />
+                    <SidebarRow
+                      icon={<FileText size={14} />}
+                      text="69 downloadable resources"
+                    />
+                    <SidebarRow
+                      icon={<Clock size={14} />}
+                      text="Full lifetime access"
+                    />
+                    <SidebarRow
+                      icon={<Monitor size={14} />}
+                      text="Access on mobile and TV"
+                    />
+                    <SidebarRow
+                      icon={<MessageSquare size={14} />}
+                      text="Assignments"
+                    />
+                    <SidebarRow
+                      icon={<Award size={14} />}
+                      text="Certificate of Completion"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-slate-50 space-y-4">
+                  <h4 className="font-bold text-sm text-slate-900">
+                    Course Features
+                  </h4>
+                  <div className="space-y-2 text-xs text-slate-500">
+                    <div className="flex justify-between">
+                      <span>Enrolled:</span>{" "}
+                      <span className="text-slate-800">32 students</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Duration:</span>{" "}
+                      <span className="text-slate-800">20 hours</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Chapters:</span>{" "}
+                      <span className="text-slate-800">15</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Video:</span>{" "}
+                      <span className="text-slate-800">12 hours</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Level:</span>{" "}
+                      <span className="text-slate-800">Beginner</span>
                     </div>
                   </div>
                 </div>
-
-                <div className="bg-slate-50/50 space-y-5 ">
-                  <SidebarDetail
-                    icon={<Clock size={18} />}
-                    label="Duration"
-                    value="12 hours"
-                  />
-                  <SidebarDetail
-                    icon={<BookOpen size={18} />}
-                    label="Lectures"
-                    value="14"
-                  />
-                  <SidebarDetail
-                    icon={<BarChart size={18} />}
-                    label="Level"
-                    value={course.level}
-                  />
-                </div>
               </div>
-
-              {/* POPULAR COURSES - 10 ITEMS */}
-              <div className="space-y-6">
-                <div className="flex justify-between items-center border-b border-slate-200 pb-4">
-                  <h3 className="text-[17px] font-black text-[#0f2137] uppercase tracking-widest">
-                    Popular courses
-                  </h3>
-                  <span className="text-[#f39c12] text-[17px] font-black uppercase cursor-pointer">
-                    View All
-                  </span>
-                </div>
-                <div className="space-y-6">
-                  {popularSidebar.map((item, idx) => (
-                    <PopularItem key={idx} course={item} />
-                  ))}
-                </div>
-              </div>
-            </aside>
-          </div>
-
-          {/* RELATED COURSES - IMPROVED CARDS */}
-          <section className=" border-t border-slate-200">
-            <div className="flex justify-between items-end mb-12">
-              <div>
-                <h2 className="text-3xl font-black text-[#0f2137] tracking-tighter uppercase mb-2">
-                  Related courses
-                </h2>
-                <div className="h-1.5 w-20 bg-[#f39c12]"></div>
-              </div>
-              <button className="text-sm font-black text-slate-400 uppercase tracking-widest hover:text-[#f39c12]">
-                Browse All
-              </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {relatedCourses.map((rc) => (
-                <RelatedCourseCard key={rc.id} course={rc} />
-              ))}
-            </div>
-          </section>
+          </aside>
         </div>
       </div>
     </>
   );
 }
 
-// --- SUB-COMPONENTS ---
-
-function SidebarDetail({ icon, label, value }: any) {
+function SidebarRow({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
-    <div className="flex justify-between items-center text-slate-500 text-[13px] font-bold">
-      <div className="flex items-center gap-3">
-        <span className="text-[#f39c12]">{icon}</span> {label}
-      </div>
-      <span className="text-[#0f2137]">{value}</span>
+    <div className="flex items-center gap-3 text-slate-500 text-xs">
+      <span className="text-[#ff5374]">{icon}</span>
+      <span className="font-medium">{text}</span>
     </div>
-  );
-}
-
-function PopularItem({ course }: { course: any }) {
-  return (
-    <Link href={`/courses/${course.id}`} className="flex gap-4 group">
-      <div className="w-20 h-16 bg-slate-100 rounded-sm shrink-0 relative overflow-hidden border border-slate-100">
-        <img
-          src={course.image}
-          alt="thumb"
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform"
-        />
-        {course.status !== "Normal" && (
-          <div className="absolute top-0 left-0 bg-[#f39c12] text-white text-[7px] font-black px-1.5 py-0.5 uppercase italic">
-            {course.status}
-          </div>
-        )}
-      </div>
-      <div className="flex flex-col justify-center">
-        <h4 className="text-[13px] font-black text-[#0f2137] leading-tight group-hover:text-[#f39c12] transition-colors line-clamp-2 mb-1">
-          {course.title}
-        </h4>
-        <div className="flex items-center gap-2">
-          <span className="text-[12px] font-black text-slate-900">
-            {course.price === 0 ? "FREE" : `$${course.price.toFixed(2)}`}
-          </span>
-          <div className="flex text-[#f39c12]">
-            <Star size={10} fill="currentColor" strokeWidth={0} />
-            <span className="text-[10px] ml-1 text-slate-400 font-bold">
-              {course.rating}
-            </span>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-}
-
-function RelatedCourseCard({ course }: { course: any }) {
-  return (
-    <Link
-      href={`/courses/${course.id}`}
-      className="group block bg-white border border-slate-200 overflow-hidden hover:shadow-2xl transition-all duration-500"
-    >
-      <div className="relative aspect-[4/3]">
-        <img
-          src={course.image}
-          alt={course.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-        />
-        {/* Professional Status Badge */}
-        {course.status !== "Normal" && (
-          <div className="absolute top-0 right-0 bg-[#f39c12] text-white text-[10px] font-black px-4 py-1.5 uppercase italic z-10">
-            {course.status}
-          </div>
-        )}
-        {/* Dark Price Badge Overlap */}
-        <div className="absolute bottom-0 right-0 bg-[#0f2137] text-white px-5 py-2 text-[20px] font-black z-10">
-          {course.price === 0 ? "FREE" : `$${course.price.toFixed(2)}`}
-        </div>
-      </div>
-
-      <div className="p-6 space-y-4">
-        <p className="text-[11px] font-black text-[#f39c12] uppercase tracking-widest">
-          {course.category}
-        </p>
-        <h3 className="text-[22px] font-black text-[#0f2137] leading-tight line-clamp-2 min-h-[56px] group-hover:text-[#f39c12] transition-colors">
-          {course.title}
-        </h3>
-        <p className="text-slate-400 text-[14px] font-bold line-clamp-1 italic">
-          {course.description}
-        </p>
-
-        {/* Instructor Info */}
-        <div className="flex items-center gap-3 pt-4 border-t border-slate-50">
-          <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
-            <User size={16} />
-          </div>
-          <span className="text-[14px] font-bold text-slate-600">
-            {course.instructor}
-          </span>
-        </div>
-
-        {/* Professional Meta Grid */}
-        <div className="grid grid-cols-3 gap-0.5 pt-4 border-t border-slate-100 text-[10px] font-black text-slate-300 uppercase tracking-tighter">
-          <div className="text-center py-2 border-r border-slate-100 group-hover:text-slate-500 transition-colors">
-            {course.level}
-          </div>
-          <div className="text-center py-2 border-r border-slate-100 group-hover:text-slate-500 transition-colors">
-            14 MODULES
-          </div>
-          <div className="text-center py-2 group-hover:text-slate-500 transition-colors">
-            LIFETIME
-          </div>
-        </div>
-      </div>
-    </Link>
   );
 }

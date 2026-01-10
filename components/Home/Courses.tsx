@@ -65,7 +65,7 @@ const courses: Course[] = [
 
 const CourseGrid: React.FC = () => {
   return (
-    <section className="py-16 px-8 max-w-7xl mx-auto font-sans">
+    <section className="py-16 bg-white px-8 max-w-7xl mx-auto font-sans">
       {/* Header Section */}
       <div className="text-center mb-12">
         <span className="text-pink-500 font-semibold text-sm tracking-wide">
@@ -96,9 +96,6 @@ const CourseGrid: React.FC = () => {
                   fill
                   className="object-cover"
                 />
-                <div className="absolute top-2 right-2 bg-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
-                  {course.price}
-                </div>
               </div>
 
               {/* Content */}
