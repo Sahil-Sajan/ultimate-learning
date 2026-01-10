@@ -2,11 +2,14 @@
 
 import CategoryGrid from "@/components/Home/CategoryGrid.";
 import Courses from "@/components/Home/Courses";
+import HomeCard from "@/components/Home/FeatureCards";
 // import FeatureCards from "@/components/Home/FeatureCards";
 import FeaturesSection from "@/components/Home/FeatureSection";
 import Hero from "@/components/Home/Hero";
+import HomeMainCard from "@/components/Home/HomeMainCard";
 import InquirySection from "@/components/Home/InquirySection";
-import Testimonials from "@/components/Home/Testimonials";
+import InstructorSection from "@/components/Home/Instructor";
+import Testimonial from "@/components/Home/Testimonials";
 
 import Footer from "@/ui/Footer";
 
@@ -15,12 +18,17 @@ const page = () => {
     <div>
       <Hero />
       {/* <FeatureCards /> */}
+      <HomeCard />
       <FeaturesSection />
-      <CategoryGrid />
+      <HomeMainCard />
+
+      {/* <CategoryGrid /> */}
       <Courses />
       <InquirySection />
-      <Testimonials />
-      <Footer />
+      <InstructorSection />
+      <Testimonial />
+
+      {/* <Footer /> */}
     </div>
   );
 };
