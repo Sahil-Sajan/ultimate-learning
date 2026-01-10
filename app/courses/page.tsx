@@ -13,6 +13,7 @@ import {
   User,
 } from "lucide-react";
 import Navbar from "@/ui/Navbar";
+import Navbar2 from "@/ui/Navbar2";
 
 // 1. Exporting Data so Detail Page can use it (Or move to a separate data.ts)
 export const courses: any[] = [
