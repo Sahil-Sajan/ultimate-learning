@@ -1,8 +1,15 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { Search, Menu, ChevronDown, User, Heart, Settings, ChevronRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+import Link from "next/link";
+import {
+  ChevronDown,
+  ShoppingCart,
+  Moon,
+  DollarSign,
+  Menu,
+  X,
+} from "lucide-react";
 
 const categoriesData = [
   {
@@ -24,122 +31,158 @@ const categoriesData = [
 ];
 
 const Navbar = () => {
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [activeSubMenu, setActiveSubMenu] = useState(null);
-  const dropdownRef = useRef(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsCategoryOpen(false);
-        setActiveSubMenu(null);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const navLinks = [
+    { name: "Home", href: "#", hasDropdown: true, active: true },
+    { name: "Courses", href: "#", hasDropdown: true },
+    { name: "Dashboard", href: "#", hasDropdown: true },
+    { name: "Pages", href: "#", hasDropdown: true },
+    { name: "Blogs", href: "#", hasDropdown: true },
+  ];
 
   return (
-    <header className="relative z-50 w-full bg-white shadow-md border-b border-gray-100">
-      <div className="py-4 px-6 md:px-10 flex items-center justify-between gap-4 max-w-[1440px] mx-auto">
-        
-        {/* LOGO SECTION */}
-        <div className="flex items-center gap-3 min-w-fit cursor-pointer group">
-          <div className="border-2 border-[#f8c12c] p-1 rounded-lg group-hover:bg-[#f8c12c] transition-colors">
-            <div className="bg-white text-[#f8c12c] px-2 py-0.5 font-black text-xl rounded-md leading-none">
-              UL
-            </div>
-          </div>
-          <div className="flex flex-col leading-tight uppercase">
-            <span className="text-2xl font-black text-[#f8c12c] tracking-tighter">Ultimate</span>
-            <span className="text-[10px] font-bold tracking-[0.4em] text-gray-400 -mt-1.5">Learning</span>
-          </div>
-        </div>
-
-        {/* SEARCH & CATEGORY BAR */}
-        <div className="hidden lg:flex flex-1 max-w-2xl items-center h-12 bg-gray-50 rounded-lg relative overflow-hidden border border-gray-200 focus-within:bg-white focus-within:border-[#f8c12c] transition-all">
-          <div className="relative h-full" ref={dropdownRef}>
-            <button
-              onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-              className="text-gray-600 font-bold px-6 h-full flex items-center gap-3 hover:text-[#f8c12c] transition-colors border-r border-gray-200"
+    <header className="w-full bg-[#392C7D] text-white sticky top-0 z-50 shadow-md">
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
+        {/* LEFT: LOGO SECTION */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="relative flex items-center justify-center bg-white rounded-lg w-10 h-10 shadow-sm transition-transform group-hover:scale-105">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <Menu size={18} className="text-[#f8c12c]" />
-              <span className="text-[11px] tracking-widest uppercase font-black">Category</span>
+              <path
+                d="M22 10L12 5L2 10L12 15L22 10Z"
+                stroke="#FF5B5C"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <path
+                d="M6 12V17C6 17 8 19 12 19C16 19 18 17 18 17V12"
+                stroke="#FF5B5C"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+          <div className="flex flex-col">
+            <span className="text-2xl font-semibold tracking-tight leading-none flex items-start">
+              Ultimate
+              <span className="text-[20px] text-[#FF5B5C] font-bold ml-1 uppercase">
+                Learning
+              </span>
+            </span>
+          </div>
+        </Link>
+
+        {/* CENTER: NAVIGATION */}
+        <nav className="hidden lg:flex items-center gap-8">
+          {navLinks.map((link) => (
+            <div
+              key={link.name}
+              className="relative group flex items-center gap-1 cursor-pointer"
+            >
+              <Link
+                href={link.href}
+                className={`text-[15px] font-medium transition-colors duration-300 ${
+                  link.active
+                    ? "text-[#FF5B5C]"
+                    : "text-white/90 hover:text-[#FF5B5C]"
+                }`}
+              >
+                {link.name}
+              </Link>
+              {link.hasDropdown && (
+                <ChevronDown
+                  size={14}
+                  className="opacity-40 group-hover:rotate-180 transition-transform duration-300 group-hover:text-[#FF5B5C]"
+                />
+              )}
+            </div>
+          ))}
+        </nav>
+
+        {/* RIGHT: ACTIONS & AUTH */}
+        <div className="flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3 mr-2">
+            {/* CIRCULAR COUNTRY ICON (Iraq) */}
+            <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full transition-all hover:bg-gray-100 shadow-sm overflow-hidden p-2">
+              <img
+                src="https://flagcdn.com/w80/iq.png"
+                alt="Iraq Flag"
+                className="w-full h-full object-cover rounded-full"
+              />
             </button>
 
-            {/* Dropdown Menu */}
-            <AnimatePresence>
-              {isCategoryOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 10 }}
-                  className="absolute top-[115%] left-0 w-64 bg-white shadow-2xl rounded-xl z-[60] py-3 border border-gray-100"
-                  onMouseLeave={() => setActiveSubMenu(null)}
-                >
-                  {categoriesData.map((cat, i) => (
-                    <div
-                      key={i}
-                      onMouseEnter={() => setActiveSubMenu(i)}
-                      className={`px-6 py-3 text-sm font-bold flex justify-between items-center cursor-pointer transition-all ${
-                        activeSubMenu === i ? "text-[#f8c12c] bg-yellow-50" : "text-gray-700"
-                      }`}
-                    >
-                      {cat.name}
-                      <ChevronRight size={14} className={activeSubMenu === i ? "opacity-100 translate-x-1" : "opacity-30"} />
-                      
-                      {activeSubMenu === i && (
-                        <motion.div
-                          initial={{ opacity: 0, x: 10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          className="absolute top-0 left-[102%] w-60 bg-white shadow-2xl rounded-xl border border-gray-100 py-2"
-                        >
-                          {cat.sub.map((item, idx) => (
-                            <div key={idx} className="px-6 py-2.5 text-sm text-gray-500 hover:text-[#f8c12c] hover:bg-gray-50 font-medium transition-colors">
-                              {item}
-                            </div>
-                          ))}
-                        </motion.div>
-                      )}
-                    </div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+            <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#392C7D] transition-all hover:bg-gray-100 shadow-sm">
+              <div className="w-5 h-5 rounded-full border-[1.5px] border-[#392C7D] flex items-center justify-center">
+                <DollarSign size={11} strokeWidth={3} />
+              </div>
+            </button>
 
-          <input
-            type="text"
-            placeholder="Search for courses..."
-            className="flex-1 h-full px-6 bg-transparent text-gray-700 outline-none text-sm font-medium"
-          />
-          
-          <button className="text-[#f8c12c] h-full px-6 flex items-center justify-center hover:scale-110 transition-transform">
-            <Search size={20} strokeWidth={3} />
-          </button>
-        </div>
+            <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-slate-700 transition-all hover:bg-gray-100 shadow-sm">
+              <Moon size={18} fill="currentColor" className="text-slate-800" />
+            </button>
 
-        {/* ACTIONS SECTION */}
-        <div className="flex items-center gap-6">
-          {/* Profile Pill */}
-          <div className="flex items-center gap-3 bg-[#f8c12c] py-2 px-5 rounded-full cursor-pointer hover:bg-yellow-500 transition shadow-md shadow-yellow-100">
-            <User size={16} className="text-white" />
-            <span className="text-[12px] font-bold text-white whitespace-nowrap uppercase tracking-tighter">
-              Demo Instructor
-            </span>
-            <ChevronDown size={14} className="text-white" />
-          </div>
-
-          {/* Icon Group */}
-          <div className="hidden md:flex items-center gap-5 text-gray-400 border-l border-gray-100 pl-6">
-            <div className="relative cursor-pointer hover:text-[#f8c12c] transition-colors">
-              <Heart size={22} />
-              <span className="absolute -top-2 -right-2 bg-[#f8c12c] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold">2</span>
+            <div className="relative group">
+              <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-slate-700 transition-all hover:bg-gray-100 shadow-sm">
+                <ShoppingCart size={18} />
+              </button>
+              <span className="absolute -top-1 -right-1 bg-[#1AB69D] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#392C7D]">
+                1
+              </span>
             </div>
-            <Settings size={22} className="hover:rotate-90 transition-transform duration-500 hover:text-[#f8c12c] cursor-pointer" />
+          </div>
+
+          {/* Auth Section */}
+          <div className="flex items-center gap-4">
+            <button className="hidden sm:block text-[15px] font-medium text-white/90 hover:text-white transition-colors">
+              Sign In
+            </button>
+            <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white px-8 py-2.5 rounded-full text-[15px] font-medium transition-all shadow-md active:scale-95">
+              Register
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="lg:hidden p-2 text-white"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            </button>
           </div>
         </div>
       </div>
+
+      {/* MOBILE MENU PANEL */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden bg-[#2D2264] border-t border-white/10 px-6 py-6 flex flex-col gap-5 animate-in slide-in-from-top duration-300">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-base font-medium flex justify-between items-center"
+            >
+              {link.name}
+              {link.hasDropdown && (
+                <ChevronDown size={16} className="opacity-50" />
+              )}
+            </Link>
+          ))}
+          <hr className="border-white/10" />
+          <div className="flex flex-col gap-4">
+            <button className="text-left font-medium">Sign In</button>
+            <button className="bg-[#FF5B5C] py-3 rounded-full font-medium">
+              Register
+            </button>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

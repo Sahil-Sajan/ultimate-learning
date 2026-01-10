@@ -1,51 +1,13 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
 import {
-  User,
   Search,
-  Menu,
-  Heart,
-  Settings,
-  ChevronDown,
-  Rocket,
-  BookOpen,
-  Users,
-  GraduationCap,
   ChevronRight,
+  GraduationCap,
+  Trophy,
+  Users,
 } from "lucide-react";
-
-// Updated Data with Sub-categories (Max 4 each)
-const categoriesData = [
-  {
-    name: "Software Development",
-    sub: ["Web Development", "Mobile Apps", "Python Data Science", "Cloud Computing"],
-  },
-  {
-    name: "Business & Marketing",
-    sub: ["Digital Marketing", "SEO Strategy", "Financial Analysis", "Entrepreneurship"],
-  },
-  {
-    name: "Design & Photography",
-    sub: ["UI/UX Design", "Graphic Design", "Photoshop Masterclass", "Video Editing"],
-  },
-  {
-    name: "Health & Fitness",
-    sub: ["Yoga & Meditation", "Nutrition Plans", "Body Building", "Mental Health"],
-  },
-  {
-    name: "Music & Art",
-    sub: ["Guitar Basics", "Music Production", "Oil Painting", "Digital Illustration"],
-  },
-];
-
-const cardData = [
-  { title: "Trending Courses", desc: "Your chance to be a trending expert...", color: "bg-[#1ecd6e]", icon: Rocket },
-  { title: "Books & Library", desc: "Masterstudy is one of the world's...", color: "bg-[#f8c12c]", icon: BookOpen },
-  { title: "Certified Teachers", desc: "Get professional education...", color: "bg-[#307ad5]", icon: Users },
-  { title: "Certification", desc: "Upon successful completion...", color: "bg-[#ea51a0]", icon: GraduationCap },
-];
 
 const Hero = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -69,161 +31,189 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="w-full bg-white font-sans overflow-x-hidden">
-      <section className="relative h-[95vh] min-h-187.5 w-full flex flex-col">
-        {/* Background */}
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `linear-gradient(rgba(30, 41, 59, 0.75), rgba(30, 41, 59, 0.85)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80')`,
-          }}
-        />
+    <section className="relative w-full min-h-[600px] bg-[#392C7D] overflow-hidden py-20 px-6 md:px-12">
+      {/* BACKGROUND DECORATIONS */}
+      <div className="absolute top-20 left-10 w-64 h-64 bg-pink-500/20 blur-[100px] rounded-full" />
+      <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-cyan-400/10 blur-[120px] rounded-full" />
 
-        {/* Navbar */}
-        <header className="relative z-50 w-full">
-          <div className="py-6 px-6 flex items-center justify-between gap-4 container mx-auto">
-            {/* Logo */}
-            <div className="flex items-center gap-2 min-w-fit cursor-pointer">
-              <div className="bg-yellow-500 text-white p-1.5 rounded-sm font-bold text-xl">
-                <span className="border-2 border-white px-1">UL</span>
-              </div>
-              <div className="flex flex-col leading-none uppercase text-white">
-                <span className="text-2xl font-bold">Ultimate</span>
-                <span className="text-xl font-light tracking-[0.2em]">Learning</span>
-              </div>
+      <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* LEFT CONTENT */}
+        <div className="relative z-10">
+          <div className="inline-block bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
+            <span className="text-[13px] font-medium text-white/90 tracking-wide">
+              The Leader in Online Learning
+            </span>
+          </div>
+
+          <h1 className="text-4xl md:text-6xl font-semibold text-white leading-[1.1] mb-6">
+            Find the Best{" "}
+            <span className="relative">
+              <span className="text-[#FF5B5C]">Courses</span>
+              <svg
+                className="absolute -bottom-2 left-0 w-full"
+                width="100%"
+                height="8"
+                viewBox="0 0 100 8"
+                preserveAspectRatio="none"
+              >
+                <path
+                  d="M0 5C30 2 70 2 100 5"
+                  stroke="#FF5B5C"
+                  strokeWidth="3"
+                  fill="none"
+                />
+              </svg>
+            </span>{" "}
+            from the Best{" "}
+            <span className="text-[#FF5B5C] border-b-2 border-[#FF5B5C]">
+              Mentors
+            </span>{" "}
+            Around the World
+          </h1>
+
+          <p className="text-white/70 text-lg max-w-lg mb-10 leading-relaxed">
+            Our specialized online courses are designed to bring the classroom
+            experience to you, no matter where you are.
+          </p>
+
+          {/* SEARCH BAR */}
+          <div className="bg-white p-2 rounded-xl shadow-2xl flex flex-col md:flex-row items-center gap-2 max-w-2xl">
+            <div className="flex items-center gap-2 px-4 py-3 bg-gray-100 rounded-lg w-full md:w-auto cursor-pointer group">
+              <span className="text-slate-600 text-sm font-medium whitespace-nowrap">
+                Select category
+              </span>
+              <ChevronRight
+                size={16}
+                className="text-slate-400 rotate-90 group-hover:text-[#FF5B5C]"
+              />
             </div>
 
-            {/* Search Bar with NESTED Dropdown */}
-            <div className="hidden lg:flex items-center flex-1 max-w-xl h-12 bg-white rounded-sm ml-8 relative">
-              <div className="relative h-full" ref={dropdownRef}>
-                <button
-                  onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-                  className="flex items-center gap-2 px-4 text-gray-700 hover:bg-gray-100 transition h-full border-r font-bold"
-                >
-                  <Menu size={18} className="text-yellow-500" />
-                  <span className="text-xs tracking-widest uppercase">Category</span>
-                </button>
-
-                <AnimatePresence>
-                  {isCategoryOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-[110%] left-0 w-64 bg-white shadow-2xl rounded-md z-60 border border-gray-100"
-                      onMouseLeave={() => setActiveSubMenu(null)}
-                    >
-                      {categoriesData.map((cat, i) => (
-                        <div
-                          key={i}
-                          onMouseEnter={() => setActiveSubMenu(i)}
-                          className={`px-5 py-4 text-sm flex justify-between items-center cursor-pointer transition-colors border-b border-gray-50 last:border-0 ${
-                            activeSubMenu === i
-                              ? "bg-yellow-500 text-white"
-                              : "text-gray-700 hover:bg-gray-50"
-                          }`}
-                        >
-                          {cat.name}
-                          <ChevronRight
-                            size={14}
-                            className={activeSubMenu === i ? "opacity-100" : "opacity-30"}
-                          />
-
-                          {/* SUB-MENU */}
-                          {activeSubMenu === i && (
-                            <motion.div
-                              initial={{ opacity: 0, x: 10 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              className="absolute top-0 left-full ml-1 w-60 bg-white shadow-2xl rounded-md border border-gray-100 overflow-hidden"
-                            >
-                              {cat.sub.map((item, idx) => (
-                                <div
-                                  key={idx}
-                                  className="px-5 py-4 text-sm text-gray-600 hover:bg-gray-100 hover:text-yellow-600 border-b border-gray-50 last:border-0 transition-all"
-                                >
-                                  {item}
-                                </div>
-                              ))}
-                            </motion.div>
-                          )}
-                        </div>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
+            <div className="relative w-full flex-grow px-4 border-l border-gray-200 hidden md:block">
               <input
                 type="text"
-                placeholder="Search courses..."
-                className="flex-1 h-full px-4 text-black bg-white outline-none text-sm font-medium"
+                placeholder="Search for Courses, Instructors"
+                className="w-full bg-transparent outline-none text-slate-800 text-sm placeholder:text-slate-400 py-3"
               />
-              <button className="bg-yellow-500 h-full px-6 flex items-center justify-center text-white transition hover:bg-yellow-600">
-                <Search size={20} />
-              </button>
             </div>
 
-            {/* Actions */}
-            <div className="flex items-center gap-6 text-white">
-              <div className="relative bg-yellow-500 flex items-center gap-2 py-2.5 px-5 rounded-full cursor-pointer hover:bg-yellow-600 transition shadow-lg">
-                <User size={18} />
-                <span className="text-xs font-bold hidden sm:inline">Demo Instructor</span>
-                <ChevronDown size={14} />
-              </div>
-              <Heart size={24} className="cursor-pointer hover:text-red-400 transition" />
-              <Settings size={24} className="cursor-pointer hover:rotate-90 transition-transform duration-500" />
-            </div>
-          </div>
-        </header>
-
-        {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-6 grow flex flex-col justify-center items-start pt-10">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl"
-          >
-            <div className="h-1.5 w-24 bg-yellow-500 mb-10" />
-            <h1 className="text-6xl md:text-[80px] font-black text-white leading-[0.95] mb-10 tracking-tighter uppercase">
-              Learn Anything <br />
-              <span className="font-extralight text-gray-300 italic">With Expert</span> <br />
-              <span className="text-yellow-500">Teachers</span>
-            </h1>
-            <button className="bg-yellow-500 text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-yellow-600 transition shadow-2xl">
-              Explore Courses
+            <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white p-3.5 rounded-lg transition-all active:scale-95 flex items-center justify-center w-full md:w-auto">
+              <Search size={20} strokeWidth={2.5} />
             </button>
-          </motion.div>
-        </div>
+          </div>
 
-        {/* Cards */}
-        <div className="relative z-30 container mx-auto max-w-6xl px-4 lg:px-0 translate-y-1/2">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
-            {cardData.map((card, idx) => {
-              const Icon = card.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  whileHover={{ y: -25 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                  className={`${card.color} p-10 text-white flex flex-col gap-6 min-h-80 cursor-pointer`}
-                >
-                  <Icon size={56} strokeWidth={1.2} className="opacity-95 text-white" />
-                  <h3 className="text-xl font-black uppercase tracking-tight">
-                    {card.title}
-                  </h3>
-                  <p className="text-[15px] font-normal leading-relaxed opacity-90">
-                    {card.desc}
-                  </p>
-                </motion.div>
-              );
-            })}
+          {/* STATS */}
+          <div className="mt-12 flex flex-wrap gap-8">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center border border-purple-400/30">
+                <GraduationCap className="text-purple-400" size={24} />
+              </div>
+              <div>
+                <h4 className="text-white font-bold text-lg">10K</h4>
+                <p className="text-white/50 text-xs font-medium uppercase tracking-wider">
+                  Online Courses
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3 ml-6.5">
+              <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center border border-cyan-400/30">
+                <Trophy className="text-cyan-400" size={22} />
+              </div>
+              <div>
+                <h4 className="text-white font-bold text-lg">6K+</h4>
+                <p className="text-white/50 text-xs font-medium uppercase tracking-wider">
+                  Certified Courses
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center border border-emerald-400/30">
+                <Users className="text-emerald-400" size={22} />
+              </div>
+              <div>
+                <h4 className="text-white font-bold text-lg">2K+</h4>
+                <p className="text-white/50 text-xs font-medium uppercase tracking-wider">
+                  Experienced Tutors
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center border border-orange-400/30">
+                <Users className="text-orange-400" size={22} />
+              </div>
+              <div>
+                <h4 className="text-white font-bold text-lg">30K+</h4>
+                <p className="text-white/50 text-xs font-medium uppercase tracking-wider">
+                  Online Students
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
 
-      <div className="h-64 w-full bg-white" />
-    </div>
+        {/* RIGHT CONTENT: FLOATING IMAGE/CARDS */}
+        <div className="relative flex justify-center lg:justify-end">
+          {/* Main Hero Image from your public folder */}
+          <div className="relative z-10 w-full max-w-[500px] animate-float">
+            <img
+              src="/hero-img.png" // Ensure your file is named exactly this in /public
+              alt="Hero Illustration"
+              className="w-full h-auto drop-shadow-2xl"
+            />
+          </div>
+
+          {/* Background Rotating Seal (Best Online Learning) */}
+          <div className="absolute -top-10 right-0 w-32 h-32 hidden md:block animate-spin-slow">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <path
+                id="circlePath"
+                d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                fill="transparent"
+              />
+              <text className="text-[10px] font-bold fill-white/30 uppercase tracking-[2px]">
+                <textPath xlinkHref="#circlePath">
+                  Best Online Learning Platform •{" "}
+                </textPath>
+              </text>
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-10 h-10 bg-[#FF5B5C] rounded-full flex items-center justify-center shadow-lg">
+                <span className="text-xs">🎓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes float {
+          0% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+          100% {
+            transform: translateY(0px);
+          }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-spin-slow {
+          animation: spin 12s linear infinite;
+        }
+        @keyframes spin {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
+    </section>
   );
 };
 
