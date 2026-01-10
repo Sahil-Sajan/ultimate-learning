@@ -1,5 +1,6 @@
 "use client";
 
+import Article from "@/components/Home/Articale";
 import Articale from "@/components/Home/Articale";
 import Benifits from "@/components/Home/Benifits";
 import CategoryGrid from "@/components/Home/CategoryGrid.";
@@ -30,6 +31,7 @@ const page = () => {
       <InquirySection />
       <InstructorSection />
       <Testimonial />
+      <Article />
 
       {/* <Footer /> */}
     </>

@@ -12,12 +12,11 @@ import {
 const Footer = () => {
   return (
     <footer className="bg-[#0b1219] text-gray-400 py-16 px-6 md:px-12 font-sans border-t border-white/5">
-      <div className="max-w-[1440px] mx-auto">
+      <div className="max-w-360 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-1.5 space-y-6">
             <div className="flex items-center gap-3">
-              {/* EXACT SAME LOGO ICON FROM NAVBAR */}
               <div className="relative flex items-center justify-center bg-white rounded-lg w-10 h-10 shadow-sm">
                 <svg
                   width="24"
@@ -44,24 +43,15 @@ const Footer = () => {
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-semibold text-white leading-none">
-                  Ultimate{" "}
+                  Ultimate
                   <span className="text-[#FF5B5C] font-bold uppercase text-sm block mt-0.5">
                     Learning
                   </span>
                 </span>
               </div>
             </div>
-            </div>
-            <p className="text-sm leading-relaxed max-w-xs text-gray-400">
-              Platform designed to help organizations, educators, and learners manage, deliver, and track learning and training activities.
-            </p>
-            <div className="flex gap-4">
-              <img src="/appstore.webp" alt="App Store" className="h-10 cursor-pointer" />
-              <img src="/googleplay.webp" alt="Google Play" className="h-10 cursor-pointer" />
-            </div>
-          </div>
 
-            <p className="text-sm leading-relaxed max-w-xs">
+            <p className="text-sm leading-relaxed max-w-xs text-gray-400">
               Platform designed to help organizations, educators, and learners
               manage, deliver, and track learning and training activities.
             </p>
@@ -80,27 +70,24 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links Columns */}
+          {/* Support */}
           <div>
             <h2 className="text-white font-bold text-lg mb-6">Support</h2>
             <ul className="space-y-4 text-sm">
-              {[
-                "Education",
-                "Enroll a Course",
-                "Orders",
-                "Payments",
-                "Blogs",
-              ].map((item) => (
-                <li
-                  key={item}
-                  className="hover:text-[#FF5B5C] cursor-pointer transition-colors"
-                >
-                  {item}
-                </li>
-              ))}
+              {["Education", "Enroll a Course", "Orders", "Payments", "Blogs"].map(
+                (item) => (
+                  <li
+                    key={item}
+                    className="hover:text-[#FF5B5C] cursor-pointer transition-colors"
+                  >
+                    {item}
+                  </li>
+                )
+              )}
             </ul>
           </div>
 
+          {/* Pages */}
           <div>
             <h2 className="text-white font-bold text-lg mb-6">Pages</h2>
             <ul className="space-y-4 text-sm">
@@ -117,6 +104,7 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Useful Links */}
           <div>
             <h2 className="text-white font-bold text-lg mb-6">Useful Links</h2>
             <ul className="space-y-4 text-sm">
@@ -137,12 +125,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter Column */}
+          {/* Newsletter */}
           <div>
             <h2 className="text-white font-bold text-lg mb-6">
               Subscribe Newsletter
             </h2>
             <p className="text-sm mb-4">Sign up to get updates & news.</p>
+
             <div className="space-y-3">
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
@@ -152,7 +141,7 @@ const Footer = () => {
                   className="w-full bg-white text-gray-800 py-3 pl-12 pr-4 rounded-full text-sm outline-none"
                 />
               </div>
-              {/* FIXED BUTTON: MATCHES NAVBAR REGISTER BUTTON */}
+
               <button className="w-full bg-[#FF5B5C] hover:bg-[#ff4646] text-white font-bold py-3 rounded-full transition-all shadow-lg active:scale-95">
                 Subscribe
               </button>

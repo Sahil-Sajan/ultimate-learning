@@ -107,7 +107,7 @@ const Testimonial: React.FC = () => {
               640: { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
             }}
-            className="!overflow-visible"
+            className="overflow-visible!"
           >
             {Feedback.map((item) => (
               <SwiperSlide key={item.id} className="pt-12 pb-8">

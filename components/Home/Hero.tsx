@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   Search,
   ChevronRight,
@@ -31,12 +31,12 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative w-full min-h-[600px] bg-[#392C7D] overflow-hidden py-20 px-6 md:px-12">
+    <section className="relative w-full min-h-150 bg-[#392C7D] overflow-hidden py-20 px-6 md:px-12">
       {/* BACKGROUND DECORATIONS */}
       <div className="absolute top-20 left-10 w-64 h-64 bg-pink-500/20 blur-[100px] rounded-full" />
       <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-cyan-400/10 blur-[120px] rounded-full" />
 
-      <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-360 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* LEFT CONTENT */}
         <div className="relative z-10">
           <div className="inline-block bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
@@ -88,7 +88,7 @@ const Hero = () => {
               />
             </div>
 
-            <div className="relative w-full flex-grow px-4 border-l border-gray-200 hidden md:block">
+            <div className="relative w-full grow px-4 border-l border-gray-200 hidden md:block">
               <input
                 type="text"
                 placeholder="Search for Courses, Instructors"
@@ -155,7 +155,7 @@ const Hero = () => {
         {/* RIGHT CONTENT: FLOATING IMAGE/CARDS */}
         <div className="relative flex justify-center lg:justify-end">
           {/* Main Hero Image from your public folder */}
-          <div className="relative z-10 w-full max-w-[500px] animate-float">
+          <div className="relative z-10 w-full max-w-125 animate-float">
             <img
               src="/hero-img.png" // Ensure your file is named exactly this in /public
               alt="Hero Illustration"

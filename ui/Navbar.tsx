@@ -43,7 +43,7 @@ const Navbar = () => {
 
   return (
     <header className="w-full bg-[#392C7D] text-white sticky top-0 z-50 shadow-md">
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
+      <div className="max-w-360 mx-auto flex items-center justify-between px-6 py-4">
         {/* LEFT: LOGO SECTION */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative flex items-center justify-center bg-white rounded-lg w-10 h-10 shadow-sm transition-transform group-hover:scale-105">
@@ -140,22 +140,28 @@ const Navbar = () => {
           </div>
 
           {/* Auth Section */}
-          <div className="flex items-center gap-4">
-            <button className="hidden sm:block text-[15px] font-medium text-white/90 hover:text-white transition-colors">
-              Sign In
-            </button>
-            <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white px-8 py-2.5 rounded-full text-[15px] font-medium transition-all shadow-md active:scale-95">
-              Register
-            </button>
+          {/* Auth Section */}
+<div className="flex items-center gap-4">
+  <Link href="/login">
+    <button className="hidden sm:block text-[15px] font-medium text-white/90 hover:text-white transition-colors cursor-pointer">
+      Sign In
+    </button>
+  </Link>
 
-            {/* Mobile Menu Toggle */}
-            <button
-              className="lg:hidden p-2 text-white"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
+  <Link href="/register">
+    <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white px-8 py-2.5 rounded-full text-[15px] font-medium transition-all shadow-md active:scale-95 cursor-pointer">
+      Register
+    </button>
+  </Link>
+
+  {/* Mobile Menu Toggle */}
+  <button
+    className="lg:hidden p-2 text-white"
+    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+  >
+    {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+  </button>
+</div>
         </div>
       </div>
 
