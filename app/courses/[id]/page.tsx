@@ -110,7 +110,7 @@ export default function CourseDetailPage() {
 
           <div className="flex flex-col lg:flex-row gap-12">
             {/* LEFT COLUMN */}
-            <div className="grow">
+            <div className="flex-grow">
               <div className="flex gap-8 border-b border-slate-200 mb-6 overflow-x-auto no-scrollbar">
                 {["Description", "Curriculum", "FAQ", "Notice", "Reviews"].map(
                   (tab) => (
@@ -186,7 +186,7 @@ export default function CourseDetailPage() {
             </div>
 
             {/* RIGHT SIDEBAR */}
-            <aside className="w-full lg:w-87.5 shrink-0 space-y-10">
+            <aside className="w-full lg:w-[350px] shrink-0 space-y-10">
               <div className="bg-white border border-slate-200 shadow-xl shadow-slate-100">
                 <div className="p-8 border-b border-slate-100">
                   <div className="text-center mb-6">
@@ -262,7 +262,7 @@ export default function CourseDetailPage() {
                 </h2>
                 <div className="h-1.5 w-20 bg-[#f39c12]"></div>
               </div>
-              <button className="text-sm font-black text-slate-500 uppercase tracking-widest hover:text-[#f39c12]">
+              <button className="text-sm font-black text-slate-400 uppercase tracking-widest hover:text-[#f39c12]">
                 Browse All
               </button>
             </div>
@@ -282,7 +282,7 @@ export default function CourseDetailPage() {
 
 function SidebarDetail({ icon, label, value }: any) {
   return (
-    <div className="flex justify-between items-center text-slate-500 text-[22px] font-bold">
+    <div className="flex justify-between items-center text-slate-500 text-[13px] font-bold">
       <div className="flex items-center gap-3">
         <span className="text-[#f39c12]">{icon}</span> {label}
       </div>
@@ -330,9 +330,9 @@ function RelatedCourseCard({ course }: { course: any }) {
   return (
     <Link
       href={`/courses/${course.id}`}
-      className="group block bg-white border border-slate-200 overflow-hidden transition-all duration-500"
+      className="group block bg-white border border-slate-200 overflow-hidden hover:shadow-2xl transition-all duration-500"
     >
-      <div className="relative aspect-4/3">
+      <div className="relative aspect-[4/3]">
         <img
           src={course.image}
           alt={course.title}
@@ -351,35 +351,35 @@ function RelatedCourseCard({ course }: { course: any }) {
       </div>
 
       <div className="p-6 space-y-4">
-        <p className="text-[12px] font-black text-[#f39c12] uppercase tracking-widest">
+        <p className="text-[11px] font-black text-[#f39c12] uppercase tracking-widest">
           {course.category}
         </p>
-        <h3 className="text-[22px] font-black text-[#0f2137] leading-tight line-clamp-2 min-h-14 group-hover:text-[#f39c12] transition-colors">
+        <h3 className="text-[22px] font-black text-[#0f2137] leading-tight line-clamp-2 min-h-[56px] group-hover:text-[#f39c12] transition-colors">
           {course.title}
         </h3>
-        <p className="text-slate-400 text-[18px] font-bold line-clamp-1 -mt-2.5 italic">
+        <p className="text-slate-400 text-[14px] font-bold line-clamp-1 italic">
           {course.description}
         </p>
 
         {/* Instructor Info */}
-        <div className="flex items-center gap-3 -mt-2.5 pt-4 border-t border-slate-50">
+        <div className="flex items-center gap-3 pt-4 border-t border-slate-50">
           <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
-            <User size={19} />
+            <User size={16} />
           </div>
-          <span className="text-[19px] font-bold text-slate-600">
+          <span className="text-[14px] font-bold text-slate-600">
             {course.instructor}
           </span>
         </div>
 
         {/* Professional Meta Grid */}
-        <div className="grid grid-cols-3 -mt-2.5 gap-0.5 pt-4 border-t border-slate-100 text-[18px] font-black text-slate-300 uppercase tracking-tighter">
-          <div className="text-center py-2 border-r border-slate-100 text-slate-500 transition-colors">
+        <div className="grid grid-cols-3 gap-0.5 pt-4 border-t border-slate-100 text-[10px] font-black text-slate-300 uppercase tracking-tighter">
+          <div className="text-center py-2 border-r border-slate-100 group-hover:text-slate-500 transition-colors">
             {course.level}
           </div>
-          <div className="text-center py-2 border-r border-slate-100 text-slate-500 transition-colors">
+          <div className="text-center py-2 border-r border-slate-100 group-hover:text-slate-500 transition-colors">
             14 MODULES
           </div>
-          <div className="text-center py-2 text-slate-500 transition-colors">
+          <div className="text-center py-2 group-hover:text-slate-500 transition-colors">
             LIFETIME
           </div>
         </div>

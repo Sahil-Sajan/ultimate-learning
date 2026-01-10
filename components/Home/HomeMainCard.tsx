@@ -6,7 +6,7 @@ const HomeMainCard: React.FC = () => {
     <div className="w-full bg-white py-20 px-4">
       <div className="max-w-6xl mx-auto relative flex flex-col items-center">
         {/* 1. Centered Overlapping Image */}
-        <div className="relative z-20 w-full md:w-[95%] h-70 md:h-120 rounded-[30px] overflow-hidden shadow-2xl -mb-45">
+        <div className="relative z-20 w-full md:w-[95%] h-[280px] md:h-[480px] rounded-[30px] overflow-hidden shadow-2xl -mb-[180px]">
           <Image
             src="/fs-4.avif" // Use your specific image path
             alt="Group of students"
@@ -18,7 +18,7 @@ const HomeMainCard: React.FC = () => {
         </div>
 
         {/* 2. Main Purple Container */}
-        <div className="relative w-full pt-55 pb-12 px-8 md:px-12 bg-[#3b2d83] rounded-4xl overflow-hidden">
+        <div className="relative w-full pt-[220px] pb-12 px-8 md:px-12 bg-[#3b2d83] rounded-[20px] overflow-hidden">
           {/* Subtle Background Wave Pattern */}
           <div className="absolute inset-0 opacity-5 pointer-events-none">
             <svg
@@ -53,7 +53,7 @@ const HomeMainCard: React.FC = () => {
                 <div className="text-white font-semibold text-base">
                   Course approval score
                 </div>
-                <p className="text-gray-300 text-xs leading-relaxed max-w-50">
+                <p className="text-gray-300 text-xs leading-relaxed max-w-[200px]">
                   Achieving a complete course approval score is a significant.
                 </p>
               </div>
@@ -64,7 +64,7 @@ const HomeMainCard: React.FC = () => {
                 <div className="text-white font-semibold text-base">
                   Satisfied students worldwide
                 </div>
-                <p className="text-gray-300 text-xs leading-relaxed max-w-62.5">
+                <p className="text-gray-300 text-xs leading-relaxed max-w-[250px]">
                   Satisfied students worldwide share a common thread of
                   happiness.
                 </p>
