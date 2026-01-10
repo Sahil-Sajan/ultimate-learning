@@ -14,8 +14,9 @@ import {
   RotateCcw,
   ChevronDown,
   Check,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
-import Navbar from "@/ui/Navbar";
 
 /* ---------------- TYPES & DATA ---------------- */
 
@@ -110,35 +111,35 @@ export default function InstructorGridPage() {
   const [price, setPrice] = useState(69850);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-sans pb-20">
-      <Navbar />
-
-      <div className="bg-[#EBF5FF] py-14 border-b border-blue-100">
+    <div className="min-h-screen bg-white text-slate-900 font-sans pb-20">
+      {/* Header Section with Gradient Background matching image */}
+      <div className="bg-gradient-to-r from-[#FFF0F0] to-[#E5F3FF] py-14">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-[42px] font-black text-slate-900 mb-3 tracking-tight">
+          <h1 className="text-[32px] font-bold text-slate-900 mb-2">
             Instructor Grid
           </h1>
-          <nav className="flex items-center justify-center gap-2 text-[11px] font-black uppercase tracking-widest text-slate-400">
-            <span className="hover:text-blue-600 cursor-pointer">Home</span>
-            <div className="w-4 h-[2px] bg-pink-500" />
-            <span className="text-slate-500">Instructor Grid</span>
+          <nav className="flex items-center justify-center gap-2 text-xs font-medium text-slate-500">
+            <span>Home</span>
+            <div className="w-3 h-[2px] bg-[#FF5364]" />
+            <span className="text-slate-400">Instructor Grid</span>
           </nav>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 mt-12">
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10">
-          <aside className="space-y-4">
-            <div className="flex items-center justify-between py-2 border-b border-slate-200 mb-4">
-              <h2 className="text-[13px] font-black uppercase tracking-widest flex items-center gap-2">
-                <Filter size={16} className="text-pink-500" /> Filters
+        <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8">
+          {/* Sidebar Filters */}
+          <aside className="space-y-6">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+              <h2 className="text-sm font-bold flex items-center gap-2">
+                <Filter size={18} /> Filters
               </h2>
-              <button className="text-[10px] font-black text-pink-500 uppercase flex items-center gap-1 hover:opacity-70 transition-opacity">
-                <RotateCcw size={12} /> Clear
+              <button className="text-xs font-bold text-[#FF5364] hover:opacity-70 transition-opacity">
+                Clear
               </button>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="space-y-4">
               <CustomAccordion title="Categories">
                 {["Backend", "CSS", "Frontend", "General", "IT & Software"].map(
                   (item) => (
@@ -149,7 +150,7 @@ export default function InstructorGridPage() {
                     />
                   )
                 )}
-                <button className="text-pink-500 text-[11px] font-black uppercase tracking-widest pt-2 hover:underline">
+                <button className="text-[#FF5364] text-xs font-bold pt-2 block">
                   See More
                 </button>
               </CustomAccordion>
@@ -166,18 +167,18 @@ export default function InstructorGridPage() {
               </CustomAccordion>
 
               <CustomAccordion title="Price Range">
-                <div className="py-4 px-1">
+                <div className="py-4">
                   <input
                     type="range"
                     min="0"
                     max="100000"
                     value={price}
                     onChange={(e) => setPrice(parseInt(e.target.value))}
-                    className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-pink-500"
+                    className="w-full h-1 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-[#FF5364]"
                   />
-                  <div className="flex justify-between mt-4 text-[11px] font-black text-slate-400">
+                  <div className="flex justify-between mt-3 text-xs text-slate-400">
                     <span>$0</span>
-                    <span className="text-slate-900 bg-slate-100 px-2 py-1 rounded-sm">
+                    <span className="font-bold text-slate-900">
                       ${price.toLocaleString()}
                     </span>
                   </div>
@@ -198,40 +199,41 @@ export default function InstructorGridPage() {
             </div>
           </aside>
 
-          <main className="flex-grow">
+          {/* Main Content */}
+          <main>
             <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-              <span className="text-[13px] font-bold text-slate-400">
+              <span className="text-sm text-slate-500">
                 Showing{" "}
-                <span className="text-slate-900 font-black">
+                <span className="text-slate-900 font-semibold">
                   1-9 of 50 results
                 </span>
               </span>
 
-              <div className="flex items-center gap-4">
-                <div className="flex bg-white rounded-md border border-slate-200 p-1 shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="flex bg-white rounded-md border border-slate-200 p-1">
                   <button
                     onClick={() => setView("grid")}
-                    className={`p-1.5 rounded transition-all ${
+                    className={`p-1.5 rounded ${
                       view === "grid"
-                        ? "bg-pink-500 text-white"
-                        : "text-slate-400 hover:bg-slate-50"
+                        ? "bg-[#FF5364] text-white"
+                        : "text-slate-400"
                     }`}
                   >
-                    <LayoutGrid size={16} />
+                    <LayoutGrid size={18} />
                   </button>
                   <button
                     onClick={() => setView("list")}
-                    className={`p-1.5 rounded transition-all ${
+                    className={`p-1.5 rounded ${
                       view === "list"
-                        ? "bg-pink-500 text-white"
-                        : "text-slate-400 hover:bg-slate-50"
+                        ? "bg-[#FF5364] text-white"
+                        : "text-slate-400"
                     }`}
                   >
-                    <List size={16} />
+                    <List size={18} />
                   </button>
                 </div>
 
-                <select className="bg-white border border-slate-200 rounded-md text-[11px] font-black uppercase py-2.5 px-4 shadow-sm outline-none cursor-pointer tracking-widest text-slate-600 focus:border-pink-500">
+                <select className="bg-white border border-slate-200 rounded-md text-xs font-semibold py-2 px-3 outline-none focus:border-[#FF5364]">
                   <option>Newly Published</option>
                   <option>Best Rated</option>
                 </select>
@@ -239,12 +241,12 @@ export default function InstructorGridPage() {
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="SEARCH..."
-                    className="h-10 w-44 text-[10px] font-black tracking-widest pl-10 pr-4 bg-white border border-slate-200 rounded-md outline-none focus:border-pink-500 transition-all shadow-sm"
+                    placeholder="Search"
+                    className="h-9 w-48 text-xs pl-9 pr-4 bg-white border border-slate-200 rounded-md outline-none focus:border-[#FF5364]"
                   />
                   <Search
                     size={14}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                   />
                 </div>
               </div>
@@ -263,6 +265,25 @@ export default function InstructorGridPage() {
                 ))}
               </AnimatePresence>
             </div>
+
+            {/* Pagination matched to image */}
+            <div className="mt-12 flex justify-center items-center gap-2">
+              <button className="w-8 h-8 flex items-center justify-center rounded-full border border-slate-100 text-slate-400">
+                <ChevronLeft size={16} />
+              </button>
+              <button className="w-8 h-8 flex items-center justify-center rounded-full bg-[#FF5364] text-white text-xs font-bold">
+                1
+              </button>
+              <button className="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 text-xs font-bold">
+                2
+              </button>
+              <button className="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 text-xs font-bold">
+                3
+              </button>
+              <button className="w-8 h-8 flex items-center justify-center rounded-full border border-slate-100 text-slate-400">
+                <ChevronRight size={16} />
+              </button>
+            </div>
           </main>
         </div>
       </div>
@@ -270,7 +291,7 @@ export default function InstructorGridPage() {
   );
 }
 
-/* ---------------- CUSTOM UI COMPONENTS ---------------- */
+/* ---------------- UI COMPONENTS ---------------- */
 
 function CustomAccordion({
   title,
@@ -281,26 +302,20 @@ function CustomAccordion({
 }) {
   const [isOpen, setIsOpen] = useState(true);
   return (
-    <div className="border border-slate-100 rounded-sm bg-white shadow-sm overflow-hidden">
+    <div className="border-b border-slate-100 pb-4">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 text-[12px] font-black uppercase tracking-widest text-slate-800 hover:bg-slate-50 transition-colors"
+        className="w-full flex items-center justify-between py-2 text-sm font-bold text-slate-800"
       >
         {title}
         <ChevronDown
-          size={14}
-          className={`text-slate-400 transition-transform duration-300 ${
+          size={16}
+          className={`text-slate-400 transition-transform ${
             isOpen ? "rotate-180" : ""
           }`}
         />
       </button>
-      <div
-        className={`transition-all duration-300 ease-in-out ${
-          isOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="p-4 pt-0 space-y-3">{children}</div>
-      </div>
+      {isOpen && <div className="pt-3 space-y-2.5">{children}</div>}
     </div>
   );
 }
@@ -317,32 +332,28 @@ function CustomCheckbox({
   const [checked, setChecked] = useState(initialChecked);
   return (
     <div
-      className="flex items-center justify-between group cursor-pointer"
+      className="flex items-center justify-between cursor-pointer group"
       onClick={() => setChecked(!checked)}
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2.5">
         <div
-          className={`w-5 h-5 rounded border flex items-center justify-center transition-all ${
-            checked
-              ? "bg-pink-500 border-pink-500"
-              : "border-slate-200 bg-white"
+          className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
+            checked ? "bg-[#FF5364] border-[#FF5364]" : "border-slate-200"
           }`}
         >
           {checked && (
-            <Check size={12} className="text-white" strokeWidth={4} />
+            <Check size={10} className="text-white" strokeWidth={4} />
           )}
         </div>
         <span
-          className={`text-[13px] font-bold transition-colors ${
-            checked
-              ? "text-slate-900"
-              : "text-slate-500 group-hover:text-slate-700"
+          className={`text-xs font-medium ${
+            checked ? "text-slate-900" : "text-slate-500"
           }`}
         >
           {label}
         </span>
       </div>
-      <span className="text-[11px] font-black text-slate-300">({count})</span>
+      <span className="text-[10px] text-slate-300">({count})</span>
     </div>
   );
 }
@@ -357,62 +368,60 @@ function InstructorCard({
   return (
     <motion.div
       layout
-      className={`group bg-white rounded-sm border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500 ${
-        view === "list" ? "flex flex-row p-4 gap-6" : "flex flex-col h-full"
+      className={`group bg-white rounded-lg border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow ${
+        view === "list" ? "flex flex-row p-4 gap-6" : "flex flex-col"
       }`}
     >
       <div
-        className={`relative overflow-hidden shrink-0 ${
-          view === "list" ? "w-52 h-44 rounded-sm" : "aspect-[4/3]"
-        }`}
+        className={`relative ${
+          view === "list" ? "w-48 h-40" : "aspect-[4/3]"
+        } overflow-hidden`}
       >
         <img
           src={instructor.image}
           alt={instructor.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <button
-          className={`absolute top-4 left-4 h-9 w-9 rounded-full flex items-center justify-center backdrop-blur-md transition-all ${
-            instructor.favorite
-              ? "bg-pink-500 text-white shadow-lg"
-              : "bg-white/90 text-slate-400 hover:bg-pink-500 hover:text-white"
-          }`}
-        >
+        <button className="absolute top-3 left-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur shadow-sm flex items-center justify-center">
           <Heart
-            size={16}
-            fill={instructor.favorite ? "currentColor" : "none"}
+            size={14}
+            className={
+              instructor.favorite
+                ? "text-[#FF5364] fill-[#FF5364]"
+                : "text-slate-300"
+            }
           />
         </button>
       </div>
 
-      <div className="p-6 flex flex-col flex-grow">
-        <div className="flex items-center gap-1.5 mb-3">
-          <Star size={12} className="text-[#f39c12] fill-[#f39c12]" />
-          <span className="text-[13px] font-black text-slate-900">
+      <div className="p-5 flex flex-col flex-grow">
+        <div className="flex items-center gap-1 mb-2">
+          <Star size={12} className="text-[#FFB800] fill-[#FFB800]" />
+          <span className="text-xs font-bold text-slate-900">
             {instructor.rating}
           </span>
-          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-tighter">
+          <span className="text-[10px] text-slate-400">
             ({instructor.reviews} Reviews)
           </span>
         </div>
 
-        <h3 className="text-[20px] font-black text-[#0f2137] group-hover:text-pink-500 transition-colors mb-1 leading-tight">
+        <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#FF5364] transition-colors mb-0.5">
           {instructor.name}
         </h3>
-        <p className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">
+        <p className="text-xs text-slate-400 font-medium mb-4">
           {instructor.role}
         </p>
 
-        <div className="mt-auto pt-5 border-t border-slate-50 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <BookOpen size={16} className="text-pink-500" />
-            <span className="text-[11px] font-black uppercase text-slate-500 tracking-tighter">
-              {instructor.lessons}+ Lessons
+        <div className="mt-auto flex items-center justify-between border-t border-slate-50 pt-4">
+          <div className="flex items-center gap-1.5">
+            <BookOpen size={14} className="text-[#FF5364]" />
+            <span className="text-[10px] font-bold text-slate-500 uppercase">
+              {instructor.lessons}+ Lesson
             </span>
           </div>
-          <div className="flex items-center gap-2">
-            <Clock size={16} className="text-blue-400" />
-            <span className="text-[11px] font-black uppercase text-slate-500 tracking-tighter">
+          <div className="flex items-center gap-1.5">
+            <Clock size={14} className="text-[#6440FB]" />
+            <span className="text-[10px] font-bold text-slate-500 uppercase">
               {instructor.hours}
             </span>
           </div>

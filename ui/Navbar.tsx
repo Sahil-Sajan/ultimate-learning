@@ -15,17 +15,17 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { name: "Home", href: "#", hasDropdown: true, active: true },
-    { name: "Courses", href: "#", hasDropdown: true },
-    { name: "Dashboard", href: "#", hasDropdown: true },
-    { name: "Pages", href: "#", hasDropdown: true },
-    { name: "Blogs", href: "#", hasDropdown: true },
+    { name: "Home", href: "/", hasDropdown: true, active: true },
+    { name: "Courses", href: "/courses", hasDropdown: true },
+    { name: "Instructors", href: "/instructors", hasDropdown: true },
+    { name: "Pricing", href: "/pricing", hasDropdown: true },
+    { name: "Blogs", href: "/blog", hasDropdown: true },
   ];
 
   return (
-    <header className="w-full bg-[#392C7D] text-white sticky top-0 z-50 shadow-md">
+    <header className="w-full bg-[#392C7D] text-white relative z-50">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
-        {/* LEFT: LOGO SECTION */}
+        {/* LEFT: LOGO SECTION (Matches Footer Style) */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative flex items-center justify-center bg-white rounded-lg w-10 h-10 shadow-sm transition-transform group-hover:scale-105">
             <svg
@@ -51,12 +51,12 @@ const Navbar = () => {
               />
             </svg>
           </div>
-          <div className="flex flex-col">
-            <span className="text-2xl font-semibold tracking-tight leading-none flex items-start">
+          <div className="flex flex-col leading-tight">
+            <span className="text-xl font-bold text-white uppercase tracking-tight">
               Ultimate
-              <span className="text-[20px] text-[#FF5B5C] font-bold ml-1 uppercase">
-                Learning
-              </span>
+            </span>
+            <span className="text-sm font-light text-[#FF5B5C] uppercase tracking-[0.2em]">
+              Learning
             </span>
           </div>
         </Link>
@@ -91,7 +91,7 @@ const Navbar = () => {
         {/* RIGHT: ACTIONS & AUTH */}
         <div className="flex items-center gap-3">
           <div className="hidden md:flex items-center gap-3 mr-2">
-            {/* CIRCULAR COUNTRY ICON (Iraq) */}
+            {/* Country Icon */}
             <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full transition-all hover:bg-gray-100 shadow-sm overflow-hidden p-2">
               <img
                 src="https://flagcdn.com/w80/iq.png"
@@ -100,16 +100,19 @@ const Navbar = () => {
               />
             </button>
 
+            {/* Currency Toggle */}
             <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#392C7D] transition-all hover:bg-gray-100 shadow-sm">
               <div className="w-5 h-5 rounded-full border-[1.5px] border-[#392C7D] flex items-center justify-center">
                 <DollarSign size={11} strokeWidth={3} />
               </div>
             </button>
 
+            {/* Dark Mode Toggle */}
             <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-slate-700 transition-all hover:bg-gray-100 shadow-sm">
               <Moon size={18} fill="currentColor" className="text-slate-800" />
             </button>
 
+            {/* Shopping Cart */}
             <div className="relative group">
               <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-slate-700 transition-all hover:bg-gray-100 shadow-sm">
                 <ShoppingCart size={18} />
@@ -122,12 +125,17 @@ const Navbar = () => {
 
           {/* Auth Section */}
           <div className="flex items-center gap-4">
-            <button className="hidden sm:block text-[15px] font-medium text-white/90 hover:text-white transition-colors">
+            <Link
+              href="/signin"
+              className="hidden sm:block text-[15px] font-medium text-white/90 hover:text-white transition-colors"
+            >
               Sign In
-            </button>
-            <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white px-8 py-2.5 rounded-full text-[15px] font-medium transition-all shadow-md active:scale-95">
-              Register
-            </button>
+            </Link>
+            <Link href="/register">
+              <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white px-8 py-2.5 rounded-full text-[15px] font-medium transition-all shadow-md active:scale-95">
+                Register
+              </button>
+            </Link>
 
             {/* Mobile Menu Toggle */}
             <button
@@ -147,7 +155,8 @@ const Navbar = () => {
             <Link
               key={link.name}
               href={link.href}
-              className="text-base font-medium flex justify-between items-center"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-base font-medium flex justify-between items-center text-white/90 hover:text-[#FF5B5C]"
             >
               {link.name}
               {link.hasDropdown && (
@@ -157,10 +166,17 @@ const Navbar = () => {
           ))}
           <hr className="border-white/10" />
           <div className="flex flex-col gap-4">
-            <button className="text-left font-medium">Sign In</button>
-            <button className="bg-[#FF5B5C] py-3 rounded-full font-medium">
-              Register
-            </button>
+            <Link
+              href="/signin"
+              className="text-left font-medium text-white/90"
+            >
+              Sign In
+            </Link>
+            <Link href="/register">
+              <button className="w-full bg-[#FF5B5C] py-3 rounded-full font-medium text-center">
+                Register
+              </button>
+            </Link>
           </div>
         </div>
       )}
