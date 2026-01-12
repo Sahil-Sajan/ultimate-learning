@@ -95,7 +95,7 @@ const Hero = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-3 ml-6.5">
+            <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center border border-cyan-400/30">
                 <Trophy className="text-cyan-400" size={22} />
               </div>

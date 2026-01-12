@@ -64,7 +64,7 @@ const Footer = () => {
                 className="h-10 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
               />
               <img
-                src="/googleplay.webp"
+                src="/favicon2.ico"
                 alt="Google Play"
                 className="h-10 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
               />
@@ -143,8 +143,8 @@ const Footer = () => {
                   className="w-full bg-white text-gray-800 py-3 pl-12 pr-4 rounded-full text-sm outline-none"
                 />
               </div>
-              {/* FIXED BUTTON: MATCHES NAVBAR REGISTER BUTTON */}
-              <button className="w-full bg-[#FF5B5C] hover:bg-[#ff4646] text-white font-bold py-3 rounded-full transition-all shadow-lg active:scale-95">
+
+            <button className="w-full bg-[#FF5B5C] hover:bg-[#ff4646] text-white font-bold py-3 rounded-full transition-all shadow-lg active:scale-95">
                 Subscribe
               </button>
             </div>
