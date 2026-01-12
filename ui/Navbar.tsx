@@ -26,7 +26,7 @@ const Navbar = () => {
 
   return (
     <header className="w-full bg-[#392C7D] text-white relative z-50">
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
+      <div className="max-w-360 mx-auto flex items-center justify-between px-6 py-4">
         {/* LEFT: LOGO SECTION */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative flex items-center justify-center bg-white rounded-lg w-10 h-10 shadow-sm transition-transform group-hover:scale-105">
@@ -54,6 +54,7 @@ const Navbar = () => {
             </svg>
           </div>
           <div className="flex flex-col leading-tight">
+            
             <span className="text-xl font-bold text-white uppercase tracking-tight">
               Ultimate
             </span>

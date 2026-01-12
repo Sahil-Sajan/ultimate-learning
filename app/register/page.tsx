@@ -37,8 +37,7 @@ const RegisterPage = () => {
         
         <div className="flex gap-2 mt-8">
           <div className="w-6 h-1 bg-[#ff4667] rounded-full"></div>
-          <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-          <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+          
         </div>
       </div>
 

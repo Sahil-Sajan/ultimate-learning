@@ -31,8 +31,7 @@ const LoginPage = () => {
         {/* Carousel Indicators */}
         <div className="flex gap-2">
           <div className="w-8 h-1.5 bg-[#ff4667] rounded-full"></div>
-          <div className="w-2 h-1.5 bg-[#ffd0d9] rounded-full"></div>
-          <div className="w-2 h-1.5 bg-[#ffd0d9] rounded-full"></div>
+         
         </div>
       </div>
 
