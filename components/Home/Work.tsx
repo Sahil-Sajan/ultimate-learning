@@ -1,44 +1,41 @@
-"use client"
-import React from 'react'
-import Image from 'next/image';
-
+"use client";
+import React from "react";
+import Image from "next/image";
 
 const steps = [
   {
     id: "01",
     title: "Sign-Up or Register",
-    desc: "Once you're on the website's homepage, look for the Sign-Up, Register, or Create Account button."
+    desc: "Once you're on the website's homepage, look for the Sign-Up, Register, or Create Account button.",
   },
   {
     id: "02",
     title: "Complete Your Profile",
-    desc: "After verifying your email, you may be asked to complete additional profile information."
+    desc: "After verifying your email, you may be asked to complete additional profile information.",
   },
   {
     id: "03",
     title: "Choose Courses or Programs",
-    desc: "Depending on the website, after registration, you might be able to browse and choose courses or programs to enroll in."
+    desc: "Depending on the website, after registration, you might be able to browse and choose courses or programs to enroll in.",
   },
   {
     id: "04",
     title: "Access Your Account",
-    desc: "Should have access to the website's features, such as enrolling in courses, materials, or tracking progress."
-  }
+    desc: "Should have access to the website's features, such as enrolling in courses, materials, or tracking progress.",
+  },
 ];
 
 const Work = () => {
   return (
     <section className="py-20 bg-white overflow-hidden">
       {/* --- MARQUEE SECTION (Unchanged as requested) --- */}
-     
 
       {/* --- HOW IT WORKS CONTENT SECTION --- */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        
         {/* Left Side: Image */}
         <div className="relative w-full h-full aspect-square md:aspect-4/3 lg:aspect-square rounded-[40px] overflow-hidden shadow-xl">
-          <Image 
-            src="/learning.avif" 
+          <Image
+            src="/cg-2.avif"
             alt="Student working on laptop"
             fill
             className="object-cover"
@@ -55,7 +52,8 @@ const Work = () => {
               Start your Learning Journey Today!
             </h2>
             <p className="text-gray-700 text-lg leading-relaxed">
-              Unlock Your Potential and Achieve Your Dreams with Our Comprehensive Learning Resources!
+              Unlock Your Potential and Achieve Your Dreams with Our
+              Comprehensive Learning Resources!
             </p>
           </div>
 
@@ -67,7 +65,7 @@ const Work = () => {
                 <span className="text-4xl font-bold text-[#392c7d] opacity-90 transition-colors">
                   {step.id}
                 </span>
-                
+
                 {/* Text Content */}
                 <div className="flex flex-col border-b border-gray-100 pb-6 w-full">
                   <h3 className="text-xl font-bold text-[#0b1219] mb-2">
@@ -85,8 +83,12 @@ const Work = () => {
 
       <style jsx>{`
         @keyframes scroll {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-50%);
+          }
         }
         .animate-scroll {
           animation: scroll 25s linear infinite;
