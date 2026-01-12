@@ -35,7 +35,7 @@ const instructors: Instructor[] = [
     courses: 20,
     rating: 5.0,
     image:
-      "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400",
+      "/teacher1.webp",
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ const instructors: Instructor[] = [
     courses: 15,
     rating: 5.0,
     image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=400",
+      "/teacher2.webp",
   },
   {
     id: 3,
@@ -53,7 +53,7 @@ const instructors: Instructor[] = [
     courses: 20,
     rating: 4.8,
     image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
+      "/teacher3.webp",
     isFavorite: true,
   },
   {
@@ -63,7 +63,7 @@ const instructors: Instructor[] = [
     courses: 20,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=400",
+      "/teacher4.webp",
   },
   {
     id: 5,
@@ -72,7 +72,7 @@ const instructors: Instructor[] = [
     courses: 12,
     rating: 4.9,
     image:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400",
+      "/instructor6.webp",
   },
 ];
 

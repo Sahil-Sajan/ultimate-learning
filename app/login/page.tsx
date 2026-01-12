@@ -111,10 +111,12 @@ const LoginPage = () => {
               </label>
               <a href="#" className="text-[14px] font-bold text-[#ff4667] hover:underline transition-all">Forgot Password?</a>
             </div>
-
-            <button type="submit" className="w-full bg-[#ff4667] hover:bg-[#e63e5c] text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-pink-100 flex items-center justify-center gap-2 active:scale-[0.98] mt-4">
+            <Link href="/dashboard">
+            <button
+             type="submit" className="w-full bg-[#ff4667] hover:bg-[#e63e5c] text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-pink-100 flex items-center justify-center gap-2 active:scale-[0.98] mt-4">
               Login <span className="text-xl leading-none">›</span>
             </button>
+            </Link>
 
             <div className="relative flex items-center py-6">
               <div className="grow border-t border-gray-100"></div>
