@@ -52,7 +52,6 @@ const Navbar = () => {
             </svg>
           </div>
           <div className="flex flex-col leading-tight">
-            
             <span className="text-xl font-bold text-white uppercase tracking-tight">
               Ultimate
             </span>
@@ -127,7 +126,7 @@ const Navbar = () => {
           {/* Auth Section */}
           <div className="flex items-center gap-4">
             <Link
-              href="/signin"
+              href="/login"
               className="hidden sm:block text-[15px] font-medium text-white/90 hover:text-white transition-colors"
             >
               Sign In
