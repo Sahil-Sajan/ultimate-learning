@@ -3,16 +3,17 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, Lock, User, Eye, EyeOff, Facebook, GraduationCap } from 'lucide-react'
+import { useRouter } from 'next/navigation' // 1. Import useRouter
 
 const RegisterPage = () => {
-  // States to toggle visibility
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const router = useRouter(); // 2. Initialize router
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Static Registration Successful!");
-    window.location.href = "/login"; 
+    // Logic only runs if HTML5 validation (required) passes
+    router.push("/login"); // 3. Use router.push instead of window.location
   };
 
   return (
@@ -37,7 +38,6 @@ const RegisterPage = () => {
         
         <div className="flex gap-2 mt-8">
           <div className="w-6 h-1 bg-[#ff4667] rounded-full"></div>
-          
         </div>
       </div>
 
@@ -46,11 +46,9 @@ const RegisterPage = () => {
         
         <div className="flex justify-between items-center mb-12">
           <div className="flex items-center gap-3">
-            {/* White Rounded Square with Red Graduation Cap */}
             <div className="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center">
               <GraduationCap className="w-7 h-7 text-[#ff4667]" strokeWidth={2.5} />
             </div>
-            {/* Text styling to match "ULTIMATE LEARNING" */}
             <div className="flex flex-col leading-none">
               <span className="text-xl font-black text-[#0b1219] tracking-tight uppercase">
                 Ultimate
@@ -72,7 +70,7 @@ const RegisterPage = () => {
             {/* Full Name */}
             <div>
               <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Full Name <span className="text-red-500">*</span></label>
-              <div className="relative">
+              <div className="relative group">
                 <input 
                   type="text" 
                   placeholder="Enter your full name" 
@@ -86,7 +84,7 @@ const RegisterPage = () => {
             {/* Email */}
             <div>
               <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Email <span className="text-red-500">*</span></label>
-              <div className="relative">
+              <div className="relative group">
                 <input 
                   type="email" 
                   placeholder="Enter your email address" 
@@ -100,7 +98,7 @@ const RegisterPage = () => {
             {/* Password */}
             <div>
               <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Password <span className="text-red-500">*</span></label>
-              <div className="relative">
+              <div className="relative group">
                 <input 
                   type={showPassword ? "text" : "password"} 
                   placeholder="********" 
@@ -125,7 +123,7 @@ const RegisterPage = () => {
             {/* Confirm Password */}
             <div>
               <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Confirm Password <span className="text-red-500">*</span></label>
-              <div className="relative">
+              <div className="relative group">
                 <input 
                   type={showConfirmPassword ? "text" : "password"} 
                   placeholder="********" 
@@ -143,32 +141,33 @@ const RegisterPage = () => {
 
             {/* Terms */}
             <div className="flex items-center gap-2 py-2">
-              <input type="checkbox" className="w-4 h-4 accent-[#ff4667] rounded" required />
+              <input type="checkbox" className="w-4 h-4 accent-[#ff4667] rounded cursor-pointer" required />
               <p className="text-xs text-gray-600">
                 I agree with <span className="text-[#ff4667] cursor-pointer">Terms of Service</span> and <span className="text-[#ff4667] cursor-pointer">Privacy Policy</span>
               </p>
             </div>
 
-            <button type="submit" className="w-full bg-[#ff4667] hover:bg-[#e63e5c] text-white font-bold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2">
-              Login <span className="text-lg">›</span>
+            {/* Submit Button */}
+            <button type="submit" className="w-full bg-[#ff4667] hover:bg-[#e63e5c] text-white font-bold py-4 rounded-xl transition-all shadow-lg flex items-center justify-center gap-2 active:scale-[0.98]">
+              Sign Up <span className="text-lg">›</span>
             </button>
 
             <div className="relative flex items-center justify-center py-4">
                 <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-100"></div></div>
-                <span className="relative bg-white px-4 text-xs text-gray-400">Or</span>
+                <span className="relative bg-white px-4 text-xs text-gray-400 font-bold uppercase tracking-wider">Or</span>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <button type="button" className="flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium">
+              <button type="button" className="flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition-colors text-sm font-bold">
                 <Image src="/favicon2.ico" alt="Google" width={18} height={18} /> Google
               </button>
-              <button type="button" className="flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition-colors text-sm font-medium">
+              <button type="button" className="flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition-colors text-sm font-bold">
                 <Facebook className="text-[#1877F2] w-5 h-5 fill-current" /> Facebook
               </button>
             </div>
 
             <p className="text-center mt-6 text-sm text-gray-500">
-              Already have an account? <Link href="/login" className="text-[#ff4667] font-bold">Sign In</Link>
+              Already have an account? <Link href="/login" className="text-[#ff4667] font-bold hover:underline">Sign In</Link>
             </p>
           </form>
         </div>
@@ -177,4 +176,4 @@ const RegisterPage = () => {
   )
 }
 
-export default RegisterPage
+export default RegisterPage;

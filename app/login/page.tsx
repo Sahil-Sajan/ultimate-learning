@@ -1,11 +1,20 @@
 "use client"
 import React, { useState } from 'react';
-import { Mail, Lock, Eye, EyeOff, Facebook, GraduationCap } from 'lucide-react'; // Added GraduationCap
+import { Mail, Lock, Eye, EyeOff, Facebook, GraduationCap } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image'; // Import Next.js Image
+import Image from 'next/image';
+import { useRouter } from 'next/navigation'; // 1. Import useRouter
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter(); // 2. Initialize router
+
+  // 3. Handle Login Logic
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault(); // Prevents page reload
+    // This will only run if the 'required' inputs are filled
+    router.push('/dashboard'); 
+  };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen font-sans bg-white">
@@ -13,14 +22,13 @@ const LoginPage = () => {
       {/* --- LEFT SIDE: PROMOTIONAL SECTION --- */}
       <div className="hidden md:flex md:w-[45%] lg:w-[50%] bg-[#fff5f6] flex-col items-center justify-center p-8 lg:p-12 text-center">
         <div className="relative w-full max-w-105 mb-10">
-          {/* Use Next.js Image Component for Main Illustration */}
           <Image 
             src="/signup1.png" 
             alt="Welcome Illustration" 
             width={600} 
             height={600}
             className="w-full h-auto object-contain"
-            priority // Preloads the main image
+            priority 
           />
         </div>
         
@@ -39,14 +47,11 @@ const LoginPage = () => {
       {/* --- RIGHT SIDE: LOGIN FORM SECTION --- */}
       <div className="w-full md:w-[55%] lg:w-[50%] flex flex-col px-6 py-10 md:px-16 lg:px-24 justify-center relative bg-white">
         
-        {/* Top Header Navigation: UPDATED LOGO TO MATCH IMAGE */}
         <div className="absolute top-6 left-6 right-6 md:top-10 md:left-12 md:right-12 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            {/* White Rounded Square with Red Graduation Cap */}
             <div className="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center">
               <GraduationCap className="w-7 h-7 text-[#ff4667]" strokeWidth={2.5} />
             </div>
-            {/* Text styling to match "ULTIMATE LEARNING" */}
             <div className="flex flex-col leading-none">
               <span className="text-xl font-black text-[#0b1219] tracking-tight uppercase">
                 Ultimate
@@ -61,13 +66,12 @@ const LoginPage = () => {
           </Link>
         </div>
 
-        {/* Form Container */}
         <div className="max-w-110 w-full mx-auto mt-12 md:mt-0">
           <h1 className="text-[28px] md:text-[32px] font-bold text-[#0b1219] mt-20">Sign into Your Account</h1>
           <p className="text-gray-700 text-sm mb-10">Welcome back! Please enter your details.</p>
 
-          <form className="space-y-7">
-            {/* Email Field */}
+          {/* 4. Added onSubmit to the form */}
+          <form onSubmit={handleLogin} className="space-y-7">
             <div className="space-y-2">
               <label className="text-[11px] font-extrabold text-[#333] uppercase tracking-[1px]">
                 Email <span className="text-[#ff4667]">*</span>
@@ -83,7 +87,6 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Password Field */}
             <div className="space-y-2">
               <label className="text-[11px] font-extrabold text-[#333] uppercase tracking-[1px]">
                 Password <span className="text-[#ff4667]">*</span>
@@ -111,12 +114,14 @@ const LoginPage = () => {
               </label>
               <a href="#" className="text-[14px] font-bold text-[#ff4667] hover:underline transition-all">Forgot Password?</a>
             </div>
-            <Link href="/dashboard">
+
+            {/* 5. Removed <Link> and let the button type="submit" trigger the function */}
             <button
-             type="submit" className="w-full bg-[#ff4667] hover:bg-[#e63e5c] text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-pink-100 flex items-center justify-center gap-2 active:scale-[0.98] mt-4">
+               type="submit" 
+               className="w-full bg-[#ff4667] hover:bg-[#e63e5c] text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-pink-100 flex items-center justify-center gap-2 active:scale-[0.98] mt-4"
+            >
               Login <span className="text-xl leading-none">›</span>
             </button>
-            </Link>
 
             <div className="relative flex items-center py-6">
               <div className="grow border-t border-gray-100"></div>
