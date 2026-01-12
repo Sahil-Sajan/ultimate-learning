@@ -2,21 +2,6 @@
 import React from 'react'
 import Image from 'next/image';
 
-const logos = [
-  { name: "Adobe", src: "/adobe.webp" },
-  { name: "Airtable", src: "/airtable.webp" },
-  { name: "Dropbox", src: "/dropbox.webp" },
-  { name: "GitLab", src: "/gitlab.webp" },
-  { name: "ClickUp", src: "/clickup.webp" },
-  { name: "Amazon", src: "/amazon1.webp" },
-  { name: "Google", src: "/google.webp" },
-  { name: "Microsoft", src: "/microsoft.webp" },
-  { name: "Slack", src: "/slack.webp" },
-  { name: "Spotify", src: "/spotify.webp" },
-  { name: "Zoom", src: "/zoom.avif" },
-];
-
-const doubleLogos = [...logos, ...logos];
 
 const steps = [
   {
@@ -45,20 +30,7 @@ const Work = () => {
   return (
     <section className="py-20 bg-white overflow-hidden">
       {/* --- MARQUEE SECTION (Unchanged as requested) --- */}
-      <div className="relative mb-24 flex overflow-hidden select-none">
-        <div className="flex items-center gap-12 md:gap-20 animate-scroll min-w-full">
-          {doubleLogos.map((logo, idx) => (
-            <div key={idx} className="relative w-28 h-10 md:w-36 md:h-12 shrink-0">
-              <Image 
-                src={logo.src} 
-                alt={logo.name} 
-                fill
-                className="object-contain" 
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+     
 
       {/* --- HOW IT WORKS CONTENT SECTION --- */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
