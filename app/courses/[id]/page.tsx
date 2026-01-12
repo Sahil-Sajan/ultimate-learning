@@ -294,10 +294,10 @@ export default function CourseDetailPage() {
                 </div>
 
                 <div className="flex gap-2 mb-4">
-                  <button className="flex-grow flex items-center justify-center gap-1 border border-slate-100 py-2 rounded text-[10px] font-bold text-slate-600">
+                  <button className="grow flex items-center justify-center gap-1 border border-slate-100 py-2 rounded text-[10px] font-bold text-slate-600">
                     <Heart size={12} /> Add to Wishlist
                   </button>
-                  <button className="flex-grow flex items-center justify-center gap-1 border border-slate-100 py-2 rounded text-[10px] font-bold text-slate-600">
+                  <button className="grow flex items-center justify-center gap-1 border border-slate-100 py-2 rounded text-[10px] font-bold text-slate-600">
                     <Share2 size={12} /> Share
                   </button>
                 </div>
