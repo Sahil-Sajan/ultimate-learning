@@ -1,5 +1,6 @@
 "use client";
 
+import Article from "@/components/Home/Articale";
 import CategoryGrid from "@/components/Home/CategoryGrid.";
 import Courses from "@/components/Home/Courses";
 import HomeCard from "@/components/Home/FeatureCards";
@@ -27,6 +28,7 @@ const page = () => {
       <InquirySection />
       <InstructorSection />
       <Testimonial />
+      <Article />
 
       {/* <Footer /> */}
     </>
