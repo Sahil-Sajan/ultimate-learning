@@ -24,8 +24,7 @@ export const courses: any[] = [
     status: "Special",
     rating: 4.8,
     reviews: 154,
-    image:
-      "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=400&q=80",
+    image: "blog1.webp",
   },
   {
     id: 2,
@@ -38,8 +37,7 @@ export const courses: any[] = [
     status: "Hot",
     rating: 4.5,
     reviews: 82,
-    image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&q=80",
+    image: "blog2.avif",
   },
   {
     id: 3,
@@ -52,8 +50,7 @@ export const courses: any[] = [
     status: "New",
     rating: 4.2,
     reviews: 210,
-    image:
-      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&q=80",
+    image: "blog3.webp",
   },
   {
     id: 4,
@@ -66,8 +63,7 @@ export const courses: any[] = [
     status: "Normal",
     rating: 3.8,
     reviews: 45,
-    image:
-      "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=400&q=80",
+    image: "blog4.webp",
   },
   {
     id: 5,
@@ -80,8 +76,7 @@ export const courses: any[] = [
     status: "Hot",
     rating: 4.9,
     reviews: 512,
-    image:
-      "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&q=80",
+    image: "blog5.webp",
   },
   {
     id: 6,
@@ -94,8 +89,7 @@ export const courses: any[] = [
     status: "Special",
     rating: 4.6,
     reviews: 98,
-    image:
-      "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&q=80",
+    image: "blog6.webp",
   },
   {
     id: 7,
@@ -108,8 +102,7 @@ export const courses: any[] = [
     status: "New",
     rating: 4.7,
     reviews: 320,
-    image:
-      "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=400&q=80",
+    image: "blog7.avif",
   },
   {
     id: 8,
@@ -122,8 +115,7 @@ export const courses: any[] = [
     status: "Hot",
     rating: 4.8,
     reviews: 415,
-    image:
-      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=400&q=80",
+    image: "blog8.webp",
   },
   {
     id: 9,
@@ -136,8 +128,7 @@ export const courses: any[] = [
     status: "Normal",
     rating: 4.4,
     reviews: 76,
-    image:
-      "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80",
+    image: "blog9.avif",
   },
 ];
 
@@ -147,8 +138,8 @@ export default function CourseCatalog() {
   return (
     <div className="min-h-screen bg-[#FDFCFD] pb-20">
       {/* 1. TOP BREADCRUMB SECTION */}
-      <div className="w-full bg-gradient-to-r from-pink-50 to-blue-50 py-16 text-center">
-        <h1 className="text-3xl font-bold text-[#1D2026] mb-2">Course Grid</h1>
+      <div className="w-full bg-linear-to-r from-pink-50 to-blue-50 py-10 md:py-16 text-center px-4">
+        <h1 className="text-2xl md:text-3xl font-bold text-[#1D2026] mb-2">Course Grid</h1>
         <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
           <Link href="/" className="hover:text-[#FF5B5C]">
             Home
@@ -158,21 +149,21 @@ export default function CourseCatalog() {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-6 mt-12">
+      <div className="max-w-350 mx-auto px-4 md:px-6 mt-8 md:mt-12">
         {/* 2. FILTER TOP BAR */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 w-full md:w-auto">
             <div className="flex items-center gap-2 text-[#6E7485] font-medium">
               <span className="bg-[#FF5B5C] text-white p-2 rounded-md">
                 <LayoutGrid size={18} />
               </span>
-              <span>Showing 1-9 of {courses.length} results</span>
+              <span className="text-sm md:text-base">Showing 1-9 of {courses.length} results</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <select className="appearance-none bg-white border border-gray-200 px-4 py-2.5 pr-10 rounded-lg text-sm text-[#1D2026] outline-none">
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+            <div className="relative w-full sm:w-auto">
+              <select className="w-full appearance-none bg-white border border-gray-200 px-4 py-2.5 pr-10 rounded-lg text-sm text-[#1D2026] outline-none">
                 <option>Newly Published</option>
               </select>
               <ChevronDown
@@ -180,11 +171,11 @@ export default function CourseCatalog() {
                 size={16}
               />
             </div>
-            <div className="relative">
+            <div className="relative w-full sm:w-auto">
               <input
                 type="text"
                 placeholder="Search"
-                className="border border-gray-200 px-4 py-2.5 rounded-lg text-sm outline-none w-64"
+                className="w-full md:w-64 border border-gray-200 px-4 py-2.5 rounded-lg text-sm outline-none"
               />
               <Search
                 className="absolute right-3 top-3 text-gray-400"
@@ -196,7 +187,7 @@ export default function CourseCatalog() {
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* 3. SIDEBAR FILTERS */}
-          <aside className="w-full lg:w-[300px] flex flex-col gap-6">
+          <aside className="w-full lg:w-75 flex flex-col gap-6 order-2 lg:order-1">
             <FilterBox title="Categories">
               {[
                 "Backend",
@@ -206,9 +197,10 @@ export default function CourseCatalog() {
                 "IT & Software",
                 "Photography",
                 "Programming Language",
-              ].map((cat) => (
+                "General",
+              ].map((cat, index) => (
                 <FilterCheckbox
-                  key={cat}
+                  key={`${cat}-${index}`}
                   label={cat}
                   checked={selectedCats.includes(cat)}
                   count={cat === "CSS" ? 2 : 3}
@@ -253,7 +245,7 @@ export default function CourseCatalog() {
           </aside>
 
           {/* 4. COURSE GRID */}
-          <main className="flex-1">
+          <main className="flex-1 order-1 lg:order-2">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {courses.map((course) => (
                 <div
@@ -263,7 +255,7 @@ export default function CourseCatalog() {
                   {/* Image Container with Link */}
                   <Link
                     href={`/courses/${course.id}`}
-                    className="relative h-[200px] block cursor-pointer"
+                    className="relative h-52 block cursor-pointer"
                   >
                     <img
                       src={course.image}
@@ -302,7 +294,7 @@ export default function CourseCatalog() {
 
                     {/* Title with Link */}
                     <Link href={`/courses/${course.id}`}>
-                      <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-[44px] cursor-pointer">
+                      <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-11 cursor-pointer">
                         {course.title}
                       </h3>
                     </Link>
@@ -344,7 +336,7 @@ export default function CourseCatalog() {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-center mt-12 gap-2">
+            <div className="flex justify-center flex-wrap mt-12 gap-2">
               <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FF5B5C] text-white font-bold">
                 1
               </button>
@@ -365,7 +357,7 @@ export default function CourseCatalog() {
   );
 }
 
-// Sidebar Helper Components
+// Sidebar Helper Components (Designs Unchanged)
 function FilterBox({
   title,
   children,

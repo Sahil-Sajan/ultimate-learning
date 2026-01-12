@@ -21,8 +21,8 @@ const CourseCategories = () => {
   return (
     <section className="w-full py-20 px-6 bg-white overflow-hidden relative">
       {/* Background Decorative Glows */}
-      <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-green-100/40 blur-[100px] -z-10" />
-      <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-purple-100/40 blur-[100px] -z-10" />
+      <div className="absolute top-0 left-0 w-75 h-75 bg-green-100/40 blur-[100px] -z-10" />
+      <div className="absolute top-0 right-0 w-75 h-75 bg-purple-100/40 blur-[100px] -z-10" />
 
       <div className="max-w-7xl mx-auto text-center">
         {/* Header Section */}

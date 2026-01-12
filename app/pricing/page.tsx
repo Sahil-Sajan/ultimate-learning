@@ -129,7 +129,7 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-r from-[#FFF0F0] to-[#E5F3FF] py-20 px-6 overflow-hidden">
+      <section className="bg-linear-to-r from-[#FFF0F0] to-[#E5F3FF] py-20 px-6 overflow-hidden">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <div className="inline-block bg-[#FF5364]/10 text-[#FF5364] px-4 py-1.5 rounded-full font-bold uppercase tracking-widest text-[10px]">
@@ -143,7 +143,7 @@ export default function PricingPage() {
               high-quality courses that cater to learners of all levels.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
-              <button className="bg-[#FF5364] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-pink-200 hover:translate-y-[-2px] transition-all">
+              <button className="bg-[#FF5364] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-pink-200 hover:-translate-y-0.5 transition-all">
                 Select a Plan
               </button>
               <button className="bg-[#1D1B26] text-white px-10 py-4 rounded-full font-bold hover:bg-black transition-all">
@@ -154,66 +154,73 @@ export default function PricingPage() {
 
           {/* IMAGE SECTION */}
           <div className="relative flex justify-center lg:justify-end">
-            <div className="relative z-10 w-full max-w-[500px]">
+            <div className="relative z-10 w-full max-w-125">
               <img
                 src="/pricing-hero.png"
                 alt="Pricing Preview"
                 className="w-full h-auto rounded-2xl drop-shadow-2xl"
               />
             </div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#4E3796]/5 rounded-full blur-3xl -z-0" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#4E3796]/5 rounded-full blur-3xl z-0" />
           </div>
         </div>
       </section>
 
       {/* PRICING GRID SECTION */}
-      <section className="bg-[#4E3796] py-24 px-6 relative">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 space-y-4">
-            <h2 className="text-white text-3xl font-bold">
-              Simple, Transparent Pricing
-            </h2>
-            <div className="flex items-center justify-center gap-4">
-              <span
-                className={`text-sm ${
-                  billingCycle === "monthly" ? "text-white" : "text-white/50"
-                }`}
-              >
-                Monthly
-              </span>
-              <button
-                onClick={() =>
-                  setBillingCycle(
-                    billingCycle === "monthly" ? "yearly" : "monthly"
-                  )
-                }
-                className="w-14 h-7 bg-white/20 rounded-full relative p-1 transition-colors"
-              >
-                <div
-                  className={`w-5 h-5 bg-[#FF5364] rounded-full transition-all ${
-                    billingCycle === "yearly"
-                      ? "translate-x-7"
-                      : "translate-x-0"
-                  }`}
-                />
-              </button>
-              <span
-                className={`text-sm ${
-                  billingCycle === "yearly" ? "text-white" : "text-white/50"
-                }`}
-              >
-                Yearly (Save 20%)
-              </span>
-            </div>
-          </div>
+      <section className="bg-[#4E3796] py-12 md:py-24 px-4 md:px-6 relative">
+  <div className="max-w-7xl mx-auto">
+    {/* Heading and Toggle Section */}
+    <div className="text-center mb-10 md:mb-16 space-y-6">
+      <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold">
+        Simple, Transparent Pricing
+      </h2>
+      
+      <div className="flex items-center justify-center gap-3 md:gap-4 flex-wrap">
+        <span
+          className={`text-sm md:text-base transition-colors ${
+            billingCycle === "monthly" ? "text-white font-medium" : "text-white/50"
+          }`}
+        >
+          Monthly
+        </span>
+        
+        <button
+          onClick={() =>
+            setBillingCycle(
+              billingCycle === "monthly" ? "yearly" : "monthly"
+            )
+          }
+          className="w-14 h-7 bg-white/20 rounded-full relative p-1 transition-colors hover:bg-white/30"
+          aria-label="Toggle billing cycle"
+        >
+          <div
+            className={`w-5 h-5 bg-[#FF5364] rounded-full transition-transform duration-300 ease-in-out ${
+              billingCycle === "yearly"
+                ? "translate-x-7"
+                : "translate-x-0"
+            }`}
+          />
+        </button>
+        
+        <span
+          className={`text-sm md:text-base transition-colors ${
+            billingCycle === "yearly" ? "text-white font-medium" : "text-white/50"
+          }`}
+        >
+          Yearly <span className="text-[#FF5364]">(Save 20%)</span>
+        </span>
+      </div>
+    </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {pricingPlans.map((plan, idx) => (
-              <PricingCard key={idx} plan={plan} cycle={billingCycle} />
-            ))}
-          </div>
-        </div>
-      </section>
+    {/* Pricing Cards Grid */}
+    {/* Grid scales from 1 column on mobile to 2 on tablets to 3 on desktop */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      {pricingPlans.map((plan, idx) => (
+        <PricingCard key={idx} plan={plan} cycle={billingCycle} />
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* FAQ SECTION */}
       <section className="py-24 px-6 bg-[#F8F9FB]">
@@ -347,7 +354,7 @@ function PricingCard({
         {plan.description}
       </p>
 
-      <div className="space-y-4 mb-10 flex-grow">
+      <div className="space-y-4 mb-10 grow">
         {plan.features.map((feature, i) => (
           <div key={i} className="flex items-center gap-3">
             <Check
