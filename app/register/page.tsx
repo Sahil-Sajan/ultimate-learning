@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Mail, Lock, User, Eye, EyeOff, Facebook } from 'lucide-react'
+import { Mail, Lock, User, Eye, EyeOff, Facebook, GraduationCap } from 'lucide-react'
 
 const RegisterPage = () => {
   // States to toggle visibility
@@ -45,9 +45,20 @@ const RegisterPage = () => {
       <div className="w-full md:w-1/2 flex flex-col p-8 md:p-16 lg:p-24 bg-white relative">
         
         <div className="flex justify-between items-center mb-12">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-[#ff4667] rounded-lg flex items-center justify-center text-white font-bold">UL</div>
-            <span className="text-xl font-bold text-[#0b1219]">Ultimate<span className="text-[#ff4667] text-xs align-top">Learning</span></span>
+          <div className="flex items-center gap-3">
+            {/* White Rounded Square with Red Graduation Cap */}
+            <div className="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center">
+              <GraduationCap className="w-7 h-7 text-[#ff4667]" strokeWidth={2.5} />
+            </div>
+            {/* Text styling to match "ULTIMATE LEARNING" */}
+            <div className="flex flex-col leading-none">
+              <span className="text-xl font-black text-[#0b1219] tracking-tight uppercase">
+                Ultimate
+              </span>
+              <span className="text-[12px] font-bold text-[#ff4667] tracking-[2px] uppercase mt-0.5">
+                Learning
+              </span>
+            </div>
           </div>
           <Link href="/" className="text-sm font-semibold text-[#ff4667] hover:underline">
             Back to Home
