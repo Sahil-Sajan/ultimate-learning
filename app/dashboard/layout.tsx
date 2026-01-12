@@ -65,19 +65,9 @@ export default function DashboardLayout({
       href: "/dashboard/order-history",
     },
     {
-      name: "Referrals",
-      icon: <Users size={18} />,
-      href: "/dashboard/referrals",
-    },
-    {
       name: "Messages",
       icon: <MessageSquare size={18} />,
       href: "/dashboard/messages",
-    },
-    {
-      name: "Support Tickets",
-      icon: <LifeBuoy size={18} />,
-      href: "/dashboard/support",
     },
   ];
 
@@ -100,7 +90,7 @@ export default function DashboardLayout({
         {/* 2. PERSISTENT SIDEBAR */}
         <aside className="lg:col-span-3">
           <div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-100 sticky top-6">
-            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6 px-4">
+            <h3 className="text-[20px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-4">
               Main Menu
             </h3>
             <nav className="space-y-1">
