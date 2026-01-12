@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   User,
@@ -11,9 +10,7 @@ import {
   Star,
   ClipboardList,
   ShoppingCart,
-  Users,
   MessageSquare,
-  LifeBuoy,
   Settings,
   LogOut,
   CheckCircle,
@@ -25,54 +22,66 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-
+  // Manual menu configuration - set 'active: true' for the current page
   const menuItems = [
     {
       name: "Dashboard",
       icon: <LayoutDashboard size={18} />,
       href: "/dashboard",
+      active: true, // Manually control active state
     },
     {
       name: "My Profile",
       icon: <User size={18} />,
       href: "/dashboard/profile",
+      active: false,
     },
     {
       name: "Enrolled Courses",
       icon: <BookOpen size={18} />,
       href: "/dashboard/enrolled-courses",
+      active: false,
     },
     {
       name: "My Certificates",
       icon: <Award size={18} />,
       href: "/dashboard/certificates",
+      active: false,
     },
     {
       name: "Wishlist",
       icon: <Heart size={18} />,
       href: "/dashboard/wishlist",
+      active: false,
     },
-    { name: "Reviews", icon: <Star size={18} />, href: "/dashboard/reviews" },
+    {
+      name: "Reviews",
+      icon: <Star size={18} />,
+      href: "/dashboard/reviews",
+      active: false,
+    },
     {
       name: "My Quiz Attempts",
       icon: <ClipboardList size={18} />,
       href: "/dashboard/quizzes",
+      active: false,
     },
     {
       name: "Order History",
       icon: <ShoppingCart size={18} />,
       href: "/dashboard/order-history",
+      active: false,
     },
     {
       name: "Messages",
       icon: <MessageSquare size={18} />,
       href: "/dashboard/messages",
+      active: false,
     },
   ];
 
-  const currentItem =
-    menuItems.find((item) => item.href === pathname) || menuItems[0];
+  // Find the item marked as active, or default to the first one
+  const currentItem = menuItems.find((item) => item.active) || menuItems[0];
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans">
@@ -90,18 +99,17 @@ export default function DashboardLayout({
         {/* 2. PERSISTENT SIDEBAR */}
         <aside className="lg:col-span-3">
           <div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-100 sticky top-6">
-            <h3 className="text-[20px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-4">
+            <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-4">
               Main Menu
             </h3>
             <nav className="space-y-1">
               {menuItems.map((item) => {
-                const isActive = pathname === item.href;
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
                     className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all ${
-                      isActive
+                      item.active
                         ? "bg-[#FF5364] text-white shadow-lg shadow-red-100"
                         : "text-slate-500 hover:bg-slate-50 hover:text-[#4E3796]"
                     }`}
@@ -123,7 +131,7 @@ export default function DashboardLayout({
               >
                 <Settings size={18} /> Settings
               </Link>
-              <button className="w-full flex items-center gap-3 px-5 py-3.5 text-slate-500 font-bold text-sm hover:text-red-500 transition-all">
+              <button className="w-full flex items-center gap-3 px-5 py-3.5 text-slate-500 font-bold text-sm hover:text-red-500 transition-all text-left">
                 <LogOut size={18} /> Logout
               </button>
             </div>
@@ -132,12 +140,11 @@ export default function DashboardLayout({
 
         {/* 3. MAIN CONTENT AREA */}
         <main className="lg:col-span-9 space-y-8">
-          {/* USER BANNER WITH DYNAMIC BACKGROUND IMAGE */}
+          {/* USER BANNER */}
           <div
-            className="relative  p-10 overflow-hidden flex flex-col md:flex-row items-center justify-between text-white shadow-2xl bg-cover bg-center min-h-[220px]"
-            style={{ backgroundImage: "url('/dashboard-ban.png')" }} // Use your image path here
+            className="relative p-10 overflow-hidden flex flex-col md:flex-row items-center justify-between text-white shadow-2xl bg-cover bg-center rounded-[32px] min-h-[220px]"
+            style={{ backgroundImage: "url('/dashboard-ban.png')" }}
           >
-            {/* Overlay to ensure text readability */}
             <div className="absolute inset-0 bg-black/20 z-0" />
 
             <div className="flex items-center gap-8 relative z-10">
@@ -154,20 +161,20 @@ export default function DashboardLayout({
                 </div>
               </div>
               <div>
-                <h2 className="text-3xl font-black -ml-4 flex items-center gap-3">
+                <h2 className="text-3xl font-black flex items-center gap-3">
                   Ronald Richard
                   <span className="text-sm bg-white/20 p-1.5 rounded-lg cursor-pointer hover:bg-white/40 transition-all">
                     <Pencil size={14} />
                   </span>
                 </h2>
-                <p className="text-white/80 font-bold -ml-4  tracking-widest uppercase text-xs mt-1">
+                <p className="text-white/80 font-bold tracking-widest uppercase text-xs mt-1">
                   Student
                 </p>
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-8 md:mt-0 relative z-10">
-              <button className="bg-white text-[#1E40AF] px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-tightshadow-xl hover:bg-slate-50 transition-colors">
+              <button className="bg-white text-[#1E40AF] px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-tight shadow-xl hover:bg-slate-50 transition-colors">
                 Become Instructor
               </button>
               <button className="bg-[#FF5364] text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-tight shadow-xl hover:bg-[#e04857] transition-colors">
