@@ -29,7 +29,7 @@ const RegisterPage = () => {
           />
         </div>
         <h2 className="text-3xl font-bold text-[#0b1219] mb-4">
-          Welcome to <br /> UltimateLearning Courses.
+          Welcome to <br /> Ultimate Learning Courses.
         </h2>
         <p className="text-gray-500 max-w-sm leading-relaxed">
           Platform designed to help organizations, educators, and learners manage, deliver, and track learning and training activities.

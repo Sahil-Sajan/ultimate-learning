@@ -20,8 +20,8 @@ const LoginPage = () => {
           />
         </div>
 
-        <h2 className="text-[28px] lg:text-[34px] font-bold text-[#0b1219] leading-tight mb-4">
-          Welcome to <br /> UltimateLearning Courses.
+        <h2 className="text-[28px] lg:text-[34px] font-bold text-black leading-tight mb-4">
+          Welcome to <br /> Ultimate Learning Courses.
         </h2>
         <p className="text-[#686f7c] text-[15px] lg:text-[16px] max-w-95 leading-relaxed mb-10">
           Platform designed to help organizations, educators, and learners
