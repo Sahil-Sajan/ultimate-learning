@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // 1. Import usePathname
 import {
   ChevronDown,
   ShoppingCart,
@@ -13,9 +14,10 @@ import {
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname(); // 2. Get current path
 
   const navLinks = [
-    { name: "Home", href: "/", hasDropdown: true, active: true },
+    { name: "Home", href: "/", hasDropdown: true },
     { name: "Courses", href: "/courses", hasDropdown: true },
     { name: "Instructors", href: "/instructors", hasDropdown: true },
     { name: "Pricing", href: "/pricing", hasDropdown: true },
@@ -25,7 +27,7 @@ const Navbar = () => {
   return (
     <header className="w-full bg-[#392C7D] text-white relative z-50">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
-        {/* LEFT: LOGO SECTION (Matches Footer Style) */}
+        {/* LEFT: LOGO SECTION */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative flex items-center justify-center bg-white rounded-lg w-10 h-10 shadow-sm transition-transform group-hover:scale-105">
             <svg
@@ -63,35 +65,41 @@ const Navbar = () => {
 
         {/* CENTER: NAVIGATION */}
         <nav className="hidden lg:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <div
-              key={link.name}
-              className="relative group flex items-center gap-1 cursor-pointer"
-            >
-              <Link
-                href={link.href}
-                className={`text-[15px] font-medium transition-colors duration-300 ${
-                  link.active
-                    ? "text-[#FF5B5C]"
-                    : "text-white/90 hover:text-[#FF5B5C]"
-                }`}
+          {navLinks.map((link) => {
+            // 3. Logic to check if link is active
+            const isActive = pathname === link.href;
+
+            return (
+              <div
+                key={link.name}
+                className="relative group flex items-center gap-1 cursor-pointer"
               >
-                {link.name}
-              </Link>
-              {link.hasDropdown && (
-                <ChevronDown
-                  size={14}
-                  className="opacity-40 group-hover:rotate-180 transition-transform duration-300 group-hover:text-[#FF5B5C]"
-                />
-              )}
-            </div>
-          ))}
+                <Link
+                  href={link.href}
+                  className={`text-[15px] font-medium transition-colors duration-300 ${
+                    isActive
+                      ? "text-[#FF5B5C]" // Active Color
+                      : "text-white/90 hover:text-[#FF5B5C]"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+                {link.hasDropdown && (
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#FF5B5C] ${
+                      isActive ? "text-[#FF5B5C] opacity-100" : "opacity-40"
+                    }`}
+                  />
+                )}
+              </div>
+            );
+          })}
         </nav>
 
         {/* RIGHT: ACTIONS & AUTH */}
         <div className="flex items-center gap-3">
           <div className="hidden md:flex items-center gap-3 mr-2">
-            {/* Country Icon */}
             <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full transition-all hover:bg-gray-100 shadow-sm overflow-hidden p-2">
               <img
                 src="https://flagcdn.com/w80/iq.png"
@@ -100,19 +108,16 @@ const Navbar = () => {
               />
             </button>
 
-            {/* Currency Toggle */}
             <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-[#392C7D] transition-all hover:bg-gray-100 shadow-sm">
               <div className="w-5 h-5 rounded-full border-[1.5px] border-[#392C7D] flex items-center justify-center">
                 <DollarSign size={11} strokeWidth={3} />
               </div>
             </button>
 
-            {/* Dark Mode Toggle */}
             <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-slate-700 transition-all hover:bg-gray-100 shadow-sm">
               <Moon size={18} fill="currentColor" className="text-slate-800" />
             </button>
 
-            {/* Shopping Cart */}
             <div className="relative group">
               <button className="w-10 h-10 flex items-center justify-center bg-white rounded-full text-slate-700 transition-all hover:bg-gray-100 shadow-sm">
                 <ShoppingCart size={18} />
@@ -123,10 +128,9 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Auth Section */}
           <div className="flex items-center gap-4">
             <Link
-              href="/signin"
+              href="/login"
               className="hidden sm:block text-[15px] font-medium text-white/90 hover:text-white transition-colors"
             >
               Sign In
@@ -137,7 +141,6 @@ const Navbar = () => {
               </button>
             </Link>
 
-            {/* Mobile Menu Toggle */}
             <button
               className="lg:hidden p-2 text-white"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -151,23 +154,31 @@ const Navbar = () => {
       {/* MOBILE MENU PANEL */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-[#2D2264] border-t border-white/10 px-6 py-6 flex flex-col gap-5 animate-in slide-in-from-top duration-300">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-base font-medium flex justify-between items-center text-white/90 hover:text-[#FF5B5C]"
-            >
-              {link.name}
-              {link.hasDropdown && (
-                <ChevronDown size={16} className="opacity-50" />
-              )}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`text-base font-medium flex justify-between items-center transition-colors ${
+                  isActive ? "text-[#FF5B5C]" : "text-white/90 hover:text-[#FF5B5C]"
+                }`}
+              >
+                {link.name}
+                {link.hasDropdown && (
+                  <ChevronDown
+                    size={16}
+                    className={isActive ? "text-[#FF5B5C] opacity-100" : "opacity-50"}
+                  />
+                )}
+              </Link>
+            );
+          })}
           <hr className="border-white/10" />
           <div className="flex flex-col gap-4">
             <Link
-              href="/signin"
+              href="/login"
               className="text-left font-medium text-white/90"
             >
               Sign In

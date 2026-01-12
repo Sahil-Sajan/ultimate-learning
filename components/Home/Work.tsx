@@ -45,20 +45,8 @@ const Work = () => {
   return (
     <section className="py-20 bg-white overflow-hidden">
       {/* --- MARQUEE SECTION (Unchanged as requested) --- */}
-      <div className="relative mb-24 flex overflow-hidden select-none">
-        <div className="flex items-center gap-12 md:gap-20 animate-scroll min-w-full">
-          {doubleLogos.map((logo, idx) => (
-            <div key={idx} className="relative w-28 h-10 md:w-36 md:h-12 shrink-0">
-              <Image 
-                src={logo.src} 
-                alt={logo.name} 
-                fill
-                className="object-contain" 
-              />
-            </div>
-          ))}
-        </div>
-      </div>
+     
+      
 
       {/* --- HOW IT WORKS CONTENT SECTION --- */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -66,7 +54,7 @@ const Work = () => {
         {/* Left Side: Image */}
         <div className="relative w-full h-full aspect-square md:aspect-4/3 lg:aspect-square rounded-[40px] overflow-hidden shadow-xl">
           <Image 
-            src="/learning.avif" 
+            src="/cg-2.avif" 
             alt="Student working on laptop"
             fill
             className="object-cover"

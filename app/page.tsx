@@ -14,6 +14,7 @@ import HomeMainCard from "@/components/Home/HomeMainCard";
 import InquirySection from "@/components/Home/InquirySection";
 import InstructorSection from "@/components/Home/Instructor";
 import Testimonial from "@/components/Home/Testimonials";
+import Work from "@/components/Home/Work";
 
 import Footer from "@/ui/Footer";
 
@@ -30,6 +31,7 @@ const page = () => {
       <Courses />
       <InquirySection />
       <InstructorSection />
+      <Work />
       <Testimonial />
       <Article />
 

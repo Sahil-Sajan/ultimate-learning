@@ -16,7 +16,7 @@ const CommunitySection: React.FC = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Left Column: Content */}
         <div className="space-y-8">
-          <div className="space-y-4">
+          <div className="space-y-4 ">
             {/* Heading forced to one line on desktop with whitespace-nowrap */}
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight lg:whitespace-nowrap">
               Creating a community of learners.
@@ -31,7 +31,7 @@ const CommunitySection: React.FC = () => {
           {/* Feature List */}
           <div className="space-y-8">
             <div className="flex gap-5">
-              <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+              <div className="shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
                 <BookOpen className="w-6 h-6 text-purple-600" />
               </div>
               <div>
@@ -46,7 +46,7 @@ const CommunitySection: React.FC = () => {
             </div>
 
             <div className="flex gap-5">
-              <div className="flex-shrink-0 w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
+              <div className="shrink-0 w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
                 <Award className="w-6 h-6 text-pink-500" />
               </div>
               <div>
@@ -61,7 +61,7 @@ const CommunitySection: React.FC = () => {
             </div>
 
             <div className="flex gap-5">
-              <div className="flex-shrink-0 w-12 h-12 bg-cyan-100 rounded-full flex items-center justify-center">
+              <div className="shrink-0 w-12 h-12 bg-cyan-100 rounded-full flex items-center justify-center">
                 <Zap className="w-6 h-6 text-cyan-500" />
               </div>
               <div>
@@ -88,9 +88,9 @@ const CommunitySection: React.FC = () => {
         </div>
 
         {/* Right Column: Image Composition */}
-        <div className="relative h-[500px] md:h-[600px] w-full">
+        <div className="relative h-125 md:h-150 w-full">
           {/* Main Large Image */}
-          <div className="absolute top-0 right-0 w-[85%] h-[90%] rounded-[40px] overflow-hidden shadow-2xl z-10 border-4 border-white">
+          <div className="absolute top-0 right-0 w-[65%] h-[90%] rounded-[40px] overflow-hidden shadow-2xl z-10 border-4 border-white">
             <Image
               src="/cg-1.webp"
               alt="Student writing"
@@ -101,7 +101,7 @@ const CommunitySection: React.FC = () => {
           </div>
 
           {/* Smaller Overlapping Image */}
-          <div className="absolute bottom-0 right-10 w-[50%] h-[55%] bg-blue-600 rounded-[30px] overflow-hidden shadow-2xl z-30 border-[10px] border-white">
+          <div className="absolute bottom-0 right-10 w-[50%] h-[55%] bg-blue-600 rounded-[30px] overflow-hidden shadow-2xl z-30 border-10 border-white">
             <Image
               src="/homecard2.png"
               alt="Student with backpack"
@@ -111,7 +111,7 @@ const CommunitySection: React.FC = () => {
           </div>
 
           {/* Floating Enrolled Badge */}
-          <div className="absolute top-12 right-0 lg:-right-6 bg-white p-4 rounded-3xl shadow-2xl z-40 flex flex-col items-center gap-2 border border-gray-50 min-w-[180px]">
+          <div className="absolute top-12 right-0 lg:-right-6 bg-white p-4 rounded-3xl shadow-2xl z-40 flex flex-col items-center gap-2 border border-gray-50 min-w-45">
             <div className="flex -space-x-3">
               {avatars.map((url, i) => (
                 <div
