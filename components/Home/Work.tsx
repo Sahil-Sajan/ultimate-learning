@@ -2,21 +2,6 @@
 import React from 'react'
 import Image from 'next/image';
 
-const logos = [
-  { name: "Adobe", src: "/adobe.webp" },
-  { name: "Airtable", src: "/airtable.webp" },
-  { name: "Dropbox", src: "/dropbox.webp" },
-  { name: "GitLab", src: "/gitlab.webp" },
-  { name: "ClickUp", src: "/clickup.webp" },
-  { name: "Amazon", src: "/amazon1.webp" },
-  { name: "Google", src: "/google.webp" },
-  { name: "Microsoft", src: "/microsoft.webp" },
-  { name: "Slack", src: "/slack.webp" },
-  { name: "Spotify", src: "/spotify.webp" },
-  { name: "Zoom", src: "/zoom.avif" },
-];
-
-const doubleLogos = [...logos, ...logos];
 
 const steps = [
   {
@@ -44,7 +29,7 @@ const steps = [
 const Work = () => {
   return (
     <section className="py-20 bg-white overflow-hidden">
-      {/* --- MARQUEE SECTION (Unchanged as requested) --- */}
+      
      
       
 
