@@ -36,11 +36,13 @@ const Work = () => {
         <div className="relative w-full h-full aspect-square md:aspect-4/3 lg:aspect-square rounded-[40px] overflow-hidden shadow-xl">
 
           <Image 
-            src="/cg-2.avif" 
-
-          <Image
-            src="/cg-2.avif"
-          />
+    src="/cg-2.avif" 
+    alt="Work illustration" // Always include an alt for accessibility
+    fill                   // This fixes the missing width/height error
+    className="object-cover" // Ensures the image fills the area without stretching
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Helps Next.js optimize loading
+    priority               // Optional: adds performance boost if this is "above the fold"
+  />
         </div>
         {/* Right Side: Content */}
         <div className="flex flex-col">
