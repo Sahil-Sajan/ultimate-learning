@@ -10,11 +10,22 @@ const LoginPage = () => {
   const router = useRouter(); 
 
   // 3. Handle Login Logic
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevents page reload
-    // This will only run if the 'required' inputs are filled
-    router.push('/dashboard'); 
-  };
+ const handleLogin = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const isSignedUp = localStorage.getItem("isSignedUp");
+
+  if (!isSignedUp) {
+    alert("Please signup first");
+    return;
+  }
+
+  // login success
+  localStorage.setItem("isLoggedIn", "true");
+
+  router.push("/");
+};
+
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen font-sans bg-white">

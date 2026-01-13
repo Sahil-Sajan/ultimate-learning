@@ -11,10 +11,13 @@ const RegisterPage = () => {
   const router = useRouter(); // 2. Initialize router
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Logic only runs if HTML5 validation (required) passes
-    router.push("/login"); // 3. Use router.push instead of window.location
-  };
+  e.preventDefault();
+
+  // save signup flag
+  localStorage.setItem("isSignedUp", "true");
+
+  router.push("/login");
+};
 
   return (
     <div className="min-h-screen bg-white flex flex-col md:flex-row font-sans">
