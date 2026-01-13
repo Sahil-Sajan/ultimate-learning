@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   User,
@@ -11,9 +10,7 @@ import {
   Star,
   ClipboardList,
   ShoppingCart,
-  Users,
   MessageSquare,
-  LifeBuoy,
   Settings,
   LogOut,
   CheckCircle,
@@ -59,7 +56,6 @@ export default function DashboardLayout({
       icon: <Star size={18} />,
       href: "/dashboard/reviews",
     },
-    { name: "Reviews", icon: <Star size={18} />, href: "/dashboard/reviews" },
     {
       name: "My Quiz Attempts",
       icon: <ClipboardList size={18} />,
@@ -91,7 +87,7 @@ export default function DashboardLayout({
         {/* 2. PERSISTENT SIDEBAR */}
         <aside className="lg:col-span-3">
           <div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-100 sticky top-6">
-            <h3 className="text-[20px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-4">
+            <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-4">
               Main Menu
             </h3>
             <nav className="space-y-1">
@@ -101,13 +97,15 @@ export default function DashboardLayout({
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all ${
+                    onClick={() => setActiveTab(item.name)}
+                    className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 ${
                       isActive
-                        ? "bg-[#FF5364] text-white shadow-lg shadow-red-100"
+                        ? "bg-[#FF5364] text-white shadow-lg shadow-pink-100"
                         : "text-slate-500 hover:bg-pink-50 hover:text-[#FF5364]"
                     }`}
                   >
                     {item.icon}
+                    {item.name}
                   </Link>
                 );
               })}
@@ -128,7 +126,7 @@ export default function DashboardLayout({
               >
                 <Settings size={18} /> Settings
               </Link>
-              <button className="w-full flex items-center gap-3 px-5 py-3.5 text-slate-500 font-bold text-sm hover:text-red-500 transition-all">
+              <button className="w-full flex items-center gap-3 px-5 py-3.5 text-slate-500 font-bold text-sm hover:text-red-500 transition-all text-left">
                 <LogOut size={18} /> Logout
               </button>
             </div>
@@ -137,12 +135,11 @@ export default function DashboardLayout({
 
         {/* 3. MAIN CONTENT AREA */}
         <main className="lg:col-span-9 space-y-8">
-          {/* USER BANNER WITH DYNAMIC BACKGROUND IMAGE */}
+          {/* USER BANNER */}
           <div
-            className="relative  p-10 overflow-hidden flex flex-col md:flex-row items-center justify-between text-white shadow-2xl bg-cover bg-center min-h-[220px]"
-            style={{ backgroundImage: "url('/dashboard-ban.png')" }} // Use your image path here
+            className="relative p-10 overflow-hidden flex flex-col md:flex-row items-center justify-between text-white shadow-2xl bg-cover bg-center rounded-[32px] min-h-[220px]"
+            style={{ backgroundImage: "url('/dashboard-ban.png')" }}
           >
-            {/* Overlay to ensure text readability */}
             <div className="absolute inset-0 bg-black/20 z-0" />
 
             <div className="flex items-center gap-8 relative z-10">
@@ -159,13 +156,13 @@ export default function DashboardLayout({
                 </div>
               </div>
               <div>
-                <h2 className="text-3xl font-black -ml-4 flex items-center gap-3">
+                <h2 className="text-3xl font-black flex items-center gap-3">
                   Ronald Richard
                   <span className="text-sm bg-white/20 p-1.5 rounded-lg cursor-pointer hover:bg-white/40 transition-all">
                     <Pencil size={14} />
                   </span>
                 </h2>
-                <p className="text-white/80 font-bold -ml-4  tracking-widest uppercase text-xs mt-1">
+                <p className="text-white/80 font-bold tracking-widest uppercase text-xs mt-1">
                   Student
                 </p>
               </div>
