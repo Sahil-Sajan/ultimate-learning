@@ -1,73 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import {
-  ChevronDown,
-  ShoppingCart,
-  Moon,
-  DollarSign,
-  Menu,
-  X,
-  CircleUserRound,
-  User,
-   Award,
-  LogOut
-} from "lucide-react";
+import { ShoppingCart, Moon, DollarSign, Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showUserMenu, setShowUserMenu] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  // Manual state to track which link is currently active
+  const [activeTab, setActiveTab] = useState("");
 
-
-
+  // Set default active tab to Home on mount
+  useEffect(() => {
+    setActiveTab("Home");
+  }, []);
 
   const navLinks = [
-    { name: "Home", href: "/", hasDropdown: true, active: false },
-    { name: "Courses", href: "/courses", hasDropdown: true, active: false },
-    {
-      name: "Instructors",
-      href: "/instructors",
-      hasDropdown: true,
-      active: false,
-    },
-    { name: "Pricing", href: "/pricing", hasDropdown: true, active: false },
-    { name: "Blogs", href: "/blog", hasDropdown: true, active: false },
+    { name: "Home", href: "/" },
+    { name: "Courses", href: "/courses" },
+    { name: "Instructors", href: "/instructors" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "Blogs", href: "/blog" },
   ];
-
-  React.useEffect(() => {
-  setMounted(true);
-
-  const loggedIn = localStorage.getItem("isLoggedIn");
-  setIsLoggedIn(!!loggedIn);
-
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  setCartCount(cart.length);
-}, []);
-
-React.useEffect(() => {
-  const updateCart = () => {
-    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    setCartCount(cart.length);
-  };
-
-  window.addEventListener("cartUpdated", updateCart);
-  return () => window.removeEventListener("cartUpdated", updateCart);
-}, []);
-
-
-
-const handleLogout = () => {
-  localStorage.removeItem("isLoggedIn");
-  setIsLoggedIn(false);
-  setShowUserMenu(false);
-};
-
-
-if (!mounted) return null;
 
   return (
     <header className="w-full bg-[#392C7D] text-white relative z-50">
@@ -75,6 +28,7 @@ if (!mounted) return null;
         {/* LEFT: LOGO SECTION */}
         <Link
           href="/"
+          onClick={() => setActiveTab("Home")}
           className="flex items-center gap-2 sm:gap-3 group shrink-0"
         >
           <div className="relative flex items-center justify-center bg-white rounded-lg w-9 h-9 sm:w-10 sm:h-10 shadow-sm transition-transform group-hover:scale-105">
@@ -115,29 +69,23 @@ if (!mounted) return null;
         {/* CENTER: NAVIGATION (Desktop Only) */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navLinks.map((link) => {
+            const isActive = activeTab === link.name;
             return (
               <div
                 key={link.name}
                 className="relative group flex items-center gap-1 cursor-pointer"
+                onClick={() => setActiveTab(link.name)}
               >
                 <Link
                   href={link.href}
-                  className={`text-[15px] font-medium transition-colors duration-300 ${
-                    link.active
+                  className={`text-[20px] font-semibold transition-colors duration-300 ${
+                    isActive
                       ? "text-[#FF5B5C]"
                       : "text-white/90 hover:text-[#FF5B5C]"
                   }`}
                 >
                   {link.name}
                 </Link>
-                {link.hasDropdown && (
-                  <ChevronDown
-                    size={14}
-                    className={`transition-transform duration-300 group-hover:rotate-180 group-hover:text-[#FF5B5C] ${
-                      link.active ? "text-[#FF5B5C] opacity-100" : "opacity-40"
-                    }`}
-                  />
-                )}
               </div>
             );
           })}
@@ -145,7 +93,6 @@ if (!mounted) return null;
 
         {/* RIGHT: ACTIONS & AUTH */}
         <div className="flex items-center gap-2 sm:gap-3">
-          {/* Action Icons */}
           <div className="hidden md:flex items-center gap-2 mr-1">
             <button className="w-9 h-9 flex items-center justify-center bg-white rounded-full transition-all hover:bg-gray-100 shadow-sm overflow-hidden p-1.5">
               <img
@@ -169,93 +116,33 @@ if (!mounted) return null;
               <button className="w-9 h-9 flex items-center justify-center bg-white rounded-full text-slate-700 transition-all hover:bg-gray-100 shadow-sm">
                 <ShoppingCart size={16} />
               </button>
-              {cartCount > 0 && (
-  <span className="absolute -top-1 -right-1 bg-[#1AB69D] text-white text-[9px] font-bold w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-[#392C7D]">
-    {cartCount}
-  </span>
-)}
-
+              <span className="absolute -top-1 -right-1 bg-[#1AB69D] text-white text-[9px] font-bold w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-[#392C7D]">
+                1
+              </span>
             </div>
           </div>
 
-        <div className="flex items-center gap-2 sm:gap-4 relative">
-  {!isLoggedIn ? (
-    <>
-      <Link
-        href="/login"
-        className="hidden sm:block text-[14px] sm:text-[15px] font-medium text-white/90 hover:text-white transition-colors"
-      >
-        Sign In
-      </Link>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Link
+              href="/login"
+              className="hidden sm:block text-[14px] sm:text-[15px] font-medium text-white/90 hover:text-white transition-colors"
+            >
+              Sign In
+            </Link>
+            <Link href="/register">
+              <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white px-5 sm:px-8 py-2 sm:py-2.5 rounded-full text-[14px] sm:text-[15px] font-medium transition-all shadow-md active:scale-95">
+                Register
+              </button>
+            </Link>
 
-      <Link href="/register">
-        <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white px-5 sm:px-8 py-2 sm:py-2.5 rounded-full text-[14px] sm:text-[15px] font-medium transition-all shadow-md active:scale-95">
-          Register
-        </button>
-      </Link>
-    </>
-  ) : (
-    <div className="relative">
-      {/* USER ICON */}
-      <button
-        onClick={() => setShowUserMenu(!showUserMenu)}
-        className="w-9 h-9 flex items-center justify-center bg-white rounded-full text-black shadow-sm"
-      >
-        < CircleUserRound size={18} />
-      </button>
-
-      {/* DROPDOWN */}
-      {showUserMenu && (
-        <div className="absolute right-0 mt-3 w-40 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50">
-          <Link
-            href="/dashboard/profile"
-            onClick={() => setShowUserMenu(false)}
-            className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
-          >
-            <User size={14} />
-            Profile
-          </Link>
-
-          <Link
-            href="/dashboard"
-            onClick={() => setShowUserMenu(false)}
-            className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
-          >
-            <User size={14} />
-            Dashboard
-          </Link>
-
-           <Link
-            href="/dashboard/certificates"
-            onClick={() => setShowUserMenu(false)}
-            className="flex items-center gap-2 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
-          >
-            <Award size={14} />
-            Certificates
-          </Link>
-
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-2 px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition"
-          >
-            <LogOut size={14} />
-            Logout
-          </button>
-        </div>
-      )}
-    </div>
-  )}
-
-  {/* MOBILE MENU BUTTON (AS IT IS) */}
-  <button
-    className="lg:hidden p-1.5 text-white transition-colors hover:bg-white/10 rounded-md"
-    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-  >
-    {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-  </button>
-</div>
-
-
+            <button
+              className="lg:hidden p-1.5 text-white transition-colors hover:bg-white/10 rounded-md"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle Menu"
+            >
+              {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -264,21 +151,22 @@ if (!mounted) return null;
         <div className="lg:hidden absolute top-full left-0 w-full bg-[#2D2264] border-t border-white/10 px-6 py-8 flex flex-col gap-6 shadow-xl animate-in fade-in slide-in-from-top-4 duration-300">
           <div className="flex flex-col gap-5">
             {navLinks.map((link) => {
+              const isActive = activeTab === link.name;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`text-lg font-medium flex justify-between items-center transition-colors ${
-                    link.active
+                  onClick={() => {
+                    setActiveTab(link.name);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`text-xl font-bold flex justify-between items-center transition-colors ${
+                    isActive
                       ? "text-[#FF5B5C]"
                       : "text-white/90 hover:text-[#FF5B5C]"
                   }`}
                 >
                   {link.name}
-                  {link.hasDropdown && (
-                    <ChevronDown size={18} className="opacity-50" />
-                  )}
                 </Link>
               );
             })}

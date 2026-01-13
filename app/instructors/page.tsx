@@ -34,12 +34,66 @@ interface Instructor {
 }
 
 const instructors: Instructor[] = [
-  { id: 1, name: "Rolands Granger", role: "Developer", rating: 4.9, reviews: 200, lessons: 12, hours: "169hr 20min", image: "instructor1.webp" },
-  { id: 2, name: "Lisa Lopez", role: "Finance", rating: 4.4, reviews: 130, lessons: 22, hours: "15hr 06min", image: "instructor2.webp" },
-  { id: 3, name: "Charles Ruiz", role: "Cloud Engineer", rating: 4.5, reviews: 120, lessons: 16, hours: "2hr 25min", image: "instructor3.webp" },
-  { id: 4, name: "Rogerina Grogan", role: "Vocational", rating: 4.6, reviews: 180, lessons: 6, hours: "19hr 30min", image: "instructor4.webp" },
-  { id: 5, name: "Ivana Tow", role: "Corporate Trainer", rating: 4.2, reviews: 210, lessons: 25, hours: "4hr 20min", image: "instructor5.webp" },
-  { id: 6, name: "Kevin Leonard", role: "Developer", rating: 4.5, reviews: 140, lessons: 11, hours: "7hr 10min", image: "instructor6.webp" },
+  {
+    id: 1,
+    name: "Rolands Granger",
+    role: "Developer",
+    rating: 4.9,
+    reviews: 200,
+    lessons: 12,
+    hours: "169hr 20min",
+    image: "instructor1.webp",
+  },
+  {
+    id: 2,
+    name: "Lisa Lopez",
+    role: "Finance",
+    rating: 4.4,
+    reviews: 130,
+    lessons: 22,
+    hours: "15hr 06min",
+    image: "instructor2.webp",
+  },
+  {
+    id: 3,
+    name: "Charles Ruiz",
+    role: "Cloud Engineer",
+    rating: 4.5,
+    reviews: 120,
+    lessons: 16,
+    hours: "2hr 25min",
+    image: "instructor3.webp",
+  },
+  {
+    id: 4,
+    name: "Rogerina Grogan",
+    role: "Vocational",
+    rating: 4.6,
+    reviews: 180,
+    lessons: 6,
+    hours: "19hr 30min",
+    image: "instructor4.webp",
+  },
+  {
+    id: 5,
+    name: "Ivana Tow",
+    role: "Corporate Trainer",
+    rating: 4.2,
+    reviews: 210,
+    lessons: 25,
+    hours: "4hr 20min",
+    image: "instructor5.webp",
+  },
+  {
+    id: 6,
+    name: "Kevin Leonard",
+    role: "Developer",
+    rating: 4.5,
+    reviews: 140,
+    lessons: 11,
+    hours: "7hr 10min",
+    image: "instructor6.webp",
+  },
 ];
 
 /* ---------------- PAGE COMPONENT ---------------- */
@@ -64,9 +118,8 @@ export default function InstructorGridPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 mt-8 md:mt-12">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 mt-8 md:-mt-6">
         <div className="grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-8">
-          
           {/* Sidebar Filters */}
           <aside className="space-y-6 order-2 lg:order-1">
             <div className="flex items-center justify-between pb-4 border-b border-slate-100">
@@ -80,15 +133,28 @@ export default function InstructorGridPage() {
 
             <div className="space-y-4">
               <CustomAccordion title="Categories">
-                {["Backend", "CSS", "Frontend", "General", "IT & Software"].map((item) => (
-                  <CustomCheckbox key={item} label={item} count={Math.floor(Math.random() * 5) + 1} />
-                ))}
-                <button className="text-[#FF5364] text-xs font-bold pt-2 block">See More</button>
+                {["Backend", "CSS", "Frontend", "General", "IT & Software"].map(
+                  (item) => (
+                    <CustomCheckbox
+                      key={item}
+                      label={item}
+                      count={Math.floor(Math.random() * 5) + 1}
+                    />
+                  )
+                )}
+                <button className="text-[#FF5364] text-xs font-bold pt-2 block">
+                  See More
+                </button>
               </CustomAccordion>
 
               <CustomAccordion title="Instructors">
                 {["Nicole Brown", "Hinata Hyuga", "John Doe"].map((item) => (
-                  <CustomCheckbox key={item} label={item} count={10} initialChecked={item === "Nicole Brown"} />
+                  <CustomCheckbox
+                    key={item}
+                    label={item}
+                    count={10}
+                    initialChecked={item === "Nicole Brown"}
+                  />
                 ))}
               </CustomAccordion>
 
@@ -104,15 +170,23 @@ export default function InstructorGridPage() {
                   />
                   <div className="flex justify-between mt-3 text-xs text-slate-400">
                     <span>$0</span>
-                    <span className="font-bold text-slate-900">${price.toLocaleString()}</span>
+                    <span className="font-bold text-slate-900">
+                      ${price.toLocaleString()}
+                    </span>
                   </div>
                 </div>
               </CustomAccordion>
 
               <CustomAccordion title="Level">
-                {["Beginner", "Intermediate", "Advanced", "Expert"].map((item) => (
-                  <CustomCheckbox key={item} label={item} count={Math.floor(Math.random() * 20)} />
-                ))}
+                {["Beginner", "Intermediate", "Advanced", "Expert"].map(
+                  (item) => (
+                    <CustomCheckbox
+                      key={item}
+                      label={item}
+                      count={Math.floor(Math.random() * 20)}
+                    />
+                  )
+                )}
               </CustomAccordion>
             </div>
           </aside>
@@ -121,20 +195,31 @@ export default function InstructorGridPage() {
           <main className="order-1 lg:order-2">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
               <span className="text-sm text-slate-500">
-                Showing <span className="text-slate-900 font-semibold">1-9 of 50 results</span>
+                Showing{" "}
+                <span className="text-slate-900 font-semibold">
+                  1-9 of 50 results
+                </span>
               </span>
 
               <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
                 <div className="flex bg-white rounded-md border border-slate-200 p-1">
                   <button
                     onClick={() => setView("grid")}
-                    className={`p-1.5 rounded ${view === "grid" ? "bg-[#FF5364] text-white" : "text-slate-400"}`}
+                    className={`p-1.5 rounded ${
+                      view === "grid"
+                        ? "bg-[#FF5364] text-white"
+                        : "text-slate-400"
+                    }`}
                   >
                     <LayoutGrid size={18} />
                   </button>
                   <button
                     onClick={() => setView("list")}
-                    className={`p-1.5 rounded ${view === "list" ? "bg-[#FF5364] text-white" : "text-slate-400"}`}
+                    className={`p-1.5 rounded ${
+                      view === "list"
+                        ? "bg-[#FF5364] text-white"
+                        : "text-slate-400"
+                    }`}
                   >
                     <List size={18} />
                   </button>
@@ -151,12 +236,21 @@ export default function InstructorGridPage() {
                     placeholder="Search"
                     className="h-9 w-full sm:w-48 text-xs pl-9 pr-4 bg-white border border-slate-200 rounded-md outline-none focus:border-[#FF5364]"
                   />
-                  <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <Search
+                    size={14}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
                 </div>
               </div>
             </div>
 
-            <div className={`grid gap-6 ${view === "grid" ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1"}`}>
+            <div
+              className={`grid gap-6 ${
+                view === "grid"
+                  ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+                  : "grid-cols-1"
+              }`}
+            >
               <AnimatePresence mode="popLayout">
                 {instructors.map((ins) => (
                   <InstructorCard key={ins.id} instructor={ins} view={view} />
@@ -169,9 +263,15 @@ export default function InstructorGridPage() {
               <button className="w-8 h-8 flex items-center justify-center rounded-full border border-slate-100 text-slate-400 hover:bg-slate-50">
                 <ChevronLeft size={16} />
               </button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-full bg-[#FF5364] text-white text-xs font-bold">1</button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 text-xs font-bold hover:bg-slate-50">2</button>
-              <button className="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 text-xs font-bold hover:bg-slate-50">3</button>
+              <button className="w-8 h-8 flex items-center justify-center rounded-full bg-[#FF5364] text-white text-xs font-bold">
+                1
+              </button>
+              <button className="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 text-xs font-bold hover:bg-slate-50">
+                2
+              </button>
+              <button className="w-8 h-8 flex items-center justify-center rounded-full text-slate-400 text-xs font-bold hover:bg-slate-50">
+                3
+              </button>
               <button className="w-8 h-8 flex items-center justify-center rounded-full border border-slate-100 text-slate-400 hover:bg-slate-50">
                 <ChevronRight size={16} />
               </button>
@@ -185,7 +285,13 @@ export default function InstructorGridPage() {
 
 /* ---------------- UI COMPONENTS ---------------- */
 
-function CustomAccordion({ title, children }: { title: string; children: React.ReactNode }) {
+function CustomAccordion({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <div className="border-b border-slate-100 pb-4">
@@ -194,67 +300,124 @@ function CustomAccordion({ title, children }: { title: string; children: React.R
         className="w-full flex items-center justify-between py-2 text-sm font-bold text-slate-800"
       >
         {title}
-        <ChevronDown size={16} className={`text-slate-400 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+        <ChevronDown
+          size={16}
+          className={`text-slate-400 transition-transform ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
       </button>
       {isOpen && <div className="pt-3 space-y-2.5">{children}</div>}
     </div>
   );
 }
 
-function CustomCheckbox({ label, count, initialChecked = false }: { label: string; count: number; initialChecked?: boolean }) {
+function CustomCheckbox({
+  label,
+  count,
+  initialChecked = false,
+}: {
+  label: string;
+  count: number;
+  initialChecked?: boolean;
+}) {
   const [checked, setChecked] = useState(initialChecked);
   return (
-    <div className="flex items-center justify-between cursor-pointer group" onClick={() => setChecked(!checked)}>
+    <div
+      className="flex items-center justify-between cursor-pointer group"
+      onClick={() => setChecked(!checked)}
+    >
       <div className="flex items-center gap-2.5">
-        <div className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${checked ? "bg-[#FF5364] border-[#FF5364]" : "border-slate-200"}`}>
-          {checked && <Check size={10} className="text-white" strokeWidth={4} />}
+        <div
+          className={`w-4 h-4 rounded border flex items-center justify-center transition-all ${
+            checked ? "bg-[#FF5364] border-[#FF5364]" : "border-slate-200"
+          }`}
+        >
+          {checked && (
+            <Check size={10} className="text-white" strokeWidth={4} />
+          )}
         </div>
-        <span className={`text-xs font-medium ${checked ? "text-slate-900" : "text-slate-500"}`}>{label}</span>
+        <span
+          className={`text-xs font-medium ${
+            checked ? "text-slate-900" : "text-slate-500"
+          }`}
+        >
+          {label}
+        </span>
       </div>
       <span className="text-[10px] text-slate-300">({count})</span>
     </div>
   );
 }
 
-function InstructorCard({ instructor, view }: { instructor: Instructor; view: ViewType }) {
+function InstructorCard({
+  instructor,
+  view,
+}: {
+  instructor: Instructor;
+  view: ViewType;
+}) {
   return (
     <motion.div
       layout
       className={`group bg-white rounded-lg border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow ${
-        view === "list" ? "flex flex-col sm:flex-row p-4 gap-6" : "flex flex-col"
+        view === "list"
+          ? "flex flex-col sm:flex-row p-4 gap-6"
+          : "flex flex-col"
       }`}
     >
-      <div className={`relative ${view === "list" ? "w-full sm:w-48 h-48 sm:h-40" : "aspect-4/3"} overflow-hidden shrink-0`}>
+      <div
+        className={`relative ${
+          view === "list" ? "w-full sm:w-48 h-48 sm:h-40" : "aspect-4/3"
+        } overflow-hidden shrink-0`}
+      >
         <img
           src={instructor.image}
           alt={instructor.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <button className="absolute top-3 left-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur shadow-sm flex items-center justify-center">
-          <Heart size={14} className={instructor.favorite ? "text-[#FF5364] fill-[#FF5364]" : "text-slate-300"} />
+          <Heart
+            size={14}
+            className={
+              instructor.favorite
+                ? "text-[#FF5364] fill-[#FF5364]"
+                : "text-slate-300"
+            }
+          />
         </button>
       </div>
 
       <div className="p-5 flex flex-col grow">
         <div className="flex items-center gap-1 mb-2">
           <Star size={12} className="text-[#FFB800] fill-[#FFB800]" />
-          <span className="text-xs font-bold text-slate-900">{instructor.rating}</span>
-          <span className="text-[10px] text-slate-400">({instructor.reviews} Reviews)</span>
+          <span className="text-xs font-bold text-slate-900">
+            {instructor.rating}
+          </span>
+          <span className="text-[10px] text-slate-400">
+            ({instructor.reviews} Reviews)
+          </span>
         </div>
 
         <h3 className="text-lg font-bold text-slate-900 group-hover:text-[#FF5364] transition-colors mb-0.5">
           {instructor.name}
         </h3>
-        <p className="text-xs text-slate-400 font-medium mb-4">{instructor.role}</p>
+        <p className="text-xs text-slate-400 font-medium mb-4">
+          {instructor.role}
+        </p>
 
         <div className="mt-auto flex items-center justify-between border-t border-slate-50 pt-4">
           <div className="flex items-center gap-1.5">
             <BookOpen size={14} className="text-[#FF5364]" />
-            <span className="text-[10px] font-bold text-slate-500 uppercase">{instructor.lessons}+ Lesson</span>
+            <span className="text-[10px] font-bold text-slate-500 uppercase">
+              {instructor.lessons}+ Lesson
+            </span>
           </div>
           <div className="flex items-center gap-1.5">
             <Clock size={14} className="text-[#6440FB]" />
-            <span className="text-[10px] font-bold text-slate-500 uppercase">{instructor.hours}</span>
+            <span className="text-[10px] font-bold text-slate-500 uppercase">
+              {instructor.hours}
+            </span>
           </div>
         </div>
       </div>
