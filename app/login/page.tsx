@@ -2,17 +2,34 @@
 import React, { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, Facebook } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
+  // State to track password input
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Redirection logic based on password value
+    if (password === "student") {
+      router.push("/dashboard/student");
+    } else if (password === "teacher") {
+      router.push("/dashboard/teacher");
+    } else {
+      // Optional: default redirect if password doesn't match specific roles
+      router.push("/dashboard");
+    }
+  };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen font-sans bg-white">
       {/* --- LEFT SIDE: PROMOTIONAL SECTION --- */}
       <div className="hidden md:flex md:w-[45%] lg:w-[50%] bg-[#fff5f6] flex-col items-center justify-center p-8 lg:p-12 text-center">
         <div className="relative w-full max-w-105 mb-10">
-          {/* Main Illustration - Ensure auth-img.webp is in your /public folder */}
           <img
             src="/signup1.png"
             alt="Welcome Illustration"
@@ -28,7 +45,6 @@ const LoginPage = () => {
           manage, deliver, and track learning and training activities.
         </p>
 
-        {/* Carousel Indicators */}
         <div className="flex gap-2">
           <div className="w-8 h-1.5 bg-[#ff4667] rounded-full"></div>
         </div>
@@ -36,7 +52,6 @@ const LoginPage = () => {
 
       {/* --- RIGHT SIDE: LOGIN FORM SECTION --- */}
       <div className="w-full md:w-[55%] lg:w-[50%] flex flex-col px-6 py-10 md:px-16 lg:px-24 justify-center relative bg-white">
-        {/* Top Header Navigation */}
         <div className="absolute top-6 left-6 right-6 md:top-10 md:left-12 md:right-12 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <div className="bg-[#ff4667] p-1.5 rounded-lg shadow-sm">
@@ -59,7 +74,6 @@ const LoginPage = () => {
           </Link>
         </div>
 
-        {/* Form Container */}
         <div className="max-w-110 w-full mx-auto mt-12 md:mt-0">
           <h1 className="text-[28px] md:text-[32px] font-bold text-[#0b1219] mt-10">
             Sign into Your Account
@@ -68,7 +82,7 @@ const LoginPage = () => {
             Welcome back! Please enter your details.
           </p>
 
-          <form className="space-y-7">
+          <form onSubmit={handleLogin} className="space-y-7">
             {/* Email Field */}
             <div className="space-y-2">
               <label className="text-[11px] font-extrabold text-[#333] uppercase tracking-[1px]">
@@ -94,6 +108,8 @@ const LoginPage = () => {
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="********"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="w-full border-b-[1.5px] border-gray-100 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-[15px] placeholder:text-gray-300"
                   required
                 />
@@ -110,7 +126,6 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Remember Me & Forgot Password */}
             <div className="flex justify-between items-center pt-1">
               <label className="flex items-center gap-2 cursor-pointer group">
                 <input
@@ -128,14 +143,13 @@ const LoginPage = () => {
                 Forgot Password?
               </a>
             </div>
-            <Link href="/dashboard">
-              <button
-                type="submit"
-                className="w-full bg-[#ff4667] hover:bg-[#e63e5c] text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-pink-100 flex items-center justify-center gap-2 active:scale-[0.98] mt-4"
-              >
-                Login <span className="text-xl leading-none">›</span>
-              </button>
-            </Link>
+
+            <button
+              type="submit"
+              className="w-full bg-[#ff4667] hover:bg-[#e63e5c] text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-pink-100 flex items-center justify-center gap-2 active:scale-[0.98] mt-4"
+            >
+              Login <span className="text-xl leading-none">›</span>
+            </button>
 
             {/* Divider */}
             <div className="relative flex items-center py-6">
