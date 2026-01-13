@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   LayoutDashboard,
@@ -22,76 +22,64 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Manual menu configuration - set 'active: true' for the current page
+  // 1. STATE-BASED ACTIVE TAB (Initialized to Dashboard)
+  const [activeTab, setActiveTab] = useState("Dashboard");
+
   const menuItems = [
     {
       name: "Dashboard",
       icon: <LayoutDashboard size={18} />,
       href: "/dashboard",
-      active: true, // Manually control active state
     },
     {
       name: "My Profile",
       icon: <User size={18} />,
       href: "/dashboard/profile",
-      active: false,
     },
     {
       name: "Enrolled Courses",
       icon: <BookOpen size={18} />,
       href: "/dashboard/enrolled-courses",
-      active: false,
     },
     {
       name: "My Certificates",
       icon: <Award size={18} />,
       href: "/dashboard/certificates",
-      active: false,
     },
     {
       name: "Wishlist",
       icon: <Heart size={18} />,
       href: "/dashboard/wishlist",
-      active: false,
     },
     {
       name: "Reviews",
       icon: <Star size={18} />,
       href: "/dashboard/reviews",
-      active: false,
     },
     {
       name: "My Quiz Attempts",
       icon: <ClipboardList size={18} />,
       href: "/dashboard/quizzes",
-      active: false,
     },
     {
       name: "Order History",
       icon: <ShoppingCart size={18} />,
       href: "/dashboard/order-history",
-      active: false,
     },
     {
       name: "Messages",
       icon: <MessageSquare size={18} />,
       href: "/dashboard/messages",
-      active: false,
     },
   ];
-
-  // Find the item marked as active, or default to the first one
-  const currentItem = menuItems.find((item) => item.active) || menuItems[0];
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans">
       {/* 1. DYNAMIC BREADCRUMB HEADER */}
       <div className="bg-white border-b border-slate-100 py-10 text-center">
-        <h1 className="text-3xl font-black text-[#1D1B26]">
-          {currentItem.name}
-        </h1>
+        <h1 className="text-3xl font-black text-[#1D1B26]">{activeTab}</h1>
         <p className="text-sm text-slate-400 mt-2 font-medium uppercase tracking-widest">
-          Home <span className="text-red-500 mx-2">/</span> {currentItem.name}
+          Home <span className="text-[#FF5364] mx-2">/</span> {activeTab}
         </p>
       </div>
 
@@ -104,14 +92,16 @@ export default function DashboardLayout({
             </h3>
             <nav className="space-y-1">
               {menuItems.map((item) => {
+                const isActive = activeTab === item.name;
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all ${
-                      item.active
-                        ? "bg-[#FF5364] text-white shadow-lg shadow-red-100"
-                        : "text-slate-500 hover:bg-slate-50 hover:text-[#4E3796]"
+                    onClick={() => setActiveTab(item.name)}
+                    className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 ${
+                      isActive
+                        ? "bg-[#FF5364] text-white shadow-lg shadow-pink-100"
+                        : "text-slate-500 hover:bg-pink-50 hover:text-[#FF5364]"
                     }`}
                   >
                     {item.icon}
@@ -127,7 +117,12 @@ export default function DashboardLayout({
             <div className="space-y-1">
               <Link
                 href="/dashboard/settings"
-                className="flex items-center gap-3 px-5 py-3.5 text-slate-500 font-bold text-sm hover:text-[#4E3796] transition-all"
+                onClick={() => setActiveTab("Settings")}
+                className={`flex items-center gap-3 px-5 py-3.5 font-bold text-sm transition-all ${
+                  activeTab === "Settings"
+                    ? "text-[#FF5364]"
+                    : "text-slate-500 hover:text-[#FF5364]"
+                }`}
               >
                 <Settings size={18} /> Settings
               </Link>
@@ -156,7 +151,7 @@ export default function DashboardLayout({
                     alt="User"
                   />
                 </div>
-                <div className="absolute bottom-1 right-1 bg-green-500 border-4 border-[#1E40AF] w-7 h-7 rounded-full flex items-center justify-center shadow-lg">
+                <div className="absolute bottom-1 right-1 bg-green-500 border-4 border-white/20 w-7 h-7 rounded-full flex items-center justify-center shadow-lg">
                   <CheckCircle size={14} className="text-white" />
                 </div>
               </div>
@@ -174,7 +169,7 @@ export default function DashboardLayout({
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-8 md:mt-0 relative z-10">
-              <button className="bg-white text-[#1E40AF] px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-tight shadow-xl hover:bg-slate-50 transition-colors">
+              <button className="bg-white text-[#1D1B26] px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-tight shadow-xl hover:bg-slate-50 transition-colors">
                 Become Instructor
               </button>
               <button className="bg-[#FF5364] text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-tight shadow-xl hover:bg-[#e04857] transition-colors">
