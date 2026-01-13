@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -25,7 +25,8 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const pathname = usePathname();
+  // 1. STATE-BASED ACTIVE TAB (Initialized to Dashboard)
+  const [activeTab, setActiveTab] = useState("Dashboard");
 
   const menuItems = [
     {
@@ -53,6 +54,11 @@ export default function DashboardLayout({
       icon: <Heart size={18} />,
       href: "/dashboard/wishlist",
     },
+    {
+      name: "Reviews",
+      icon: <Star size={18} />,
+      href: "/dashboard/reviews",
+    },
     { name: "Reviews", icon: <Star size={18} />, href: "/dashboard/reviews" },
     {
       name: "My Quiz Attempts",
@@ -71,18 +77,13 @@ export default function DashboardLayout({
     },
   ];
 
-  const currentItem =
-    menuItems.find((item) => item.href === pathname) || menuItems[0];
-
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans">
       {/* 1. DYNAMIC BREADCRUMB HEADER */}
       <div className="bg-white border-b border-slate-100 py-10 text-center">
-        <h1 className="text-3xl font-black text-[#1D1B26]">
-          {currentItem.name}
-        </h1>
+        <h1 className="text-3xl font-black text-[#1D1B26]">{activeTab}</h1>
         <p className="text-sm text-slate-400 mt-2 font-medium uppercase tracking-widest">
-          Home <span className="text-red-500 mx-2">/</span> {currentItem.name}
+          Home <span className="text-[#FF5364] mx-2">/</span> {activeTab}
         </p>
       </div>
 
@@ -95,7 +96,7 @@ export default function DashboardLayout({
             </h3>
             <nav className="space-y-1">
               {menuItems.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive = activeTab === item.name;
                 return (
                   <Link
                     key={item.name}
@@ -103,11 +104,10 @@ export default function DashboardLayout({
                     className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all ${
                       isActive
                         ? "bg-[#FF5364] text-white shadow-lg shadow-red-100"
-                        : "text-slate-500 hover:bg-slate-50 hover:text-[#4E3796]"
+                        : "text-slate-500 hover:bg-pink-50 hover:text-[#FF5364]"
                     }`}
                   >
                     {item.icon}
-                    {item.name}
                   </Link>
                 );
               })}
@@ -119,7 +119,12 @@ export default function DashboardLayout({
             <div className="space-y-1">
               <Link
                 href="/dashboard/settings"
-                className="flex items-center gap-3 px-5 py-3.5 text-slate-500 font-bold text-sm hover:text-[#4E3796] transition-all"
+                onClick={() => setActiveTab("Settings")}
+                className={`flex items-center gap-3 px-5 py-3.5 font-bold text-sm transition-all ${
+                  activeTab === "Settings"
+                    ? "text-[#FF5364]"
+                    : "text-slate-500 hover:text-[#FF5364]"
+                }`}
               >
                 <Settings size={18} /> Settings
               </Link>
@@ -149,7 +154,7 @@ export default function DashboardLayout({
                     alt="User"
                   />
                 </div>
-                <div className="absolute bottom-1 right-1 bg-green-500 border-4 border-[#1E40AF] w-7 h-7 rounded-full flex items-center justify-center shadow-lg">
+                <div className="absolute bottom-1 right-1 bg-green-500 border-4 border-white/20 w-7 h-7 rounded-full flex items-center justify-center shadow-lg">
                   <CheckCircle size={14} className="text-white" />
                 </div>
               </div>
@@ -167,7 +172,7 @@ export default function DashboardLayout({
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-8 md:mt-0 relative z-10">
-              <button className="bg-white text-[#1E40AF] px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-tightshadow-xl hover:bg-slate-50 transition-colors">
+              <button className="bg-white text-[#1D1B26] px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-tight shadow-xl hover:bg-slate-50 transition-colors">
                 Become Instructor
               </button>
               <button className="bg-[#FF5364] text-white px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-tight shadow-xl hover:bg-[#e04857] transition-colors">

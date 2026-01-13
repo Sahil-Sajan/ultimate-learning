@@ -139,7 +139,9 @@ export default function CourseCatalog() {
     <div className="min-h-screen bg-[#FDFCFD] pb-20">
       {/* 1. TOP BREADCRUMB SECTION */}
       <div className="w-full bg-linear-to-r from-pink-50 to-blue-50 py-10 md:py-16 text-center px-4">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#1D2026] mb-2">Course Grid</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-[#1D2026] mb-2">
+          Course Grid
+        </h1>
         <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
           <Link href="/" className="hover:text-[#FF5B5C]">
             Home
@@ -149,7 +151,7 @@ export default function CourseCatalog() {
         </div>
       </div>
 
-      <div className="max-w-350 mx-auto px-4 md:px-6 mt-8 md:mt-12">
+      <div className="max-w-350 mx-auto px-4 md:px-6 mt-8 md:-mt-12">
         {/* 2. FILTER TOP BAR */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
           <div className="flex items-center gap-4 w-full md:w-auto">
@@ -157,7 +159,9 @@ export default function CourseCatalog() {
               <span className="bg-[#FF5B5C] text-white p-2 rounded-md">
                 <LayoutGrid size={18} />
               </span>
-              <span className="text-sm md:text-base">Showing 1-9 of {courses.length} results</span>
+              <span className="text-sm md:text-base">
+                Showing 1-9 of {courses.length} results
+              </span>
             </div>
           </div>
 
