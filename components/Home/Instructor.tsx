@@ -123,7 +123,7 @@ const InstructorSection: React.FC = () => {
               <SwiperSlide key={person.id}>
                 <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-3 hover:bg-white/10 transition-all cursor-pointer h-full">
                   {/* Image Container - Aspect ratio keeps it compact */}
-                  <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-3">
+                  <div className="relative aspect-4/3 rounded-xl overflow-hidden mb-3">
                     <Image
                       src={person.image}
                       alt={person.name}

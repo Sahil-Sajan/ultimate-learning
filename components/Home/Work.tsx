@@ -37,11 +37,11 @@ const Work = () => {
 
           <Image 
     src="/cg-2.avif" 
-    alt="Work illustration" // Always include an alt for accessibility
-    fill                   // This fixes the missing width/height error
-    className="object-cover" // Ensures the image fills the area without stretching
-    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Helps Next.js optimize loading
-    priority               // Optional: adds performance boost if this is "above the fold"
+    alt="Work illustration" 
+    fill                  
+    className="object-cover" 
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" 
+    priority             
   />
         </div>
         {/* Right Side: Content */}

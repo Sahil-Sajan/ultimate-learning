@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import { Mail, Lock, Eye, EyeOff, Facebook, GraduationCap } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation'; // 1. Import useRouter
+import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const router = useRouter(); // 2. Initialize router
+  const router = useRouter(); 
 
   // 3. Handle Login Logic
   const handleLogin = (e: React.FormEvent) => {
