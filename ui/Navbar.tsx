@@ -2,205 +2,558 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ShoppingCart, Moon, DollarSign, Menu, X } from "lucide-react";
+import {
+  ShoppingCart,
+  Moon,
+  DollarSign,
+  Menu,
+  X,
+  ChevronDown,
+  Monitor,
+  Smartphone,
+  Database,
+  Palette,
+  Briefcase,
+  Star,
+  GraduationCap,
+  ArrowRight,
+  UserCheck,
+  Zap,
+  Users,
+} from "lucide-react";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  // Manual state to track which link is currently active
-  const [activeTab, setActiveTab] = useState("");
+  const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
 
-  // Set default active tab to Home on mount
   useEffect(() => {
-    setActiveTab("Home");
-  }, []);
+    setMounted(true);
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isMobileMenuOpen]);
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Courses", href: "/courses" },
-    { name: "Instructors", href: "/instructors" },
+    { name: "Courses", href: "/courses", megaType: "courses" },
+    { name: "Instructors", href: "/instructors", megaType: "instructors" },
     { name: "Pricing", href: "/pricing" },
     { name: "Blogs", href: "/blog" },
   ];
 
+  const closeAllMenus = () => {
+    setActiveMenu(null);
+    setIsMobileMenuOpen(false);
+  };
+
+  if (!mounted) return null;
+
   return (
-    <header className="w-full bg-[#392C7D] text-white relative z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 py-4">
-        {/* LEFT: LOGO SECTION */}
+    <header className="w-full bg-[#392C7D] text-white relative z-[100]">
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
+        {/* LOGO */}
         <Link
           href="/"
-          onClick={() => setActiveTab("Home")}
-          className="flex items-center gap-2 sm:gap-3 group shrink-0"
+          className="flex items-center gap-3 shrink-0 group z-[110]"
+          onClick={closeAllMenus}
         >
-          <div className="relative flex items-center justify-center bg-white rounded-lg w-9 h-9 sm:w-10 sm:h-10 shadow-sm transition-transform group-hover:scale-105">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 sm:w-6 sm:h-6"
-            >
-              <path
-                d="M22 10L12 5L2 10L12 15L22 10Z"
-                stroke="#FF5B5C"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-              <path
-                d="M6 12V17C6 17 8 19 12 19C16 19 18 17 18 17V12"
-                stroke="#FF5B5C"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <div className="bg-white p-2 rounded-xl transition-transform group-hover:rotate-6 shadow-sm">
+            <GraduationCap className="text-[#FF5B5C]" size={24} />
           </div>
-          <div className="flex flex-col leading-tight">
-            <span className="text-lg sm:text-xl font-bold text-white uppercase tracking-tight">
+          <div className="flex flex-col leading-none">
+            <span className="text-xl font-bold uppercase tracking-tight">
               Ultimate
             </span>
-            <span className="text-[10px] sm:text-sm font-light text-[#FF5B5C] uppercase tracking-[0.2em]">
+            <span className="text-xs font-light text-[#FF5B5C] uppercase tracking-[0.2em]">
               Learning
             </span>
           </div>
         </Link>
 
-        {/* CENTER: NAVIGATION (Desktop Only) */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-          {navLinks.map((link) => {
-            const isActive = activeTab === link.name;
-            return (
-              <div
-                key={link.name}
-                className="relative group flex items-center gap-1 cursor-pointer"
-                onClick={() => setActiveTab(link.name)}
+        {/* DESKTOP NAVIGATION */}
+        <nav className="hidden lg:flex items-center gap-8 h-16">
+          {navLinks.map((link) => (
+            <div
+              key={link.name}
+              className="static flex items-center h-full"
+              onMouseEnter={() => link.megaType && setActiveMenu(link.megaType)}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <Link
+                href={link.href}
+                onClick={closeAllMenus}
+                className={`text-[17px] font-semibold transition-all flex items-center gap-1.5 ${
+                  activeMenu === link.megaType
+                    ? "text-[#FF5B5C]"
+                    : "text-white/80 hover:text-white"
+                }`}
               >
-                <Link
-                  href={link.href}
-                  className={`text-[20px] font-semibold transition-colors duration-300 ${
-                    isActive
-                      ? "text-[#FF5B5C]"
-                      : "text-white/90 hover:text-[#FF5B5C]"
+                {link.name}
+                {link.megaType && (
+                  <ChevronDown
+                    size={14}
+                    className={`transition-transform duration-300 ${
+                      activeMenu === link.megaType ? "rotate-180" : ""
+                    }`}
+                  />
+                )}
+              </Link>
+
+              {/* DESKTOP MEGA MENU */}
+              {link.megaType && (
+                <div
+                  className={`absolute top-full left-0 right-0 w-full pt-2 transition-all duration-300 ease-out z-50 ${
+                    activeMenu === link.megaType
+                      ? "opacity-100 visible translate-y-0"
+                      : "opacity-0 invisible -translate-y-4"
                   }`}
                 >
-                  {link.name}
-                </Link>
-              </div>
-            );
-          })}
+                  <div className="max-w-[1440px] mx-auto px-6">
+                    <div className="bg-[#2D2264] border border-white/10 rounded-[32px] p-10 shadow-[0_30px_100px_rgba(0,0,0,0.6)]">
+                      <div className="grid grid-cols-12 gap-8">
+                        {/* 1. SIDEBAR */}
+                        <div className="col-span-3 border-r border-white/5 pr-6">
+                          <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 opacity-40">
+                            {link.megaType === "courses"
+                              ? "Top-Rated Categories"
+                              : "Expert Departments"}
+                          </h3>
+                          <div className="space-y-1">
+                            {link.megaType === "courses" ? (
+                              <>
+                                <MegaSidebarItem
+                                  onClick={closeAllMenus}
+                                  href="/courses"
+                                  icon={<Monitor size={18} />}
+                                  label="Web Development"
+                                />
+                                <MegaSidebarItem
+                                  onClick={closeAllMenus}
+                                  href="/courses"
+                                  icon={<Smartphone size={18} />}
+                                  label="Mobile Science"
+                                />
+                                <MegaSidebarItem
+                                  onClick={closeAllMenus}
+                                  href="/courses"
+                                  icon={<Database size={18} />}
+                                  label="Data Science"
+                                />
+                                <MegaSidebarItem
+                                  onClick={closeAllMenus}
+                                  href="/courses"
+                                  icon={<Palette size={18} />}
+                                  label="Digital Design"
+                                />
+                                <MegaSidebarItem
+                                  onClick={closeAllMenus}
+                                  href="/courses"
+                                  icon={<Briefcase size={18} />}
+                                  label="Business"
+                                />
+                              </>
+                            ) : (
+                              <>
+                                <MegaSidebarItem
+                                  onClick={closeAllMenus}
+                                  href="/instructors"
+                                  icon={<Users size={18} />}
+                                  label="Senior Mentors"
+                                />
+                                <MegaSidebarItem
+                                  onClick={closeAllMenus}
+                                  href="/instructors"
+                                  icon={<Zap size={18} />}
+                                  label="Industry Leaders"
+                                />
+                                <MegaSidebarItem
+                                  onClick={closeAllMenus}
+                                  href="/instructors"
+                                  icon={<UserCheck size={18} />}
+                                  label="Vetted Tutors"
+                                />
+                                <MegaSidebarItem
+                                  onClick={closeAllMenus}
+                                  href="/instructors"
+                                  icon={<Briefcase size={18} />}
+                                  label="Corporate Coaches"
+                                />
+                                <MegaSidebarItem
+                                  onClick={closeAllMenus}
+                                  href="/instructors"
+                                  icon={<Monitor size={18} />}
+                                  label="Tech Architects"
+                                />
+                              </>
+                            )}
+                          </div>
+                          <Link href={link.href} onClick={closeAllMenus}>
+                            <button className="w-full mt-8 bg-[#FF5B5C] py-4 rounded-2xl font-bold text-sm hover:bg-[#ff4646] transition-all flex items-center justify-center gap-2">
+                              {link.megaType === "courses"
+                                ? "View All Courses"
+                                : "Meet All Instructors"}{" "}
+                              <ArrowRight size={16} />
+                            </button>
+                          </Link>
+                        </div>
+
+                        {/* 2. TOPICS */}
+                        <div className="col-span-2">
+                          <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 opacity-40">
+                            {link.megaType === "courses"
+                              ? "Browse by Topic"
+                              : "Quick Links"}
+                          </h3>
+                          <div className="flex flex-col gap-5">
+                            {(link.megaType === "courses"
+                              ? [
+                                  "Web Design",
+                                  "Cloud Computing",
+                                  "AI Content",
+                                  "Cyber Security",
+                                  "UI/UX Design",
+                                  "Machine Learning",
+                                ]
+                              : [
+                                  "Become a Teacher",
+                                  "Instructor FAQ",
+                                  "Teaching Rules",
+                                  "Portfolio Help",
+                                  "Live Sessions",
+                                  "Success Stories",
+                                ]
+                            ).map((item) => (
+                              <Link
+                                key={item}
+                                href={link.href}
+                                onClick={closeAllMenus}
+                                className="text-sm font-medium text-white/60 hover:text-[#FF5B5C] transition-colors"
+                              >
+                                {item}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* 3. TRENDING GRID */}
+                        <div className="col-span-4 border-r border-white/5 pr-4">
+                          <h3 className="text-lg font-bold mb-6">
+                            {link.megaType === "courses"
+                              ? "New & Trending"
+                              : "Top Instructors"}
+                          </h3>
+                          <div className="grid grid-cols-2 gap-4">
+                            {link.megaType === "courses" ? (
+                              <>
+                                <CourseThumb
+                                  onClick={closeAllMenus}
+                                  href="/courses"
+                                  title="Prompt Engineering"
+                                  instructor="Caren Drew"
+                                  img="/cg-1.webp"
+                                />
+                                <CourseThumb
+                                  onClick={closeAllMenus}
+                                  href="/courses"
+                                  title="Blockchain 101"
+                                  instructor="Dan Kenyon"
+                                  img="/cg-2.avif"
+                                />
+                                <CourseThumb
+                                  onClick={closeAllMenus}
+                                  href="/courses"
+                                  title="AWS Masterclass"
+                                  instructor="Alex Rivera"
+                                  img="/cg-3.webp"
+                                />
+                                <CourseThumb
+                                  onClick={closeAllMenus}
+                                  href="/courses"
+                                  title="Next.js 15 Pro"
+                                  instructor="Sarah J."
+                                  img="/cg-6.avif"
+                                />
+                              </>
+                            ) : (
+                              <>
+                                <CourseThumb
+                                  onClick={closeAllMenus}
+                                  href="/instructors"
+                                  title="Dr. Alex Rivera"
+                                  instructor="AI Scientist"
+                                  img="/instructor1.webp"
+                                />
+                                <CourseThumb
+                                  onClick={closeAllMenus}
+                                  href="/instructors"
+                                  title="Sarah Jenkins"
+                                  instructor="UX Lead"
+                                  img="/instructor2.webp"
+                                />
+                                <CourseThumb
+                                  onClick={closeAllMenus}
+                                  href="/instructors"
+                                  title="Marcus Thorne"
+                                  instructor="DevOps Expert"
+                                  img="/instructor3.webp"
+                                />
+                                <CourseThumb
+                                  onClick={closeAllMenus}
+                                  href="/instructors"
+                                  title="Elena Ruiz"
+                                  instructor="Business Head"
+                                  img="/instructor4.webp"
+                                />
+                              </>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* 4. FEATURED CARD */}
+                        <div className="col-span-3">
+                          <h3 className="text-lg font-bold mb-6">
+                            {link.megaType === "courses"
+                              ? "Featured Skill"
+                              : "Teacher of the Month"}
+                          </h3>
+                          <Link
+                            href={link.href}
+                            onClick={closeAllMenus}
+                            className="block bg-white/5 border border-white/10 p-5 rounded-[28px] group/card cursor-pointer transition-all hover:border-[#FF5B5C]/50"
+                          >
+                            <div className="aspect-video bg-[#392C7D] rounded-2xl mb-4 overflow-hidden">
+                              <img
+                                src={
+                                  link.megaType === "courses"
+                                    ? "/instructor6.webp"
+                                    : "/instructor5.webp"
+                                }
+                                className="w-full h-full object-cover group-hover/card:scale-110 transition-all duration-500"
+                                alt="featured"
+                              />
+                            </div>
+                            <p className="text-sm font-bold mb-2 group-hover/card:text-[#FF5B5C] transition-colors">
+                              {link.megaType === "courses"
+                                ? "Mastering UI/UX Design"
+                                : "Prof. Isabella Chen"}
+                            </p>
+                            <div className="flex items-center gap-1 text-[#FFB800]">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} size={10} fill="currentColor" />
+                              ))}
+                              <span className="text-[10px] text-white ml-2 opacity-60">
+                                4.9 (2.4k Reviews)
+                              </span>
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
         </nav>
 
-        {/* RIGHT: ACTIONS & AUTH */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="hidden md:flex items-center gap-2 mr-1">
-            <button className="w-9 h-9 flex items-center justify-center bg-white rounded-full transition-all hover:bg-gray-100 shadow-sm overflow-hidden p-1.5">
-              <img
-                src="https://flagcdn.com/w80/iq.png"
-                alt="Iraq Flag"
-                className="w-full h-full object-cover rounded-full"
-              />
-            </button>
-
-            <button className="w-9 h-9 flex items-center justify-center bg-white rounded-full text-[#392C7D] transition-all hover:bg-gray-100 shadow-sm">
-              <div className="w-5 h-5 rounded-full border-[1.5px] border-[#392C7D] flex items-center justify-center">
-                <DollarSign size={11} strokeWidth={3} />
-              </div>
-            </button>
-
-            <button className="w-9 h-9 flex items-center justify-center bg-white rounded-full text-slate-700 transition-all hover:bg-gray-100 shadow-sm">
-              <Moon size={16} fill="currentColor" className="text-slate-800" />
-            </button>
-
-            <div className="relative group">
-              <button className="w-9 h-9 flex items-center justify-center bg-white rounded-full text-slate-700 transition-all hover:bg-gray-100 shadow-sm">
-                <ShoppingCart size={16} />
-              </button>
-              <span className="absolute -top-1 -right-1 bg-[#1AB69D] text-white text-[9px] font-bold w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-[#392C7D]">
-                1
+        {/* RIGHT ACTIONS */}
+        <div className="flex items-center gap-2 z-[110]">
+          {/* Utility Icons */}
+          <div className="hidden xl:flex gap-1.5 mr-2">
+            <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
+            <NavCircleBtn icon={<DollarSign size={14} />} />
+            <NavCircleBtn icon={<Moon size={16} fill="currentColor" />} />
+            <div className="relative">
+              <NavCircleBtn icon={<ShoppingCart size={16} />} />
+              <span className="absolute -top-1 -right-1 bg-[#FF5B5C] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-[#392C7D]">
+                0
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-4">
-            <Link
-              href="/login"
-              className="hidden sm:block text-[14px] sm:text-[15px] font-medium text-white/90 hover:text-white transition-colors"
-            >
-              Sign In
+          {/* Auth Buttons */}
+          <div className="hidden sm:flex items-center gap-2">
+            <Link href="/login" onClick={closeAllMenus}>
+              <button className="text-white bg-[#392C7D] border border-white/20 cursor-pointer px-6 py-2.5 rounded-full font-bold text-sm hover:bg-white/10 transition-all active:scale-95">
+                Sign In
+              </button>
             </Link>
-            <Link href="/register">
-              <button className="bg-[#FF5B5C] hover:bg-[#ff4646] text-white px-5 sm:px-8 py-2 sm:py-2.5 rounded-full text-[14px] sm:text-[15px] font-medium transition-all shadow-md active:scale-95">
+            <Link href="/register" onClick={closeAllMenus}>
+              <button className="bg-[#FF5B5C] text-white cursor-pointer px-7 py-2.5 rounded-full font-bold text-sm shadow-lg hover:shadow-[#FF5B5C]/20 hover:bg-[#ff4646] transition-all active:scale-95">
                 Register
               </button>
             </Link>
-
-            <button
-              className="lg:hidden p-1.5 text-white transition-colors hover:bg-white/10 rounded-md"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle Menu"
-            >
-              {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
-            </button>
           </div>
+
+          {/* Mobile Toggle */}
+          <button
+            className="lg:hidden p-2 text-white hover:text-[#FF5B5C] transition-colors ml-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
+          </button>
         </div>
       </div>
 
-      {/* MOBILE MENU PANEL */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-[#2D2264] border-t border-white/10 px-6 py-8 flex flex-col gap-6 shadow-xl animate-in fade-in slide-in-from-top-4 duration-300">
-          <div className="flex flex-col gap-5">
-            {navLinks.map((link) => {
-              const isActive = activeTab === link.name;
-              return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => {
-                    setActiveTab(link.name);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`text-xl font-bold flex justify-between items-center transition-colors ${
-                    isActive
-                      ? "text-[#FF5B5C]"
-                      : "text-white/90 hover:text-[#FF5B5C]"
-                  }`}
+      {/* MOBILE MENU */}
+      <div
+        className={`fixed inset-0 bg-[#2D2264]/98 backdrop-blur-xl z-[105] lg:hidden transition-all duration-500 ${
+          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+      >
+        <div className="flex flex-col h-full pt-24 px-6 pb-10 overflow-y-auto">
+          <div className="space-y-4">
+            {navLinks.map((link) => (
+              <div key={link.name} className="border-b border-white/10 pb-4">
+                <div
+                  className="flex items-center justify-between py-2 cursor-pointer"
+                  onClick={() =>
+                    link.megaType
+                      ? setMobileAccordion(
+                          mobileAccordion === link.megaType
+                            ? null
+                            : link.megaType
+                        )
+                      : closeAllMenus()
+                  }
                 >
-                  {link.name}
-                </Link>
-              );
-            })}
+                  <Link
+                    href={link.href}
+                    className="text-2xl font-bold text-white tracking-tight"
+                    onClick={(e) => link.megaType && e.preventDefault()}
+                  >
+                    {link.name}
+                  </Link>
+                  {link.megaType && (
+                    <ChevronDown
+                      className={`transition-transform duration-300 ${
+                        mobileAccordion === link.megaType
+                          ? "rotate-180 text-[#FF5B5C]"
+                          : ""
+                      }`}
+                    />
+                  )}
+                </div>
+
+                {link.megaType && mobileAccordion === link.megaType && (
+                  <div className="mt-4 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-4">
+                    {(link.megaType === "courses"
+                      ? [
+                          "Web Design",
+                          "Cloud Computing",
+                          "AI Content",
+                          "Cyber Security",
+                        ]
+                      : [
+                          "Meet Mentors",
+                          "Teacher FAQ",
+                          "Become a Tutor",
+                          "Live Help",
+                        ]
+                    ).map((item) => (
+                      <Link
+                        key={item}
+                        href={link.href}
+                        onClick={closeAllMenus}
+                        className="bg-white/5 p-4 rounded-2xl text-sm font-semibold text-white/70 active:bg-[#FF5B5C] active:text-white transition-colors"
+                      >
+                        {item}
+                      </Link>
+                    ))}
+                    <Link
+                      href={link.href}
+                      onClick={closeAllMenus}
+                      className="col-span-2"
+                    >
+                      <button className="w-full bg-[#FF5B5C] py-4 rounded-2xl font-bold text-center mt-2">
+                        Explore All {link.name}
+                      </button>
+                    </Link>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
 
-          <hr className="border-white/10" />
-
-          <div className="flex flex-col gap-4">
-            <div className="flex gap-4 mb-2">
-              <button className="flex items-center gap-2 text-white/80">
-                <Moon size={18} /> Theme
-              </button>
-              <button className="flex items-center gap-2 text-white/80">
-                <ShoppingCart size={18} /> Cart
-              </button>
+          <div className="mt-auto space-y-4 pt-10">
+            <div className="grid grid-cols-4 gap-4 border-t border-white/10 pt-10">
+              <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
+              <NavCircleBtn icon={<DollarSign size={20} />} />
+              <NavCircleBtn icon={<Moon size={20} fill="currentColor" />} />
+              <NavCircleBtn icon={<ShoppingCart size={20} />} />
             </div>
-
-            <Link
-              href="/login"
-              className="text-lg font-medium text-white/90 py-2"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Sign In
-            </Link>
-            <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>
-              <button className="w-full bg-[#FF5B5C] py-3.5 rounded-full font-bold text-center text-lg shadow-lg">
-                Register Now
-              </button>
-            </Link>
+            <div className="flex flex-col gap-3">
+              <Link href="/login" onClick={closeAllMenus}>
+                <button className="w-full bg-transparent border border-white/20 py-4 rounded-2xl font-bold text-lg">
+                  Sign In
+                </button>
+              </Link>
+              <Link href="/register" onClick={closeAllMenus}>
+                <button className="w-full bg-[#FF5B5C] py-5 rounded-2xl font-bold text-lg shadow-xl">
+                  Join Ultimate Learning
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
-      )}
+      </div>
     </header>
   );
 };
+
+// --- HELPERS ---
+
+const MegaSidebarItem = ({ icon, label, href, onClick }: any) => (
+  <Link
+    href={href}
+    onClick={onClick}
+    className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-white/5 transition-all cursor-pointer group"
+  >
+    <div className="p-2 bg-white/5 rounded-lg text-white/40 group-hover:text-[#FF5B5C] transition-all">
+      {icon}
+    </div>
+    <span className="text-sm font-bold text-white group-hover:text-white">
+      {label}
+    </span>
+  </Link>
+);
+
+const CourseThumb = ({ title, instructor, img, href, onClick }: any) => (
+  <Link
+    href={href}
+    onClick={onClick}
+    className="flex flex-col gap-2 p-3 bg-white/5 rounded-2xl hover:bg-white/10 transition-all cursor-pointer border border-white/5 group"
+  >
+    <div className="w-full h-24 overflow-hidden rounded-xl bg-[#392C7D]">
+      <img
+        src={img}
+        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+        alt={title}
+      />
+    </div>
+    <p className="text-[11px] font-bold line-clamp-1 group-hover:text-[#FF5B5C] transition-colors">
+      {title}
+    </p>
+    <p className="text-[9px] text-white opacity-40">{instructor}</p>
+  </Link>
+);
+
+const NavCircleBtn = ({ icon, img }: any) => (
+  <button className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full text-white hover:bg-white hover:text-[#392C7D] transition-all shadow-sm overflow-hidden border border-white/5">
+    {img ? (
+      <img
+        src={img}
+        className="w-full h-full object-cover p-1.5 rounded-full"
+        alt="flag"
+      />
+    ) : (
+      icon
+    )}
+  </button>
+);
 
 export default Navbar;
