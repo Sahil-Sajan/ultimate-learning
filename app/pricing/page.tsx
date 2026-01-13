@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Check,
   ArrowRight,
@@ -12,6 +13,22 @@ import {
   Minus,
   HelpCircle,
 } from "lucide-react";
+
+/* ---------------- ANIMATION VARIANTS ---------------- */
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 /* ---------------- TYPES & INTERFACES ---------------- */
 
@@ -111,11 +128,6 @@ const faqs: FAQItem[] = [
     answer:
       "Yes, if you choose the yearly billing cycle, you save 20% compared to the monthly subscription rate.",
   },
-  {
-    question: "Can I get a custom quote for a large team?",
-    answer:
-      "Absolutely. Our Enterprise plan is flexible. Contact our sales team for a custom package tailored to your organization's size.",
-  },
 ];
 
 /* ---------------- MAIN COMPONENT ---------------- */
@@ -127,172 +139,223 @@ export default function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900">
+    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
       {/* HERO SECTION */}
-      <section className="bg-linear-to-r from-[#FFF0F0] to-[#E5F3FF] py-20 px-6 overflow-hidden">
+      <section className="bg-gradient-to-r from-[#FFF0F0] to-[#E5F3FF] py-20 px-6 md:px-20 overflow-hidden">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <div className="inline-block bg-[#FF5364]/10 text-[#FF5364] px-4 py-1.5 rounded-full font-bold uppercase tracking-widest text-[10px]">
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={staggerContainer}
+            className="space-y-4"
+          >
+            <motion.div
+              variants={fadeInUp}
+              className="inline-block bg-[#FF5364]/10 text-[#FF5364] px-4 py-1 rounded-full font-bold uppercase tracking-widest text-xs"
+            >
               Pricing & Plans
-            </div>
-            <h1 className="text-5xl font-black text-[#1D1B26] leading-[1.1]">
+            </motion.div>
+            <motion.h1
+              variants={fadeInUp}
+              className="text-5xl md:text-6xl font-black text-[#1D1B26] leading-[1.1]"
+            >
               Flexible Pricing <br /> For Every Learner
-            </h1>
-            <p className="text-slate-500 text-lg max-w-md leading-relaxed">
+            </motion.h1>
+            <motion.p
+              variants={fadeInUp}
+              className="text-slate-500 text-lg max-w-md leading-relaxed"
+            >
               We're dedicated to transforming education by providing
               high-quality courses that cater to learners of all levels.
-            </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <button className="bg-[#FF5364] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-pink-200 hover:-translate-y-0.5 transition-all">
+            </motion.p>
+            <motion.div
+              variants={fadeInUp}
+              className="flex flex-wrap gap-4 pt-4"
+            >
+              <button className="bg-[#FF5364] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-pink-200 hover:scale-105 transition-transform active:scale-95">
                 Select a Plan
               </button>
               <button className="bg-[#1D1B26] text-white px-10 py-4 rounded-full font-bold hover:bg-black transition-all">
                 Learn More
               </button>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* IMAGE SECTION */}
-          <div className="relative flex justify-center lg:justify-end">
-            <div className="relative z-10 w-full max-w-125">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, x: 50 }}
+            animate={{ opacity: 1, scale: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="relative flex justify-center lg:justify-end items-center"
+          >
+            <motion.div
+              animate={{ y: [0, -15, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="relative z-10 w-full max-w-[400px]"
+            >
               <img
                 src="/pricing-hero.png"
                 alt="Pricing Preview"
                 className="w-full h-auto rounded-2xl drop-shadow-2xl"
               />
-            </div>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#4E3796]/5 rounded-full blur-3xl z-0" />
-          </div>
+            </motion.div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#4E3796]/5 rounded-full blur-3xl z-0" />
+          </motion.div>
         </div>
       </section>
 
       {/* PRICING GRID SECTION */}
-      <section className="bg-[#4E3796] py-12 md:py-24 px-4 md:px-6 relative">
-  <div className="max-w-7xl mx-auto">
-    {/* Heading and Toggle Section */}
-    <div className="text-center mb-10 md:mb-16 space-y-6">
-      <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold">
-        Simple, Transparent Pricing
-      </h2>
-      
-      <div className="flex items-center justify-center gap-3 md:gap-4 flex-wrap">
-        <span
-          className={`text-sm md:text-base transition-colors ${
-            billingCycle === "monthly" ? "text-white font-medium" : "text-white/50"
-          }`}
-        >
-          Monthly
-        </span>
-        
-        <button
-          onClick={() =>
-            setBillingCycle(
-              billingCycle === "monthly" ? "yearly" : "monthly"
-            )
-          }
-          className="w-14 h-7 bg-white/20 rounded-full relative p-1 transition-colors hover:bg-white/30"
-          aria-label="Toggle billing cycle"
-        >
-          <div
-            className={`w-5 h-5 bg-[#FF5364] rounded-full transition-transform duration-300 ease-in-out ${
-              billingCycle === "yearly"
-                ? "translate-x-7"
-                : "translate-x-0"
-            }`}
-          />
-        </button>
-        
-        <span
-          className={`text-sm md:text-base transition-colors ${
-            billingCycle === "yearly" ? "text-white font-medium" : "text-white/50"
-          }`}
-        >
-          Yearly <span className="text-[#FF5364]">(Save 20%)</span>
-        </span>
-      </div>
-    </div>
+      <section className="bg-[#4E3796] py-24 px-4 md:px-6 relative">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-6">
+            <motion.h2
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-white text-3xl md:text-5xl font-black"
+            >
+              Simple, Transparent Pricing
+            </motion.h2>
 
-    {/* Pricing Cards Grid */}
-    {/* Grid scales from 1 column on mobile to 2 on tablets to 3 on desktop */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-      {pricingPlans.map((plan, idx) => (
-        <PricingCard key={idx} plan={plan} cycle={billingCycle} />
-      ))}
-    </div>
-  </div>
-</section>
+            <div className="flex items-center justify-center gap-4">
+              <span
+                className={`text-base transition-colors ${
+                  billingCycle === "monthly"
+                    ? "text-white font-bold"
+                    : "text-white/50"
+                }`}
+              >
+                Monthly
+              </span>
+              <button
+                onClick={() =>
+                  setBillingCycle(
+                    billingCycle === "monthly" ? "yearly" : "monthly"
+                  )
+                }
+                className="w-16 h-8 bg-white/10 rounded-full relative p-1 transition-colors hover:bg-white/20"
+              >
+                <motion.div
+                  animate={{ x: billingCycle === "yearly" ? 32 : 0 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  className="w-6 h-6 bg-[#FF5364] rounded-full shadow-lg"
+                />
+              </button>
+              <span
+                className={`text-base transition-colors ${
+                  billingCycle === "yearly"
+                    ? "text-white font-bold"
+                    : "text-white/50"
+                }`}
+              >
+                Yearly <span className="text-[#FF5364] ml-1">(Save 20%)</span>
+              </span>
+            </div>
+          </div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {pricingPlans.map((plan, idx) => (
+              <PricingCard key={idx} plan={plan} cycle={billingCycle} />
+            ))}
+          </motion.div>
+        </div>
+      </section>
 
       {/* FAQ SECTION */}
       <section className="py-24 px-6 bg-[#F8F9FB]">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
-            <div className="flex justify-center mb-4 text-[#FF5364]">
-              <HelpCircle size={40} />
-            </div>
-            <h2 className="text-3xl font-black text-[#1D1B26] mb-4">
-              Frequently Asked Questions
-            </h2>
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              className="flex justify-center mb-4 text-[#FF5364]"
+            >
+              <HelpCircle size={48} />
+            </motion.div>
+            <h2 className="text-4xl font-black text-[#1D1B26] mb-4">FAQs</h2>
             <p className="text-slate-500">
-              Everything you need to know about our pricing and subscriptions.
+              Everything you need to know about our subscriptions.
             </p>
           </div>
 
           <div className="space-y-4">
             {faqs.map((faq, idx) => (
-              <div
+              <motion.div
                 key={idx}
-                className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden transition-all"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors"
+                  className="w-full flex items-center justify-between p-6 text-left group"
                 >
-                  <span className="font-bold text-[#1D1B26]">
+                  <span className="font-bold text-[#1D1B26] text-lg group-hover:text-[#FF5364] transition-colors">
                     {faq.question}
                   </span>
-                  <div
-                    className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
-                      openFaq === idx
-                        ? "bg-[#FF5364] text-white"
-                        : "bg-slate-100 text-slate-400"
-                    }`}
+                  <motion.div
+                    animate={{
+                      rotate: openFaq === idx ? 180 : 0,
+                      backgroundColor: openFaq === idx ? "#FF5364" : "#f1f5f9",
+                    }}
+                    className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-slate-400 active:scale-90"
                   >
-                    {openFaq === idx ? <Minus size={16} /> : <Plus size={16} />}
-                  </div>
+                    {openFaq === idx ? (
+                      <Minus size={18} className="text-white" />
+                    ) : (
+                      <Plus size={18} />
+                    )}
+                  </motion.div>
                 </button>
-                {openFaq === idx && (
-                  <div className="px-6 pb-6 text-slate-500 text-sm leading-relaxed">
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
+                <AnimatePresence>
+                  {openFaq === idx && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                    >
+                      <div className="px-6 pb-6 text-slate-500 leading-relaxed border-t border-slate-50 pt-4">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* BOTTOM FEATURE STRIP */}
-      <section className="py-12 border-t border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-between gap-8">
+      {/* BOTTOM STRIP */}
+      <section className="py-16 border-t border-slate-100 bg-white">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-8">
           <FeatureItem
             icon={<Smartphone />}
             title="Learn Anywhere"
-            desc="iOS & Android apps available"
+            desc="iOS & Android apps"
           />
           <FeatureItem
             icon={<Zap />}
             title="Instant Access"
-            desc="Start learning immediately"
+            desc="Start immediately"
           />
           <FeatureItem
             icon={<Shield />}
             title="Safe & Secure"
-            desc="256-bit SSL encryption"
+            desc="SSL Encrypted"
           />
           <FeatureItem
             icon={<Globe />}
             title="Global Support"
-            desc="Help in 12+ languages"
+            desc="12+ Languages"
           />
         </div>
       </section>
@@ -313,41 +376,54 @@ function PricingCard({
     cycle === "yearly" ? Math.floor(Number(plan.price) * 0.8) : plan.price;
 
   return (
-    <div
-      className={`p-8 rounded-[32px] border transition-all duration-500 relative flex flex-col ${
+    <motion.div
+      variants={fadeInUp}
+      whileHover={{ y: -10 }}
+      className={`p-8 rounded-[40px] border transition-all relative flex flex-col h-full ${
         plan.popular
-          ? "bg-white border-white shadow-2xl scale-105 z-10"
+          ? "bg-white border-white shadow-2xl z-10"
           : "bg-white/5 border-white/10 text-white"
       }`}
     >
       {plan.popular && (
-        <span className="bg-[#FF5364] text-white text-[10px] font-black uppercase px-4 py-1 rounded-full absolute -top-3 left-1/2 -translate-x-1/2 shadow-lg shadow-pink-200">
-          Recommended
-        </span>
+        <motion.span
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="bg-[#FF5364] text-white text-[10px] font-black uppercase px-6 py-1.5 rounded-full absolute -top-4 left-1/2 -translate-x-1/2 shadow-xl shadow-pink-500/20"
+        >
+          Most Popular
+        </motion.span>
       )}
 
       <h3
-        className={`text-xl font-bold mb-1 ${
+        className={`text-2xl font-black mb-2 ${
           plan.popular ? "text-[#1D1B26]" : "text-white"
         }`}
       >
         {plan.name}
       </h3>
       <div className="flex items-baseline gap-1 mb-6">
-        <span
-          className={`text-4xl font-black ${
+        <motion.span
+          key={price}
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className={`text-5xl font-black ${
             plan.popular ? "text-[#1D1B26]" : "text-white"
           }`}
         >
           ${price}
-        </span>
-        <span className={plan.popular ? "text-slate-400" : "text-white/50"}>
-          /mo
+        </motion.span>
+        <span
+          className={
+            plan.popular ? "text-slate-400 font-medium" : "text-white/50"
+          }
+        >
+          /month
         </span>
       </div>
 
       <p
-        className={`text-sm mb-8 leading-relaxed ${
+        className={`text-sm mb-8 leading-relaxed font-medium ${
           plan.popular ? "text-slate-500" : "text-white/70"
         }`}
       >
@@ -357,13 +433,17 @@ function PricingCard({
       <div className="space-y-4 mb-10 grow">
         {plan.features.map((feature, i) => (
           <div key={i} className="flex items-center gap-3">
-            <Check
-              size={16}
-              className={plan.popular ? "text-[#FF5364]" : "text-pink-400"}
-              strokeWidth={3}
-            />
+            <div
+              className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
+                plan.popular
+                  ? "bg-[#FF5364]/10 text-[#FF5364]"
+                  : "bg-white/10 text-white"
+              }`}
+            >
+              <Check size={12} strokeWidth={4} />
+            </div>
             <span
-              className={`text-sm ${
+              className={`text-sm font-medium ${
                 plan.popular ? "text-slate-600" : "text-white/80"
               }`}
             >
@@ -374,9 +454,9 @@ function PricingCard({
       </div>
 
       <button
-        className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 group transition-all ${
+        className={`w-full py-4 rounded-2xl font-bold flex items-center justify-center gap-2 group transition-all active:scale-95 ${
           plan.popular
-            ? "bg-[#FF5364] text-white hover:bg-[#e64a68] shadow-lg shadow-pink-100"
+            ? "bg-[#FF5364] text-white shadow-lg shadow-pink-200"
             : "bg-white text-[#4E3796] hover:bg-slate-50"
         }`}
       >
@@ -386,20 +466,22 @@ function PricingCard({
           className="group-hover:translate-x-1 transition-transform"
         />
       </button>
-    </div>
+    </motion.div>
   );
 }
 
 function FeatureItem({ icon, title, desc }: FeatureItemProps) {
   return (
-    <div className="flex items-center gap-4">
-      <div className="w-12 h-12 bg-[#FF5364]/5 rounded-2xl flex items-center justify-center text-[#FF5364]">
+    <motion.div whileHover={{ x: 5 }} className="flex items-center gap-4">
+      <div className="w-14 h-14 bg-[#FF5364]/5 rounded-2xl flex items-center justify-center text-[#FF5364] shadow-inner">
         {icon}
       </div>
       <div>
-        <h4 className="font-bold text-slate-900 text-sm">{title}</h4>
-        <p className="text-xs text-slate-400">{desc}</p>
+        <h4 className="font-black text-slate-900 text-sm tracking-tight">
+          {title}
+        </h4>
+        <p className="text-xs text-slate-400 font-medium">{desc}</p>
       </div>
-    </div>
+    </motion.div>
   );
 }
