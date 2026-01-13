@@ -240,7 +240,7 @@ function LatestQuizzes() {
           <div key={i} className="flex items-center justify-between">
             <div className="flex items-center gap-4 w-full">
               {/* CENTERED TEXT IN CIRCLE PROGRESS */}
-              <div className="relative shrink-0 w-16 h-16 flex items-center justify-center">
+              <div className="relative flex-shrink-0 w-16 h-16 flex items-center justify-center">
                 <svg
                   className="w-full h-full transform -rotate-90"
                   viewBox="0 0 60 60"
@@ -275,7 +275,7 @@ function LatestQuizzes() {
                 </div>
               </div>
 
-              <div className="grow">
+              <div className="flex-grow">
                 <p className="text-sm font-black text-[#1D1B26]">{quiz.name}</p>
                 <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest">
                   Date : {quiz.date}
