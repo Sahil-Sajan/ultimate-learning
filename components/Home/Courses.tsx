@@ -59,7 +59,7 @@ export default function WhyCourses() {
             <div className="h-0.5 w-12 bg-[#ff4d6d]" />
           </div>
         </motion.div>
-        {/* --- END HEADING SECTION --- */}
+       
 
         {/* Professional Compact Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
