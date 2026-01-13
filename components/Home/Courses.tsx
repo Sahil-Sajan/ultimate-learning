@@ -43,20 +43,20 @@ export default function WhyCourses() {
           className="flex flex-col items-center text-center mb-16"
         >
           {/* Small Top Label */}
-          <span className="text-amber-600 font-bold text-xs uppercase tracking-[0.3em] mb-3">
+          <span className="text-[#ff4d6d] font-bold text-xs uppercase tracking-[0.3em] mb-3">
             Features
           </span>
 
           {/* Main Heading */}
           <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Why Our <span className="text-amber-500">Courses?</span>
+            Why Our <span className="text-[#ff4d6d]">Courses?</span>
           </h2>
 
           {/* Modern Underline Accent */}
           <div className="mt-5 flex items-center gap-2">
-            <div className="h-0.5 w-12 bg-amber-500/30" />
-            <div className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-            <div className="h-0.5 w-12 bg-amber-500/30" />
+            <div className="h-0.5 w-12 bg-[#ff4d6d]" />
+            <div className="h-1.5 w-1.5 rounded-full bg-[#ff4d6d]" />
+            <div className="h-0.5 w-12 bg-[#ff4d6d]" />
           </div>
         </motion.div>
         {/* --- END HEADING SECTION --- */}
@@ -71,11 +71,11 @@ export default function WhyCourses() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className="group relative flex items-start p-8 bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:bg-amber-500 transition-all duration-300 ease-in-out cursor-pointer rounded-sm"
+              className="group relative flex items-start p-8 bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:bg-[#ff4d6d] transition-all duration-300 ease-in-out cursor-pointer rounded-sm"
             >
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-500 group-hover:bg-transparent transition-colors" />
+              <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#ff4d6d] group-hover:bg-transparent transition-colors" />
 
-              <div className="mr-5 p-3 rounded-lg bg-amber-50 text-amber-600 group-hover:bg-white/20 group-hover:text-white transition-colors">
+              <div className="mr-5 p-3 rounded-lg bg-amber-50 text-[#ff4d6d] group-hover:bg-white/20 group-hover:text-white transition-colors">
                 {React.cloneElement(feature.icon as React.ReactElement, {})}
               </div>
 

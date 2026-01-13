@@ -8,16 +8,29 @@ import { useRouter } from 'next/navigation' // 1. Import useRouter
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [password, setPassword] = useState("");
+
   const router = useRouter(); // 2. Initialize router
 
   const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
 
   // save signup flag
-  localStorage.setItem("isSignedUp", "true");
+ localStorage.setItem("isSignedUp", "true");
 
-  router.push("/login");
-};
+if (password === "student") {
+  localStorage.setItem("role", "student");
+} else if (password === "teacher") {
+  localStorage.setItem("role", "teacher");
+} else {
+  alert("Invalid password. Use 'student' or 'teacher'");
+  return;
+}
+
+router.push("/login");
+  }
+
+
 
   return (
     <div className="min-h-screen bg-white flex flex-col md:flex-row font-sans">
@@ -98,30 +111,18 @@ const RegisterPage = () => {
               </div>
             </div>
 
+            
+
             {/* Password */}
-            <div>
-              <label className="block text-xs font-bold text-gray-700 uppercase mb-2">Password <span className="text-red-500">*</span></label>
-              <div className="relative group">
-                <input 
-                  type={showPassword ? "text" : "password"} 
-                  placeholder="********" 
-                  className="w-full border-b border-gray-200 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-sm"
-                  required
-                />
-                <div 
-                  className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 cursor-pointer"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <Eye size={16} /> : <EyeOff size={16} />}
-                </div>
-              </div>
-              <div className="flex gap-1 mt-2">
-                <div className="h-1 w-full bg-gray-100 rounded-full"></div>
-                <div className="h-1 w-full bg-gray-100 rounded-full"></div>
-                <div className="h-1 w-full bg-gray-100 rounded-full"></div>
-                <div className="h-1 w-full bg-gray-100 rounded-full"></div>
-              </div>
-            </div>
+            <input 
+  type={showPassword ? "text" : "password"} 
+  placeholder="********" 
+  value={password}
+  onChange={(e) => setPassword(e.target.value)}
+  className="w-full border-b border-gray-200 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-sm"
+  required
+/>
+
 
             {/* Confirm Password */}
             <div>
