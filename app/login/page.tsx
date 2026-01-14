@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-// Added GraduationCap to the imports below
+// Corrected imports
 import { Mail, Lock, Eye, EyeOff, Facebook, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
+  // ERROR FIX: Added missing email state
+  const [email, setEmail] = useState(""); 
+  
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
@@ -48,11 +51,11 @@ const LoginPage = () => {
       </div>
 
       {/* --- RIGHT SIDE: FORM --- */}
-      <div className="w-full md:w-1/2 flex flex-col p-8 md:p-16 lg:p-24 bg-white relative">
+      {/* ERROR FIX: Standardized width to match the left side (w-full md:w-[55%] lg:w-[50%]) */}
+      <div className="w-full md:w-[55%] lg:w-[50%] flex flex-col p-8 md:p-16 lg:p-24 bg-white relative justify-center">
         <div className="flex justify-between items-center mb-12">
           <div className="flex items-center gap-3">
             <div className="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center">
-              {/* This component will now be correctly typed */}
               <GraduationCap
                 className="w-7 h-7 text-[#ff4667]"
                 strokeWidth={2.5}
@@ -75,8 +78,8 @@ const LoginPage = () => {
           </Link>
         </div>
 
-        <div className="max-w-110 w-full mx-auto -mt-12">
-          <h1 className="text-[28px] md:text-[32px] font-bold text-[#0b1219] mt-10">
+        <div className="max-w-110 w-full mx-auto">
+          <h1 className="text-[28px] md:text-[32px] font-bold text-[#0b1219]">
             Sign into Your Account
           </h1>
           <p className="text-gray-400 text-sm mb-10">
@@ -94,7 +97,7 @@ const LoginPage = () => {
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border-b-[1.5px] border-gray-100 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-[15px] placeholder:text-gray-300"
+                  className="w-full border-b-[1.5px] border-gray-100 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-[15px] placeholder:text-gray-300 bg-transparent"
                   required
                 />
                 <Mail className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-300 group-focus-within:text-[#ff4667] w-4.5 h-4.5 transition-colors" />
@@ -111,7 +114,7 @@ const LoginPage = () => {
                   placeholder="********"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full border-b-[1.5px] border-gray-100 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-[15px] placeholder:text-gray-300"
+                  className="w-full border-b-[1.5px] border-gray-100 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-[15px] placeholder:text-gray-300 bg-transparent"
                   required
                 />
                 <div
