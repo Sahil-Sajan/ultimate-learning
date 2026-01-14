@@ -50,9 +50,10 @@ const ORDER_DATA = [
 export default function OrderHistoryView() {
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-black text-[#1D1B26]">Order History</h3>
+      <h3 className="text-xl md:text-2xl font-black text-[#1D1B26]">Order History</h3>
 
-      <div className="bg-white rounded-[32px] border border-slate-100 shadow-sm overflow-hidden">
+      {/* --- DESKTOP TABLE VIEW --- */}
+      <div className="hidden lg:block bg-white rounded-[32px] border border-slate-100 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -121,6 +122,52 @@ export default function OrderHistoryView() {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* --- MOBILE CARD VIEW --- */}
+      <div className="lg:hidden grid grid-cols-1 gap-4">
+        {ORDER_DATA.map((order) => (
+          <div 
+            key={order.id} 
+            className="bg-white p-6 rounded-[28px] border border-slate-100 shadow-sm space-y-4"
+          >
+            <div className="flex justify-between items-start">
+              <span className="text-[10px] font-black text-[#4E3796] bg-indigo-50 px-2.5 py-1 rounded-md">
+                {order.id}
+              </span>
+              <span
+                className={`text-[9px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider ${
+                  order.status === "Paid"
+                    ? "bg-[#E7F9ED] text-[#22C55E]"
+                    : "bg-amber-100 text-amber-600"
+                }`}
+              >
+                {order.status}
+              </span>
+            </div>
+
+            <h4 className="text-sm md:text-base font-black text-[#1D1B26] leading-snug">
+              {order.course}
+            </h4>
+
+            <div className="flex items-center justify-between pt-4 border-t border-slate-50">
+              <div className="space-y-1">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Date & Amount</p>
+                <p className="text-xs font-bold text-slate-600">
+                  {order.date} • <span className="text-[#1D1B26] font-black">{order.amount}</span>
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <button className="p-2.5 rounded-xl bg-slate-50 text-slate-500 active:bg-[#1D1B26] active:text-white transition-all">
+                  <Eye size={18} />
+                </button>
+                <button className="p-2.5 rounded-xl bg-slate-50 text-slate-500 active:bg-[#4E3796] active:text-white transition-all">
+                  <Download size={18} />
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
