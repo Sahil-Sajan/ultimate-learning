@@ -5,22 +5,21 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-  // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState(""); // Fixed: Added missing password state
+  const [email, setEmail] = useState(""); // Added email state for completeness
 
-  const router = useRouter(); 
+  const router = useRouter();
 
-  // 3. Handle Login Logic
- const handleLogin = (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const isSignedUp = localStorage.getItem("isSignedUp");
-
+    // Fixed: Properly structured the logic and defined variables
+    if (password === "student") {
       router.push("/dashboard/student");
     } else if (password === "teacher") {
       router.push("/dashboard/teacher");
     } else {
-      // Optional: default redirect if password doesn't match specific roles
       router.push("/dashboard");
     }
   };
@@ -92,6 +91,8 @@ const LoginPage = () => {
                 <input
                   type="email"
                   placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="w-full border-b-[1.5px] border-gray-100 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-[15px] placeholder:text-gray-300"
                   required
                 />
@@ -99,6 +100,7 @@ const LoginPage = () => {
               </div>
             </div>
 
+            {/* Password Field */}
             <div className="space-y-2">
               <label className="text-[11px] font-extrabold text-[#333] uppercase tracking-[1px]">
                 Password <span className="text-[#ff4667]">*</span>
