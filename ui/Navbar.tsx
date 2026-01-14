@@ -45,7 +45,6 @@ const Navbar = () => {
     { name: "Blogs", href: "/blog" },
   ];
 
-  // Function to reset all menus
   const closeAllMenus = () => {
     setActiveMenu(null);
     setIsMobileMenuOpen(false);
@@ -54,11 +53,11 @@ const Navbar = () => {
   if (!mounted) return null;
 
   return (
-    <header className="w-full bg-[#392C7D] text-white relative z-[100]">
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
+    <header className="w-full bg-[#392C7D] text-white relative z-100">
+      <div className="max-w-1440PX mx-auto flex items-center justify-between px-6 py-4">
         
         {/* LOGO */}
-        <Link href="/" className="flex items-center gap-3 shrink-0 group z-[110]" onClick={closeAllMenus}>
+        <Link href="/" className="flex items-center gap-3 shrink-0 group z-110" onClick={closeAllMenus}>
           <div className="bg-white p-2 rounded-xl transition-transform group-hover:rotate-6 shadow-sm">
              <GraduationCap className="text-[#FF5B5C]" size={24} />
           </div>
@@ -69,7 +68,7 @@ const Navbar = () => {
         </Link>
 
         {/* DESKTOP NAVIGATION */}
-        <nav className="hidden lg:flex items-center gap-10 h-16">
+        <nav className="hidden lg:flex items-center gap-8 h-16">
           {navLinks.map((link) => (
             <div
               key={link.name}
@@ -80,8 +79,8 @@ const Navbar = () => {
               <Link
                 href={link.href}
                 onClick={closeAllMenus}
-                className={`text-[18px] font-semibold transition-all flex items-center gap-1.5 ${
-                  activeMenu === link.megaType ? "text-[#FF5B5C]" : "text-white/80 hover:text-white"
+                className={`text-[17px] font-semibold transition-all flex items-center gap-1.5 ${
+                  activeMenu === link.megaType ? "text-[#FF5B5C]" : "text-white hover:text-white"
                 }`}
               >
                 {link.name}
@@ -93,16 +92,16 @@ const Navbar = () => {
               {/* DESKTOP MEGA MENU */}
               {link.megaType && (
                 <div className={`absolute top-full left-0 right-0 w-full pt-2 transition-all duration-300 ease-out z-50 ${activeMenu === link.megaType ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"}`}>
-                  <div className="max-w-[1440px] mx-auto px-6">
+                  <div className="max-w-360 mx-auto px-6">
                     <div className="bg-[#2D2264] border border-white/10 rounded-[32px] p-10 shadow-[0_30px_100px_rgba(0,0,0,0.6)]">
                       <div className="grid grid-cols-12 gap-8">
                         
                         {/* 1. SIDEBAR */}
                         <div className="col-span-3 border-r border-white/5 pr-6">
-                          <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6">
+                          <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 opacity-40">
                             {link.megaType === "courses" ? "Top-Rated Categories" : "Expert Departments"}
                           </h3>
-                          <div className="space-y-1 text-white">
+                          <div className="space-y-0.5">
                             {link.megaType === "courses" ? (
                               <>
                                 <MegaSidebarItem onClick={closeAllMenus} href="/courses" icon={<Monitor size={18} />} label="Web Development" />
@@ -129,8 +128,8 @@ const Navbar = () => {
                         </div>
 
                         {/* 2. TOPICS */}
-                        <div className="col-span-2">
-                          <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6">
+                        <div className="col-span-2 text-white">
+                          <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 opacity-40">
                             {link.megaType === "courses" ? "Browse by Topic" : "Quick Links"}
                           </h3>
                           <div className="flex flex-col gap-5">
@@ -138,7 +137,7 @@ const Navbar = () => {
                               ? ["Web Design", "Cloud Computing", "AI Content", "Cyber Security", "UI/UX Design", "Machine Learning"] 
                               : ["Become a Teacher", "Instructor FAQ", "Teaching Rules", "Portfolio Help", "Live Sessions", "Success Stories"]
                             ).map((item) => (
-                              <Link key={item} href={link.href} onClick={closeAllMenus} className="text-sm font-medium text-white/60 hover:text-[#FF5B5C] transition-colors">
+                              <Link key={item} href={link.href} onClick={closeAllMenus} className="text-sm font-medium text-white hover:text-[#FF5B5C] transition-colors">
                                 {item}
                               </Link>
                             ))}
@@ -155,15 +154,15 @@ const Navbar = () => {
                               <>
                                 <CourseThumb onClick={closeAllMenus} href="/courses" title="Prompt Engineering" instructor="Caren Drew" img="/cg-1.webp" />
                                 <CourseThumb onClick={closeAllMenus} href="/courses" title="Blockchain 101" instructor="Dan Kenyon" img="/cg-2.avif" />
-                                <CourseThumb onClick={closeAllMenus} href="/courses" title="AWS Masterclass" instructor="Alex Rivera" img="cg-3.webp" />
+                                <CourseThumb onClick={closeAllMenus} href="/courses" title="AWS Masterclass" instructor="Alex Rivera" img="/cg-3.webp" />
                                 <CourseThumb onClick={closeAllMenus} href="/courses" title="Next.js 15 Pro" instructor="Sarah J." img="/cg-6.avif" />
                               </>
                             ) : (
                               <>
-                                <CourseThumb onClick={closeAllMenus} href="/instructors" title="Dr. Alex Rivera" instructor="AI Scientist" img="instructor1.webp" />
-                                <CourseThumb onClick={closeAllMenus} href="/instructors" title="Sarah Jenkins" instructor="UX Lead" img="instructor2.webp" />
-                                <CourseThumb onClick={closeAllMenus} href="/instructors" title="Marcus Thorne" instructor="DevOps Expert" img="instructor3.webp" />
-                                <CourseThumb onClick={closeAllMenus} href="/instructors" title="Elena Ruiz" instructor="Business Head" img="instructor4.webp" />
+                                <CourseThumb onClick={closeAllMenus} href="/instructors" title="Dr. Alex Rivera" instructor="AI Scientist" img="/instructor1.webp" />
+                                <CourseThumb onClick={closeAllMenus} href="/instructors" title="Sarah Jenkins" instructor="UX Lead" img="/instructor2.webp" />
+                                <CourseThumb onClick={closeAllMenus} href="/instructors" title="Marcus Thorne" instructor="DevOps Expert" img="/instructor3.webp" />
+                                <CourseThumb onClick={closeAllMenus} href="/instructors" title="Elena Ruiz" instructor="Business Head" img="/instructor4.webp" />
                               </>
                             )}
                           </div>
@@ -176,14 +175,14 @@ const Navbar = () => {
                           </h3>
                           <Link href={link.href} onClick={closeAllMenus} className="block bg-white/5 border border-white/10 p-5 rounded-[28px] group/card cursor-pointer transition-all hover:border-[#FF5B5C]/50">
                             <div className="aspect-video bg-[#392C7D] rounded-2xl mb-4 overflow-hidden">
-                              <img src={link.megaType === "courses" ? "instructor6.webp" : "instructor5.webp"} className="w-full h-full object-cover group-hover/card:scale-110 transition-all duration-500" alt="featured" />
+                              <img src={link.megaType === "courses" ? "/instructor6.webp" : "/instructor5.webp"} className="w-full h-full object-cover group-hover/card:scale-110 transition-all duration-500" alt="featured" />
                             </div>
                             <p className="text-sm font-bold mb-2 group-hover/card:text-[#FF5B5C] transition-colors">
                               {link.megaType === "courses" ? "Mastering UI/UX Design" : "Prof. Isabella Chen"}
                             </p>
                             <div className="flex items-center gap-1 text-[#FFB800]">
                               {[...Array(5)].map((_, i) => <Star key={i} size={10} fill="currentColor" />)}
-                              <span className="text-[10px] text-white ml-2">4.9 (2.4k Reviews)</span>
+                              <span className="text-[10px] text-white ml-2 opacity-60">4.9 (2.4k Reviews)</span>
                             </div>
                           </Link>
                         </div>
@@ -197,8 +196,9 @@ const Navbar = () => {
         </nav>
 
         {/* RIGHT ACTIONS */}
-        <div className="flex items-center gap-3 z-[110]">
-          <div className="hidden md:flex gap-2">
+        <div className="flex items-center gap-2 z-110">
+          {/* Utility Icons */}
+          <div className="hidden xl:flex gap-1.5 mr-2">
             <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
             <NavCircleBtn icon={<DollarSign size={14} />} />
             <NavCircleBtn icon={<Moon size={16} fill="currentColor" />} />
@@ -207,19 +207,30 @@ const Navbar = () => {
                 <span className="absolute -top-1 -right-1 bg-[#FF5B5C] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-[#392C7D]">0</span>
             </div>
           </div>
-          <Link href="/register" className="hidden sm:block" onClick={closeAllMenus}>
-            <button className="bg-[#FF5B5C] px-8 py-2.5 rounded-full font-bold text-sm shadow-lg hover:bg-white hover:text-[#FF5B5C] transition-all active:scale-95">
-              Register
-            </button>
-          </Link>
-          <button className="lg:hidden p-2 text-white hover:text-[#FF5B5C] transition-colors" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+
+          {/* Auth Buttons */}
+          <div className="hidden sm:flex items-center gap-2">
+            <Link href="/login" onClick={closeAllMenus}>
+              <button className="text-white bg-[#392C7D] border border-white/20 cursor-pointer px-6 py-2.5 rounded-full font-bold text-sm hover:bg-white/10 transition-all active:scale-95">
+                Sign In
+              </button>
+            </Link>
+            <Link href="/register" onClick={closeAllMenus}>
+              <button className="bg-[#FF5B5C] text-white cursor-pointer px-7 py-2.5 rounded-full font-bold text-sm shadow-lg hover:shadow-[#FF5B5C]/20 hover:bg-[#ff4646] transition-all active:scale-95">
+                Register
+              </button>
+            </Link>
+          </div>
+
+          {/* Mobile Toggle */}
+          <button className="lg:hidden p-2 text-white hover:text-[#FF5B5C] transition-colors ml-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
           </button>
         </div>
       </div>
 
       {/* MOBILE MENU */}
-      <div className={`fixed inset-0 bg-[#2D2264]/95 backdrop-blur-xl z-[105] lg:hidden transition-all duration-500 ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+      <div className={`fixed inset-0 bg-[#2D2264]/98 backdrop-blur-xl z-105 lg:hidden transition-all duration-500 ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
         <div className="flex flex-col h-full pt-24 px-6 pb-10 overflow-y-auto">
           <div className="space-y-4">
             {navLinks.map((link) => (
@@ -255,44 +266,49 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="mt-auto pt-10 grid grid-cols-4 gap-4 border-t border-white/10">
-            <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
-            <NavCircleBtn icon={<DollarSign size={20} />} />
-            <NavCircleBtn icon={<Moon size={20} fill="currentColor" />} />
-            <NavCircleBtn icon={<ShoppingCart size={20} />} />
+          <div className="mt-auto space-y-4 pt-10">
+            <div className="grid grid-cols-4 gap-4 border-t border-white/10 pt-10">
+              <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
+              <NavCircleBtn icon={<DollarSign size={20} />} />
+              <NavCircleBtn icon={<Moon size={20} fill="currentColor" />} />
+              <NavCircleBtn icon={<ShoppingCart size={20} />} />
+            </div>
+            <div className="flex flex-col gap-3">
+              <Link href="/login" onClick={closeAllMenus}>
+                <button className="w-full bg-transparent border border-white/20 py-4 rounded-2xl font-bold text-lg">Sign In</button>
+              </Link>
+              <Link href="/register" onClick={closeAllMenus}>
+                <button className="w-full bg-[#FF5B5C] py-5 rounded-2xl font-bold text-lg shadow-xl">Join Ultimate Learning</button>
+              </Link>
+            </div>
           </div>
-          <Link href="/register" className="mt-6">
-            <button className="w-full bg-[#FF5B5C] py-5 rounded-[20px] font-bold text-lg shadow-xl" onClick={closeAllMenus}>
-                Join Ultimate Learning
-            </button>
-          </Link>
         </div>
       </div>
     </header>
   );
 };
 
-// --- HELPERS (With onClick Support) ---
+// --- HELPERS ---
 
 const MegaSidebarItem = ({ icon, label, href, onClick }: any) => (
   <Link href={href} onClick={onClick} className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-white/5 transition-all cursor-pointer group">
     <div className="p-2 bg-white/5 rounded-lg text-white/40 group-hover:text-[#FF5B5C] transition-all">{icon}</div>
-    <span className="text-sm font-bold text-white/60 group-hover:text-white">{label}</span>
+    <span className="text-sm font-bold text-white group-hover:text-white">{label}</span>
   </Link>
 );
 
 const CourseThumb = ({ title, instructor, img, href, onClick }: any) => (
   <Link href={href} onClick={onClick} className="flex flex-col gap-2 p-3 bg-white/5 rounded-2xl hover:bg-white/10 transition-all cursor-pointer border border-white/5 group">
-    <div className="w-full h-24 overflow-hidden rounded-xl">
+    <div className="w-full h-24 overflow-hidden rounded-xl bg-[#392C7D]">
         <img src={img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt={title} />
     </div>
     <p className="text-[11px] font-bold line-clamp-1 group-hover:text-[#FF5B5C] transition-colors">{title}</p>
-    <p className="text-[9px] text-white/40">{instructor}</p>
+    <p className="text-[9px] text-white opacity-40">{instructor}</p>
   </Link>
 );
 
 const NavCircleBtn = ({ icon, img }: any) => (
-  <button className="w-10 h-10 md:w-11 md:h-11 flex items-center justify-center bg-white/10 rounded-full text-white hover:bg-white hover:text-[#392C7D] transition-all shadow-sm overflow-hidden border border-white/5">
+  <button className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full text-white hover:bg-white hover:text-[#392C7D] transition-all shadow-sm overflow-hidden border border-white/5">
     {img ? <img src={img} className="w-full h-full object-cover p-1.5 rounded-full" alt="flag" /> : icon}
   </button>
 );

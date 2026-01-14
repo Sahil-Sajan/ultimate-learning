@@ -136,7 +136,7 @@ const LoginPage = () => {
 
             <div className="relative flex items-center py-6">
               <div className="grow border-t border-gray-100"></div>
-              <span className="shrink mx-4 text-gray-400 text-[12px] font-bold uppercase tracking-wider">Or</span>
+              <span className="shrink mx-4 text-gray-500 text-[12px] font-bold uppercase tracking-wider">Or</span>
               <div className="grow border-t border-gray-100"></div>
             </div>
 
