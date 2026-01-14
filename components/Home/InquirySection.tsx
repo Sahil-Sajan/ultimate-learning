@@ -14,12 +14,11 @@ const CommunitySection: React.FC = () => {
   return (
     <section className="w-full bg-[#f8f9fb] py-12 md:py-20 px-4 md:px-12 lg:px-24 overflow-hidden font-sans">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        
         {/* Left Column: Content */}
         <div className="space-y-8 order-2 lg:order-1 text-center lg:text-left">
           <div className="space-y-4">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight lg:whitespace-nowrap">
-              Creating a community of learners.
+              Creating a community of <br /> learners.
             </h2>
             <p className="text-gray-500 text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">
               We&apos;re dedicated to transforming education by providing a
