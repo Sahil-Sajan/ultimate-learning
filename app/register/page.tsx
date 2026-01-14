@@ -38,8 +38,8 @@ router.push("/login");
       {/* --- LEFT SIDE: PROMOTIONAL --- */}
       <div className="hidden md:flex md:w-1/2 bg-[#fff5f6] flex-col items-center justify-center p-12 text-center">
         <div className="relative w-full max-w-md aspect-square mb-8">
-          <Image 
-            src="/signup1.png" 
+          <Image
+            src="/login.jpeg"
             alt="Sign up illustration"
             fill
             className="object-contain"
@@ -162,11 +162,23 @@ router.push("/login");
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <button type="button" className="flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition-colors text-sm font-bold">
-                <Image src="/favicon2.ico" alt="Google" width={18} height={18} /> Google
+              <button
+                type="button"
+                className="flex items-center justify-center gap-3 border-[1.5px] border-gray-100 py-3.5 rounded-2xl hover:bg-gray-50 hover:border-gray-200 transition-all active:scale-95"
+              >
+                <img src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
+                <span className="text-[14px] font-bold text-[#0b1219]">
+                  Google
+                </span>
               </button>
-              <button type="button" className="flex items-center justify-center gap-2 border border-gray-200 py-3 rounded-xl hover:bg-gray-50 transition-colors text-sm font-bold">
-                <Facebook className="text-[#1877F2] w-5 h-5 fill-current" /> Facebook
+              <button
+                type="button"
+                className="flex items-center justify-center gap-3 border-[1.5px] border-gray-100 py-3.5 rounded-2xl hover:bg-gray-50 hover:border-gray-200 transition-all active:scale-95"
+              >
+                <Facebook className="w-5 h-5 text-[#1877F2] fill-current" />
+                <span className="text-[14px] font-bold text-[#0b1219]">
+                  Facebook
+                </span>
               </button>
             </div>
 
