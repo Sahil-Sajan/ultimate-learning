@@ -1,26 +1,23 @@
 "use client";
 import React, { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, Facebook } from "lucide-react";
+// Added GraduationCap to the imports below
+import { Mail, Lock, Eye, EyeOff, Facebook, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
-  // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
-  // State to track password input
   const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Redirection logic based on password value
     if (password === "student") {
       router.push("/dashboard/student");
     } else if (password === "teacher") {
       router.push("/dashboard/teacher");
     } else {
-      // Optional: default redirect if password doesn't match specific roles
       router.push("/dashboard");
     }
   };
@@ -50,31 +47,35 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* --- RIGHT SIDE: LOGIN FORM SECTION --- */}
-      <div className="w-full md:w-[55%] lg:w-[50%] flex flex-col px-6 py-10 md:px-16 lg:px-24 justify-center relative bg-white">
-        <div className="absolute top-6 left-6 right-6 md:top-10 md:left-12 md:right-12 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="bg-[#ff4667] p-1.5 rounded-lg shadow-sm">
-              <div className="w-5 h-5 border-2 border-white rounded-sm flex items-center justify-center text-[10px] text-white font-bold">
-                UL
-              </div>
+      {/* --- RIGHT SIDE: FORM --- */}
+      <div className="w-full md:w-1/2 flex flex-col p-8 md:p-16 lg:p-24 bg-white relative">
+        <div className="flex justify-between items-center mb-12">
+          <div className="flex items-center gap-3">
+            <div className="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center">
+              {/* This component will now be correctly typed */}
+              <GraduationCap
+                className="w-7 h-7 text-[#ff4667]"
+                strokeWidth={2.5}
+              />
             </div>
-            <span className="text-xl font-bold text-[#0b1219] tracking-tight">
-              Ultimate
-              <span className="text-[#ff4667] text-[10px] font-bold align-top ml-0.5 uppercase">
+            <div className="flex flex-col leading-none">
+              <span className="text-xl font-black text-[#0b1219] tracking-tight uppercase">
+                Ultimate
+              </span>
+              <span className="text-[12px] font-bold text-[#ff4667] tracking-[2px] uppercase mt-0.5">
                 Learning
               </span>
-            </span>
+            </div>
           </div>
           <Link
             href="/"
-            className="text-[14px] font-bold text-[#ff4667] hover:text-[#e63e5c] transition-colors"
+            className="text-sm font-semibold text-[#ff4667] hover:underline"
           >
             Back to Home
           </Link>
         </div>
 
-        <div className="max-w-110 w-full mx-auto mt-12 md:mt-0">
+        <div className="max-w-110 w-full mx-auto -mt-12">
           <h1 className="text-[28px] md:text-[32px] font-bold text-[#0b1219] mt-10">
             Sign into Your Account
           </h1>
@@ -83,7 +84,6 @@ const LoginPage = () => {
           </p>
 
           <form onSubmit={handleLogin} className="space-y-7">
-            {/* Email Field */}
             <div className="space-y-2">
               <label className="text-[11px] font-extrabold text-[#333] uppercase tracking-[1px]">
                 Email <span className="text-[#ff4667]">*</span>
@@ -99,7 +99,6 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Password Field */}
             <div className="space-y-2">
               <label className="text-[11px] font-extrabold text-[#333] uppercase tracking-[1px]">
                 Password <span className="text-[#ff4667]">*</span>
@@ -151,7 +150,6 @@ const LoginPage = () => {
               Login <span className="text-xl leading-none">›</span>
             </button>
 
-            {/* Divider */}
             <div className="relative flex items-center py-6">
               <div className="grow border-t border-gray-100"></div>
               <span className="shrink mx-4 text-gray-400 text-[12px] font-bold uppercase tracking-wider">
@@ -160,17 +158,12 @@ const LoginPage = () => {
               <div className="grow border-t border-gray-100"></div>
             </div>
 
-            {/* Social Logins */}
             <div className="grid grid-cols-2 gap-4">
               <button
                 type="button"
                 className="flex items-center justify-center gap-3 border-[1.5px] border-gray-100 py-3.5 rounded-2xl hover:bg-gray-50 hover:border-gray-200 transition-all active:scale-95"
               >
-                <img
-                  src="https://www.google.com/favicon.ico"
-                  alt="Google"
-                  className="w-4 h-4"
-                />
+                <img src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
                 <span className="text-[14px] font-bold text-[#0b1219]">
                   Google
                 </span>

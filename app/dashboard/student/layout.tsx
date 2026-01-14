@@ -29,47 +29,47 @@ export default function DashboardLayout({
     {
       name: "Dashboard",
       icon: <LayoutDashboard size={18} />,
-      href: "/dashboard",
+      href: "/dashboard/student",
     },
     {
       name: "My Profile",
       icon: <User size={18} />,
-      href: "/dashboard/profile",
+      href: "/dashboard/student/profile",
     },
     {
       name: "Enrolled Courses",
       icon: <BookOpen size={18} />,
-      href: "/dashboard/enrolled-courses",
+      href: "/dashboard/student/enrolled-courses",
     },
     {
       name: "My Certificates",
       icon: <Award size={18} />,
-      href: "/dashboard/certificates",
+      href: "/dashboard/student/certificates",
     },
     {
       name: "Wishlist",
       icon: <Heart size={18} />,
-      href: "/dashboard/wishlist",
+      href: "/dashboard/student/wishlist",
     },
     {
       name: "Reviews",
       icon: <Star size={18} />,
-      href: "/dashboard/reviews",
+      href: "/dashboard/student/reviews",
     },
     {
       name: "My Quiz Attempts",
       icon: <ClipboardList size={18} />,
-      href: "/dashboard/quizzes",
+      href: "/dashboard/student/quizzes",
     },
     {
       name: "Order History",
       icon: <ShoppingCart size={18} />,
-      href: "/dashboard/order-history",
+      href: "/dashboard/student/order-history",
     },
     {
       name: "Messages",
       icon: <MessageSquare size={18} />,
-      href: "/dashboard/messages",
+      href: "/dashboard/student/messages",
     },
   ];
 
@@ -116,7 +116,7 @@ export default function DashboardLayout({
             </h3>
             <div className="space-y-1">
               <Link
-                href="/dashboard/settings"
+                href="/dashboard/student/settings"
                 onClick={() => setActiveTab("Settings")}
                 className={`flex items-center gap-3 px-5 py-3.5 font-bold text-sm transition-all ${
                   activeTab === "Settings"
