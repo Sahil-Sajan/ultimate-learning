@@ -14,10 +14,10 @@ const CommunitySection: React.FC = () => {
   return (
     <section className="w-full bg-[#f8f9fb] py-12 md:py-20 px-4 md:px-12 lg:px-24 overflow-hidden font-sans">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        
         {/* Left Column: Content */}
         <div className="space-y-8 order-2 lg:order-1 text-center lg:text-left">
           <div className="space-y-4">
-            {/* Heading responsive adjustment */}
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight lg:whitespace-nowrap">
               Creating a community of learners.
             </h2>
@@ -76,18 +76,18 @@ const CommunitySection: React.FC = () => {
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-wrap justify-center lg:justify-start gap-4 pt-4">
-            <button className="bg-[#ff4d6d] hover:bg-[#e63958] text-white px-8 py-3.5 rounded-full font-bold transition-all shadow-lg shadow-pink-100">
+          {/* Action Buttons - Fixed Responsive Width */}
+          <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-4">
+            <button className="w-full sm:w-auto bg-[#ff4d6d] hover:bg-[#e63958] text-white px-8 py-3.5 rounded-full font-bold transition-all shadow-lg shadow-pink-100">
               Enroll as Student
             </button>
-            <button className="bg-[#0f172a] hover:bg-black text-white px-8 py-3.5 rounded-full font-bold transition-all">
+            <button className="w-full sm:w-auto bg-[#0f172a] hover:bg-black text-white px-8 py-3.5 rounded-full font-bold transition-all">
               Apply as Tutor
             </button>
           </div>
         </div>
 
-        {/* Right Column: Image Composition (Centered on mobile) */}
+        {/* Right Column: Image Composition */}
         <div className="relative h-100 md:h-125 lg:h-150 w-full max-w-125 lg:max-w-none mx-auto order-1 lg:order-2">
           {/* Main Large Image */}
           <div className="absolute top-0 right-0 w-[75%] lg:w-[65%] h-[85%] lg:h-[90%] rounded-[30px] lg:rounded-[40px] overflow-hidden shadow-2xl z-10 border-4 border-white">
@@ -133,7 +133,7 @@ const CommunitySection: React.FC = () => {
             </p>
           </div>
 
-          {/* Decorative Element (Hidden on very small screens if needed, or adjusted) */}
+          {/* Decorative Element */}
           <div className="absolute bottom-1/4 right-0 w-24 h-24 lg:w-32 lg:h-32 bg-[#00d084] rounded-3xl -z-10 translate-x-8 translate-y-8 lg:translate-x-12 lg:translate-y-12"></div>
         </div>
       </div>
