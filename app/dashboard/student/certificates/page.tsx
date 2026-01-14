@@ -50,9 +50,10 @@ const CERTIFICATES_DATA = [
 export default function MyCertificatesView() {
   return (
     <div className="space-y-6">
-      <h3 className="text-xl font-black text-[#1D1B26]">My Certificates</h3>
+      <h3 className="text-xl md:text-2xl font-black text-[#1D1B26]">My Certificates</h3>
 
-      <div className="bg-white rounded-[32px] border border-slate-100 shadow-sm overflow-hidden">
+      {/* --- DESKTOP VIEW (Table) --- */}
+      <div className="hidden md:block bg-white rounded-[32px] border border-slate-100 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
@@ -113,6 +114,48 @@ export default function MyCertificatesView() {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* --- MOBILE VIEW (Card Layout) --- */}
+      <div className="grid grid-cols-1 gap-4 md:hidden">
+        {CERTIFICATES_DATA.map((cert) => (
+          <div 
+            key={cert.id} 
+            className="bg-white p-6 rounded-[24px] border border-slate-100 shadow-sm space-y-4"
+          >
+            <div className="flex justify-between items-start">
+              <div>
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">ID: {cert.id}</span>
+                <h4 className="text-base font-black text-[#1D1B26] mt-1">{cert.name}</h4>
+                <p className="text-xs font-bold text-slate-400 mt-1">{cert.date}</p>
+              </div>
+              <div className="flex gap-2">
+                <button className="p-2.5 rounded-xl bg-slate-50 text-[#4E3796] active:bg-[#4E3796] active:text-white transition-all">
+                  <Eye size={18} />
+                </button>
+                <button className="p-2.5 rounded-xl bg-slate-50 text-[#22C55E] active:bg-[#22C55E] active:text-white transition-all">
+                  <Download size={18} />
+                </button>
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-6 pt-4 border-t border-slate-50">
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Marks</p>
+                <p className="text-sm font-black text-[#1D1B26]">{cert.marks}</p>
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total</p>
+                <p className="text-sm font-black text-[#1D1B26]">{cert.outOf}</p>
+              </div>
+              <div className="ml-auto">
+                <div className="px-3 py-1 rounded-full bg-green-50 text-[10px] font-black text-green-600 uppercase">
+                    Passed
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
