@@ -72,7 +72,7 @@ const CourseGrid: React.FC = () => {
           Featured Courses
         </span>
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
-          What's New in DreamsLMS
+          What's New in Ultimate Learning
         </h2>
         <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
           Discover our featured courses, specially curated to help you gain
@@ -107,7 +107,7 @@ const CourseGrid: React.FC = () => {
               className="group relative flex items-start p-8 bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:bg-[#ff4d6d] transition-all duration-300 ease-in-out cursor-pointer rounded-sm"
             >
               {/* Course Image & Overlay */}
-              <div className="relative aspect-[16/10] rounded-xl overflow-hidden mb-4">
+              <div className="relative aspect-16/10 rounded-xl overflow-hidden mb-4">
                 <Image
                   src={course.image}
                   alt={course.title}
@@ -117,7 +117,7 @@ const CourseGrid: React.FC = () => {
               </div>
 
               {/* Content */}
-              <div className="flex-grow space-y-3">
+              <div className="grow space-y-3">
                 <div className="flex justify-between items-center">
                   <span
                     className={`text-[10px] font-bold px-2 py-1 rounded-md uppercase ${course.color}`}
@@ -127,7 +127,7 @@ const CourseGrid: React.FC = () => {
                   <Heart className="w-4 h-4 text-gray-300 cursor-pointer hover:text-red-500 transition-colors" />
                 </div>
 
-                <h3 className="font-bold text-gray-900 leading-snug line-clamp-2 min-h-[3rem]">
+                <h3 className="font-bold text-gray-900 leading-snug line-clamp-2 min-h-12">
                   {course.title}
                 </h3>
 
