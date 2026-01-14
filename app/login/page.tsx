@@ -31,7 +31,7 @@ const LoginPage = () => {
       <div className="hidden md:flex md:w-[45%] lg:w-[50%] bg-[#fff5f6] flex-col items-center justify-center p-8 lg:p-12 text-center">
         <div className="relative w-full max-w-105 mb-10">
           <img
-            src="/signup1.png"
+            src="/login.jpeg"
             alt="Welcome Illustration"
             className="w-full h-auto object-contain"
           />
