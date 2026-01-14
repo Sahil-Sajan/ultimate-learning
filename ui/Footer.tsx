@@ -12,7 +12,7 @@ import {
 const Footer = () => {
   return (
     <footer className="bg-[#0b1219] text-gray-400 py-16 px-6 md:px-12 font-sans border-t border-white/5">
-      <div className="max-w-[1440px] mx-auto">
+      <div className="max-w-360 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-1.5 space-y-6">
@@ -61,10 +61,10 @@ const Footer = () => {
               <img
                 src="/appstore.webp"
                 alt="App Store"
-                className="h-10 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
+                className="h-10 w-15 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
               />
               <img
-                src="/favicon2.ico"
+                src="/google-play.webp"
                 alt="Google Play"
                 className="h-10 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
               />
@@ -144,7 +144,7 @@ const Footer = () => {
                 />
               </div>
 
-            <button className="w-full bg-[#FF5B5C] hover:bg-[#ff4646] text-white font-bold py-3 rounded-full transition-all shadow-lg active:scale-95">
+              <button className="w-full bg-[#FF5B5C] hover:bg-[#ff4646] text-white font-bold py-3 rounded-full transition-all shadow-lg active:scale-95">
                 Subscribe
               </button>
             </div>

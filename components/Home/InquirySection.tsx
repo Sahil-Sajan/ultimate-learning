@@ -13,7 +13,6 @@ const CommunitySection: React.FC = () => {
   return (
     <section className="w-full bg-[#f8f9fb] py-12 md:py-20 px-4 md:px-12 lg:px-24 overflow-hidden font-sans">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-        
         {/* Left Column: Content */}
         <div className="space-y-8 order-2 lg:order-1 text-center lg:text-left">
           <div className="space-y-4">
@@ -34,9 +33,12 @@ const CommunitySection: React.FC = () => {
                 <BookOpen className="w-6 h-6 text-purple-600" />
               </div>
               <div>
-                <h4 className="text-xl font-bold text-gray-900">Learn from anywhere</h4>
+                <h4 className="text-xl font-bold text-gray-900">
+                  Learn from anywhere
+                </h4>
                 <p className="text-gray-500 mt-1">
-                  Learning from anywhere has become a transform aspect of modern education.
+                  Learning from anywhere has become a transform aspect of modern
+                  education.
                 </p>
               </div>
             </div>
@@ -46,9 +48,12 @@ const CommunitySection: React.FC = () => {
                 <Award className="w-6 h-6 text-pink-500" />
               </div>
               <div>
-                <h4 className="text-xl font-bold text-gray-900">Expert Mentors</h4>
+                <h4 className="text-xl font-bold text-gray-900">
+                  Expert Mentors
+                </h4>
                 <p className="text-gray-500 mt-1">
-                  Expert mentors are invaluable assets in any field, providing seasoned guidance.
+                  Expert mentors are invaluable assets in any field, providing
+                  seasoned guidance.
                 </p>
               </div>
             </div>
@@ -58,9 +63,12 @@ const CommunitySection: React.FC = () => {
                 <Zap className="w-6 h-6 text-cyan-500" />
               </div>
               <div>
-                <h4 className="text-xl font-bold text-gray-900">Learn in demand skills</h4>
+                <h4 className="text-xl font-bold text-gray-900">
+                  Learn in demand skills
+                </h4>
                 <p className="text-gray-500 mt-1">
-                  In today&apos;s rapidly evolving job market, learning skills is crucial.
+                  In today&apos;s rapidly evolving job market, learning skills
+                  is crucial.
                 </p>
               </div>
             </div>
@@ -78,8 +86,7 @@ const CommunitySection: React.FC = () => {
         </div>
 
         {/* Right Column: Image Composition */}
-        <div className="relative h-[450px] md:h-[600px] w-full max-w-[500px] lg:max-w-none mx-auto order-1 lg:order-2">
-          
+        <div className="relative h-[450px] md:h-[600px] w-full max-w-[500px] lg:max-w-none mt-15 mx-auto order-1 lg:order-2">
           {/* Main Large Image */}
           <div className="absolute top-0 right-0 w-[80%] lg:w-[85%] h-[85%] lg:h-[90%] rounded-[40px] overflow-hidden shadow-2xl z-10 border-4 border-white">
             <Image
@@ -114,7 +121,7 @@ const CommunitySection: React.FC = () => {
                     alt={`Enrolled student ${i + 1}`}
                     fill
                     className="object-cover"
-                    unoptimized 
+                    unoptimized
                   />
                 </div>
               ))}
