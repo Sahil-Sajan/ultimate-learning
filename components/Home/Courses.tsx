@@ -80,31 +80,13 @@ const CourseGrid: React.FC = () => {
         </p>
       </div>
 
-          {/* Main Heading */}
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Why Our <span className="text-[#ff4d6d]">Courses?</span>
-          </h2>
-
-          {/* Modern Underline Accent */}
-          <div className="mt-5 flex items-center gap-2">
-            <div className="h-0.5 w-12 bg-[#ff4d6d]" />
-            <div className="h-1.5 w-1.5 rounded-full bg-[#ff4d6d]" />
-            <div className="h-0.5 w-12 bg-[#ff4d6d]" />
-          </div>
-        </motion.div>
-       
-
-        {/* Professional Compact Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {courseFeatures.map((feature, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="group relative flex items-start p-8 bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:bg-[#ff4d6d] transition-all duration-300 ease-in-out cursor-pointer rounded-sm"
+      {/* Grid Container with Navigation Arrows */}
+      <div className="relative group">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {courses.map((course) => (
+            <div
+              key={course.id}
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow p-3 flex flex-col h-full"
             >
               {/* Course Image & Overlay */}
               <div className="relative aspect-16/10 rounded-xl overflow-hidden mb-4">

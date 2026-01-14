@@ -89,7 +89,7 @@ const Navbar = () => {
                 className={`text-[17px] font-semibold transition-all flex items-center gap-1.5 ${
                   activeMenu === link.megaType
                     ? "text-[#FF5B5C]"
-                    : "text-white/80 hover:text-white"
+                    : "text-white/80 hover:text-[#FF5B5C]"
                 }`}
               >
                 {link.name}
