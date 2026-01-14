@@ -147,7 +147,7 @@ export default function PricingPage() {
             initial="initial"
             animate="animate"
             variants={staggerContainer}
-            className="space-y-4"
+            className="space-y-4 text-center lg:text-left"
           >
             <motion.div
               variants={fadeInUp}
@@ -157,25 +157,25 @@ export default function PricingPage() {
             </motion.div>
             <motion.h1
               variants={fadeInUp}
-              className="text-5xl md:text-6xl font-black text-[#1D1B26] leading-[1.1]"
+              className="text-4xl md:text-6xl font-black text-[#1D1B26] leading-[1.1]"
             >
               Flexible Pricing <br /> For Every Learner
             </motion.h1>
             <motion.p
               variants={fadeInUp}
-              className="text-slate-500 text-lg max-w-md leading-relaxed"
+              className="text-slate-500 text-lg max-w-md mx-auto lg:mx-0 leading-relaxed"
             >
               We're dedicated to transforming education by providing
               high-quality courses that cater to learners of all levels.
             </motion.p>
             <motion.div
               variants={fadeInUp}
-              className="flex flex-wrap gap-4 pt-4"
+              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4"
             >
-              <button className="bg-[#FF5364] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-pink-200 hover:scale-105 transition-transform active:scale-95">
+              <button className="w-full sm:w-auto bg-[#FF5364] text-white px-10 py-4 rounded-full font-bold shadow-lg shadow-pink-200 hover:scale-105 transition-transform active:scale-95">
                 Select a Plan
               </button>
-              <button className="bg-[#1D1B26] text-white px-10 py-4 rounded-full font-bold hover:bg-black transition-all">
+              <button className="w-full sm:w-auto bg-[#1D1B26] text-white px-10 py-4 rounded-full font-bold hover:bg-black transition-all">
                 Learn More
               </button>
             </motion.div>
@@ -191,13 +191,16 @@ export default function PricingPage() {
             <motion.div
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-10 w-full max-w-[400px]"
+              className="relative z-10 w-full max-w-md"
             >
-              <img
+              
+                 <img
                 src="/pricing-hero.png"
                 alt="Pricing Preview"
                 className="w-full h-auto rounded-2xl drop-shadow-2xl"
               />
+                 
+              
             </motion.div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#4E3796]/5 rounded-full blur-3xl z-0" />
           </motion.div>
@@ -278,8 +281,8 @@ export default function PricingPage() {
             >
               <HelpCircle size={48} />
             </motion.div>
-            <h2 className="text-4xl font-black text-[#1D1B26] mb-4">FAQs</h2>
-            <p className="text-slate-500">
+            <h2 className="text-4xl font-black text-[#1D1B26] mb-4 text-center">FAQs</h2>
+            <p className="text-slate-500 text-center">
               Everything you need to know about our subscriptions.
             </p>
           </div>
@@ -297,7 +300,7 @@ export default function PricingPage() {
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
                   className="w-full flex items-center justify-between p-6 text-left group"
                 >
-                  <span className="font-bold text-[#1D1B26] text-lg group-hover:text-[#FF5364] transition-colors">
+                  <span className="font-bold text-[#1D1B26] text-lg group-hover:text-[#FF5364] transition-colors pr-4">
                     {faq.question}
                   </span>
                   <motion.div
@@ -336,7 +339,7 @@ export default function PricingPage() {
 
       {/* BOTTOM STRIP */}
       <section className="py-16 border-t border-slate-100 bg-white">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <FeatureItem
             icon={<Smartphone />}
             title="Learn Anywhere"
@@ -389,7 +392,7 @@ function PricingCard({
         <motion.span
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="bg-[#FF5364] text-white text-[10px] font-black uppercase px-6 py-1.5 rounded-full absolute -top-4 left-1/2 -translate-x-1/2 shadow-xl shadow-pink-500/20"
+          className="bg-[#FF5364] text-white text-[10px] font-black uppercase px-6 py-1.5 rounded-full absolute -top-4 left-1/2 -translate-x-1/2 shadow-xl shadow-pink-500/20 whitespace-nowrap"
         >
           Most Popular
         </motion.span>
@@ -460,7 +463,7 @@ function PricingCard({
             : "bg-white text-[#4E3796] hover:bg-slate-50"
         }`}
       >
-        {plan.buttonText}{" "}
+        {plan.buttonText}
         <ArrowRight
           size={18}
           className="group-hover:translate-x-1 transition-transform"
@@ -473,14 +476,14 @@ function PricingCard({
 function FeatureItem({ icon, title, desc }: FeatureItemProps) {
   return (
     <motion.div whileHover={{ x: 5 }} className="flex items-center gap-4">
-      <div className="w-14 h-14 bg-[#FF5364]/5 rounded-2xl flex items-center justify-center text-[#FF5364] shadow-inner">
+      <div className="shrink-0 w-14 h-14 bg-[#FF5364]/5 rounded-2xl flex items-center justify-center text-[#FF5364] shadow-inner">
         {icon}
       </div>
       <div>
         <h4 className="font-black text-slate-900 text-sm tracking-tight">
           {title}
         </h4>
-        <p className="text-xs text-slate-400 font-medium">{desc}</p>
+        <p className="text-xs text-slate-400 font-medium whitespace-nowrap">{desc}</p>
       </div>
     </motion.div>
   );
