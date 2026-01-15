@@ -179,7 +179,7 @@ export default function CourseCatalog() {
               <input
                 type="text"
                 placeholder="Search"
-                className="w-full md:w-64 border border-gray-200 px-4 py-2.5 rounded-lg text-sm outline-none"
+                className="w-full md:w-64 border border-gray-300 px-4 py-2.5 rounded-lg text-sm outline-none"
               />
               <Search
                 className="absolute right-3 top-3 text-gray-400"
@@ -191,7 +191,7 @@ export default function CourseCatalog() {
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* 3. SIDEBAR FILTERS */}
-          <aside className="w-full lg:w-75 flex flex-col gap-6 order-2 lg:order-1">
+          <aside className="w-full lg:w-75 text-black flex flex-col gap-6 order-2 lg:order-1">
             <FilterBox title="Categories">
               {[
                 "Backend",
@@ -395,7 +395,7 @@ function FilterCheckbox({
           className={`w-5 h-5 rounded border transition-all flex items-center justify-center ${
             checked
               ? "bg-[#FF5B5C] border-[#FF5B5C]"
-              : "border-gray-200 group-hover:border-[#FF5B5C]"
+              : "border-black group-hover:border-[#FF5B5C]"
           }`}
         >
           {checked && <div className="w-2 h-2 bg-white rounded-full" />}
