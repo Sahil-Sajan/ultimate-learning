@@ -39,7 +39,7 @@ router.push("/login");
       <div className="hidden md:flex md:w-1/2 bg-[#fff5f6] flex-col items-center justify-center p-12 text-center">
         <div className="relative w-full max-w-md aspect-square mb-8">
           <Image
-            src="/login.jpeg"
+            src="/signup1.png"
             alt="Sign up illustration"
             fill
             className="object-contain"
