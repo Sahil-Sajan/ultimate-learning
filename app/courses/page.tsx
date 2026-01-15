@@ -9,18 +9,19 @@ import {
   LayoutGrid,
   Heart,
   ChevronRight,
-  Filter,
-  X,
 } from "lucide-react";
 
-// Updated data with review counts
+// Updated data with review counts to prevent "undefined" values
 export const courses: any[] = [
   {
     id: 1,
     title: "Mastering C++ for Systems",
+    description: "Deep dive into memory management.",
     instructor: "Dr. Robert Pike",
     price: 49.99,
     category: "Software Development",
+    level: "Advanced",
+    status: "Special",
     rating: 4.8,
     reviews: 154,
     image: "blog1.webp",
@@ -28,9 +29,12 @@ export const courses: any[] = [
   {
     id: 2,
     title: "Java Enterprise Edition",
+    description: "Build scalable backend systems.",
     instructor: "James Gosling",
     price: 59.0,
     category: "Software Development",
+    level: "Intermediate",
+    status: "Hot",
     rating: 4.5,
     reviews: 82,
     image: "blog2.avif",
@@ -38,9 +42,12 @@ export const courses: any[] = [
   {
     id: 3,
     title: "Python for Data Science",
+    description: "Master NumPy and Pandas.",
     instructor: "Guido van Rossum",
     price: 39.99,
     category: "Software Development",
+    level: "Beginner",
+    status: "New",
     rating: 4.2,
     reviews: 210,
     image: "blog3.webp",
@@ -48,9 +55,12 @@ export const courses: any[] = [
   {
     id: 4,
     title: "Digital Illustration 101",
+    description: "Learn to draw professional characters.",
     instructor: "Alice Blue",
     price: 25.0,
     category: "Art",
+    level: "Beginner",
+    status: "Normal",
     rating: 3.8,
     reviews: 45,
     image: "blog4.webp",
@@ -58,9 +68,12 @@ export const courses: any[] = [
   {
     id: 5,
     title: "Modern JavaScript (ES6+)",
+    description: "The complete guide to modern JS.",
     instructor: "Sarah Drasner",
     price: 19.99,
     category: "Software Development",
+    level: "Beginner",
+    status: "Hot",
     rating: 4.9,
     reviews: 512,
     image: "blog5.webp",
@@ -68,9 +81,12 @@ export const courses: any[] = [
   {
     id: 6,
     title: "Public Speaking Mastery",
+    description: "Overcome stage fright effectively.",
     instructor: "Dale Carnegie",
     price: 45.0,
     category: "Material Design",
+    level: "Intermediate",
+    status: "Special",
     rating: 4.6,
     reviews: 98,
     image: "blog6.webp",
@@ -78,9 +94,12 @@ export const courses: any[] = [
   {
     id: 7,
     title: "Financial Literacy",
+    description: "Understand stocks and wealth.",
     instructor: "Warren B.",
     price: 0.0,
     category: "Material Design",
+    level: "Beginner",
+    status: "New",
     rating: 4.7,
     reviews: 320,
     image: "blog7.avif",
@@ -88,9 +107,12 @@ export const courses: any[] = [
   {
     id: 8,
     title: "Machine Learning A-Z",
+    description: "Build AI models with TensorFlow.",
     instructor: "Andrew Ng",
     price: 89.99,
     category: "Software Development",
+    level: "Advanced",
+    status: "Hot",
     rating: 4.8,
     reviews: 415,
     image: "blog8.webp",
@@ -98,9 +120,12 @@ export const courses: any[] = [
   {
     id: 9,
     title: "Yoga & Mindfulness",
+    description: "30 days of guided physical health.",
     instructor: "Adriene Mishler",
     price: 15.0,
     category: "Exercise",
+    level: "Beginner",
+    status: "Normal",
     rating: 4.4,
     reviews: 76,
     image: "blog9.avif",
@@ -109,7 +134,6 @@ export const courses: any[] = [
 
 export default function CourseCatalog() {
   const [selectedCats, setSelectedCats] = useState<string[]>(["IT & Software"]);
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#FDFCFD] pb-20">
@@ -127,36 +151,27 @@ export default function CourseCatalog() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 mt-8 md:-mt-12">
+      <div className="max-w-350 mx-auto px-4 md:px-6 mt-8 md:-mt-12">
         {/* 2. FILTER TOP BAR */}
-        <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-          <div className="flex items-center justify-between w-full md:w-auto gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+          <div className="flex items-center gap-4 w-full md:w-auto">
             <div className="flex items-center gap-2 text-[#6E7485] font-medium">
               <span className="bg-[#FF5B5C] text-white p-2 rounded-md">
                 <LayoutGrid size={18} />
               </span>
-              <span className="text-sm">
+              <span className="text-sm md:text-base">
                 Showing 1-9 of {courses.length} results
               </span>
             </div>
-
-            {/* MOBILE FILTER TOGGLE BUTTON */}
-            <button
-              onClick={() => setShowMobileFilters(!showMobileFilters)}
-              className="lg:hidden flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-lg text-sm font-bold text-[#1D2026]"
-            >
-              {showMobileFilters ? <X size={18} /> : <Filter size={18} />}
-              Filters
-            </button>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
             <div className="relative w-full sm:w-auto">
-              <select className="w-full appearance-none bg-white border border-gray-200 px-4 py-2.5 pr-10 rounded-lg text-sm text-[#1D2026] outline-none cursor-pointer">
+              <select className="w-full appearance-none bg-white border border-gray-200 px-4 py-2.5 pr-10 rounded-lg text-sm text-[#1D2026] outline-none">
                 <option>Newly Published</option>
               </select>
               <ChevronDown
-                className="absolute right-3 top-3 text-gray-400 pointer-events-none"
+                className="absolute right-3 top-3 text-gray-400"
                 size={16}
               />
             </div>
@@ -174,7 +189,6 @@ export default function CourseCatalog() {
           </div>
         </div>
 
-        {/* 3. RESPONSIVE LAYOUT */}
         <div className="flex flex-col lg:flex-row gap-8">
           {/* 3. SIDEBAR FILTERS */}
           <aside className="w-full lg:w-75 text-black flex flex-col gap-6 order-2 lg:order-1">
@@ -183,15 +197,17 @@ export default function CourseCatalog() {
                 "Backend",
                 "CSS",
                 "Frontend",
+                "General",
                 "IT & Software",
                 "Photography",
                 "Programming Language",
+                "General",
               ].map((cat, index) => (
                 <FilterCheckbox
                   key={`${cat}-${index}`}
                   label={cat}
                   checked={selectedCats.includes(cat)}
-                  count={3}
+                  count={cat === "CSS" ? 2 : 3}
                 />
               ))}
               <button className="text-[#FF5B5C] text-sm font-semibold mt-2 text-left">
@@ -219,19 +235,31 @@ export default function CourseCatalog() {
                 <FilterCheckbox label="Paid" count={3} />
               </div>
             </FilterBox>
+
+            <FilterBox title="Range">
+              <input
+                type="range"
+                className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]"
+              />
+              <div className="flex justify-between mt-2 text-xs text-gray-500">
+                <span>$0</span>
+                <span>$2985.0</span>
+              </div>
+            </FilterBox>
           </aside>
 
           {/* 4. COURSE GRID */}
-          <main className="flex-1">
+          <main className="flex-1 order-1 lg:order-2">
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {courses.map((course) => (
                 <div
                   key={course.id}
                   className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 group"
                 >
+                  {/* Image Container with Link */}
                   <Link
                     href={`/courses/${course.id}`}
-                    className="relative h-52 block overflow-hidden"
+                    className="relative h-52 block cursor-pointer"
                   >
                     <img
                       src={course.image}
@@ -244,8 +272,12 @@ export default function CourseCatalog() {
                     >
                       <Heart size={18} />
                     </button>
+                    <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-md p-2 rounded-full text-white">
+                      <LayoutGrid size={16} />
+                    </div>
                   </Link>
 
+                  {/* Content Area */}
                   <div className="p-5">
                     <div className="flex justify-between items-center mb-3">
                       <div className="flex items-center gap-2">
@@ -264,8 +296,9 @@ export default function CourseCatalog() {
                       </span>
                     </div>
 
+                    {/* Title with Link */}
                     <Link href={`/courses/${course.id}`}>
-                      <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-11">
+                      <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-11 cursor-pointer">
                         {course.title}
                       </h3>
                     </Link>
@@ -293,6 +326,8 @@ export default function CourseCatalog() {
                       <span className="text-xl font-bold text-[#FF5B5C]">
                         ${course.price}
                       </span>
+
+                      {/* Button with Link */}
                       <Link href={`/courses/${course.id}`}>
                         <button className="flex items-center gap-1 bg-[#1D2026] text-white text-[11px] font-bold px-4 py-2 rounded-full hover:bg-[#FF5B5C] transition-all">
                           View Course <ChevronRight size={14} />
@@ -305,12 +340,15 @@ export default function CourseCatalog() {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-center mt-12 gap-2">
+            <div className="flex justify-center flex-wrap mt-12 gap-2">
               <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FF5B5C] text-white font-bold">
                 1
               </button>
               <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100">
                 2
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100">
+                3
               </button>
               <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100">
                 <ChevronRight size={18} />
@@ -323,6 +361,7 @@ export default function CourseCatalog() {
   );
 }
 
+// Sidebar Helper Components (Designs Unchanged)
 function FilterBox({
   title,
   children,
@@ -331,7 +370,7 @@ function FilterBox({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
+    <div className="bg-white border border-gray-100 rounded-xl p-6">
       <h3 className="text-[#1D2026] font-bold text-lg mb-6 flex justify-between items-center">
         {title} <ChevronDown size={18} className="text-gray-400" />
       </h3>
