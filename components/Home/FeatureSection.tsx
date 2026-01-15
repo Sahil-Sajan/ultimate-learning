@@ -8,13 +8,19 @@ interface Category {
   imageSrc: string;
 }
 
+interface Category {
+  title: string;
+  imageSrc: string;
+  scale?: number;
+}
+
 const categories: Category[] = [
   { title: "Frontend Developer", imageSrc: "/bootstrap.webp" },
   { title: "Nextjs Developer", imageSrc: "/next.svg" },
   { title: "Figma Developer", imageSrc: "/figma.webp" },
   { title: "Framer Developer", imageSrc: "/framer.webp" },
   { title: "Vue js Developer", imageSrc: "/vuejs.webp" },
-  { title: "Shopify Developer", imageSrc: "/shopify.webp" },
+  { title: "Shopify Developer", imageSrc: "/shopify3.webp", scale: 5.5 },
 ];
 
 const CourseCategories = () => {
@@ -48,15 +54,16 @@ const CourseCategories = () => {
                 key={index}
                 className="bg-white border border-gray-100 rounded-2xl p-8 flex flex-col items-center justify-center gap-6 shadow-[0_8px_30px_rgb(0,0,0,0.02)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 cursor-pointer group/card"
               >
-                {/* Icon Container */}
+                {/* Icon Container - Fixed Size */}
                 <div className="relative w-16 h-16 flex items-center justify-center transform group-hover/card:scale-110 transition-transform duration-300">
-                  <Image
-                    src={cat.imageSrc}
-                    alt={cat.title}
-                    width={64}
-                    height={64}
-                    className="object-contain"
-                  />
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={cat.imageSrc}
+                      alt={cat.title}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
 
                 {/* Title */}
