@@ -18,7 +18,7 @@ const LoginPage = () => {
     } else if (password === "teacher") {
       router.push("/dashboard/teacher");
     } else {
-      router.push("/dashboard");
+      router.push("/dashboard/student");
     }
   };
 
@@ -106,7 +106,7 @@ const LoginPage = () => {
               <div className="relative group">
                 <input
                   type={showPassword ? "text" : "password"}
-                  placeholder="********"
+                  placeholder="passowrd"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full border-b-[1.5px] border-gray-100 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-[15px] placeholder:text-gray-300"
