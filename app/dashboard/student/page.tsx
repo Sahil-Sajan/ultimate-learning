@@ -6,9 +6,9 @@ import { Star, FileText, Heart } from "lucide-react";
 export default function DashboardPage({ activeTab }: { activeTab: string }) {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-     {(activeTab === "Dashboard") && <DashboardOverview />}
+      {(activeTab === "Dashboard" || !activeTab) && <DashboardOverview />}
 
-     {activeTab !== "Dashboard" && (
+      {activeTab !== "Dashboard" && activeTab !== "" && (
         <div className="bg-white p-20 rounded-[40px] text-center border border-dashed border-slate-200">
           <h2 className="text-2xl font-black text-slate-300 italic uppercase tracking-widest">
             {activeTab}
@@ -234,7 +234,7 @@ function LatestQuizzes() {
 
   return (
     <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm">
-      <h4 className="text-xl font-black text-[#1D1B26] mb-6">Latest Quizzes</h4>
+      <h4 className="text-xl font-black text-black mb-6">Latest Quizzes</h4>
       <div className="space-y-6">
         {quizzes.map((quiz, i) => (
           <div key={i} className="flex items-center justify-between">
@@ -269,15 +269,15 @@ function LatestQuizzes() {
                 </svg>
                 {/* Text centered inside the circle */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-[11px] font-black text-[#1D1B26]">
+                  <span className="text-[11px] font-black text-black">
                     {quiz.score}%
                   </span>
                 </div>
               </div>
 
               <div className="grow">
-                <p className="text-sm font-black text-[#1D1B26]">{quiz.name}</p>
-                <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest">
+                <p className="text-sm font-black text-black">{quiz.name}</p>
+                <p className="text-[10px] text-slate-600 font-bold uppercase mt-1 tracking-widest">
                   Date : {quiz.date}
                 </p>
               </div>

@@ -48,13 +48,14 @@ const Navbar = () => {
   const closeAllMenus = () => {
     setActiveMenu(null);
     setIsMobileMenuOpen(false);
+    setMobileAccordion(null);
   };
 
   if (!mounted) return null;
 
   return (
     <header className="w-full bg-[#392C7D] text-white relative z-100">
-      <div className="max-w-1440PX mx-auto flex items-center justify-between px-6 py-4">
+      <div className="max-w-360 mx-auto flex items-center justify-between px-6 py-4">
         
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-3 shrink-0 group z-110" onClick={closeAllMenus}>
@@ -80,7 +81,7 @@ const Navbar = () => {
                 href={link.href}
                 onClick={closeAllMenus}
                 className={`text-[17px] font-semibold transition-all flex items-center gap-1.5 ${
-                  activeMenu === link.megaType ? "text-[#FF5B5C]" : "text-white hover:text-white"
+                  activeMenu === link.megaType ? "text-[#FF5B5C]" : "text-white"
                 }`}
               >
                 {link.name}
@@ -96,7 +97,6 @@ const Navbar = () => {
                     <div className="bg-[#2D2264] border border-white/10 rounded-[32px] p-10 shadow-[0_30px_100px_rgba(0,0,0,0.6)]">
                       <div className="grid grid-cols-12 gap-8">
                         
-                        {/* 1. SIDEBAR */}
                         <div className="col-span-3 border-r border-white/5 pr-6">
                           <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 opacity-40">
                             {link.megaType === "courses" ? "Top-Rated Categories" : "Expert Departments"}
@@ -127,7 +127,6 @@ const Navbar = () => {
                           </Link>
                         </div>
 
-                        {/* 2. TOPICS */}
                         <div className="col-span-2 text-white">
                           <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 opacity-40">
                             {link.megaType === "courses" ? "Browse by Topic" : "Quick Links"}
@@ -144,7 +143,6 @@ const Navbar = () => {
                           </div>
                         </div>
 
-                        {/* 3. TRENDING GRID */}
                         <div className="col-span-4 border-r border-white/5 pr-4">
                           <h3 className="text-lg font-bold mb-6">
                             {link.megaType === "courses" ? "New & Trending" : "Top Instructors"}
@@ -168,7 +166,6 @@ const Navbar = () => {
                           </div>
                         </div>
 
-                        {/* 4. FEATURED CARD */}
                         <div className="col-span-3">
                           <h3 className="text-lg font-bold mb-6">
                             {link.megaType === "courses" ? "Featured Skill" : "Teacher of the Month"}
@@ -197,7 +194,6 @@ const Navbar = () => {
 
         {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-2 z-110">
-          {/* Utility Icons */}
           <div className="hidden xl:flex gap-1.5 mr-2">
             <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
             <NavCircleBtn icon={<DollarSign size={14} />} />
@@ -208,21 +204,19 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Auth Buttons */}
           <div className="hidden sm:flex items-center gap-2">
             <Link href="/login" onClick={closeAllMenus}>
-              <button className="text-white bg-[#392C7D] border border-white/20 cursor-pointer px-6 py-2.5 rounded-full font-bold text-sm hover:bg-white/10 transition-all active:scale-95">
+              <button className="text-white bg-[#392C7D] border border-white/20 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-white/10 transition-all active:scale-95">
                 Sign In
               </button>
             </Link>
             <Link href="/register" onClick={closeAllMenus}>
-              <button className="bg-[#FF5B5C] text-white cursor-pointer px-7 py-2.5 rounded-full font-bold text-sm shadow-lg hover:shadow-[#FF5B5C]/20 hover:bg-[#ff4646] transition-all active:scale-95">
+              <button className="bg-[#FF5B5C] text-white px-7 py-2.5 rounded-full font-bold text-sm shadow-lg hover:bg-[#ff4646] transition-all active:scale-95">
                 Register
               </button>
             </Link>
           </div>
 
-          {/* Mobile Toggle */}
           <button className="lg:hidden p-2 text-white hover:text-[#FF5B5C] transition-colors ml-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
             {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
           </button>
@@ -235,14 +229,28 @@ const Navbar = () => {
           <div className="space-y-4">
             {navLinks.map((link) => (
               <div key={link.name} className="border-b border-white/10 pb-4">
-                <div 
-                  className="flex items-center justify-between py-2 cursor-pointer"
-                  onClick={() => link.megaType ? setMobileAccordion(mobileAccordion === link.megaType ? null : link.megaType) : closeAllMenus()}
-                >
-                  <Link href={link.href} className="text-2xl font-bold text-white tracking-tight" onClick={(e) => link.megaType && e.preventDefault()}>
+                <div className="flex items-center justify-between py-2">
+                  {/* Link Text - Click goes to page */}
+                  <Link 
+                    href={link.href} 
+                    className="text-2xl font-bold text-white tracking-tight grow" 
+                    onClick={closeAllMenus}
+                  >
                     {link.name}
                   </Link>
-                  {link.megaType && <ChevronDown className={`transition-transform duration-300 ${mobileAccordion === link.megaType ? "rotate-180 text-[#FF5B5C]" : ""}`} />}
+                  
+                  {/* Chevron Icon - Click opens dropdown */}
+                  {link.megaType && (
+                    <div 
+                      className="p-3 -mr-3 cursor-pointer" 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMobileAccordion(mobileAccordion === link.megaType ? null : link.megaType);
+                      }}
+                    >
+                      <ChevronDown className={`transition-transform duration-300 size-6 ${mobileAccordion === link.megaType ? "rotate-180 text-[#FF5B5C]" : "text-white/40"}`} />
+                    </div>
+                  )}
                 </div>
                 
                 {link.megaType && mobileAccordion === link.megaType && (
@@ -257,7 +265,7 @@ const Navbar = () => {
                     ))}
                     <Link href={link.href} onClick={closeAllMenus} className="col-span-2">
                        <button className="w-full bg-[#FF5B5C] py-4 rounded-2xl font-bold text-center mt-2">
-                          Explore All {link.name}
+                         Explore All {link.name}
                        </button>
                     </Link>
                   </div>
@@ -274,12 +282,8 @@ const Navbar = () => {
               <NavCircleBtn icon={<ShoppingCart size={20} />} />
             </div>
             <div className="flex flex-col gap-3">
-              <Link href="/login" onClick={closeAllMenus}>
-                <button className="w-full bg-transparent border border-white/20 py-4 rounded-2xl font-bold text-lg">Sign In</button>
-              </Link>
-              <Link href="/register" onClick={closeAllMenus}>
-                <button className="w-full bg-[#FF5B5C] py-5 rounded-2xl font-bold text-lg shadow-xl">Join Ultimate Learning</button>
-              </Link>
+              <Link href="/login" onClick={closeAllMenus}><button className="w-full bg-transparent border border-white/20 py-4 rounded-2xl font-bold text-lg">Sign In</button></Link>
+              <Link href="/register" onClick={closeAllMenus}><button className="w-full bg-[#FF5B5C] py-5 rounded-2xl font-bold text-lg shadow-xl">Join Ultimate Learning</button></Link>
             </div>
           </div>
         </div>
@@ -291,14 +295,14 @@ const Navbar = () => {
 // --- HELPERS ---
 
 const MegaSidebarItem = ({ icon, label, href, onClick }: any) => (
-  <Link href={href} onClick={onClick} className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-white/5 transition-all cursor-pointer group">
+  <Link href={href} onClick={onClick} className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-white/5 transition-all group">
     <div className="p-2 bg-white/5 rounded-lg text-white/40 group-hover:text-[#FF5B5C] transition-all">{icon}</div>
     <span className="text-sm font-bold text-white group-hover:text-white">{label}</span>
   </Link>
 );
 
 const CourseThumb = ({ title, instructor, img, href, onClick }: any) => (
-  <Link href={href} onClick={onClick} className="flex flex-col gap-2 p-3 bg-white/5 rounded-2xl hover:bg-white/10 transition-all cursor-pointer border border-white/5 group">
+  <Link href={href} onClick={onClick} className="flex flex-col gap-2 p-3 bg-white/5 rounded-2xl hover:bg-white/10 transition-all border border-white/5 group">
     <div className="w-full h-24 overflow-hidden rounded-xl bg-[#392C7D]">
         <img src={img} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt={title} />
     </div>

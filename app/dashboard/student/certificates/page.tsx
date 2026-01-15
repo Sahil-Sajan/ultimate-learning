@@ -58,22 +58,22 @@ export default function MyCertificatesView() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50/50 border-b border-slate-100">
-                <th className="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">
+                <th className="px-8 py-5 text-[11px] font-black text-slate-600 uppercase tracking-widest">
                   ID
                 </th>
-                <th className="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">
+                <th className="px-8 py-5 text-[11px] font-black text-slate-600 uppercase tracking-widest">
                   Course Name
                 </th>
-                <th className="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">
+                <th className="px-8 py-5 text-[11px] font-black text-slate-600 uppercase tracking-widest">
                   Date
                 </th>
-                <th className="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">
+                <th className="px-8 py-5 text-[11px] font-black text-slate-600 uppercase tracking-widest">
                   Marks
                 </th>
-                <th className="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest">
+                <th className="px-8 py-5 text-[11px] font-black text-slate-600 uppercase tracking-widest">
                   Out of
                 </th>
-                <th className="px-8 py-5 text-[11px] font-black text-slate-400 uppercase tracking-widest text-right">
+                <th className="px-8 py-5 text-[11px] font-black text-slate-600 uppercase tracking-widest text-right">
                   Actions
                 </th>
               </tr>
