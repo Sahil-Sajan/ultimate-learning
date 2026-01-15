@@ -6,9 +6,9 @@ import { Star, FileText, Heart } from "lucide-react";
 export default function DashboardPage({ activeTab }: { activeTab: string }) {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {(activeTab === "Dashboard" || !activeTab) && <DashboardOverview />}
+     {(activeTab === "Dashboard") && <DashboardOverview />}
 
-      {activeTab !== "Dashboard" && activeTab !== "" && (
+     {activeTab !== "Dashboard" && (
         <div className="bg-white p-20 rounded-[40px] text-center border border-dashed border-slate-200">
           <h2 className="text-2xl font-black text-slate-300 italic uppercase tracking-widest">
             {activeTab}

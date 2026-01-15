@@ -9,7 +9,6 @@ const Benefits = () => {
       title: "Flexible learning",
       desc: "We believe that high-quality education should be accessible to everyone. Our pricing form in models are designed.",
       icon: <BookOpen className="text-purple-600" size={20} />,
-      // Gradient ab top-right corner ki taraf jayega
       gradient: "from-white from-50% to-purple-50", 
       iconBg: "bg-purple-100"
     },
@@ -63,7 +62,6 @@ const Benefits = () => {
         {cards.map((card, index) => (
           <div 
             key={index} 
-            // bg-gradient-to-tr (to top right) use kiya hai
             className={`p-8 rounded-2xl border border-gray-100 bg-linear-to-tr ${card.gradient} shadow-sm hover:shadow-md transition-all duration-300`}
           >
             <div className={`${card.iconBg} w-10 h-10 rounded-lg flex items-center justify-center mb-6`}>
@@ -88,15 +86,19 @@ const Benefits = () => {
           <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-linear-to-r from-white to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-linear-to-l from-white to-transparent z-10 pointer-events-none"></div>
 
-          <div className="flex items-center gap-12 md:gap-20 animate-scroll min-w-full">
+          <div className="flex items-center gap-16 md:gap-24 animate-scroll min-w-full py-4">
             {doubleLogos.map((logo, idx) => (
-              <div key={idx} className="relative w-28 h-10 md:w-36 md:h-12 shrink-0">
-                <Image 
-                  src={logo.src} 
-                  alt={logo.name} 
-                  fill
-                  className="object-contain" 
-                />
+              <div key={idx} className="flex-none">
+                <div className="relative w-[120px] h-[40px] md:w-[150px] md:h-[50px]">
+                  <Image 
+                    src={logo.src} 
+                    alt={logo.name} 
+                    fill
+                    sizes="(max-width: 768px) 120px, 150px"
+                    priority={idx < 10}
+                    className="object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" 
+                  />
+                </div>
               </div>
             ))}
           </div>
@@ -109,7 +111,7 @@ const Benefits = () => {
           to { transform: translateX(-50%); }
         }
         .animate-scroll {
-          animation: scroll 25s linear infinite;
+          animation: scroll 35s linear infinite;
         }
       `}</style>
     </section>
