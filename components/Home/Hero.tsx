@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import {
   Search,
   ChevronRight,
@@ -11,12 +12,12 @@ import {
 
 const Hero = () => {
   return (
-    <section className="relative w-full min-h-[600px] bg-[#392C7D] overflow-hidden py-20 px-6 md:px-12">
+    <section className="relative w-full min-h-150 bg-[#392C7D] overflow-hidden py-20 px-6 md:px-12">
       {/* BACKGROUND DECORATIONS */}
       <div className="absolute top-20 left-10 w-64 h-64 bg-pink-500/20 blur-[100px] rounded-full" />
       <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-cyan-400/10 blur-[120px] rounded-full" />
 
-      <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-360 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* LEFT CONTENT */}
         <div className="relative z-10">
           <div className="inline-block bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full mb-6">
@@ -68,7 +69,7 @@ const Hero = () => {
               />
             </div>
 
-            <div className="relative w-full flex-grow px-4 border-l border-gray-200 hidden md:block">
+            <div className="relative w-full grow px-4 border-l border-gray-200 hidden md:block">
               <input
                 type="text"
                 placeholder="Search for Courses, Instructors"
@@ -96,7 +97,7 @@ const Hero = () => {
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl  bg-cyan-500/20 flex items-center justify-center border border-cyan-400/30">
+              <div className="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center border border-cyan-400/30">
                 <Trophy className="text-cyan-400" size={22} />
               </div>
               <div>
@@ -134,34 +135,41 @@ const Hero = () => {
 
         {/* RIGHT CONTENT: FLOATING IMAGE/CARDS */}
         <div className="relative flex justify-center lg:justify-end">
-          {/* Main Hero Image from your public folder */}
-          <div className="relative z-10 w-full max-w-[500px] animate-float">
-            <img
-              src="/hero-img.png" // Ensure your file is named exactly this in /public
-              alt="Hero Illustration"
-              className="w-full h-auto drop-shadow-2xl"
-            />
-          </div>
-
-          {/* Background Rotating Seal (Best Online Learning) */}
-          <div className="absolute -top-10 right-0 w-32 h-32 hidden md:block animate-spin-slow">
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <path
-                id="circlePath"
-                d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-                fill="transparent"
-              />
-              <text className="text-[10px] font-bold fill-white/30 uppercase tracking-[2px]">
-                <textPath xlinkHref="#circlePath">
-                  Best Online Learning Platform •{" "}
-                </textPath>
-              </text>
-            </svg>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-10 h-10 bg-[#FF5B5C] rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-xs">🎓</span>
+          {/* Main Hero Container */}
+          <div className="relative z-10 w-full max-w-120 animate-float">
+            {/* Background Rotating Seal - NOW ON THE TOP RIGHT SIDE */}
+            <div className="absolute -top-16 -right-12 w-36 h-36 md:w-44 md:h-44 hidden md:block z-20">
+              <div className="relative w-full h-full animate-spin-slow">
+                <svg viewBox="0 0 100 100" className="w-full h-full">
+                  <path
+                    id="circlePath"
+                    d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                    fill="transparent"
+                  />
+                  <text className="text-[8px] font-bold fill-white/40 uppercase tracking-[2.5px]">
+                    <textPath xlinkHref="#circlePath">
+                      Best Online Learning Platform • Best Online Learning
+                      Platform •
+                    </textPath>
+                  </text>
+                </svg>
+              </div>
+              {/* Middle of the Seal: Graduation Cap Icon */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-[#FF5B5C] rounded-full flex items-center justify-center shadow-lg border-2 border-white/20">
+                  <GraduationCap className="text-white w-5 h-5 md:w-6 md:h-6" />
+                </div>
               </div>
             </div>
+
+            <Image
+              src="/hero-img.png"
+              alt="Hero Illustration"
+              width={500}
+              height={500}
+              priority
+              className="w-full h-auto drop-shadow-2xl"
+            />
           </div>
         </div>
       </div>
@@ -172,17 +180,17 @@ const Hero = () => {
             transform: translateY(0px);
           }
           50% {
-            transform: translateY(-20px);
+            transform: translateY(-15px);
           }
           100% {
             transform: translateY(0px);
           }
         }
         .animate-float {
-          animation: float 6s ease-in-out infinite;
+          animation: float 5s ease-in-out infinite;
         }
         .animate-spin-slow {
-          animation: spin 12s linear infinite;
+          animation: spin 20s linear infinite;
         }
         @keyframes spin {
           from {
