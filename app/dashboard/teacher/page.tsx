@@ -55,7 +55,7 @@ function DashboardOverview() {
         />
         <StatCard
           label="Total Students"
-          value="1700"
+          value="17"
           icon="👥"
           color="bg-[#FFF0F2] text-[#FF5364]"
         />
