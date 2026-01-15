@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // Hook to detect current URL
 import {
   LayoutDashboard,
   User,
@@ -15,7 +16,6 @@ import {
   CheckCircle,
   Pencil,
   PlusCircle,
-  Ticket,
 } from "lucide-react";
 
 export default function DashboardLayout({
@@ -23,8 +23,7 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // 1. STATE-BASED ACTIVE TAB (Initialized to Dashboard)
-  const [activeTab, setActiveTab] = useState("Dashboard");
+  const pathname = usePathname();
 
   const menuItems = [
     {
@@ -53,34 +52,37 @@ export default function DashboardLayout({
       href: "/dashboard/teacher/assignments",
     },
     {
-      name: "Earnings",
+      name: "Class Management",
       icon: <BarChart3 size={18} />,
-      href: "/dashboard/teaher/earnings",
+      href: "/dashboard/teacher/class-management",
     },
     {
-      name: "Reviews",
+      name: "Insights",
       icon: <Star size={18} />,
-      href: "/dashboard/teacher/reviews",
+      href: "/dashboard/teacher/insights",
     },
     {
       name: "Messages",
       icon: <MessageSquare size={18} />,
       href: "/dashboard/teacher/messages",
     },
-    {
-      name: "Support Tickets",
-      icon: <Ticket size={18} />,
-      href: "/dashboard/teacher/support",
-    },
   ];
+
+  // Logic to determine the active tab name for the Breadcrumb
+  const currentItem = [
+    ...menuItems,
+    { name: "Settings", href: "/dashboard/settings" },
+  ].find((item) => item.href === pathname);
+
+  const activeLabel = currentItem ? currentItem.name : "Dashboard";
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans">
       {/* 1. DYNAMIC BREADCRUMB HEADER */}
       <div className="bg-white border-b border-slate-100 py-10 text-center">
-        <h1 className="text-3xl font-black text-[#1D1B26]">{activeTab}</h1>
+        <h1 className="text-3xl font-black text-[#1D1B26]">{activeLabel}</h1>
         <p className="text-sm text-slate-400 mt-2 font-medium uppercase tracking-widest">
-          Home <span className="text-[#FF5364] mx-2">/</span> {activeTab}
+          Home <span className="text-[#FF5364] mx-2">/</span> {activeLabel}
         </p>
       </div>
 
@@ -93,12 +95,12 @@ export default function DashboardLayout({
             </h3>
             <nav className="space-y-1">
               {menuItems.map((item) => {
-                const isActive = activeTab === item.name;
+                // Check if the current URL matches the item href
+                const isActive = pathname === item.href;
                 return (
                   <Link
                     key={item.name}
                     href={item.href}
-                    onClick={() => setActiveTab(item.name)}
                     className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 ${
                       isActive
                         ? "bg-[#FF5364] text-white shadow-lg shadow-pink-100"
@@ -118,9 +120,8 @@ export default function DashboardLayout({
             <div className="space-y-1">
               <Link
                 href="/dashboard/settings"
-                onClick={() => setActiveTab("Settings")}
                 className={`flex items-center gap-3 px-5 py-3.5 font-bold text-sm transition-all ${
-                  activeTab === "Settings"
+                  pathname === "/dashboard/settings"
                     ? "text-[#FF5364]"
                     : "text-slate-500 hover:text-[#FF5364]"
                 }`}

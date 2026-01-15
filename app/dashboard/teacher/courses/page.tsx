@@ -1,197 +1,275 @@
+"use client";
+
 import React from "react";
-// Using your provided Navbar component
 import {
-  Search,
-  Grid,
-  List,
-  Star,
-  Clock,
   BookOpen,
-  Trash2,
-  Edit,
+  Users,
+  Clock,
+  MoreVertical,
+  Plus,
+  Search,
+  Filter,
+  Layers,
+  CheckCircle2,
+  Calendar,
 } from "lucide-react";
 
-const CourseGridPage = () => {
-  const categories = [
-    "Backend",
-    "CSS",
-    "Frontend",
-    "General",
-    "IT & Software",
-    "Photography",
-  ];
+/* ---------------- TYPES ---------------- */
 
-  const courses = [
-    {
-      title: "Mastering C++ for Systems",
-      instructor: "Dr. Robert Pike",
-      price: 49.99,
-      oldPrice: 990.0,
-      rating: 4.8,
-      reviews: 154,
-      lessons: "12+ Lesson",
-      duration: "9hr 30min",
-      image: "/api/placeholder/400/250", // Use your high-res images here
-      tag: "Software Development",
-    },
-    // Add other courses following this structure
-  ];
+interface CourseStat {
+  label: string;
+  value: string | number;
+  subtext: string;
+  icon: React.ReactNode;
+}
 
+interface CourseCardProps {
+  title: string;
+  students: number;
+  lastActive: string;
+  modulesCompleted: number;
+  totalModules: number;
+  isNew?: boolean;
+  status: "Teaching" | "Upcoming";
+}
+
+/* ---------------- MAIN COMPONENT ---------------- */
+
+export default function MyCoursesPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* 1. Header & Navbar Section */}
-
-      {/* 2. Breadcrumb/Page Title Header */}
-      <div className="w-full bg-[#f8f9fc] py-16 border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <h1 className="text-4xl font-bold text-[#2D2264] mb-2">
-            Course Grid
-          </h1>
-          <p className="text-gray-500 font-medium">
-            Home — <span className="text-[#FF5B5C]">Course Grid</span>
+    <div className="space-y-8 pb-10">
+      {/* 1. Page Header with Search and Filter */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-800">My Courses</h2>
+          <p className="text-sm text-slate-500 font-medium">
+            Manage and track your curriculum progress
           </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="relative hidden sm:block">
+            <Search
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+              size={18}
+            />
+            <input
+              type="text"
+              placeholder="Search courses..."
+              className="pl-10 pr-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/20 transition-all w-64"
+            />
+          </div>
+          <button className="p-2.5 bg-slate-50 text-slate-500 rounded-xl hover:bg-slate-100 transition-colors">
+            <Filter size={20} />
+          </button>
+          <button className="bg-[#FF5B5C] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-rose-100 hover:bg-[#ff4647] transition-all flex items-center gap-2">
+            <Plus size={18} /> Create Course
+          </button>
         </div>
       </div>
 
-      <main className="max-w-7xl mx-auto px-6 py-12">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* 3. Sidebar Filters */}
-          <aside className="w-full lg:w-1/4 space-y-8">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <h3 className="text-lg font-bold text-[#2D2264] mb-6 flex justify-between items-center">
-                Categories <span className="text-xs font-normal">▼</span>
-              </h3>
-              <ul className="space-y-4">
-                {categories.map((cat) => (
-                  <li key={cat} className="flex items-center gap-3">
-                    <input
-                      type="checkbox"
-                      className="w-4 h-4 rounded border-gray-300 text-[#FF5B5C] focus:ring-[#FF5B5C]"
-                    />
-                    <span className="text-gray-600 text-sm flex-1">{cat}</span>
-                    <span className="text-gray-400 text-xs">(3)</span>
-                  </li>
-                ))}
-              </ul>
-              <button className="mt-6 text-[#FF5B5C] text-sm font-semibold hover:underline">
-                See More
-              </button>
+      {/* 2. Top-Level Impact Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <StatCard
+          label="Total Courses Taught"
+          value="8"
+          subtext="Students Enrolled: 125"
+          icon={<BookOpen size={20} className="text-blue-500" />}
+        />
+        <StatCard
+          label="Total Active Students"
+          value="482"
+          subtext="+12% from last month"
+          icon={<Users size={20} className="text-rose-500" />}
+        />
+        <StatCard
+          label="Avg. Completion Rate"
+          value="84%"
+          subtext="Across all active modules"
+          icon={<CheckCircle2 size={20} className="text-emerald-500" />}
+        />
+      </div>
+
+      {/* 3. Courses I'm Teaching Section */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between px-2">
+          <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+            Courses I'm Teaching
+            <span className="bg-slate-100 text-slate-500 text-xs px-2.5 py-1 rounded-full">
+              4 Active
+            </span>
+          </h3>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <CourseCard
+            title="Prompt Engineering - Section B"
+            students={125}
+            lastActive="3 days ago"
+            modulesCompleted={5}
+            totalModules={10}
+            status="Teaching"
+          />
+          <CourseCard
+            title="Advanced Algorithms"
+            students={84}
+            lastActive="Today"
+            modulesCompleted={8}
+            totalModules={12}
+            isNew
+            status="Teaching"
+          />
+          <CourseCard
+            title="Data Science Fundamentals"
+            students={156}
+            lastActive="5 days ago"
+            modulesCompleted={2}
+            totalModules={10}
+            status="Teaching"
+          />
+          <CourseCard
+            title="UI/UX Design Systems"
+            students={92}
+            lastActive="1 day ago"
+            modulesCompleted={7}
+            totalModules={9}
+            status="Teaching"
+          />
+        </div>
+      </section>
+
+      {/* 4. Upcoming Courses Section */}
+      <section className="space-y-6">
+        <div className="flex items-center justify-between px-2">
+          <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
+            Upcoming Courses
+            <span className="bg-slate-100 text-slate-500 text-xs px-2.5 py-1 rounded-full">
+              3 Planned
+            </span>
+          </h3>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <CourseCard
+            title="Blockchain Technologies"
+            students={0}
+            lastActive="Fall 2024"
+            modulesCompleted={0}
+            totalModules={15}
+            status="Upcoming"
+          />
+          <CourseCard
+            title="Digital Marketing Strategies"
+            students={0}
+            lastActive="Summer 2024"
+            modulesCompleted={0}
+            totalModules={8}
+            status="Upcoming"
+          />
+          <CourseCard
+            title="Cybersecurity Stressing"
+            students={0}
+            lastActive="Winter 2024"
+            modulesCompleted={0}
+            totalModules={12}
+            status="Upcoming"
+          />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ---------------- SUB-COMPONENTS ---------------- */
+
+function StatCard({ label, value, subtext, icon }: CourseStat) {
+  return (
+    <div className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md transition-all group">
+      <div className="flex items-center gap-4 mb-4">
+        <div className="p-3 bg-slate-50 rounded-2xl group-hover:bg-slate-100 transition-colors">
+          {icon}
+        </div>
+        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+          {label}
+        </p>
+      </div>
+      <div className="flex items-baseline gap-2">
+        <h4 className="text-3xl font-black text-slate-800">{value}</h4>
+      </div>
+      <p className="text-xs font-semibold text-slate-500 mt-1">{subtext}</p>
+    </div>
+  );
+}
+
+function CourseCard({
+  title,
+  students,
+  lastActive,
+  modulesCompleted,
+  totalModules,
+  isNew,
+  status,
+}: CourseCardProps) {
+  const progress = (modulesCompleted / totalModules) * 100;
+
+  return (
+    <div className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex flex-col hover:border-rose-200 transition-all group relative overflow-hidden">
+      {isNew && (
+        <span className="absolute top-4 right-4 bg-rose-500 text-white text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm">
+          NEW!
+        </span>
+      )}
+
+      {/* Course Thumbnail Placeholder */}
+      <div className="w-full aspect-video bg-slate-50 rounded-2xl mb-5 flex items-center justify-center relative overflow-hidden">
+        <Layers className="text-slate-200" size={48} />
+        {status === "Upcoming" && (
+          <div className="absolute inset-0 bg-slate-900/5 flex items-center justify-center backdrop-blur-[1px]">
+            <Calendar className="text-slate-400" size={24} />
+          </div>
+        )}
+      </div>
+
+      <div className="flex-1 space-y-4">
+        <div>
+          <h4 className="text-sm font-bold text-slate-800 leading-snug group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-[40px]">
+            {title}
+          </h4>
+          <div className="flex items-center gap-4 mt-3">
+            <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
+              <Users size={14} /> {students} Students
             </div>
-          </aside>
-
-          {/* 4. Main Course Grid */}
-          <div className="w-full lg:w-3/4">
-            {/* Top Toolbar */}
-            <div className="flex flex-wrap items-center justify-between mb-8 gap-4 bg-white p-4 rounded-xl shadow-sm border border-gray-100">
-              <div className="flex items-center gap-2">
-                <div className="bg-[#FF5B5C] p-2 rounded-lg text-white">
-                  <Grid size={18} />
-                </div>
-                <span className="text-gray-600 font-medium ml-2">
-                  Showing 1-9 of 9 results
-                </span>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <select className="bg-gray-50 border border-gray-200 text-sm rounded-lg px-4 py-2 outline-none focus:ring-2 focus:ring-[#FF5B5C]/20">
-                  <option>Newly Published</option>
-                  <option>Price: Low to High</option>
-                </select>
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="bg-gray-50 border border-gray-200 text-sm rounded-lg pl-4 pr-10 py-2 w-64 outline-none focus:ring-2 focus:ring-[#FF5B5C]/20"
-                  />
-                  <Search
-                    className="absolute right-3 top-2.5 text-gray-400"
-                    size={16}
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {courses.map((course, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={course.image}
-                      alt={course.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase text-[#2D2264]">
-                      {course.tag}
-                    </div>
-                    <div className="absolute bottom-4 right-4 bg-[#FF5B5C] text-white px-3 py-1 rounded-lg font-bold">
-                      ${course.price}
-                    </div>
-                  </div>
-
-                  <div className="p-5">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden">
-                        <img src="/api/placeholder/32/32" alt="instructor" />
-                      </div>
-                      <span className="text-xs text-gray-500 font-medium">
-                        {course.instructor}
-                      </span>
-                    </div>
-                    <h4 className="font-bold text-[#2D2264] mb-3 line-clamp-2 hover:text-[#FF5B5C] transition-colors cursor-pointer">
-                      {course.title}
-                    </h4>
-                    <div className="flex items-center gap-1 mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          size={14}
-                          className={
-                            i < 4
-                              ? "fill-yellow-400 text-yellow-400"
-                              : "text-gray-300"
-                          }
-                        />
-                      ))}
-                      <span className="text-xs text-gray-400 ml-1">
-                        ({course.reviews})
-                      </span>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                      <div className="flex items-center gap-3 text-gray-500 text-xs">
-                        <span className="flex items-center gap-1">
-                          <BookOpen size={14} /> {course.lessons}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <Clock size={14} /> {course.duration}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2 mt-4">
-                      <button className="flex-1 bg-[#2D2264] text-white py-2 rounded-lg text-sm font-semibold hover:bg-[#392C7D] transition-colors">
-                        View Course
-                      </button>
-                      <button className="p-2 text-gray-400 hover:text-blue-500 transition-colors">
-                        <Edit size={18} />
-                      </button>
-                      <button className="p-2 text-gray-400 hover:text-red-500 transition-colors">
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
+              <Clock size={14} />{" "}
+              {status === "Upcoming" ? "Starts: " : "Active: "} {lastActive}
             </div>
           </div>
         </div>
-      </main>
+
+        {/* Progress Bar */}
+        <div className="space-y-2">
+          <div className="flex justify-between text-[10px] font-black text-slate-400 uppercase tracking-tighter">
+            <span>
+              Modules: {modulesCompleted}/{totalModules}
+            </span>
+            <span>{Math.round(progress)}%</span>
+          </div>
+          <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+            <div
+              className={`h-full transition-all duration-1000 ${
+                status === "Upcoming" ? "bg-slate-300" : "bg-[#FF5B5C]"
+              }`}
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between">
+        <button className="text-[11px] font-black text-slate-800 uppercase tracking-wider hover:text-[#FF5B5C] transition-colors">
+          View Details
+        </button>
+        <button className="p-1 text-slate-300 hover:text-slate-600 transition-colors">
+          <MoreVertical size={18} />
+        </button>
+      </div>
     </div>
   );
-};
-
-export default CourseGridPage;
+}
