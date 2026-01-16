@@ -10,7 +10,6 @@ import {
   Clock,
   Filter,
   ChevronDown,
-  Check,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -107,9 +106,9 @@ export default function InstructorGridPage() {
           <h1 className="text-2xl md:text-[32px] font-bold text-slate-900 mb-2">
             Instructor Grid
           </h1>
-          <nav className="flex items-center justify-center gap-2 text-xs font-medium text-slate-500">
+          <nav className="flex items-center justify-center gap-2 text-sm font-medium text-slate-500">
             <span>Home</span>
-            <div className="w-3 h-0.5 bg-[#FF5364]" />
+            <span className="text-[#FF5B5C]">—</span>
             <span className="text-slate-400">Instructor Grid</span>
           </nav>
         </div>
@@ -118,7 +117,7 @@ export default function InstructorGridPage() {
       <div className="max-w-7xl mx-auto px-4 mt-8 md:mt-12">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Filters */}
-          <aside className="w-full lg:w-65 space-y-6 order-2 lg:order-1">
+          <aside className="w-full lg:w-75 space-y-6 order-2 lg:order-1">
             <div className="flex items-center justify-between pb-4 border-b border-slate-200">
               <h2 className="text-sm font-bold flex items-center gap-2 text-black">
                 <Filter size={18} /> Filters
@@ -139,27 +138,20 @@ export default function InstructorGridPage() {
                     />
                   )
                 )}
-                <button className="text-[#FF5364] text-xs font-bold pt-2 block">
+                <button className="text-[#FF5364] text-sm font-semibold mt-2 text-left">
                   See More
                 </button>
               </CustomAccordion>
 
               <CustomAccordion title="Price Range">
                 <div className="py-4">
-                  {/* High Visibility Price Bar */}
                   <input
                     type="range"
-                    min="0"
-                    max="100000"
-                    value={price}
-                    onChange={(e) => setPrice(parseInt(e.target.value))}
-                    className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]"
+                    className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]"
                   />
-                  <div className="flex justify-between mt-3 text-xs">
-                    <span className="text-slate-500 font-medium">$0</span>
-                    <span className="font-bold text-black bg-slate-100 px-2 py-1 rounded">
-                      ${price.toLocaleString()}
-                    </span>
+                  <div className="flex justify-between mt-2 text-xs text-gray-500">
+                    <span>$0</span>
+                    <span>$2985.0</span>
                   </div>
                 </div>
               </CustomAccordion>
@@ -215,22 +207,18 @@ export default function InstructorGridPage() {
               </AnimatePresence>
             </div>
 
-            {/* Pagination with custom colored page numbers */}
+            {/* Pagination */}
             <div className="mt-16 flex justify-center items-center gap-3">
               <PaginationButton icon={<ChevronLeft size={18} />} />
-
-              <button className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white text-[#FF5B5C] text-sm font-bold hover:bg-slate-50 transition-colors">
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FF5B5C] text-white font-bold">
                 1
               </button>
-
-              <button className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white text-[#FF5B5C] text-sm font-bold hover:bg-slate-50 transition-colors">
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100 border border-slate-100">
                 2
               </button>
-
-              <button className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 text-sm font-bold hover:bg-slate-50 transition-colors">
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100 border border-slate-100">
                 3
               </button>
-
               <PaginationButton icon={<ChevronRight size={18} />} />
             </div>
           </main>
@@ -251,24 +239,27 @@ function CustomAccordion({
 }) {
   const [isOpen, setIsOpen] = useState(true);
   return (
-    <div className="border-b border-slate-200 pb-4">
+    <div className="bg-white border border-gray-100 rounded-xl p-6">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between py-2 text-sm font-bold text-black"
+        className="w-full flex items-center justify-between text-[#1D2026] font-bold text-lg mb-4"
       >
         {title}
         <ChevronDown
           size={18}
-          className={`transition-transform duration-300 ${
+          className={`text-gray-400 transition-transform duration-300 ${
             isOpen ? "rotate-180" : ""
           }`}
         />
       </button>
-      {isOpen && <div className="pt-3 space-y-3">{children}</div>}
+      {isOpen && <div className="flex flex-col gap-4">{children}</div>}
     </div>
   );
 }
 
+/**
+ * UPDATED: CustomCheckbox now matches the design of the Courses page
+ */
 function CustomCheckbox({
   label,
   count,
@@ -280,32 +271,30 @@ function CustomCheckbox({
 }) {
   const [checked, setChecked] = useState(initialChecked);
   return (
-    <div
-      className="flex items-center justify-between cursor-pointer group"
+    <label
+      className="flex items-center justify-between group cursor-pointer"
       onClick={() => setChecked(!checked)}
     >
       <div className="flex items-center gap-3">
         <div
-          className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
+          className={`w-5 h-5 rounded border transition-all flex items-center justify-center ${
             checked
-              ? "bg-[#FF5B5C] border-black"
-              : "border-black bg-transparent"
+              ? "bg-[#FF5B5C] border-[#FF5B5C]"
+              : "border-black group-hover:border-[#FF5B5C]"
           }`}
         >
-          {checked && (
-            <Check size={12} className="text-white" strokeWidth={4} />
-          )}
+          {checked && <div className="w-2 h-2 bg-white rounded-full" />}
         </div>
         <span
-          className={`text-sm font-semibold transition-colors ${
-            checked ? "text-black" : "text-slate-600 group-hover:text-black"
+          className={`text-sm ${
+            checked ? "text-[#1D2026] font-bold" : "text-gray-500"
           }`}
         >
           {label}
         </span>
       </div>
-      <span className="text-xs font-bold text-slate-400">({count})</span>
-    </div>
+      <span className="text-xs text-gray-400">({count})</span>
+    </label>
   );
 }
 
