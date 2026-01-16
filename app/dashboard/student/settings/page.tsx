@@ -3,328 +3,356 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  User,
   Shield,
   Bell,
   CreditCard,
-  Camera,
   Check,
-  ChevronRight,
   Globe,
-  Mail,
+  BookOpen,
+  CircleUser,
+  Smartphone,
+  MousePointer2,
+  Clock,
   Lock,
-  LogOut,
-  Sparkles,
-  Menu,
-  X,
+  Fingerprint,
+  Mail,
+  Calendar,
+  Wallet,
+  History,
+  Languages,
+  Zap,
 } from "lucide-react";
 
 export default function SettingsPage() {
-  const [activeTab, setActiveTab] = useState("profile");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("learning");
 
   const tabs = [
-    { id: "profile", label: "Profile", icon: <User size={18} /> },
-    { id: "security", label: "Security", icon: <Shield size={18} /> },
-    { id: "notifications", label: "Notifications", icon: <Bell size={18} /> },
-    { id: "billing", label: "Billing", icon: <CreditCard size={18} /> },
+    { id: "learning", label: "Learning", icon: <BookOpen size={16} /> },
+    { id: "account", label: "Account", icon: <CircleUser size={16} /> },
+    { id: "security", label: "Security", icon: <Shield size={16} /> },
+    { id: "notifications", label: "Alerts", icon: <Bell size={16} /> },
+    { id: "billing", label: "Billing", icon: <CreditCard size={16} /> },
   ];
 
   return (
-    <div className="min-h-screen bg-[#F4F7FA] font-sans text-[#1D1B26]">
-      {/* 1. TOP NAV */}
-      <nav className="px-4 md:px-10 py-4 flex items-center justify-between bg-white border-b border-slate-200 sticky top-0 z-40">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setIsMobileMenuOpen(true)}
-            className="lg:hidden p-2 hover:bg-slate-50 rounded-xl text-slate-500"
-          >
-            <Menu size={20} />
-          </button>
-          <div className="flex items-center gap-2">
-            <span className="hidden sm:inline text-slate-400 font-bold text-xs uppercase tracking-widest">
-              Dashboard
-            </span>
-            <ChevronRight
-              size={14}
-              className="hidden sm:inline text-slate-300"
-            />
-            <span className="text-[#1D1B26] font-black text-xs uppercase tracking-widest whitespace-nowrap">
-              Settings
-            </span>
+    <div className="min-h-screen bg-[#F4F7FA] font-sans text-[#1D1B26] pb-20">
+      <div className="max-w-5xl mx-auto p-4 md:p-10">
+        {/* 1. PAGE HEADER */}
+        <div className="mb-8 px-2">
+          <h1 className="text-3xl font-black tracking-tight text-[#1D1B26]">
+            Settings
+          </h1>
+          <p className="text-slate-500 text-sm font-medium mt-1">
+            Configure your study environment and account preferences.
+          </p>
+        </div>
+
+        {/* 2. GRID NAVIGATION */}
+        <div className="bg-white p-2 rounded-[24px] shadow-sm border border-slate-200 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center justify-center gap-2 py-3.5 rounded-[18px] transition-all font-bold text-xs uppercase tracking-widest ${
+                  activeTab === tab.id
+                    ? "bg-[#4E3796] text-white shadow-lg shadow-indigo-100"
+                    : "text-slate-400 hover:text-slate-600 hover:bg-slate-50"
+                }`}
+              >
+                {tab.icon}
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-2 bg-[#4E3796]/5 px-3 py-1.5 rounded-full">
-          <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
-          <span className="text-[10px] font-black text-[#4E3796] uppercase tracking-wider">
-            Server Online
-          </span>
-        </div>
-      </nav>
-
-      {/* MOBILE OVERLAY NAVIGATION */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <>
+        {/* 3. SETTINGS CONTENT */}
+        <div className="grid gap-6">
+          <AnimatePresence mode="wait">
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="fixed inset-0 bg-[#1D1B26]/40 backdrop-blur-sm z-50 lg:hidden"
-            />
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed left-0 top-0 bottom-0 w-70 bg-white z-60 p-6 shadow-2xl lg:hidden flex flex-col"
+              key={activeTab}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
             >
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="font-black text-xl uppercase tracking-tighter">
-                  Menu
-                </h2>
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="p-2 bg-slate-50 rounded-full"
-                >
-                  <X size={18} />
-                </button>
-              </div>
-              <div className="space-y-2 grow">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    onClick={() => {
-                      setActiveTab(tab.id);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl font-bold transition-all ${
-                      activeTab === tab.id
-                        ? "bg-[#FF5364] text-white shadow-lg shadow-pink-200"
-                        : "text-slate-500 hover:bg-slate-50"
-                    }`}
-                  >
-                    {tab.icon} {tab.label}
-                  </button>
-                ))}
-              </div>
-              <button className="flex items-center gap-4 px-5 py-4 text-red-500 font-bold border-t border-slate-100">
-                <LogOut size={18} /> Sign Out
-              </button>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-
-      <div className="max-w-7xl mx-auto p-4 md:p-6 lg:p-10">
-        <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
-          {/* 2. DESKTOP SIDEBAR */}
-          <aside className="hidden lg:block lg:col-span-3 space-y-8">
-            <div className="space-y-1 px-2">
-              <h1 className="text-3xl font-black tracking-tight text-[#1D1B26]">
-                Settings
-              </h1>
-              <p className="text-slate-500 text-xs font-medium">
-                Manage workspace and privacy.
-              </p>
-            </div>
-            <nav className="space-y-1">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`w-full flex items-center justify-between px-5 py-4 rounded-2xl transition-all group ${
-                    activeTab === tab.id
-                      ? "bg-white shadow-md text-[#FF5364]"
-                      : "text-slate-500 hover:bg-white/60"
-                  }`}
-                >
-                  <div className="flex items-center gap-4">
-                    <span
-                      className={
-                        activeTab === tab.id
-                          ? "text-[#FF5364]"
-                          : "text-slate-400"
-                      }
-                    >
-                      {tab.icon}
-                    </span>
-                    <span className="text-sm font-bold">{tab.label}</span>
+              {/* LEARNING TAB */}
+              {activeTab === "learning" && (
+                <div className="space-y-6">
+                  <div className="bg-white rounded-[32px] p-6 md:p-8 border border-slate-200 shadow-sm">
+                    <div className="flex items-center gap-3 mb-8">
+                      <div className="p-2 bg-indigo-50 text-[#4E3796] rounded-xl">
+                        <Zap size={20} />
+                      </div>
+                      <h3 className="font-black text-sm uppercase tracking-[0.15em]">
+                        Study Preferences
+                      </h3>
+                    </div>
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <Languages size={18} className="text-slate-400" />
+                            <span className="text-sm font-bold">
+                              Auto-Captions
+                            </span>
+                          </div>
+                          <div className="w-10 h-5 bg-emerald-500 rounded-full flex items-center justify-end px-1 cursor-pointer">
+                            <div className="w-3.5 h-3.5 bg-white rounded-full" />
+                          </div>
+                        </div>
+                        <p className="text-[11px] text-slate-500 font-medium">
+                          Enable subtitles for all video lectures by default.
+                        </p>
+                      </div>
+                      <div className="space-y-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <MousePointer2
+                              size={18}
+                              className="text-slate-400"
+                            />
+                            <span className="text-sm font-bold">
+                              Focus Mode
+                            </span>
+                          </div>
+                          <div className="w-10 h-5 bg-slate-200 rounded-full flex items-center justify-start px-1 cursor-pointer">
+                            <div className="w-3.5 h-3.5 bg-white rounded-full" />
+                          </div>
+                        </div>
+                        <p className="text-[11px] text-slate-500 font-medium">
+                          Hide sidebars and navigation during playback.
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  {activeTab === tab.id && (
-                    <motion.div
-                      layoutId="dot"
-                      className="w-1.5 h-1.5 bg-[#FF5364] rounded-full"
-                    />
-                  )}
-                </button>
-              ))}
-            </nav>
-            <div className="pt-6 border-t border-slate-200">
-              <button className="flex items-center gap-4 px-5 py-2 text-slate-400 hover:text-red-500 font-bold text-sm transition-colors">
-                <LogOut size={18} /> Sign Out
-              </button>
-            </div>
-          </aside>
+                </div>
+              )}
 
-          {/* 3. MAIN CONTENT */}
-          <main className="lg:col-span-9">
-            {/* Header for mobile when menu is hidden */}
-            <div className="lg:hidden mb-6">
-              <h1 className="text-2xl font-black text-[#1D1B26]">Settings</h1>
-              <p className="text-slate-500 text-xs font-medium">
-                Manage your workspace.
-              </p>
-            </div>
-
-            <motion.div
-              layout
-              className="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden"
-            >
-              {/* Profile Header Card */}
-              <div className="bg-[#1D1B26] p-8 md:p-10 relative overflow-hidden">
-                <div className="relative z-10 flex flex-col sm:flex-row items-center gap-6 md:gap-8 text-center sm:text-left">
-                  <div className="relative">
-                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-[2rem] bg-white/10 backdrop-blur-md border border-white/20 overflow-hidden flex items-center justify-center">
-                      <img
-                        src="https://api.dicebear.com/7.x/shapes/svg?seed=Felix"
-                        alt="User"
-                        className="w-12 h-12 md:w-16 md:h-16"
+              {/* ACCOUNT TAB */}
+              {activeTab === "account" && (
+                <div className="bg-white rounded-[32px] p-6 md:p-8 border border-slate-200 shadow-sm space-y-8">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-pink-50 text-[#FF5364] rounded-xl">
+                      <CircleUser size={20} />
+                    </div>
+                    <h3 className="font-black text-sm uppercase tracking-[0.15em]">
+                      Public Profile
+                    </h3>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        defaultValue="Ronald Richard"
+                        className="w-full bg-slate-50 border-2 border-transparent focus:border-indigo-100 focus:bg-white rounded-2xl py-4 px-6 text-sm font-bold outline-none transition-all"
                       />
                     </div>
-                    <button className="absolute -bottom-1 -right-1 p-2 bg-[#FF5364] text-white rounded-xl shadow-xl hover:scale-105 transition-transform">
-                      <Camera size={12} />
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">
+                        Institutional Email
+                      </label>
+                      <input
+                        type="email"
+                        defaultValue="ronald.richard@edu.com"
+                        className="w-full bg-slate-100 text-slate-400 border-2 border-transparent rounded-2xl py-4 px-6 text-sm font-bold cursor-not-allowed"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* SECURITY TAB */}
+              {activeTab === "security" && (
+                <div className="space-y-6">
+                  <div className="bg-white rounded-[32px] p-6 md:p-8 border border-slate-200 shadow-sm">
+                    <div className="flex items-center gap-3 mb-8">
+                      <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
+                        <Lock size={20} />
+                      </div>
+                      <h3 className="font-black text-sm uppercase tracking-[0.15em]">
+                        Password Management
+                      </h3>
+                    </div>
+                    <div className="grid md:grid-cols-1 gap-6 max-w-xl">
+                      <input
+                        type="password"
+                        placeholder="Current Password"
+                        className="w-full bg-slate-50 border-2 border-transparent focus:border-indigo-100 focus:bg-white rounded-2xl py-4 px-6 text-sm font-bold outline-none transition-all"
+                      />
+                      <input
+                        type="password"
+                        placeholder="New Password"
+                        className="w-full bg-slate-50 border-2 border-transparent focus:border-indigo-100 focus:bg-white rounded-2xl py-4 px-6 text-sm font-bold outline-none transition-all"
+                      />
+                    </div>
+                  </div>
+                  <div className="bg-white rounded-[32px] p-6 md:p-8 border border-slate-200 shadow-sm flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 bg-slate-50 text-slate-400 rounded-2xl">
+                        <Fingerprint size={24} />
+                      </div>
+                      <div>
+                        <p className="text-sm font-black">
+                          Two-Factor Authentication
+                        </p>
+                        <p className="text-[11px] text-slate-400 font-bold">
+                          Secure your account with an extra layer of safety.
+                        </p>
+                      </div>
+                    </div>
+                    <button className="px-6 py-2.5 bg-slate-100 text-[#1D1B26] rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-200 transition-colors">
+                      Setup
                     </button>
                   </div>
-                  <div className="space-y-1">
-                    <div className="flex flex-col sm:flex-row items-center gap-2 md:gap-3">
-                      <h2 className="text-xl md:text-2xl font-black text-white">
-                        Ronald Richard
-                      </h2>
-                      <span className="bg-white/10 text-white/70 text-[9px] px-2 py-0.5 rounded border border-white/10 font-bold uppercase">
-                        Premium
-                      </span>
-                    </div>
-                    <p className="text-white/50 text-xs md:text-sm font-medium">
-                      studentdemo@example.com
-                    </p>
-                  </div>
                 </div>
-                <Sparkles className="absolute -right-6 -bottom-6 text-white/5 w-32 h-32 md:w-48 md:h-48" />
-              </div>
+              )}
 
-              {/* Form Content */}
-              <div className="p-6 md:p-10 lg:p-12 space-y-10 md:space-y-12">
-                {/* Section 1: Personal */}
-                <section className="space-y-6 md:space-y-8">
-                  <div className="flex items-center justify-between border-b border-slate-50 pb-4">
-                    <h3 className="font-black text-[#1D1B26] uppercase tracking-[0.15em] text-[10px] md:text-xs">
-                      Personal Profile
+              {/* NOTIFICATIONS TAB */}
+              {activeTab === "notifications" && (
+                <div className="bg-white rounded-[32px] p-6 md:p-8 border border-slate-200 shadow-sm space-y-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-yellow-50 text-yellow-600 rounded-xl">
+                      <Bell size={20} />
+                    </div>
+                    <h3 className="font-black text-sm uppercase tracking-[0.15em]">
+                      Alert Preferences
                     </h3>
-                    <span className="hidden sm:inline text-[9px] font-black text-[#4E3796] bg-[#4E3796]/5 px-3 py-1 rounded-full uppercase">
-                      Verified User
-                    </span>
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">
-                        Legal Name
-                      </label>
-                      <div className="relative">
-                        <input
-                          type="text"
-                          defaultValue="Ronald Richard"
-                          className="w-full bg-[#F8FAFC] border-2 border-transparent focus:border-[#4E3796]/10 focus:bg-white rounded-2xl py-3.5 px-6 text-sm font-bold text-[#1D1B26] outline-none transition-all"
-                        />
-                        <User
-                          className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-200"
-                          size={18}
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">
-                        Email Handle
-                      </label>
-                      <div className="relative">
-                        <input
-                          type="email"
-                          defaultValue="studentdemo@example.com"
-                          className="w-full bg-[#F8FAFC] border-2 border-transparent focus:border-[#4E3796]/10 focus:bg-white rounded-2xl py-3.5 px-6 text-sm font-bold text-[#1D1B26] outline-none transition-all"
-                        />
-                        <Mail
-                          className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-200"
-                          size={18}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </section>
-
-                {/* Section 2: Security */}
-                <section className="space-y-6">
-                  <h3 className="font-black text-[#1D1B26] uppercase tracking-[0.15em] text-[10px] md:text-xs border-b border-slate-50 pb-4">
-                    Security
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {[
-                      {
-                        icon: <Lock size={18} />,
-                        title: "2FA Security",
-                        sub: "Enabled SMS",
-                      },
-                      {
-                        icon: <Globe size={18} />,
-                        title: "Visibility",
-                        sub: "Public Profile",
-                      },
-                    ].map((item, i) => (
-                      <div
-                        key={i}
-                        className="p-5 rounded-[24px] bg-slate-50 border border-slate-100 flex items-center justify-between"
-                      >
-                        <div className="flex items-center gap-4 overflow-hidden">
-                          <div className="shrink-0 w-10 h-10 bg-white rounded-xl flex items-center justify-center text-[#4E3796] shadow-sm">
-                            {item.icon}
-                          </div>
-                          <div className="truncate">
-                            <p className="text-xs font-black truncate">
-                              {item.title}
-                            </p>
-                            <p className="text-[9px] text-slate-400 font-bold truncate">
-                              {item.sub}
-                            </p>
-                          </div>
+                  {[
+                    {
+                      title: "Course Updates",
+                      sub: "New lessons, materials, and instructor announcements.",
+                      icon: <BookOpen size={16} />,
+                    },
+                    {
+                      title: "Deadlines & Reminders",
+                      sub: "Upcoming assignment due dates and quiz windows.",
+                      icon: <Calendar size={16} />,
+                    },
+                    {
+                      title: "General Inquiries",
+                      sub: "Replies to your forum posts and direct messages.",
+                      icon: <Mail size={16} />,
+                    },
+                  ].map((item, i) => (
+                    <div
+                      key={i}
+                      className="flex items-center justify-between p-4 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="p-2.5 bg-white shadow-sm border border-slate-100 rounded-xl text-slate-400">
+                          {item.icon}
                         </div>
-                        <div
-                          className={`shrink-0 w-9 h-4.5 rounded-full flex items-center px-1 transition-colors ${
-                            i === 0
-                              ? "bg-green-500 justify-end"
-                              : "bg-slate-200 justify-start"
-                          }`}
-                        >
-                          <div className="w-3 h-3 bg-white rounded-full shadow-sm" />
+                        <div>
+                          <p className="text-sm font-black text-[#1D1B26]">
+                            {item.title}
+                          </p>
+                          <p className="text-[11px] text-slate-400 font-medium">
+                            {item.sub}
+                          </p>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </section>
-
-                {/* Footer Actions */}
-                <div className="pt-6 flex flex-col sm:flex-row items-center justify-end gap-3 md:gap-4 border-t border-slate-50">
-                  <button className="w-full sm:w-auto px-8 py-4 text-slate-400 text-[10px] font-black uppercase tracking-widest hover:text-[#1D1B26]">
-                    Discard
-                  </button>
-                  <button className="w-full sm:w-auto bg-[#FF5364] text-white px-8 py-4 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-widest shadow-xl shadow-pink-100 active:scale-95 transition-all flex items-center justify-center gap-3">
-                    <Check size={16} strokeWidth={3} /> Commit Changes
-                  </button>
+                      <div className="w-10 h-5 bg-emerald-500 rounded-full flex items-center justify-end px-1 cursor-pointer">
+                        <div className="w-3.5 h-3.5 bg-white rounded-full shadow-sm" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
+              )}
+
+              {/* BILLING TAB */}
+              {activeTab === "billing" && (
+                <div className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-white rounded-[32px] p-8 border border-slate-200 shadow-sm flex flex-col justify-between">
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div className="p-3 bg-indigo-50 text-[#4E3796] rounded-2xl">
+                            <Wallet size={24} />
+                          </div>
+                          <span className="bg-emerald-100 text-emerald-600 text-[10px] font-black px-3 py-1 rounded-lg uppercase">
+                            Active
+                          </span>
+                        </div>
+                        <div>
+                          <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">
+                            Premium Student Plan
+                          </p>
+                          <p className="text-3xl font-black text-[#1D1B26] mt-1">
+                            $12.00
+                            <span className="text-sm text-slate-400">/mo</span>
+                          </p>
+                        </div>
+                      </div>
+                      <button className="mt-8 w-full py-4 border-2 border-slate-100 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:border-indigo-100 hover:text-[#4E3796] transition-all">
+                        Manage Subscription
+                      </button>
+                    </div>
+                    <div className="bg-white rounded-[32px] p-8 border border-slate-200 shadow-sm space-y-6">
+                      <div className="flex items-center gap-3">
+                        <History size={18} className="text-slate-400" />
+                        <h4 className="font-black text-[10px] uppercase tracking-widest text-slate-400">
+                          Recent Transactions
+                        </h4>
+                      </div>
+                      <div className="space-y-4">
+                        {[
+                          {
+                            date: "Jan 12, 2026",
+                            amt: "$12.00",
+                            status: "Paid",
+                          },
+                          {
+                            date: "Dec 12, 2025",
+                            amt: "$12.00",
+                            status: "Paid",
+                          },
+                        ].map((inv, i) => (
+                          <div
+                            key={i}
+                            className="flex justify-between items-center py-2 border-b border-slate-50 last:border-0"
+                          >
+                            <span className="text-xs font-bold">
+                              {inv.date}
+                            </span>
+                            <span className="text-xs font-black">
+                              {inv.amt}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </motion.div>
-          </main>
+          </AnimatePresence>
+
+          {/* 4. PERSISTENT ACTION BAR */}
+          <div className="bg-white rounded-[28px] p-4 border border-slate-200 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3 px-4">
+              <div className="w-8 h-8 rounded-full bg-indigo-50 flex items-center justify-center text-[#4E3796]">
+                <Smartphone size={16} />
+              </div>
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                Settings Sync Enabled
+              </span>
+            </div>
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <button className="flex-1 sm:flex-none px-6 py-3 text-slate-400 text-xs font-black uppercase tracking-widest hover:text-[#1D1B26]">
+                Cancel
+              </button>
+              <button className="flex-1 sm:flex-none bg-[#4E3796] text-white px-10 py-4 rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-100 hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+                <Check size={18} strokeWidth={3} /> Save Changes
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
