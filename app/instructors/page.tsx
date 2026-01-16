@@ -12,10 +12,8 @@ import {
   Clock,
   Filter,
   ChevronDown,
-  Check,
   ChevronLeft,
   ChevronRight,
-  X,
 } from "lucide-react";
 
 /* ---------------- TYPES & DATA ---------------- */
@@ -48,35 +46,34 @@ const instructors: Instructor[] = [
 export default function InstructorGridPage() {
   const [view, setView] = useState<ViewType>("grid");
   const [price, setPrice] = useState(69850);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-white text-slate-900 font-sans pb-20">
       {/* Header Section */}
       <div className="bg-linear-to-r from-[#FFF0F0] to-[#E5F3FF] py-10 md:py-14">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 text-center">
-          <h1 className="text-2xl md:text-[32px] font-bold text-slate-900 mb-2">Instructor Grid</h1>
-          <nav className="flex items-center justify-center gap-2 text-xs font-medium text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h1 className="text-2xl md:text-[32px] font-bold text-slate-900 mb-2">
+            Instructor Grid
+          </h1>
+          <nav className="flex items-center justify-center gap-2 text-sm font-medium text-slate-500">
             <span>Home</span>
-            <div className="w-3 h-0.5 bg-[#FF5364]" />
+            <span className="text-[#FF5B5C]">—</span>
             <span className="text-slate-400">Instructor Grid</span>
           </nav>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 mt-8 md:-mt-6">
-        
-        {/* MOBILE FILTER TOGGLE (Hidden on Desktop) */}
-        <div className="lg:hidden mb-6">
-          <button
-            onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="w-full flex items-center justify-between bg-white border border-slate-200 px-5 py-3.5 rounded-xl shadow-sm hover:border-[#FF5364] transition-all group"
-          >
-            <div className="flex items-center gap-3">
-              <div className="bg-[#FF5364]/10 p-2 rounded-lg group-hover:bg-[#FF5364] transition-colors">
-                <Filter size={18} className="text-[#FF5364] group-hover:text-white" />
-              </div>
-              <span className="font-bold text-slate-700">Refine Search</span>
+      <div className="max-w-7xl mx-auto px-4 mt-8 md:mt-12">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sidebar Filters */}
+          <aside className="w-full lg:w-75 space-y-6 order-2 lg:order-1">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+              <h2 className="text-sm font-bold flex items-center gap-2 text-black">
+                <Filter size={18} /> Filters
+              </h2>
+              <button className="text-xs font-bold text-[#FF5364] hover:underline transition-all">
+                Clear All
+              </button>
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs font-semibold text-slate-400">{isFilterOpen ? "Close" : "Filter By"}</span>
@@ -84,23 +81,32 @@ export default function InstructorGridPage() {
             </div>
           </button>
 
-          {/* Expandable Mobile Filter Content */}
-          <AnimatePresence>
-            {isFilterOpen && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: "auto", opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-4 p-6 bg-slate-50 rounded-2xl border border-slate-100 space-y-6 shadow-inner">
-                   <FilterContent price={price} setPrice={setPrice} />
-                   <button 
-                    onClick={() => setIsFilterOpen(false)}
-                    className="w-full bg-[#FF5364] text-white py-4 rounded-xl font-bold shadow-lg shadow-red-200"
-                   >
-                     Apply Filters
-                   </button>
+            <div className="space-y-4">
+              <CustomAccordion title="Categories">
+                {["Backend", "CSS", "Frontend", "General", "IT & Software"].map(
+                  (item) => (
+                    <CustomCheckbox
+                      key={item}
+                      label={item}
+                      count={Math.floor(Math.random() * 5) + 1}
+                    />
+                  )
+                )}
+                <button className="text-[#FF5364] text-sm font-semibold mt-2 text-left">
+                  See More
+                </button>
+              </CustomAccordion>
+
+              <CustomAccordion title="Price Range">
+                <div className="py-4">
+                  <input
+                    type="range"
+                    className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]"
+                  />
+                  <div className="flex justify-between mt-2 text-xs text-gray-500">
+                    <span>$0</span>
+                    <span>$2985.0</span>
+                  </div>
                 </div>
               </motion.div>
             )}
@@ -154,12 +160,19 @@ export default function InstructorGridPage() {
               </AnimatePresence>
             </div>
 
-            {/* Professional Pagination */}
+            {/* Pagination */}
             <div className="mt-16 flex justify-center items-center gap-3">
-              <button className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400 hover:bg-slate-50 transition-colors"><ChevronLeft size={20} /></button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-xl bg-[#FF5364] text-white text-sm font-black shadow-lg shadow-red-100">1</button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 text-sm font-bold border border-transparent hover:border-slate-200">2</button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400 hover:bg-slate-50 transition-colors"><ChevronRight size={20} /></button>
+              <PaginationButton icon={<ChevronLeft size={18} />} />
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FF5B5C] text-white font-bold">
+                1
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100 border border-slate-100">
+                2
+              </button>
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100 border border-slate-100">
+                3
+              </button>
+              <PaginationButton icon={<ChevronRight size={18} />} />
             </div>
           </main>
         </div>
@@ -168,97 +181,67 @@ export default function InstructorGridPage() {
   );
 }
 
-/* ---------------- SHARED FILTER CONTENT ---------------- */
-
-function FilterContent({ price, setPrice }: { price: number; setPrice: (v: number) => void }) {
-  return (
-    <div className="space-y-7">
-      <div className="flex items-center justify-between pb-4 border-b border-slate-200">
-        <h2 className="text-base font-black tracking-tight flex items-center gap-2">Filters</h2>
-        <button className="text-[11px] font-black uppercase tracking-widest text-[#FF5364] hover:underline">Reset</button>
-      </div>
-
-      <div className="space-y-2">
-        <CustomAccordion title="Categories">
-          {["Backend", "CSS", "Frontend", "General", "IT & Software"].map((item) => (
-            <CustomCheckbox key={item} label={item} count={Math.floor(Math.random() * 5) + 1} />
-          ))}
-          <button className="text-[#FF5364] text-xs font-bold mt-2 hover:translate-x-1 transition-transform">View All Categories →</button>
-        </CustomAccordion>
-
-        <CustomAccordion title="Instructors">
-          {["Nicole Brown", "Hinata Hyuga", "John Doe"].map((item) => (
-            <CustomCheckbox key={item} label={item} count={12} initialChecked={item === "Nicole Brown"} />
-          ))}
-        </CustomAccordion>
-
-        <CustomAccordion title="Budget Range">
-          <div className="py-4 px-1">
-            <input
-              type="range" min="0" max="100000" value={price}
-              onChange={(e) => setPrice(parseInt(e.target.value))}
-              className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#FF5364]"
-            />
-            <div className="flex justify-between mt-4">
-              <div className="bg-white border border-slate-200 rounded-md px-3 py-1.5 text-xs font-bold">$0</div>
-              <div className="bg-slate-900 text-white rounded-md px-3 py-1.5 text-xs font-bold">${price.toLocaleString()}</div>
-            </div>
-          </div>
-        </CustomAccordion>
-
-        <CustomAccordion title="Skill Level">
-          {["Beginner", "Intermediate", "Advanced", "Expert"].map((item) => (
-            <CustomCheckbox key={item} label={item} count={Math.floor(Math.random() * 20)} />
-          ))}
-        </CustomAccordion>
-      </div>
-    </div>
-  );
-}
-
-/* ---------------- UI HELPER COMPONENTS ---------------- */
+/* ---------------- UI COMPONENTS ---------------- */
 
 function CustomAccordion({ title, children }: { title: string; children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(true);
   return (
-    <div className="py-2">
-      <button 
-        onClick={() => setIsOpen(!isOpen)} 
-        className="w-full flex items-center justify-between py-2.5 text-[13px] font-black text-slate-800 group"
+    <div className="bg-white border border-gray-100 rounded-xl p-6">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between text-[#1D2026] font-bold text-lg mb-4"
       >
-        <span className="group-hover:text-[#FF5364] transition-colors">{title}</span>
-        <div className={`p-1 rounded-md transition-all ${isOpen ? "bg-slate-100 rotate-180" : ""}`}>
-          <ChevronDown size={14} className="text-slate-500" />
-        </div>
+        {title}
+        <ChevronDown
+          size={18}
+          className={`text-gray-400 transition-transform duration-300 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
       </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden"
-          >
-            <div className="pt-2 pb-4 space-y-3">{children}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isOpen && <div className="flex flex-col gap-4">{children}</div>}
     </div>
   );
 }
 
-function CustomCheckbox({ label, count, initialChecked = false }: { label: string; count: number; initialChecked?: boolean }) {
+/**
+ * UPDATED: CustomCheckbox now matches the design of the Courses page
+ */
+function CustomCheckbox({
+  label,
+  count,
+  initialChecked = false,
+}: {
+  label: string;
+  count: number;
+  initialChecked?: boolean;
+}) {
   const [checked, setChecked] = useState(initialChecked);
   return (
-    <div className="flex items-center justify-between cursor-pointer group/item" onClick={() => setChecked(!checked)}>
+    <label
+      className="flex items-center justify-between group cursor-pointer"
+      onClick={() => setChecked(!checked)}
+    >
       <div className="flex items-center gap-3">
-        <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${checked ? "bg-[#FF5364] border-[#FF5364]" : "border-slate-200 group-hover/item:border-slate-300"}`}>
-          {checked && <Check size={12} className="text-white" strokeWidth={4} />}
+        <div
+          className={`w-5 h-5 rounded border transition-all flex items-center justify-center ${
+            checked
+              ? "bg-[#FF5B5C] border-[#FF5B5C]"
+              : "border-black group-hover:border-[#FF5B5C]"
+          }`}
+        >
+          {checked && <div className="w-2 h-2 bg-white rounded-full" />}
         </div>
-        <span className={`text-xs font-bold ${checked ? "text-slate-900" : "text-slate-500"}`}>{label}</span>
+        <span
+          className={`text-sm ${
+            checked ? "text-[#1D2026] font-bold" : "text-gray-500"
+          }`}
+        >
+          {label}
+        </span>
       </div>
-      <span className="text-[10px] font-black text-slate-300 bg-slate-50 px-2 py-0.5 rounded-full">+{count}</span>
-    </div>
+      <span className="text-xs text-gray-400">({count})</span>
+    </label>
   );
 }
 

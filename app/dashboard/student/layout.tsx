@@ -1,6 +1,8 @@
 "use client";
+
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation"; // Hook for path detection
 import {
   LayoutDashboard,
   User,
@@ -22,8 +24,8 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // 1. STATE-BASED ACTIVE TAB (Initialized to Dashboard)
-  const [activeTab, setActiveTab] = useState("Dashboard");
+  const pathname = usePathname(); // Get current URL
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const menuItems = [
     {
@@ -73,14 +75,89 @@ export default function DashboardLayout({
     },
   ];
 
+  // Helper to determine the active tab name from the pathname
+  const getActiveTabName = () => {
+    const currentItem = menuItems.find((item) => item.href === pathname);
+    if (currentItem) return currentItem.name;
+    if (pathname.includes("/settings")) return "Settings";
+    return "Dashboard";
+  };
+
+  const activeTabName = getActiveTabName();
+
+  const SidebarContent = () => (
+    <>
+      <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-4">
+        Main Menu
+      </h3>
+      <nav className="space-y-1">
+        {menuItems.map((item) => {
+          // Check if current path matches item href
+          const isActive = pathname === item.href;
+          return (
+            <Link
+              key={item.name}
+              href={item.href}
+              onClick={() => setIsSidebarOpen(false)}
+              className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 ${
+                isActive
+                  ? "bg-[#FF5364] text-white shadow-lg shadow-pink-100"
+                  : "text-slate-500 hover:bg-pink-50 hover:text-[#FF5364]"
+              }`}
+            >
+              {item.icon}
+              {item.name}
+            </Link>
+          );
+        })}
+      </nav>
+
+      <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mt-10 mb-6 px-4">
+        Account Settings
+      </h3>
+      <div className="space-y-1">
+        <Link
+          href="/dashboard/student/settings"
+          onClick={() => setIsSidebarOpen(false)}
+          className={`flex items-center gap-3 px-5 py-3.5 font-bold text-sm transition-all rounded-2xl ${
+            pathname.includes("/settings")
+              ? "bg-[#FF5364] text-white shadow-lg shadow-pink-100"
+              : "text-slate-500 hover:text-[#FF5364]"
+          }`}
+        >
+          <Settings size={18} /> Settings
+        </Link>
+        <button className="w-full flex items-center gap-3 px-5 py-3.5 text-slate-500 font-bold text-sm hover:text-red-500 transition-all text-left">
+          <LogOut size={18} /> Logout
+        </button>
+      </div>
+    </>
+  );
+
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans">
       {/* 1. DYNAMIC BREADCRUMB HEADER */}
-      <div className="bg-white border-b border-slate-100 py-10 text-center">
-        <h1 className="text-3xl font-black text-[#1D1B26]">{activeTab}</h1>
-        <p className="text-sm text-slate-400 mt-2 font-medium uppercase tracking-widest">
-          Home <span className="text-[#FF5364] mx-2">/</span> {activeTab}
-        </p>
+      <div className="bg-white border-b border-slate-100 py-6 md:py-10 px-6">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <button
+            onClick={() => setIsSidebarOpen(true)}
+            className="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg"
+          >
+            <Menu size={24} />
+          </button>
+
+          <div className="text-center flex-1">
+            <h1 className="text-2xl md:text-3xl font-black text-[#1D1B26]">
+              {activeTabName}
+            </h1>
+            <p className="hidden md:block text-sm text-slate-400 mt-2 font-medium uppercase tracking-widest">
+              Home <span className="text-[#FF5364] mx-2">/</span>{" "}
+              {activeTabName}
+            </p>
+          </div>
+
+          <div className="lg:hidden w-10" />
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-10 grid lg:grid-cols-12 gap-8">
@@ -111,24 +188,24 @@ export default function DashboardLayout({
               })}
             </nav>
 
-            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mt-10 mb-6 px-4">
-              Account Settings
-            </h3>
-            <div className="space-y-1">
-              <Link
-                href="/dashboard/student/settings"
-                onClick={() => setActiveTab("Settings")}
-                className={`flex items-center gap-3 px-5 py-3.5 font-bold text-sm transition-all ${
-                  activeTab === "Settings"
-                    ? "text-[#FF5364]"
-                    : "text-slate-500 hover:text-[#FF5364]"
-                }`}
-              >
-                <Settings size={18} /> Settings
-              </Link>
-              <button className="w-full flex items-center gap-3 px-5 py-3.5 text-slate-500 font-bold text-sm hover:text-red-500 transition-all text-left">
-                <LogOut size={18} /> Logout
-              </button>
+        {/* MOBILE SIDEBAR OVERLAY */}
+        {isSidebarOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden">
+            <div
+              className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+              onClick={() => setIsSidebarOpen(false)}
+            />
+            <div className="absolute top-0 left-0 w-80 h-full bg-white p-6 shadow-2xl overflow-y-auto">
+              <div className="flex justify-between items-center mb-8 px-4">
+                <span className="font-black text-[#FF5364]">MENU</span>
+                <button
+                  onClick={() => setIsSidebarOpen(false)}
+                  className="text-slate-400"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              <SidebarContent />
             </div>
           </div>
         </aside>
