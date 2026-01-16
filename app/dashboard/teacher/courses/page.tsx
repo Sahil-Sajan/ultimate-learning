@@ -1,274 +1,280 @@
 "use client";
-
-import React from "react";
+import React, { useState } from "react";
 import {
-  BookOpen,
-  Users,
-  Clock,
-  MoreVertical,
-  Plus,
   Search,
-  Filter,
-  Layers,
-  CheckCircle2,
-  Calendar,
+  Send,
+  MoreVertical,
+  Paperclip,
+  Smile,
+  Users,
+  Star,
+  MessageSquare,
+  Info,
+  ShieldCheck,
 } from "lucide-react";
 
-/* ---------------- TYPES ---------------- */
+/* --- TEACHER-SPECIFIC DATA --- */
+const CONTACTS = [
+  {
+    id: 1,
+    name: "Alice Smith",
+    course: "Prompt Engineering - Sec A",
+    status: "online",
+    image: "",
+    lastMsg: "I'm having trouble with the Module 3 assignment.",
+    unread: 2,
+    type: "student",
+  },
+  {
+    id: 2,
+    name: "Blockchain 101 Group",
+    course: "Spring 2024",
+    status: "online",
+    image: "",
+    lastMsg: "Bob: When is the final project proposal due?",
+    unread: 5,
+    type: "group",
+  },
+  {
+    id: 3,
+    name: "Charlie Davis",
+    course: "UX Design Systems",
+    status: "offline",
+    image: "",
+    lastMsg: "Thank you for the feedback on my case study!",
+    unread: 0,
+    type: "student",
+  },
+];
 
-interface CourseStat {
-  label: string;
-  value: string | number;
-  subtext: string;
-  icon: React.ReactNode;
-}
+const INITIAL_MESSAGES = [
+  {
+    id: 1,
+    sender: "them",
+    text: "Hi Professor! I just submitted my Module 3 essay. Could you confirm if the file format is okay?",
+    time: "09:00 AM",
+  },
+  {
+    id: 2,
+    sender: "me",
+    text: "Hello Alice! I see it here. The PDF format is perfect. I'll be grading these by Friday.",
+    time: "09:15 AM",
+  },
+  {
+    id: 3,
+    sender: "them",
+    text: "Great, thanks! Also, will there be a lab session this Wednesday?",
+    time: "10:20 AM",
+  },
+];
 
-interface CourseCardProps {
-  title: string;
-  students: number;
-  lastActive: string;
-  modulesCompleted: number;
-  totalModules: number;
-  isNew?: boolean;
-  status: "Teaching" | "Upcoming";
-}
+export default function TeacherMessagingView() {
+  const [activeChat, setActiveChat] = useState(CONTACTS[0]);
+  const [activeTab, setActiveTab] = useState("all");
 
-/* ---------------- MAIN COMPONENT ---------------- */
-
-export default function MyCoursesPage() {
   return (
-    <div className="space-y-8 pb-10">
-      {/* 1. Page Header with Search and Filter */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm">
-        <div>
-          <h2 className="text-2xl font-bold text-slate-800">My Courses</h2>
-          <p className="text-sm text-slate-500 font-medium">
-            Manage and track your curriculum progress
-          </p>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="relative hidden sm:block">
+    <div className="h-[800px] flex gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+      {/* --- SIDEBAR: STUDENT & GROUP LIST --- */}
+      <div className="w-1/3 bg-white rounded-[32px] border border-slate-100 shadow-sm flex flex-col overflow-hidden">
+        <div className="p-6 space-y-4">
+          <div className="flex justify-between items-center">
+            <h3 className="text-2xl font-black text-[#1D1B26]">Inbox</h3>
+            <button className="p-2 bg-slate-50 text-[#FF5B5C] rounded-xl hover:bg-rose-50 transition-colors">
+              <MessageSquare size={20} />
+            </button>
+          </div>
+
+          {/* Teacher Tabs */}
+          <div className="flex gap-2 p-1 bg-slate-50 rounded-2xl">
+            {["all", "groups", "starred"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`flex-1 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${
+                  activeTab === tab
+                    ? "bg-white text-[#FF5B5C] shadow-sm"
+                    : "text-slate-400 hover:text-slate-600"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+
+          <div className="relative">
             <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
               size={18}
             />
             <input
               type="text"
-              placeholder="Search courses..."
-              className="pl-10 pr-4 py-2 bg-slate-50 border border-slate-100 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500/20 transition-all w-64"
+              placeholder="Search students or groups..."
+              className="w-full bg-slate-50 border-none rounded-2xl py-3.5 pl-12 pr-4 text-xs font-bold focus:ring-2 focus:ring-rose-500/10 outline-none"
             />
           </div>
-          <button className="p-2.5 bg-slate-50 text-slate-500 rounded-xl hover:bg-slate-100 transition-colors">
-            <Filter size={20} />
-          </button>
-          <button className="bg-[#FF5B5C] text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-rose-100 hover:bg-[#ff4647] transition-all flex items-center gap-2">
-            <Plus size={18} /> Create Course
-          </button>
-        </div>
-      </div>
-
-      {/* 2. Top-Level Impact Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <StatCard
-          label="Total Courses Taught"
-          value="8"
-          subtext="Students Enrolled: 125"
-          icon={<BookOpen size={20} className="text-blue-500" />}
-        />
-        <StatCard
-          label="Total Active Students"
-          value="482"
-          subtext="+12% from last month"
-          icon={<Users size={20} className="text-rose-500" />}
-        />
-        <StatCard
-          label="Avg. Completion Rate"
-          value="84%"
-          subtext="Across all active modules"
-          icon={<CheckCircle2 size={20} className="text-emerald-500" />}
-        />
-      </div>
-
-      {/* 3. Courses I'm Teaching Section */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between px-2">
-          <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-            Courses I'm Teaching
-            <span className="bg-slate-100 text-slate-500 text-xs px-2.5 py-1 rounded-full">
-              4 Active
-            </span>
-          </h3>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <CourseCard
-            title="Prompt Engineering - Section B"
-            students={125}
-            lastActive="3 days ago"
-            modulesCompleted={5}
-            totalModules={10}
-            status="Teaching"
-          />
-          <CourseCard
-            title="Advanced Algorithms"
-            students={84}
-            lastActive="Today"
-            modulesCompleted={8}
-            totalModules={12}
-            isNew
-            status="Teaching"
-          />
-          <CourseCard
-            title="Data Science Fundamentals"
-            students={156}
-            lastActive="5 days ago"
-            modulesCompleted={2}
-            totalModules={10}
-            status="Teaching"
-          />
-          <CourseCard
-            title="UI/UX Design Systems"
-            students={92}
-            lastActive="1 day ago"
-            modulesCompleted={7}
-            totalModules={9}
-            status="Teaching"
-          />
-        </div>
-      </section>
-
-      {/* 4. Upcoming Courses Section */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between px-2">
-          <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-            Upcoming Courses
-            <span className="bg-slate-100 text-slate-500 text-xs px-2.5 py-1 rounded-full">
-              3 Planned
-            </span>
-          </h3>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <CourseCard
-            title="Blockchain Technologies"
-            students={0}
-            lastActive="Fall 2024"
-            modulesCompleted={0}
-            totalModules={15}
-            status="Upcoming"
-          />
-          <CourseCard
-            title="Digital Marketing Strategies"
-            students={0}
-            lastActive="Summer 2024"
-            modulesCompleted={0}
-            totalModules={8}
-            status="Upcoming"
-          />
-          <CourseCard
-            title="Cybersecurity Stressing"
-            students={0}
-            lastActive="Winter 2024"
-            modulesCompleted={0}
-            totalModules={12}
-            status="Upcoming"
-          />
-        </div>
-      </section>
-    </div>
-  );
-}
-
-/* ---------------- SUB-COMPONENTS ---------------- */
-
-function StatCard({ label, value, subtext, icon }: CourseStat) {
-  return (
-    <div className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm hover:shadow-md transition-all group">
-      <div className="flex items-center gap-4 mb-4">
-        <div className="p-3 bg-slate-50 rounded-2xl group-hover:bg-slate-100 transition-colors">
-          {icon}
-        </div>
-        <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-          {label}
-        </p>
-      </div>
-      <div className="flex items-baseline gap-2">
-        <h4 className="text-3xl font-black text-slate-800">{value}</h4>
-      </div>
-      <p className="text-xs font-semibold text-slate-500 mt-1">{subtext}</p>
-    </div>
-  );
-}
-
-function CourseCard({
-  title,
-  students,
-  lastActive,
-  modulesCompleted,
-  totalModules,
-  isNew,
-  status,
-}: CourseCardProps) {
-  const progress = (modulesCompleted / totalModules) * 100;
-
-  return (
-    <div className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex flex-col hover:border-rose-200 transition-all group relative overflow-hidden">
-      {isNew && (
-        <span className="absolute top-4 right-4 bg-rose-500 text-white text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm">
-          NEW!
-        </span>
-      )}
-
-      {/* Course Thumbnail Placeholder */}
-      <div className="w-full aspect-video bg-slate-50 rounded-2xl mb-5 flex items-center justify-center relative overflow-hidden">
-        <Layers className="text-slate-200" size={48} />
-        {status === "Upcoming" && (
-          <div className="absolute inset-0 bg-slate-900/5 flex items-center justify-center backdrop-blur-[1px]">
-            <Calendar className="text-slate-400" size={24} />
-          </div>
-        )}
-      </div>
-
-      <div className="flex-1 space-y-4">
-        <div>
-          <h4 className="text-sm font-bold text-slate-800 leading-snug group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-[40px]">
-            {title}
-          </h4>
-          <div className="flex items-center gap-4 mt-3">
-            <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-              <Users size={14} /> {students} Students
-            </div>
-            <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400">
-              <Clock size={14} />{" "}
-              {status === "Upcoming" ? "Starts: " : "Active: "} {lastActive}
-            </div>
-          </div>
         </div>
 
-        {/* Progress Bar */}
-        <div className="space-y-2">
-          <div className="flex justify-between text-[10px] font-black text-slate-400 uppercase tracking-tighter">
-            <span>
-              Modules: {modulesCompleted}/{totalModules}
-            </span>
-            <span>{Math.round(progress)}%</span>
-          </div>
-          <div className="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+        <div className="flex-grow overflow-y-auto p-4 pt-0 space-y-2">
+          {CONTACTS.map((contact) => (
             <div
-              className={`h-full transition-all duration-1000 ${
-                status === "Upcoming" ? "bg-slate-300" : "bg-[#FF5B5C]"
+              key={contact.id}
+              onClick={() => setActiveChat(contact)}
+              className={`p-4 rounded-[28px] cursor-pointer transition-all flex items-center gap-4 border ${
+                activeChat.id === contact.id
+                  ? "bg-white border-rose-100 shadow-md shadow-rose-500/5 translate-x-1"
+                  : "hover:bg-slate-50 border-transparent"
               }`}
-              style={{ width: `${progress}%` }}
-            />
-          </div>
+            >
+              <div className="relative">
+                <div
+                  className={`w-12 h-12 rounded-2xl flex items-center justify-center font-black transition-colors ${
+                    contact.type === "group"
+                      ? "bg-blue-50 text-blue-500"
+                      : "bg-slate-100 text-slate-400"
+                  }`}
+                >
+                  {contact.type === "group" ? (
+                    <Users size={20} />
+                  ) : (
+                    contact.name.charAt(0)
+                  )}
+                </div>
+                {contact.status === "online" && (
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#22C55E] border-2 border-white rounded-full" />
+                )}
+              </div>
+
+              <div className="flex-grow overflow-hidden">
+                <div className="flex justify-between items-start mb-0.5">
+                  <h4 className="text-sm font-bold text-[#1D1B26] truncate">
+                    {contact.name}
+                  </h4>
+                  {contact.unread > 0 && (
+                    <span className="bg-[#FF5B5C] text-white text-[9px] px-1.5 py-0.5 rounded-full font-black">
+                      {contact.unread}
+                    </span>
+                  )}
+                </div>
+                <p className="text-[10px] text-rose-400 font-black uppercase tracking-tighter mb-1">
+                  {contact.course}
+                </p>
+                <p className="text-[11px] text-slate-400 font-medium truncate italic">
+                  "{contact.lastMsg}"
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="mt-6 pt-4 border-t border-slate-50 flex items-center justify-between">
-        <button className="text-[11px] font-black text-slate-800 uppercase tracking-wider hover:text-[#FF5B5C] transition-colors">
-          View Details
-        </button>
-        <button className="p-1 text-slate-300 hover:text-slate-600 transition-colors">
-          <MoreVertical size={18} />
-        </button>
+      {/* --- MAIN: TEACHER CHAT HUB --- */}
+      <div className="flex-grow bg-white rounded-[42px] border border-slate-100 shadow-sm flex flex-col overflow-hidden">
+        {/* Chat Header with Course Context */}
+        <div className="p-6 border-b border-slate-50 flex justify-between items-center bg-white">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-rose-500 font-black border border-rose-50">
+              {activeChat.name.charAt(0)}
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <h4 className="text-base font-black text-[#1D1B26]">
+                  {activeChat.name}
+                </h4>
+                <ShieldCheck size={16} className="text-blue-500" />
+              </div>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                Enrolled in:{" "}
+                <span className="text-[#FF5B5C]">{activeChat.course}</span>
+              </p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button className="p-2.5 text-slate-400 hover:bg-slate-50 rounded-xl transition-all">
+              <Star size={20} />
+            </button>
+            <button className="p-2.5 text-slate-400 hover:bg-slate-50 rounded-xl transition-all">
+              <Info size={20} />
+            </button>
+            <button className="p-2.5 text-slate-400 hover:bg-slate-50 rounded-xl transition-all">
+              <MoreVertical size={20} />
+            </button>
+          </div>
+        </div>
+
+        {/* Messages Area */}
+        <div className="flex-grow overflow-y-auto p-8 space-y-6 bg-slate-50/20">
+          <div className="flex justify-center">
+            <span className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] bg-white px-4 py-1 rounded-full border border-slate-100">
+              Today
+            </span>
+          </div>
+
+          {INITIAL_MESSAGES.map((msg) => (
+            <div
+              key={msg.id}
+              className={`flex ${
+                msg.sender === "me" ? "justify-end" : "justify-start"
+              }`}
+            >
+              <div className={`max-w-[65%] space-y-1`}>
+                <div
+                  className={`p-4 rounded-[28px] text-sm font-semibold shadow-sm ${
+                    msg.sender === "me"
+                      ? "bg-[#FF5B5C] text-white rounded-tr-none shadow-rose-200"
+                      : "bg-white text-[#1D1B26] border border-slate-100 rounded-tl-none"
+                  }`}
+                >
+                  {msg.text}
+                </div>
+                <p
+                  className={`text-[9px] font-black uppercase tracking-widest px-2 ${
+                    msg.sender === "me"
+                      ? "text-right text-rose-300"
+                      : "text-left text-slate-300"
+                  }`}
+                >
+                  {msg.time}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Teacher Input Area with Quick Tools */}
+        <div className="p-6 bg-white border-t border-slate-50">
+          <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
+            {[
+              "Send Syllabus",
+              "Great Job!",
+              "Check Grades",
+              "Office Hours",
+            ].map((label) => (
+              <button
+                key={label}
+                className="whitespace-nowrap px-3 py-1.5 rounded-lg border border-slate-100 text-[10px] font-black text-slate-400 hover:border-rose-200 hover:text-rose-500 transition-all uppercase"
+              >
+                + {label}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-4 bg-slate-50 p-2.5 rounded-[28px] border border-slate-100 focus-within:border-rose-200 transition-all">
+            <button className="p-2 text-slate-400 hover:text-[#FF5B5C] transition-colors">
+              <Paperclip size={20} />
+            </button>
+            <input
+              type="text"
+              placeholder="Type a feedback or reply..."
+              className="flex-grow bg-transparent border-none focus:ring-0 text-sm font-bold text-[#1D1B26] outline-none"
+            />
+            <button className="p-2 text-slate-400 hover:text-yellow-500 transition-colors">
+              <Smile size={20} />
+            </button>
+            <button className="bg-[#FF5B5C] text-white p-3.5 rounded-2xl hover:bg-[#ff4647] transition-all shadow-lg shadow-rose-500/20">
+              <Send size={20} />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

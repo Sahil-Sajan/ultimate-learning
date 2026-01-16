@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
-  LayoutGrid,
-  List,
   Heart,
   Star,
   BookOpen,
@@ -17,8 +15,6 @@ import {
 } from "lucide-react";
 
 /* ---------------- TYPES & DATA ---------------- */
-
-type ViewType = "grid" | "list";
 
 interface Instructor {
   id: number;
@@ -33,18 +29,73 @@ interface Instructor {
 }
 
 const instructors: Instructor[] = [
-  { id: 1, name: "Rolands Granger", role: "Developer", rating: 4.9, reviews: 200, lessons: 12, hours: "169hr 20min", image: "instructor1.webp" },
-  { id: 2, name: "Lisa Lopez", role: "Finance", rating: 4.4, reviews: 130, lessons: 22, hours: "15hr 06min", image: "instructor2.webp" },
-  { id: 3, name: "Charles Ruiz", role: "Cloud Engineer", rating: 4.5, reviews: 120, lessons: 16, hours: "2hr 25min", image: "instructor3.webp" },
-  { id: 4, name: "Rogerina Grogan", role: "Vocational", rating: 4.6, reviews: 180, lessons: 6, hours: "19hr 30min", image: "instructor4.webp" },
-  { id: 5, name: "Ivana Tow", role: "Corporate Trainer", rating: 4.2, reviews: 210, lessons: 25, hours: "4hr 20min", image: "instructor5.webp" },
-  { id: 6, name: "Kevin Leonard", role: "Developer", rating: 4.5, reviews: 140, lessons: 11, hours: "7hr 10min", image: "instructor6.webp" },
+  {
+    id: 1,
+    name: "Rolands Granger",
+    role: "Developer",
+    rating: 4.9,
+    reviews: 200,
+    lessons: 12,
+    hours: "169hr 20min",
+    image: "/instructor1.webp",
+    favorite: true,
+  },
+  {
+    id: 2,
+    name: "Lisa Lopez",
+    role: "Finance",
+    rating: 4.4,
+    reviews: 130,
+    lessons: 22,
+    hours: "15hr 06min",
+    image: "/instructor2.webp",
+  },
+  {
+    id: 3,
+    name: "Charles Ruiz",
+    role: "Cloud Engineer",
+    rating: 4.5,
+    reviews: 120,
+    lessons: 16,
+    hours: "2hr 25min",
+    image: "/instructor3.webp",
+  },
+  {
+    id: 4,
+    name: "Rogerina Grogan",
+    role: "Vocational",
+    rating: 4.6,
+    reviews: 180,
+    lessons: 6,
+    hours: "19hr 30min",
+    image: "/instructor4.webp",
+  },
+  {
+    id: 5,
+    name: "Ivana Tow",
+    role: "Corporate Trainer",
+    rating: 4.2,
+    reviews: 210,
+    lessons: 25,
+    hours: "4hr 20min",
+    image: "/instructor5.webp",
+    favorite: true,
+  },
+  {
+    id: 6,
+    name: "Kevin Leonard",
+    role: "Developer",
+    rating: 4.5,
+    reviews: 140,
+    lessons: 11,
+    hours: "7hr 10min",
+    image: "/instructor6.webp",
+  },
 ];
 
 /* ---------------- PAGE COMPONENT ---------------- */
 
 export default function InstructorGridPage() {
-  const [view, setView] = useState<ViewType>("grid");
   const [price, setPrice] = useState(69850);
 
   return (
@@ -75,11 +126,6 @@ export default function InstructorGridPage() {
                 Clear All
               </button>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-slate-400">{isFilterOpen ? "Close" : "Filter By"}</span>
-              <ChevronDown size={18} className={`text-slate-400 transition-transform duration-300 ${isFilterOpen ? "rotate-180" : ""}`} />
-            </div>
-          </button>
 
             <div className="space-y-4">
               <CustomAccordion title="Categories">
@@ -108,54 +154,55 @@ export default function InstructorGridPage() {
                     <span>$2985.0</span>
                   </div>
                 </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+              </CustomAccordion>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10">
-          
-          {/* DESKTOP SIDEBAR (Hidden on Mobile) */}
-          <aside className="hidden lg:block space-y-8 sticky top-6 self-start">
-            <FilterContent price={price} setPrice={setPrice} />
+              <CustomAccordion title="Level">
+                {["Beginner", "Intermediate", "Advanced", "Expert"].map(
+                  (item) => (
+                    <CustomCheckbox
+                      key={item}
+                      label={item}
+                      count={Math.floor(Math.random() * 20)}
+                    />
+                  )
+                )}
+              </CustomAccordion>
+            </div>
           </aside>
 
           {/* Main Content Area */}
-          <main>
-            {/* Toolbar */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-5 mb-8 bg-white p-2 rounded-xl border border-slate-100 shadow-sm lg:shadow-none lg:border-none lg:p-0 lg:bg-transparent">
-              <span className="text-sm text-slate-500 font-medium">
-                Showing <span className="text-slate-900 font-bold">1-9 of 50</span> results
+          <main className="flex-1 order-1 lg:order-2">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+              <span className="text-sm text-slate-500">
+                Showing{" "}
+                <span className="text-black font-bold">1-6 of 50 results</span>
               </span>
 
-              <div className="flex items-center gap-4 w-full sm:w-auto">
-                <div className="hidden sm:flex bg-slate-100 rounded-lg p-1">
-                  <button onClick={() => setView("grid")} className={`p-2 rounded-md transition-all ${view === "grid" ? "bg-white text-[#FF5364] shadow-sm" : "text-slate-400"}`}>
-                    <LayoutGrid size={18} />
-                  </button>
-                  <button onClick={() => setView("list")} className={`p-2 rounded-md transition-all ${view === "list" ? "bg-white text-[#FF5364] shadow-sm" : "text-slate-400"}`}>
-                    <List size={18} />
-                  </button>
-                </div>
-                
-                <select className="bg-white border border-slate-200 rounded-lg text-xs font-bold py-2.5 px-4 outline-none grow sm:grow-0 focus:ring-2 ring-[#FF5364]/20">
-                  <option>Sort by: Newest</option>
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <select className="bg-white border border-slate-300 rounded-md text-xs font-bold py-2.5 px-3 outline-none focus:border-black grow sm:grow-0">
+                  <option>Newly Published</option>
                   <option>Best Rated</option>
-                  <option>Price: Low to High</option>
                 </select>
 
                 <div className="relative grow sm:grow-0">
-                  <input type="text" placeholder="Search..." className="h-10 w-full sm:w-56 text-xs pl-10 pr-4 bg-white border border-slate-200 rounded-lg outline-none focus:border-[#FF5364] shadow-sm" />
-                  <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input
+                    type="text"
+                    placeholder="Search instructors..."
+                    className="h-10 w-full sm:w-60 text-xs pl-10 pr-4 bg-white border border-slate-300 rounded-md outline-none focus:border-black"
+                  />
+                  <Search
+                    size={16}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+                  />
                 </div>
               </div>
             </div>
 
-            {/* Grid/List Display */}
-            <div className={`grid gap-6 ${view === "grid" ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3" : "grid-cols-1"}`}>
+            {/* Responsive Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
               <AnimatePresence mode="popLayout">
                 {instructors.map((ins) => (
-                  <InstructorCard key={ins.id} instructor={ins} view={view} />
+                  <InstructorCard key={ins.id} instructor={ins} />
                 ))}
               </AnimatePresence>
             </div>
@@ -183,7 +230,13 @@ export default function InstructorGridPage() {
 
 /* ---------------- UI COMPONENTS ---------------- */
 
-function CustomAccordion({ title, children }: { title: string; children: React.ReactNode }) {
+function CustomAccordion({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <div className="bg-white border border-gray-100 rounded-xl p-6">
@@ -245,47 +298,73 @@ function CustomCheckbox({
   );
 }
 
-function InstructorCard({ instructor, view }: { instructor: Instructor; view: ViewType }) {
+function InstructorCard({ instructor }: { instructor: Instructor }) {
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className={`group bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${
-        view === "list" ? "flex flex-col sm:flex-row p-4 gap-6" : "flex flex-col"
-      }`}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl hover:border-slate-300 transition-all duration-300 flex flex-col"
     >
-      <div className={`relative overflow-hidden shrink-0 ${view === "list" ? "w-full sm:w-56 h-56 sm:h-44 rounded-xl" : "aspect-4/3"}`}>
-        <img src={instructor.image} alt={instructor.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-        <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-        <button className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 backdrop-blur shadow-sm flex items-center justify-center hover:bg-[#FF5364] hover:text-white transition-colors">
-          <Heart size={16} className={instructor.favorite ? "fill-current" : ""} />
+      <div className="relative aspect-video overflow-hidden shrink-0">
+        <img
+          src={instructor.image}
+          alt={instructor.name}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+        />
+        <button className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white shadow-md flex items-center justify-center z-10 hover:scale-110 transition-transform active:scale-90">
+          <Heart
+            size={18}
+            className="text-[#FF5364] fill-transparent hover:fill-[#FF5364] transition-colors"
+            strokeWidth={2.5}
+          />
         </button>
       </div>
 
       <div className="p-6 flex flex-col grow">
-        <div className="flex items-center gap-1.5 mb-3">
-          <div className="flex items-center bg-orange-50 px-2 py-1 rounded-md">
-            <Star size={12} className="text-[#FFB800] fill-[#FFB800]" />
-            <span className="text-xs font-black text-orange-700 ml-1">{instructor.rating}</span>
-          </div>
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">({instructor.reviews} Reviews)</span>
+        <div className="flex items-center gap-1.5 mb-2.5">
+          <Star size={14} className="text-[#FFB800] fill-[#FFB800]" />
+          <span className="text-sm font-bold text-black">
+            {instructor.rating}
+          </span>
+          <span className="text-xs font-medium text-slate-400">
+            ({instructor.reviews} Reviews)
+          </span>
         </div>
-        
-        <h3 className="text-xl font-black text-slate-900 group-hover:text-[#FF5364] transition-colors mb-1">{instructor.name}</h3>
-        <p className="text-[13px] text-slate-400 font-bold mb-6">{instructor.role}</p>
-        
-        <div className="mt-auto grid grid-cols-2 gap-4 border-t border-slate-50 pt-5">
+
+        <h3 className="text-lg font-bold text-black group-hover:text-[#FF5364] transition-colors mb-1">
+          {instructor.name}
+        </h3>
+        <p className="text-sm text-slate-500 font-medium mb-5">
+          {instructor.role}
+        </p>
+
+        <div className="mt-auto flex items-center justify-between border-t border-slate-100 pt-5">
           <div className="flex items-center gap-2">
-            <div className="p-1.5 bg-red-50 rounded-lg"><BookOpen size={14} className="text-[#FF5364]" /></div>
-            <span className="text-[11px] font-black text-slate-500">{instructor.lessons} Lessons</span>
+            <div className="p-1.5 bg-rose-50 rounded-lg">
+              <BookOpen size={16} className="text-[#FF5364]" />
+            </div>
+            <span className="text-[11px] font-extrabold text-slate-600 uppercase tracking-tight">
+              {instructor.lessons}+ Lessons
+            </span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="p-1.5 bg-purple-50 rounded-lg"><Clock size={14} className="text-purple-600" /></div>
-            <span className="text-[11px] font-black text-slate-500 whitespace-nowrap">{instructor.hours.split(' ')[0]} Hrs</span>
+            <div className="p-1.5 bg-blue-50 rounded-lg">
+              <Clock size={16} className="text-[#6440FB]" />
+            </div>
+            <span className="text-[11px] font-extrabold text-slate-600 uppercase tracking-tight">
+              {instructor.hours}
+            </span>
           </div>
         </div>
       </div>
     </motion.div>
+  );
+}
+
+function PaginationButton({ icon }: { icon: React.ReactNode }) {
+  return (
+    <button className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 text-slate-800 hover:bg-[#FF5B5C] hover:text-white transition-all">
+      {icon}
+    </button>
   );
 }

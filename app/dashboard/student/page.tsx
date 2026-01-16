@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 import { Star, FileText, Heart } from "lucide-react";
 
@@ -6,15 +7,8 @@ import { Star, FileText, Heart } from "lucide-react";
 export default function DashboardPage({ activeTab }: { activeTab: string }) {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+      {/* Only render DashboardOverview when tab is Dashboard or empty */}
       {(activeTab === "Dashboard" || !activeTab) && <DashboardOverview />}
-
-      {activeTab !== "Dashboard" && activeTab !== "" && (
-        <div className="bg-white p-20 rounded-[40px] text-center border border-dashed border-slate-200">
-          <h2 className="text-2xl font-black text-slate-300 italic uppercase tracking-widest">
-            {activeTab}
-          </h2>
-        </div>
-      )}
     </div>
   );
 }
@@ -239,7 +233,6 @@ function LatestQuizzes() {
         {quizzes.map((quiz, i) => (
           <div key={i} className="flex items-center justify-between">
             <div className="flex items-center gap-4 w-full">
-              {/* CENTERED TEXT IN CIRCLE PROGRESS */}
               <div className="relative shrink-0 w-16 h-16 flex items-center justify-center">
                 <svg
                   className="w-full h-full transform -rotate-90"
@@ -267,7 +260,6 @@ function LatestQuizzes() {
                     className="text-[#22C55E] transition-all duration-1000"
                   />
                 </svg>
-                {/* Text centered inside the circle */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-[11px] font-black text-black">
                     {quiz.score}%

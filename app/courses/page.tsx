@@ -70,7 +70,7 @@ export default function CourseCatalog() {
   return (
     <div className="min-h-screen bg-[#FDFCFD] pb-20">
       {/* 1. TOP BREADCRUMB */}
-      <div className="w-full bg-gradient-to-r from-pink-50 to-blue-50 py-10 md:py-16 text-center px-4">
+      <div className="w-full bg-linear-to-r from-pink-50 to-blue-50 py-10 md:py-16 text-center px-4">
         <h1 className="text-2xl md:text-3xl font-bold text-[#1D2026] mb-2">Course Grid</h1>
         <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
           <Link href="/" className="hover:text-[#FF5B5C]">Home</Link>
@@ -79,7 +79,7 @@ export default function CourseCatalog() {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-4 md:px-6 mt-8 md:-mt-12">
+      <div className="max-w-360 mx-auto px-4 md:px-6 mt-8 md:-mt-12">
         {/* 2. FILTER TOP BAR */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
           <div className="flex items-center justify-between w-full md:w-auto gap-4">
@@ -121,7 +121,7 @@ export default function CourseCatalog() {
 
           {/* 4. MOBILE DRAWER FILTER */}
           {isFilterOpen && (
-            <div className="fixed inset-0 z-[200] lg:hidden">
+            <div className="fixed inset-0 z-200 lg:hidden">
               <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsFilterOpen(false)} />
               <div className="absolute right-0 top-0 h-full w-[85%] max-w-sm bg-white shadow-2xl p-6 overflow-y-auto animate-in slide-in-from-right duration-300">
                 <div className="flex items-center justify-between mb-8">
@@ -161,7 +161,7 @@ export default function CourseCatalog() {
                     </div>
 
                     <Link href={`/courses/${course.id}`}>
-                      <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-[44px]">
+                      <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-11">
                         {course.title}
                       </h3>
                     </Link>

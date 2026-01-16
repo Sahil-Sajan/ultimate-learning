@@ -13,6 +13,7 @@ import {
   Bar,
   Cell,
 } from "recharts";
+
 import {
   Edit3,
   TrendingUp,
@@ -110,7 +111,7 @@ export default function TeacherInsightsPage() {
             <h4 className="text-sm font-bold text-slate-800">
               Enrollment Trends
             </h4>
-            <div className="h-[180px] sm:h-[200px] w-full">
+            <div className="h-45 sm:h-50 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={enrollmentData}>
                   <defs>
@@ -156,7 +157,7 @@ export default function TeacherInsightsPage() {
             <h4 className="text-sm font-bold text-slate-800">
               Student Activity
             </h4>
-            <div className="h-[180px] sm:h-[200px] w-full">
+            <div className="h-45 sm:h-50 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={studentActivity}>
                   <Bar dataKey="hours" radius={[4, 4, 0, 0]}>
