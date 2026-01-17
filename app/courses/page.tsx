@@ -9,9 +9,10 @@ import {
   LayoutGrid,
   Heart,
   ChevronRight,
+  Filter,
+  X,
 } from "lucide-react";
 
-// Updated data with review counts to prevent "undefined" values
 export const courses: any[] = [
   {
     id: 1,
@@ -134,10 +135,69 @@ export const courses: any[] = [
 
 export default function CourseCatalog() {
   const [selectedCats, setSelectedCats] = useState<string[]>(["IT & Software"]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false); // Mobile filter state
+
+  const SidebarContent = () => (
+    <div className="flex flex-col gap-6">
+      <FilterBox title="Categories">
+        {[
+          "Backend",
+          "CSS",
+          "Frontend",
+          "General",
+          "IT & Software",
+          "Photography",
+          "Programming Language",
+        ].map((cat, index) => (
+          <FilterCheckbox
+            key={`${cat}-${index}`}
+            label={cat}
+            checked={selectedCats.includes(cat)}
+            count={cat === "CSS" ? 2 : 3}
+          />
+        ))}
+        <button className="text-[#FF5B5C] text-sm font-semibold mt-2 text-left">
+          See More
+        </button>
+      </FilterBox>
+
+      <FilterBox title="Instructors">
+        {["Kerry White", "Hinata Hyuga", "John Doe", "Nicole Brown"].map(
+          (ins) => (
+            <FilterCheckbox
+              key={ins}
+              label={ins}
+              checked={ins === "Nicole Brown"}
+              count={10}
+            />
+          )
+        )}
+      </FilterBox>
+
+      <FilterBox title="Price">
+        <div className="space-y-3">
+          <FilterCheckbox label="All" count={10} checked />
+          <FilterCheckbox label="Free" count={5} />
+          <FilterCheckbox label="Paid" count={3} />
+        </div>
+      </FilterBox>
+
+      <FilterBox title="Range">
+        <input
+          type="range"
+          className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]"
+        />
+        <div className="flex justify-between mt-2 text-xs text-gray-500">
+          <span>$0</span>
+          <span>$2985.0</span>
+        </div>
+      </FilterBox>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-[#FDFCFD] pb-20">
-      {/* 1. TOP BREADCRUMB SECTION */}
+      {/* 1. TOP BREADCRUMB */}
       <div className="w-full bg-linear-to-r from-pink-50 to-blue-50 py-10 md:py-16 text-center px-4">
         <h1 className="text-2xl md:text-3xl font-bold text-[#1D2026] mb-2">
           Course Grid
@@ -151,18 +211,24 @@ export default function CourseCatalog() {
         </div>
       </div>
 
-      <div className="max-w-350 mx-auto px-4 md:px-6 mt-8 md:-mt-12">
+      <div className="max-w-360 mx-auto px-4 md:px-6 mt-8 md:-mt-12">
         {/* 2. FILTER TOP BAR */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-          <div className="flex items-center gap-4 w-full md:w-auto">
+          <div className="flex items-center justify-between w-full md:w-auto gap-4">
             <div className="flex items-center gap-2 text-[#6E7485] font-medium">
-              <span className="bg-[#FF5B5C] text-white p-2 rounded-md">
+              <span className="bg-[#FF5B5C] text-white p-2 rounded-md hidden md:block">
                 <LayoutGrid size={18} />
               </span>
-              <span className="text-sm md:text-base">
-                Showing 1-9 of {courses.length} results
-              </span>
+              <span className="text-sm md:text-base">Showing 1-9 results</span>
             </div>
+
+            {/* MOBILE FILTER TOGGLE */}
+            <button
+              onClick={() => setIsFilterOpen(true)}
+              className="lg:hidden flex items-center gap-2 bg-white border border-gray-200 px-4 py-2 rounded-lg text-sm font-bold text-[#1D2026] hover:bg-gray-50 active:scale-95 transition-all"
+            >
+              <Filter size={16} className="text-[#FF5B5C]" /> Filters
+            </button>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
@@ -190,76 +256,50 @@ export default function CourseCatalog() {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* 3. SIDEBAR FILTERS */}
-          <aside className="w-full lg:w-75 text-black flex flex-col gap-6 order-2 lg:order-1">
-            <FilterBox title="Categories">
-              {[
-                "Backend",
-                "CSS",
-                "Frontend",
-                "General",
-                "IT & Software",
-                "Photography",
-                "Programming Language",
-                "General",
-              ].map((cat, index) => (
-                <FilterCheckbox
-                  key={`${cat}-${index}`}
-                  label={cat}
-                  checked={selectedCats.includes(cat)}
-                  count={cat === "CSS" ? 2 : 3}
-                />
-              ))}
-              <button className="text-[#FF5B5C] text-sm font-semibold mt-2 text-left">
-                See More
-              </button>
-            </FilterBox>
-
-            <FilterBox title="Instructors">
-              {["Kerry White", "Hinata Hyuga", "John Doe", "Nicole Brown"].map(
-                (ins) => (
-                  <FilterCheckbox
-                    key={ins}
-                    label={ins}
-                    checked={ins === "Nicole Brown"}
-                    count={10}
-                  />
-                )
-              )}
-            </FilterBox>
-
-            <FilterBox title="Price">
-              <div className="space-y-3">
-                <FilterCheckbox label="All" count={10} checked />
-                <FilterCheckbox label="Free" count={5} />
-                <FilterCheckbox label="Paid" count={3} />
-              </div>
-            </FilterBox>
-
-            <FilterBox title="Range">
-              <input
-                type="range"
-                className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]"
-              />
-              <div className="flex justify-between mt-2 text-xs text-gray-500">
-                <span>$0</span>
-                <span>$2985.0</span>
-              </div>
-            </FilterBox>
+          {/* 3. DESKTOP SIDEBAR (Hidden on mobile) */}
+          <aside className="hidden lg:block w-75 shrink-0">
+            <SidebarContent />
           </aside>
 
-          {/* 4. COURSE GRID */}
-          <main className="flex-1 order-1 lg:order-2">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {/* 4. MOBILE DRAWER FILTER */}
+          {isFilterOpen && (
+            <div className="fixed inset-0 z-200 lg:hidden">
+              <div
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                onClick={() => setIsFilterOpen(false)}
+              />
+              <div className="absolute right-0 top-0 h-full w-[85%] max-w-sm bg-white shadow-2xl p-6 overflow-y-auto animate-in slide-in-from-right duration-300">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-xl font-bold">Filter Courses</h2>
+                  <button
+                    onClick={() => setIsFilterOpen(false)}
+                    className="p-2 bg-gray-100 rounded-full"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+                <SidebarContent />
+                <button
+                  onClick={() => setIsFilterOpen(false)}
+                  className="w-full bg-[#FF5B5C] text-white py-4 rounded-xl font-bold mt-8"
+                >
+                  Show Results
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* 5. COURSE GRID */}
+          <main className="flex-1">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
               {courses.map((course) => (
                 <div
                   key={course.id}
-                  className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-all duration-300 group"
+                  className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group"
                 >
-                  {/* Image Container with Link */}
                   <Link
                     href={`/courses/${course.id}`}
-                    className="relative h-52 block cursor-pointer"
+                    className="relative h-52 block overflow-hidden"
                   >
                     <img
                       src={course.image}
@@ -272,21 +312,16 @@ export default function CourseCatalog() {
                     >
                       <Heart size={18} />
                     </button>
-                    <div className="absolute top-3 right-3 bg-white/20 backdrop-blur-md p-2 rounded-full text-white">
-                      <LayoutGrid size={16} />
-                    </div>
                   </Link>
 
-                  {/* Content Area */}
                   <div className="p-5">
                     <div className="flex justify-between items-center mb-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-full bg-orange-100 overflow-hidden">
-                          <img
-                            src={`https://i.pravatar.cc/150?u=${course.id}`}
-                            alt="instructor"
-                          />
-                        </div>
+                        <img
+                          src={`https://i.pravatar.cc/150?u=${course.id}`}
+                          className="w-8 h-8 rounded-full"
+                          alt="ins"
+                        />
                         <span className="text-xs text-gray-500 font-medium">
                           {course.instructor}
                         </span>
@@ -296,9 +331,8 @@ export default function CourseCatalog() {
                       </span>
                     </div>
 
-                    {/* Title with Link */}
                     <Link href={`/courses/${course.id}`}>
-                      <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-11 cursor-pointer">
+                      <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-11">
                         {course.title}
                       </h3>
                     </Link>
@@ -318,7 +352,7 @@ export default function CourseCatalog() {
                         {course.rating}
                       </span>
                       <span className="text-xs text-gray-400">
-                        ({course.reviews} Reviews)
+                        ({course.reviews})
                       </span>
                     </div>
 
@@ -326,8 +360,6 @@ export default function CourseCatalog() {
                       <span className="text-xl font-bold text-[#FF5B5C]">
                         ${course.price}
                       </span>
-
-                      {/* Button with Link */}
                       <Link href={`/courses/${course.id}`}>
                         <button className="flex items-center gap-1 bg-[#1D2026] text-white text-[11px] font-bold px-4 py-2 rounded-full hover:bg-[#FF5B5C] transition-all">
                           View Course <ChevronRight size={14} />
@@ -340,17 +372,14 @@ export default function CourseCatalog() {
             </div>
 
             {/* Pagination */}
-            <div className="flex justify-center flex-wrap mt-12 gap-2">
+            <div className="flex justify-center mt-12 gap-2">
               <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FF5B5C] text-white font-bold">
                 1
               </button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100">
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100 border border-gray-100">
                 2
               </button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100">
-                3
-              </button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100">
+              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100 border border-gray-100">
                 <ChevronRight size={18} />
               </button>
             </div>
@@ -362,14 +391,29 @@ export default function CourseCatalog() {
 }
 
 // Sidebar Helper Components //
-function FilterBox({ title, children }: { title: string; children: React.ReactNode }) {
+function FilterBox({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   const [isOpen, setIsOpen] = useState(true);
   return (
-    <div className="bg-white border border-gray-100 rounded-xl p-6">
-      <h3 className="text-[#1D2026] font-bold text-lg mb-6 flex justify-between items-center">
-        {title} <ChevronDown size={18} className="text-gray-400" />
+    <div className="bg-white border border-gray-100 rounded-xl p-5 shadow-sm">
+      <h3
+        className="text-[#1D2026] font-bold text-lg mb-4 flex justify-between items-center cursor-pointer"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {title}{" "}
+        <ChevronDown
+          size={18}
+          className={`text-gray-400 transition-transform ${
+            isOpen ? "" : "-rotate-90"
+          }`}
+        />
       </h3>
-      <div className="flex flex-col gap-4">{children}</div>
+      {isOpen && <div className="flex flex-col gap-3">{children}</div>}
     </div>
   );
 }
@@ -390,10 +434,10 @@ function FilterCheckbox({
           className={`w-5 h-5 rounded border transition-all flex items-center justify-center ${
             checked
               ? "bg-[#FF5B5C] border-[#FF5B5C]"
-              : "border-black group-hover:border-[#FF5B5C]"
+              : "border-gray-300 group-hover:border-[#FF5B5C]"
           }`}
         >
-          {checked && <div className="w-2 h-2 bg-white rounded-full" />}
+          {checked && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
         </div>
         <span
           className={`text-sm ${
