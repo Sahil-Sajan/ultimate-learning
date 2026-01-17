@@ -59,7 +59,7 @@ export default function ClassManagementContent() {
           enrolledCount={33}
           progress={75}
           nextClass="Tomorrow, 10:00 AM"
-          image="https://cdn-icons-png.flaticon.com/512/2103/2103633.png"
+          image="/promp.webp"
         />
         <ClassCard
           title="Blockchain 101 - Spring 2024"
@@ -67,7 +67,7 @@ export default function ClassManagementContent() {
           enrolledCount={88}
           progress={40}
           nextClass="Monday, 02:00 PM"
-          image="https://cdn-icons-png.flaticon.com/512/2092/2092663.png"
+          image="/promp2.webp"
         />
         <ClassCard
           title="Fullstack Web Dev - Section B"
@@ -75,7 +75,7 @@ export default function ClassManagementContent() {
           enrolledCount={89}
           progress={10}
           nextClass="Wednesday, 09:00 AM"
-          image="https://cdn-icons-png.flaticon.com/512/1197/1197460.png"
+          image="/promp3.webp"
           isInviteLink
         />
       </div>
@@ -203,7 +203,7 @@ function ClassCard({
       <div className="mt-auto pt-4 border-t border-slate-50">
         {isInviteLink ? (
           <div className="flex gap-2">
-            <button className="flex-[3] bg-[#FF5B5C] text-white py-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
+            <button className="flex-3 bg-[#FF5B5C] text-white py-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 shadow-sm hover:shadow-md active:scale-95 transition-all">
               <Share2 size={14} /> SHARE INVITE
             </button>
             <button className="flex-1 bg-slate-50 text-slate-400 py-3 rounded-2xl flex items-center justify-center hover:bg-slate-100 transition-colors">

@@ -118,7 +118,7 @@ export default function DashboardLayout({
 
             <div className="space-y-1">
               <Link
-                href="/dashboard/settings"
+                href="/dashboard/parent/settings"
                 className={`flex items-center gap-3 px-5 py-3.5 font-bold text-sm transition-all ${
                   pathname === "/dashboard/settings"
                     ? "text-[#FF5364]"
