@@ -45,7 +45,7 @@ const Article = () => {
       category: "Development",
       date: "09 Aug 2025",
       author: "Rafy",
-      image: "/learning.avif"
+      image: "/teacher4.webp"
     }
   ];
 
@@ -139,7 +139,7 @@ const ArticleCard = ({ post, height }: { post: any, height: string }) => (
     />
     
     {/* Dark Overlay Gradient */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity group-hover:opacity-90"></div>
+    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent transition-opacity group-hover:opacity-90"></div>
 
     {/* Content */}
     <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
