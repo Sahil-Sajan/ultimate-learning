@@ -115,7 +115,7 @@ export default function CourseCatalog() {
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* 3. DESKTOP SIDEBAR (Hidden on mobile) */}
-          <aside className="hidden lg:block w-75 shrink-0">
+          <aside className="hidden lg:block w-75 shrink-0" >
             <SidebarContent />
           </aside>
 
