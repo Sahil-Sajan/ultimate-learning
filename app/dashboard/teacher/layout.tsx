@@ -71,7 +71,7 @@ export default function DashboardLayout({
   // Logic to determine the active tab name for the Breadcrumb
   const currentItem = [
     ...menuItems,
-    { name: "Settings", href: "/dashboard/settings" },
+    { name: "Settings", href: "/dashboard/teacher/settings" },
   ].find((item) => item.href === pathname);
 
   const activeLabel = currentItem ? currentItem.name : "Dashboard";
@@ -119,7 +119,7 @@ export default function DashboardLayout({
             </h3>
             <div className="space-y-1">
               <Link
-                href="/dashboard/settings"
+                href="/dashboard/teacher/settings"
                 className={`flex items-center gap-3 px-5 py-3.5 font-bold text-sm transition-all ${
                   pathname === "/dashboard/settings"
                     ? "text-[#FF5364]"

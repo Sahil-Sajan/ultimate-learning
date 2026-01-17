@@ -27,9 +27,29 @@ import {
   BookOpen,
 } from "lucide-react";
 
+/* ===================== TYPES ===================== */
+
+interface ChildData {
+  gpa: string;
+  courses: string;
+  attendance: string;
+  pending: string;
+  color: string;
+  performance: Array<{ subject: string; score: number; avg: number }>;
+  monthly: Array<{ month: string; val: number }>;
+  skills: Array<{ skill: string; value: number }>;
+  distribution: Array<{ name: string; value: number }>;
+  recent: Array<{
+    subject: string;
+    task: string;
+    score: string;
+    status: string;
+  }>;
+}
+
 /* ===================== EXTENDED DATASETS ===================== */
 
-const childrenData: any = {
+const childrenData: Record<string, ChildData> = {
   Alice: {
     gpa: "3.89",
     courses: "08",
@@ -133,41 +153,34 @@ const COLORS = ["#6366F1", "#10B981", "#F59E0B", "#EF4444"];
 /* ===================== MAIN COMPONENT ===================== */
 
 export default function DetailedParentDashboard() {
-  const [activeChild, setActiveChild] = useState("Alice");
+  const [activeChild, setActiveChild] = useState<string>("Alice");
 
-  // Memoize data for performance
   const data = useMemo(() => childrenData[activeChild], [activeChild]);
 
   return (
-    <div className="min-h-screen bg-[#F1F5F9] p-4 md:p-8 text-slate-900 font-sans">
-      <div className="max-w-[1600px] mx-auto space-y-6">
-        {/* HEADER */}
-        <header className="bg-white p-6 rounded-[32px] border border-slate-200/60 flex flex-col md:row justify-between items-center gap-4 shadow-sm">
-          <div>
-            <h1 className="text-3xl font-black">
-              {activeChild}'s Academic Insights
-            </h1>
-            <p className="text-slate-500 font-medium">
-              Real-time performance tracking for 2026 Academic Session
-            </p>
-          </div>
-
-          <div className="flex bg-slate-100 p-1.5 rounded-2xl border border-slate-200">
-            {["Alice", "Ben"].map((name) => (
+    <div className="min-h-screen bg-[#F8FAFC] p-4 md:p-10 font-sans text-[#1D1B26]">
+      <div className="max-w-6xl mx-auto space-y-10">
+        {/* TOP HEADER & CHILD SWITCHER */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <h1 className="text-3xl font-black tracking-tight">
+            Child Profile: {activeChild}
+          </h1>
+          <div className="flex gap-2 bg-white p-1.5 rounded-2xl border border-slate-100 shadow-sm">
+            {Object.keys(childrenData).map((name) => (
               <button
                 key={name}
                 onClick={() => setActiveChild(name)}
-                className={`px-8 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
                   activeChild === name
-                    ? "bg-white shadow-md text-indigo-600 scale-105"
-                    : "text-slate-500 hover:text-slate-800"
+                    ? "bg-[#3B82F6] text-white shadow-md shadow-blue-100"
+                    : "text-slate-400 hover:bg-slate-50"
                 }`}
               >
                 {name}
               </button>
             ))}
           </div>
-        </header>
+        </div>
 
         {/* STATS SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -204,7 +217,7 @@ export default function DetailedParentDashboard() {
             <h2 className="text-xl font-black mb-6">
               Subject Proficiency Matrix
             </h2>
-            <div className="h-[380px]">
+            <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data.performance}>
                   <CartesianGrid
@@ -247,7 +260,7 @@ export default function DetailedParentDashboard() {
           {/* RADAR CHART: SKILLS */}
           <div className="lg:col-span-4 bg-white p-8 rounded-[40px] border border-slate-200/60 shadow-sm">
             <h2 className="text-xl font-black mb-6">Cognitive Mastery</h2>
-            <div className="h-[340px]">
+            <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={data.skills}>
                   <PolarGrid stroke="#e2e8f0" />
@@ -271,7 +284,7 @@ export default function DetailedParentDashboard() {
           {/* LINE CHART: PROGRESSION */}
           <div className="lg:col-span-7 bg-white p-8 rounded-[40px] border border-slate-200/60 shadow-sm">
             <h2 className="text-xl font-black mb-6">Monthly GPA Progression</h2>
-            <div className="h-[320px]">
+            <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={data.monthly}>
                   <CartesianGrid
@@ -309,10 +322,10 @@ export default function DetailedParentDashboard() {
             </div>
           </div>
 
-          {/* PIE CHART: DISTRIBUTION (WITH CENTER TEXT) */}
+          {/* PIE CHART: DISTRIBUTION */}
           <div className="lg:col-span-5 bg-white p-8 rounded-[40px] border border-slate-200/60 shadow-sm relative">
             <h2 className="text-xl font-black mb-6">Study Time Distribution</h2>
-            <div className="h-[320px] relative">
+            <div className="h-80 relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -322,7 +335,7 @@ export default function DetailedParentDashboard() {
                     paddingAngle={8}
                     dataKey="value"
                   >
-                    {data.distribution.map((_: any, i: number) => (
+                    {data.distribution.map((_, i) => (
                       <Cell key={i} fill={COLORS[i % COLORS.length]} />
                     ))}
                   </Pie>
@@ -370,7 +383,7 @@ export default function DetailedParentDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
-                {data.recent.map((row: any, i: number) => (
+                {data.recent.map((row, i) => (
                   <AssignmentRow key={i} {...row} />
                 ))}
               </tbody>
@@ -384,7 +397,14 @@ export default function DetailedParentDashboard() {
 
 /* ===================== SUB COMPONENTS ===================== */
 
-function StatCard({ title, value, sub, icon }: any) {
+interface StatCardProps {
+  title: string;
+  value: string;
+  sub: string;
+  icon: React.ReactNode;
+}
+
+function StatCard({ title, value, sub, icon }: StatCardProps) {
   return (
     <div className="bg-white p-6 rounded-[32px] border border-slate-200/60 flex items-center gap-5 shadow-sm hover:shadow-md transition-shadow">
       <div className="p-4 bg-indigo-50 text-indigo-600 rounded-2xl shadow-inner">
@@ -401,8 +421,15 @@ function StatCard({ title, value, sub, icon }: any) {
   );
 }
 
-function AssignmentRow({ subject, task, score, status }: any) {
-  const colors: any = {
+interface AssignmentRowProps {
+  subject: string;
+  task: string;
+  score: string;
+  status: string;
+}
+
+function AssignmentRow({ subject, task, score, status }: AssignmentRowProps) {
+  const statusColors: Record<string, string> = {
     Completed: "bg-emerald-100 text-emerald-700",
     Graded: "bg-blue-100 text-blue-700",
     Pending: "bg-amber-100 text-amber-700",
@@ -415,7 +442,9 @@ function AssignmentRow({ subject, task, score, status }: any) {
       <td className="px-8 py-5 text-sm font-black text-indigo-600">{score}</td>
       <td className="px-8 py-5">
         <span
-          className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter ${colors[status]}`}
+          className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-tighter ${
+            statusColors[status] || "bg-slate-100 text-slate-700"
+          }`}
         >
           {status}
         </span>

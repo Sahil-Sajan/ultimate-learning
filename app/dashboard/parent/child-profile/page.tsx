@@ -28,7 +28,7 @@ const childrenData = {
     school: "Westside Prep",
     gpa: "3.8",
     attendance: "92%",
-    img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alice",
+    img: "/girl.webp",
     courses: [
       {
         name: "Math",
@@ -76,7 +76,7 @@ const childrenData = {
     school: "Westside Prep",
     gpa: "3.5",
     attendance: "95%",
-    img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ben",
+    img: "/boy.avif",
     courses: [
       {
         name: "Science",
@@ -194,7 +194,7 @@ export default function ChildProfilePage() {
             {child.courses.map((course, idx) => (
               <div
                 key={idx}
-                className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex flex-col gap-6 hover:translate-y-[-4px] transition-transform duration-300"
+                className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex flex-col gap-6 hover:-translate-y-1 transition-transform duration-300"
               >
                 <div className="flex items-center gap-8">
                   {/* Taller Bar Chart */}
@@ -246,7 +246,7 @@ export default function ChildProfilePage() {
                       </div>
                       <div className="w-full h-2.5 bg-slate-50 rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-gradient-to-r from-orange-400 to-orange-300"
+                          className="h-full bg-linear-to-r from-orange-400 to-orange-300"
                           style={{ width: `${course.progress}%` }}
                         />
                       </div>
