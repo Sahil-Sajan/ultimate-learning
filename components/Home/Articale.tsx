@@ -2,6 +2,7 @@
 import React from 'react'
 import { Calendar, User } from 'lucide-react'
 import Image from 'next/image'
+import { motion, Variants } from 'framer-motion'
 
 const Article = () => {
   const blogPosts = [
@@ -48,10 +49,34 @@ const Article = () => {
     }
   ];
 
+  // Animation Variants
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.3 }
+    }
+  };
+
+  const fadeInUp: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } 
+    }
+  };
+
   return (
-    <section className="py-20 px-4 bg-white max-w-7xl mx-auto font-sans">
+    <section className="py-20 px-4 bg-white max-w-7xl mx-auto font-sans overflow-hidden">
       {/* Header Section */}
-      <div className="text-center mb-12">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.5 }}
+        className="text-center mb-12"
+      >
         <p className="text-[#f6416c] font-semibold text-sm border-b-2 border-[#f6416c] inline-block pb-1 uppercase tracking-wider">
           Articles & Updates
         </p>
@@ -61,62 +86,75 @@ const Article = () => {
         <p className="text-gray-800 max-w-2xl mx-auto">
           Explore curated content to enlighten, entertain and engage global readers.
         </p>
-      </div>
+      </motion.div>
 
       {/* Blog Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
+      <motion.div 
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+      >
         {/* Large Featured Post (Left) */}
-        <div className="lg:col-span-1">
+        <motion.div variants={fadeInUp} className="lg:col-span-1">
           <ArticleCard post={blogPosts[0]} height="h-[600px]" />
-        </div>
+        </motion.div>
 
         {/* Small Posts Grid (Right) */}
         <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
           {blogPosts.slice(1).map((post) => (
-            <ArticleCard key={post.id} post={post} height="h-[288px]" />
+            <motion.div key={post.id} variants={fadeInUp}>
+              <ArticleCard post={post} height="h-[288px]" />
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* View All Button */}
-      <div className="text-center mt-12">
-        <button className="bg-[#0b1219] text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition-colors">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        viewport={{ once: true }}
+        className="text-center mt-12"
+      >
+        <button className="bg-[#0b1219] text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-800 transition-all active:scale-95 shadow-lg">
           View All Articles
         </button>
-      </div>
+      </motion.div>
     </section>
   )
 }
 
 // Reusable Card Component
 const ArticleCard = ({ post, height }: { post: any, height: string }) => (
-  <div className={`relative ${height} rounded-2xl overflow-hidden group cursor-pointer`}>
-    {/* Background Image */}
+  <div className={`relative ${height} rounded-2xl overflow-hidden group cursor-pointer shadow-md`}>
+    {/* Background Image with Hover Zoom */}
     <Image 
       src={post.image} 
       alt={post.title}
       fill
-      className="object-cover transition-transform duration-500 group-hover:scale-110"
+      className="object-cover transition-transform duration-700 group-hover:scale-110"
     />
     
     {/* Dark Overlay Gradient */}
-    <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent"></div>
+    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity group-hover:opacity-90"></div>
 
     {/* Content */}
-    <div className="absolute inset-0 p-6 flex flex-col justify-between">
+    <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
       {/* Author Badge */}
-      <div className="flex items-center gap-2 bg-[#6342ff] text-white w-fit px-3 py-1.5 rounded-full text-xs font-medium">
+      <div className="flex items-center gap-2 bg-[#6342ff] text-white w-fit px-3 py-1.5 rounded-full text-xs font-medium transform transition-transform group-hover:translate-x-1">
         <div className="w-5 h-5 bg-gray-300 rounded-full overflow-hidden relative">
-           <User size={12} className="absolute inset-0 m-auto text-gray-600" />
+            <User size={12} className="absolute inset-0 m-auto text-gray-600" />
         </div>
         {post.author}
       </div>
 
       {/* Post Info */}
-      <div className="space-y-3">
+      <div className="space-y-3 transform transition-transform group-hover:-translate-y-1">
         <div className="flex items-center gap-4 text-white/80 text-xs">
-          <span className="border border-white/30 px-3 py-1 rounded-full uppercase">
+          <span className="border border-white/30 px-3 py-1 rounded-full uppercase tracking-tighter">
             {post.category}
           </span>
           <div className="flex items-center gap-1">
@@ -124,7 +162,7 @@ const ArticleCard = ({ post, height }: { post: any, height: string }) => (
             {post.date}
           </div>
         </div>
-        <h3 className={`text-white font-bold leading-tight ${post.isLarge ? 'text-2xl' : 'text-lg'}`}>
+        <h3 className={`text-white font-bold leading-tight transition-colors group-hover:text-pink-100 ${post.isLarge ? 'text-2xl md:text-3xl' : 'text-lg'}`}>
           {post.title}
         </h3>
       </div>

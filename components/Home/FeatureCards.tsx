@@ -1,29 +1,42 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { BookOpen, Infinity, GraduationCap } from "lucide-react";
 
-const containerVariants = {
+// Fixed Type: Variants type assign karne se ease string ka error khatam ho jayega
+const containerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.3,
     },
   },
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
+    transition: { 
+      duration: 1.2, 
+      ease: [0.22, 1, 0.36, 1] // Ab ye error nahi dega
+    },
   },
 };
 
+// Interface for Card Type Safety
+interface BenefitCard {
+  title: string;
+  desc: string;
+  icon: React.ReactNode;
+  gradient: string;
+  iconBg: string;
+}
+
 const Benefits = () => {
-  const cards = [
+  const cards: BenefitCard[] = [
     {
       title: "Flexible learning",
       desc: "We believe that high-quality education should be accessible to everyone. Our pricing form in models are designed.",
@@ -122,11 +135,8 @@ const Benefits = () => {
           {/* SCROLL */}
           <div className="animate-scroll flex">
             {[...logos, ...logos].map((logo, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
                 className="flex items-center justify-center mx-8"
               >
                 <img
@@ -135,7 +145,7 @@ const Benefits = () => {
                   className="h-8 w-auto object-contain"
                   style={{ maxWidth: "120px" }}
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -144,12 +154,8 @@ const Benefits = () => {
       {/* CSS */}
       <style jsx>{`
         @keyframes scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
         }
         .animate-scroll {
           width: max-content;
