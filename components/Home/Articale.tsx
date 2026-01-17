@@ -1,8 +1,8 @@
-"use client"
-import React from 'react'
-import { Calendar, User } from 'lucide-react'
-import Image from 'next/image'
-import { motion, Variants } from 'framer-motion'
+"use client";
+import React from "react";
+import { Calendar, User } from "lucide-react";
+import Image from "next/image";
+import { motion, Variants } from "framer-motion";
 
 const Article = () => {
   const blogPosts = [
@@ -13,7 +13,7 @@ const Article = () => {
       date: "09 Aug 2025",
       author: "Shahzaib Ahmed",
       image: "/cg-2.avif",
-      isLarge: true
+      isLarge: true,
     },
     {
       id: 2,
@@ -21,7 +21,7 @@ const Article = () => {
       category: "Productivity",
       date: "09 Aug 2025",
       author: "Wusatullha",
-      image: "/cg-1.webp"
+      image: "/cg-1.webp",
     },
     {
       id: 3,
@@ -29,7 +29,7 @@ const Article = () => {
       category: "Productivity",
       date: "09 Aug 2025",
       author: "Shoib",
-      image: "/cg-6.avif"
+      image: "/cg-6.avif",
     },
     {
       id: 4,
@@ -37,7 +37,7 @@ const Article = () => {
       category: "UI /UX",
       date: "09 Aug 2025",
       author: "Sahil",
-      image: "/fs-4.avif"
+      image: "/fs-4.avif",
     },
     {
       id: 5,
@@ -45,8 +45,8 @@ const Article = () => {
       category: "Development",
       date: "09 Aug 2025",
       author: "Rafy",
-      image: "/learning.avif"
-    }
+      image: "/teacher4.webp",
+    },
   ];
 
   // Animation Variants
@@ -54,23 +54,23 @@ const Article = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.3 }
-    }
+      transition: { staggerChildren: 0.3 },
+    },
   };
 
   const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } 
-    }
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+    },
   };
 
   return (
     <section className="py-20 px-4 bg-white max-w-7xl mx-auto font-sans overflow-hidden">
       {/* Header Section */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -84,12 +84,13 @@ const Article = () => {
           Our Recent Blog & Articles
         </h1>
         <p className="text-gray-800 max-w-2xl mx-auto">
-          Explore curated content to enlighten, entertain and engage global readers.
+          Explore curated content to enlighten, entertain and engage global
+          readers.
         </p>
       </motion.div>
 
       {/* Blog Grid */}
-      <motion.div 
+      <motion.div
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -112,7 +113,7 @@ const Article = () => {
       </motion.div>
 
       {/* View All Button */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ delay: 1 }}
@@ -124,20 +125,22 @@ const Article = () => {
         </button>
       </motion.div>
     </section>
-  )
-}
+  );
+};
 
 // Reusable Card Component
-const ArticleCard = ({ post, height }: { post: any, height: string }) => (
-  <div className={`relative ${height} rounded-2xl overflow-hidden group cursor-pointer shadow-md`}>
+const ArticleCard = ({ post, height }: { post: any; height: string }) => (
+  <div
+    className={`relative ${height} rounded-2xl overflow-hidden group cursor-pointer shadow-md`}
+  >
     {/* Background Image with Hover Zoom */}
-    <Image 
-      src={post.image} 
+    <Image
+      src={post.image}
       alt={post.title}
       fill
       className="object-cover transition-transform duration-700 group-hover:scale-110"
     />
-    
+
     {/* Dark Overlay Gradient */}
     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent transition-opacity group-hover:opacity-90"></div>
 
@@ -146,7 +149,7 @@ const ArticleCard = ({ post, height }: { post: any, height: string }) => (
       {/* Author Badge */}
       <div className="flex items-center gap-2 bg-[#6342ff] text-white w-fit px-3 py-1.5 rounded-full text-xs font-medium transform transition-transform group-hover:translate-x-1">
         <div className="w-5 h-5 bg-gray-300 rounded-full overflow-hidden relative">
-            <User size={12} className="absolute inset-0 m-auto text-gray-600" />
+          <User size={12} className="absolute inset-0 m-auto text-gray-600" />
         </div>
         {post.author}
       </div>
@@ -162,12 +165,16 @@ const ArticleCard = ({ post, height }: { post: any, height: string }) => (
             {post.date}
           </div>
         </div>
-        <h3 className={`text-white font-bold leading-tight transition-colors group-hover:text-pink-100 ${post.isLarge ? 'text-2xl md:text-3xl' : 'text-lg'}`}>
+        <h3
+          className={`text-white font-bold leading-tight transition-colors group-hover:text-pink-100 ${
+            post.isLarge ? "text-2xl md:text-3xl" : "text-lg"
+          }`}
+        >
           {post.title}
         </h3>
       </div>
     </div>
   </div>
-)
+);
 
-export default Article
+export default Article;
