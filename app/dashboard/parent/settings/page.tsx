@@ -253,7 +253,11 @@ export default function ParentSettingsPage() {
                   />
                   <div className="grid md:grid-cols-2 gap-8">
                     <div className="space-y-4">
-                      <InputBlock label="Primary Guardian" value="Jane Smith" />
+                      <InputBlock
+                        label="Primary Guardian"
+                        value="
+kristein watson"
+                      />
                       <InputBlock
                         label="Registered Phone"
                         value="+1 (555) 012-3456"
