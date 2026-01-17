@@ -40,7 +40,7 @@ function DashboardOverview() {
             Student Enrollment: 856 Learners
           </p>
         </div>
-        <button className="bg-[#4E3796] text-white px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-[#3D2B7A] transition-all">
+        <button className="bg-[#FF5364] text-white px-8 py-3 rounded-2xl text-xs font-black uppercase tracking-widest transition-all">
           Edit Course
         </button>
       </div>
@@ -256,7 +256,7 @@ function StudentPerformance() {
         {quizzes.map((quiz, i) => (
           <div key={i} className="flex items-center justify-between">
             <div className="flex items-center gap-4 w-full">
-              <div className="relative flex-shrink-0 w-16 h-16 flex items-center justify-center">
+              <div className="relative shrink-0 w-16 h-16 flex items-center justify-center">
                 <svg
                   className="w-full h-full transform -rotate-90"
                   viewBox="0 0 60 60"
@@ -290,7 +290,7 @@ function StudentPerformance() {
                 </div>
               </div>
 
-              <div className="flex-grow">
+              <div className="grow">
                 <p className="text-sm font-black text-[#1D1B26]">{quiz.name}</p>
                 <p className="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest">
                   {quiz.date}

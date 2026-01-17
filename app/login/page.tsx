@@ -17,8 +17,10 @@ const LoginPage = () => {
       router.push("/dashboard/student");
     } else if (password === "teacher") {
       router.push("/dashboard/teacher");
+    } else if (password === "parent") {
+      router.push("/dashboard/parent");
     } else {
-      router.push("/dashboard/student");
+      router.push("/");
     }
   };
 

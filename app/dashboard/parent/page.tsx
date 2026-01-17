@@ -83,21 +83,13 @@ export default function ParentalDashboard() {
         <div className="space-y-4">
           <h2 className="text-xl font-bold">My Children</h2>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <ChildCard
-              name="Alice Smith"
-              grade="7th"
-              img="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice"
-            />
-            <ChildCard
-              name="Ben Smith"
-              grade="7th"
-              img="https://api.dicebear.com/7.x/avataaars/svg?seed=Ben"
-            />
+            <ChildCard name="Alice Smith" grade="7th" img="/girl.webp" />
+            <ChildCard name="Ben Smith" grade="7th" img="/boy.avif" />
 
             {/* Weekly Activity Chart Card - UPDATED HEIGHT AND BAR SIZE */}
             <div className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm">
               <h3 className="font-bold text-sm mb-4">Weekly Activity</h3>
-              <div className="h-[160px] w-full">
+              <div className="h-40 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={weeklyActivityData}>
                     <CartesianGrid
@@ -131,7 +123,7 @@ export default function ParentalDashboard() {
           <h2 className="text-xl font-bold">Academic Snapshot</h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Bar Chart */}
-            <div className="h-[300px]">
+            <div className="h-75">
               <p className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">
                 Grades by Subject (Last Semester)
               </p>
@@ -171,7 +163,7 @@ export default function ParentalDashboard() {
             </div>
 
             {/* Donut Chart */}
-            <div className="h-[300px] flex flex-col items-center justify-center relative">
+            <div className="h-75 flex flex-col items-center justify-center relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -227,7 +219,7 @@ export default function ParentalDashboard() {
             <div className="bg-white p-8 rounded-[32px] border border-slate-100 shadow-sm space-y-4">
               <button className="w-full flex items-center justify-between p-4 bg-slate-50 hover:bg-slate-100 rounded-2xl transition-all group">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-white rounded-xl shadow-sm">
+                  <div className=" bg-white rounded-xl shadow-sm">
                     <MessageSquare size={18} className="text-[#4E3796]" />
                   </div>
                   <span className="font-bold text-sm">Message Teacher</span>
@@ -239,7 +231,7 @@ export default function ParentalDashboard() {
               </button>
 
               <button className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 rounded-2xl transition-all">
-                <div className="p-2 bg-slate-50 rounded-xl">
+                <div className=" bg-slate-50 rounded-xl">
                   <LifeBuoy size={18} className="text-slate-400" />
                 </div>
                 <span className="font-bold text-sm text-slate-600">
