@@ -66,9 +66,9 @@ export default function DashboardLayout({
       href: "/dashboard/student/quizzes",
     },
     {
-      name: "Order History",
+      name: "Reports",
       icon: <ShoppingCart size={18} />,
-      href: "/dashboard/student/order-history",
+      href: "/dashboard/student/report",
     },
     {
       name: "Messages",
@@ -225,15 +225,6 @@ export default function DashboardLayout({
                   Student
                 </p>
               </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-8 lg:mt-0 relative z-10 w-full lg:w-auto">
-              <button className="bg-white text-[#1D1B26] px-6 py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-tight shadow-xl hover:bg-slate-50 transition-colors w-full sm:w-auto">
-                Become Instructor
-              </button>
-              <button className="bg-[#FF5364] text-white px-6 py-2.5 rounded-full text-[10px] md:text-xs font-black uppercase tracking-tight shadow-xl hover:bg-[#e04857] transition-colors w-full sm:w-auto">
-                Instructor Dashboard
-              </button>
             </div>
           </div>
 
