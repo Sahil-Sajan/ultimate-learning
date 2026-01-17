@@ -46,7 +46,7 @@ export default function DashboardLayout({
 
   const currentItem = [
     ...menuItems,
-    { name: "Settings", href: "/dashboard/settings" },
+    { name: "Settings", href: "/dashboard/teacher/settings" },
   ].find((item) => item.href === pathname);
 
   const activeLabel = currentItem ? currentItem.name : "Dashboard";
@@ -138,11 +138,52 @@ export default function DashboardLayout({
         </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 grid lg:grid-cols-12 gap-8">
-        {/* 3. PERSISTENT SIDEBAR (Desktop) */}
-        <aside className="hidden lg:block lg:col-span-3">
-          <div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-100 sticky top-10">
-            <SidebarContent />
+      <div className="max-w-7xl mx-auto px-6 py-10 grid lg:grid-cols-12 gap-8">
+        {/* 2. PERSISTENT SIDEBAR */}
+        <aside className="lg:col-span-3">
+          <div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-100 sticky top-6">
+            <h3 className="text-[12px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4 px-4">
+              Main Menu
+            </h3>
+            <nav className="space-y-1">
+              {menuItems.map((item) => {
+                // Check if the current URL matches the item href
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 ${
+                      isActive
+                        ? "bg-[#FF5364] text-white shadow-lg shadow-pink-100"
+                        : "text-slate-500 hover:bg-pink-50 hover:text-[#FF5364]"
+                    }`}
+                  >
+                    {item.icon}
+                    {item.name}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mt-10 mb-6 px-4">
+              Account Settings
+            </h3>
+            <div className="space-y-1">
+              <Link
+                href="/dashboard/teacher/settings"
+                className={`flex items-center gap-3 px-5 py-3.5 font-bold text-sm transition-all ${
+                  pathname === "/dashboard/settings"
+                    ? "text-[#FF5364]"
+                    : "text-slate-500 hover:text-[#FF5364]"
+                }`}
+              >
+                <Settings size={18} /> Settings
+              </Link>
+              <button className="w-full flex items-center gap-3 px-5 py-3.5 text-slate-500 font-bold text-sm hover:text-red-500 transition-all text-left">
+                <LogOut size={18} /> Logout
+              </button>
+            </div>
           </div>
         </aside>
 

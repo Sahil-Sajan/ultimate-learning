@@ -148,7 +148,7 @@ export default function DashboardLayout({
               <div className="relative">
                 <div className="w-24 h-24 rounded-full border-4 border-white/30 overflow-hidden bg-white">
                   <img
-                    src="/teacher.avif"
+                    src="/parent.avif"
                     className="w-full h-[135%] object-cover"
                     alt="User"
                   />
@@ -160,7 +160,7 @@ export default function DashboardLayout({
 
               <div>
                 <h2 className="text-3xl font-black flex items-center gap-3">
-                  Emma Watson
+                  kristein watson
                   <span className="text-sm bg-white/20 p-1.5 rounded-lg cursor-pointer hover:bg-white/40 transition-all">
                     <Pencil size={14} />
                   </span>
@@ -181,7 +181,7 @@ export default function DashboardLayout({
             </div>
           </div>
 
-          <div className="min-h-[400px]">{children}</div>
+          <div className="min-h-100">{children}</div>
         </main>
       </div>
     </div>
