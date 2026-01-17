@@ -74,7 +74,7 @@ export default function TeacherSettingsPage() {
         </nav>
 
         {/* CONTENT BOX - FIXED HEIGHT & HIDDEN SCROLLBAR */}
-        <main className="min-h-[600px] relative">
+        <main className="min-h-150 relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -88,7 +88,7 @@ export default function TeacherSettingsPage() {
                  - [ms-overflow-style:none]: hides for IE/Edge
                  - [scrollbar-width:none]: hides for Firefox
               */
-              className="bg-white rounded-[32px] p-8 border border-slate-200 shadow-sm h-[600px] overflow-y-auto [&::-webkit-scrollbar]:display-none [ms-overflow-style:none] [scrollbar-width:none]"
+              className="bg-white rounded-[32px] p-8 border border-slate-200 shadow-sm h-150 overflow-y-auto [&::-webkit-scrollbar]:display-none [ms-overflow-style:none] [scrollbar-width:none]"
             >
               {/* CLASSROOM TAB */}
               {activeTab === "classroom" && (
@@ -344,7 +344,7 @@ function ToggleSetting({ title, desc, icon, defaultOn = false }: any) {
       </div>
       <button
         onClick={() => setOn(!on)}
-        className={`w-10 h-5 rounded-full flex items-center px-1 transition-all flex-shrink-0 ${
+        className={`w-10 h-5 rounded-full flex items-center px-1 transition-all shrink-0 ${
           on ? "bg-[#FF5364] justify-end" : "bg-slate-300 justify-start"
         }`}
       >
