@@ -200,7 +200,7 @@ export default function CourseCatalog() {
   );
 }
 
-// Sidebar Helper Components
+// Sidebar Helper Components //
 function FilterBox({ title, children }: { title: string; children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(true);
   return (
