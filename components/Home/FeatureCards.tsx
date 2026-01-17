@@ -1,9 +1,42 @@
-"use client"
-import React from 'react'
-import { BookOpen, Infinity, GraduationCap } from 'lucide-react';
+"use client";
+
+import React from "react";
+import { motion, Variants } from "framer-motion";
+import { BookOpen, Infinity, GraduationCap } from "lucide-react";
+
+// Fixed Type: Variants type assign karne se ease string ka error khatam ho jayega
+const containerVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { 
+      duration: 1.2, 
+      ease: [0.22, 1, 0.36, 1] // Ab ye error nahi dega
+    },
+  },
+};
+
+// Interface for Card Type Safety
+interface BenefitCard {
+  title: string;
+  desc: string;
+  icon: React.ReactNode;
+  gradient: string;
+  iconBg: string;
+}
 
 const Benefits = () => {
-  const cards = [
+  const cards: BenefitCard[] = [
     {
       title: "Flexible learning",
       desc: "We believe that high-quality education should be accessible to everyone. Our pricing form in models are designed.",
@@ -82,33 +115,18 @@ const Benefits = () => {
           <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-linear-to-r from-white to-transparent z-10 pointer-events-none"></div>
           <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-linear-to-l from-white to-transparent z-10 pointer-events-none"></div>
 
+
           {/* Scrolling Container */}
           <div className="animate-scroll">
             {/* First Set */}
             {logos.map((logo, index) => (
               <div 
-                key={`logo-1-${index}`} 
-                className="flex items-center justify-center mx-8 transition-all duration-300"
+
               >
                 <img 
                   src={logo.url} 
                   alt={logo.name}
                   className="h-8 w-auto object-contain"
-                  style={{ maxWidth: '120px' }}
-                />
-              </div>
-            ))}
-            {/* Duplicate Set for Seamless Loop */}
-            {logos.map((logo, index) => (
-              <div 
-                key={`logo-2-${index}`} 
-                className="flex items-center justify-center mx-8  transition-all duration-300"
-              >
-                <img 
-                  src={logo.url} 
-                  alt={logo.name}
-                  className="h-8 w-auto object-contain"
-                  style={{ maxWidth: '120px' }}
                 />
               </div>
             ))}
@@ -134,4 +152,4 @@ const Benefits = () => {
   )
 }
 
-export default Benefits
+export default Benefits;
