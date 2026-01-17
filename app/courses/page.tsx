@@ -361,14 +361,9 @@ export default function CourseCatalog() {
   );
 }
 
-// Sidebar Helper Components (Designs Unchanged)
-function FilterBox({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
+// Sidebar Helper Components //
+function FilterBox({ title, children }: { title: string; children: React.ReactNode }) {
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <div className="bg-white border border-gray-100 rounded-xl p-6">
       <h3 className="text-[#1D2026] font-bold text-lg mb-6 flex justify-between items-center">
