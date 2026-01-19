@@ -53,6 +53,7 @@ const Navbar = () => {
   if (!mounted) return null;
 
   return (
+    // "relative" here is the anchor for the absolute mega menu
     <header className="w-full bg-[#392C7D] text-white relative z-[100]">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
         {/* LOGO */}
@@ -79,6 +80,7 @@ const Navbar = () => {
           {navLinks.map((link) => (
             <div
               key={link.name}
+              // static ensures the absolute child looks at the <header> for width
               className="static flex items-center h-full"
               onMouseEnter={() => link.megaType && setActiveMenu(link.megaType)}
               onMouseLeave={() => setActiveMenu(null)}
@@ -103,17 +105,18 @@ const Navbar = () => {
                 )}
               </Link>
 
-              {/* DESKTOP MEGA MENU */}
+              {/* FULL WIDTH DESKTOP MEGA MENU */}
               {link.megaType && (
                 <div
-                  className={`absolute top-full left-0 right-0 w-full pt-2 transition-all duration-300 ease-out z-50 ${
+                  className={`absolute top-full left-0 w-full transition-all duration-300 ease-out z-50 ${
                     activeMenu === link.megaType
                       ? "opacity-100 visible translate-y-0"
-                      : "opacity-0 invisible -translate-y-4"
+                      : "opacity-0 invisible -translate-y-2"
                   }`}
                 >
-                  <div className="max-w-[1440px] mx-auto px-6">
-                    <div className="bg-[#2D2264] border border-white/10 rounded-[32px] p-10 shadow-[0_30px_100px_rgba(0,0,0,0.6)]">
+                  {/* The actual background container that takes full screen width */}
+                  <div className="w-full bg-[#2D2264] border-t border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
+                    <div className="max-w-[1440px] mx-auto px-6 py-10">
                       <div className="grid grid-cols-12 gap-8">
                         {/* 1. SIDEBAR */}
                         <div className="col-span-3 border-r border-white/5 pr-6">
@@ -346,7 +349,8 @@ const Navbar = () => {
                                 <Star key={i} size={10} fill="currentColor" />
                               ))}
                               <span className="text-[10px] text-white ml-2 opacity-60">
-                                4.9 (2.4k Reviews)
+                                {" "}
+                                4.9 (2.4k Reviews){" "}
                               </span>
                             </div>
                           </Link>
@@ -362,7 +366,6 @@ const Navbar = () => {
 
         {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-2 z-[110]">
-          {/* Utility Icons */}
           <div className="hidden xl:flex gap-1.5 mr-2">
             <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
             <NavCircleBtn icon={<DollarSign size={14} />} />
@@ -375,21 +378,19 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Auth Buttons */}
           <div className="hidden sm:flex items-center gap-2">
             <Link href="/login" onClick={closeAllMenus}>
-              <button className="text-white bg-[#392C7D] border border-white/20 cursor-pointer px-6 py-2.5 rounded-full font-bold text-sm hover:bg-white/10 transition-all active:scale-95">
+              <button className="text-white bg-[#392C7D] border border-white/20 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-white/10 transition-all active:scale-95">
                 Sign In
               </button>
             </Link>
             <Link href="/register" onClick={closeAllMenus}>
-              <button className="bg-[#FF5B5C] text-white cursor-pointer px-7 py-2.5 rounded-full font-bold text-sm shadow-lg hover:shadow-[#FF5B5C]/20 hover:bg-[#ff4646] transition-all active:scale-95">
+              <button className="bg-[#FF5B5C] text-white px-7 py-2.5 rounded-full font-bold text-sm shadow-lg hover:shadow-[#FF5B5C]/20 hover:bg-[#ff4646] transition-all active:scale-95">
                 Register
               </button>
             </Link>
           </div>
 
-          {/* Mobile Toggle */}
           <button
             className="lg:hidden p-2 text-white hover:text-[#FF5B5C] transition-colors ml-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -438,9 +439,8 @@ const Navbar = () => {
                     />
                   )}
                 </div>
-
                 {link.megaType && mobileAccordion === link.megaType && (
-                  <div className="mt-4 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-4">
+                  <div className="mt-4 grid grid-cols-2 gap-4">
                     {(link.megaType === "courses"
                       ? [
                           "Web Design",
@@ -478,7 +478,6 @@ const Navbar = () => {
               </div>
             ))}
           </div>
-
           <div className="mt-auto space-y-4 pt-10">
             <div className="grid grid-cols-4 gap-4 border-t border-white/10 pt-10">
               <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
@@ -505,8 +504,7 @@ const Navbar = () => {
   );
 };
 
-// --- HELPERS ---
-
+// --- HELPERS (Keep these as they are or move to separate files) ---
 const MegaSidebarItem = ({ icon, label, href, onClick }: any) => (
   <Link
     href={href}
