@@ -2,61 +2,62 @@
 
 import React from "react";
 import { motion, Variants } from "framer-motion";
-import { BookOpen, Infinity, GraduationCap } from "lucide-react";
+import { BookOpen, Infinity, GraduationCap, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
-// Fixed Type: Variants type assign karne se ease string ka error khatam ho jayega
+// --- ANIMATION VARIANTS ---
 const containerVariants: Variants = {
   hidden: {},
   show: {
     transition: {
-      staggerChildren: 0.3,
+      staggerChildren: 0.2,
     },
   },
 };
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
+  hidden: { opacity: 0, y: 30 },
   show: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 1.2,
-      ease: [0.22, 1, 0.36, 1], // Ab ye error nahi dega
+      duration: 0.8,
+      ease: [0.25, 0.4, 0.25, 1], // "easeOutQuad" feel
     },
   },
 };
 
-// Interface for Card Type Safety
+// --- TYPES ---
 interface BenefitCard {
   title: string;
   desc: string;
   icon: React.ReactNode;
-  gradient: string;
-  iconBg: string;
+  colorClass: string; // Used for text/border colors on hover
+  bgClass: string; // Used for icon background
 }
 
 const Benefits = () => {
   const cards = [
     {
-      title: "Flexible learning",
-      desc: "We believe that high-quality education should be accessible to everyone. Our pricing form in models are designed.",
-      icon: <BookOpen className="text-purple-600" size={20} />,
-      gradient: "from-white from-50% to-purple-50",
-      iconBg: "bg-purple-100",
+      title: "Flexible Learning",
+      desc: "Quality education accessible to everyone. Learn at your own pace with modules designed for modern lives.",
+      icon: <BookOpen size={24} />,
+      colorClass: "text-purple-600 group-hover:text-purple-600",
+      bgClass: "bg-purple-50 group-hover:bg-purple-100",
     },
     {
-      title: "Lifetime access",
-      desc: "When you enroll in our courses, you're not just signing up for a temporary learning to experience you're making.",
-      icon: <Infinity className="text-pink-600" size={20} />,
-      gradient: "from-white from-50% to-pink-50",
-      iconBg: "bg-pink-100",
+      title: "Lifetime Access",
+      desc: "Enroll once, learn forever. You aren't just signing up for a course; you're building a library of knowledge.",
+      icon: <Infinity size={24} />,
+      colorClass: "text-pink-600 group-hover:text-pink-600",
+      bgClass: "bg-pink-50 group-hover:bg-pink-100",
     },
     {
-      title: "Expert instruction",
-      desc: "Our instructors are seasoned professionals with years of experience in their respective fields & Experts advice.",
-      icon: <GraduationCap className="text-cyan-600" size={20} />,
-      gradient: "from-white from-50% to-cyan-50",
-      iconBg: "bg-cyan-100",
+      title: "Expert Instruction",
+      desc: "Learn from seasoned professionals. Gain insights and practical advice from experts active in the field.",
+      icon: <GraduationCap size={24} />,
+      colorClass: "text-cyan-600 group-hover:text-cyan-600",
+      bgClass: "bg-cyan-50 group-hover:bg-cyan-100",
     },
   ];
 
@@ -74,102 +75,113 @@ const Benefits = () => {
     <motion.section
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-100px" }}
       variants={containerVariants}
-      className="py-20 px-4 max-w-7xl mx-auto font-sans bg-white overflow-hidden"
+      className="py-24 px-6 max-w-7xl mx-auto font-sans bg-white relative"
     >
-      {/* HEADER */}
-      <motion.div variants={fadeUp} className="text-center mb-16">
-        <p className="text-pink-500 font-medium mb-2 uppercase tracking-wider text-sm">
-          Our Benefits
-        </p>
-        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4 tracking-tight">
-          Master the Skills to Drive your Career
+      {/* SECTION HEADER */}
+      <motion.div variants={fadeUp} className="text-center mb-20">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-50 border border-gray-200 text-xs font-bold text-gray-600 uppercase tracking-wide mb-6">
+          <span className="w-2 h-2 rounded-full bg-yellow-500 animate-pulse" />
+          Key Advantages
+        </div>
+        
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+          Master the skills that <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-gray-800 to-gray-500">
+            drive your future.
+          </span>
         </h1>
-        <p className="text-gray-500 max-w-2xl mx-auto text-lg leading-relaxed">
-          The right course, guided by an expert mentor, can provide invaluable
-          insights and practical skills.
+        
+        <p className="text-slate-500 max-w-2xl mx-auto text-md md:text-xl leading-relaxed">
+          We strip away the complexity. Get the right course, guided by expert mentors, 
+          delivered on a platform built for growth.
         </p>
       </motion.div>
 
-      {/* CARDS */}
+      {/* CARDS GRID */}
       <motion.div
         variants={containerVariants}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24"
+        className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-28"
       >
         {cards.map((card, index) => (
           <motion.div
             key={index}
             variants={fadeUp}
-            whileHover={{ y: -6, scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 200, damping: 18 }}
-            className={`p-8 rounded-2xl border border-gray-100 bg-linear-to-tr ${card.gradient} shadow-sm`}
+            whileHover={{ y: -8 }}
+            className="group relative p-8 rounded-2xl bg-white border border-gray-100 shadow-lg shadow-gray-100/50 hover:shadow-xl hover:shadow-gray-200/60 hover:border-gray-200 transition-all duration-300 ease-out"
           >
+            {/* Hover Accent Line */}
+            <div className={`absolute top-0 left-8 right-8 h-1 rounded-b-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${card.bgClass.replace('bg-', 'bg-linear-to-r from-transparent via-').replace('50', '400').replace('100', '400') + ' to-transparent'}`} />
+
+            {/* Icon Box */}
             <div
-              className={`${card.iconBg} w-10 h-10 rounded-lg flex items-center justify-center mb-6`}
+              className={`w-14 h-14 rounded-xl flex items-center justify-center mb-8 transition-colors duration-300 ${card.bgClass} ${card.colorClass}`}
             >
               {card.icon}
             </div>
-            <h2 className="text-xl font-bold text-gray-800 mb-3">
+
+            {/* Content */}
+            <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-black transition-colors">
               {card.title}
-            </h2>
-            <p className="text-gray-600 leading-relaxed text-sm">{card.desc}</p>
+            </h3>
+            <p className="text-slate-500 leading-relaxed mb-8 text-[15px]">
+              {card.desc}
+            </p>
+
+            {/* Learn More Link (Visual flair) */}
+            <div className="flex items-center text-sm font-semibold text-gray-400 group-hover:text-slate-900 transition-colors cursor-pointer">
+              <span>Learn more</span>
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </div>
           </motion.div>
         ))}
       </motion.div>
 
-      {/* TRUSTED BY */}
-      <motion.div
-        variants={fadeUp}
-        className="relative pt-12 border-t border-dashed border-gray-200"
-      >
-        <p className="text-center text-gray-500 font-medium mb-12">
-          Trusted By{" "}
-          <span className="text-pink-500 border-b-2 border-pink-500/30">
-            50+ Institutions
-          </span>{" "}
-          Around the World
+      {/* LOGO STRIP */}
+      <motion.div variants={fadeUp} className="border-t border-gray-100 pt-8">
+        <p className="text-center text-slate-400 text-sm font-semibold uppercase tracking-widest mb-10">
+          Trusted by industry leaders worldwide
         </p>
 
-        <div className="relative flex overflow-hidden select-none group">
-          {/* FADES */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-linear-to-r from-white to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-linear-to-l from-white to-transparent z-10" />
+        <div className="relative w-full overflow-hidden">
+          {/* Gradients to fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-20 bg-linear-to-r from-white to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-linear-to-l from-white to-transparent z-10 pointer-events-none" />
 
-          {/* SCROLL */}
-          <div className="animate-scroll flex">
-            {[...logos, ...logos].map((logo, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center mx-8"
-              >
-                <img
-                  src={logo.url}
-                  alt={logo.name}
-                  className="h-8 w-auto object-contain"
-                  style={{ maxWidth: "120px" }}
-                />
-              </div>
-            ))}
+          {/* Marquee Container */}
+          <div className="flex overflow-hidden group">
+            <div className="animate-scroll flex gap-16 min-w-full items-center">
+              {[...logos, ...logos].map((logo, index) => (
+                <div
+                  key={index}
+                  className="relative h-8 w-32 flex items-center justify-center shrink-0  hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer"
+                >
+                  <Image
+                  height={200}
+                  width={200}
+                    src={logo.url}
+                    alt={logo.name}
+                    className="h-full w-full object-contain"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </motion.div>
 
-      {/* CSS */}
+      {/* CSS For Scroll Animation */}
       <style jsx>{`
         @keyframes scroll {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
         .animate-scroll {
           width: max-content;
-          animation: scroll 30s linear infinite;
+          animation: scroll 40s linear infinite;
         }
-        .group:hover .animate-scroll {
+        .animate-scroll:hover {
           animation-play-state: paused;
         }
       `}</style>

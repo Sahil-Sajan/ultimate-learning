@@ -69,7 +69,7 @@ const Testimonial: React.FC = () => {
 
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-24 space-y-3">
+        <div className="text-center mb-16 space-y-3">
           <span className="text-[#ff4d6d] font-bold text-sm tracking-widest uppercase pb-1 border-b-2 border-[#ff4d6d]">
             Testimonials
           </span>
@@ -82,13 +82,13 @@ const Testimonial: React.FC = () => {
         </div>
 
         {/* Carousel Container */}
-        <div className="relative group px-2 md:px-10">
+        <div className="relative group px-4 md:px-6">
           {/* Navigation Buttons */}
-          <button className="testimonial-prev absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 border border-gray-100 group-hover:scale-110">
+          <button className="testimonial-prev absolute left-0 md:-left-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 border border-gray-100 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0">
             <ChevronLeft className="w-6 h-6" />
           </button>
 
-          <button className="testimonial-next absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 border border-gray-100 group-hover:scale-110">
+          <button className="testimonial-next absolute right-0 md:-right-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-[#ff4d6d] hover:text-white transition-all duration-300 border border-gray-100 opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0">
             <ChevronRight className="w-6 h-6" />
           </button>
 
@@ -96,6 +96,7 @@ const Testimonial: React.FC = () => {
             modules={[Navigation, Autoplay, Pagination]}
             spaceBetween={30}
             slidesPerView={1}
+            centeredSlides={true}
             loop={true}
             navigation={{
               prevEl: ".testimonial-prev",
@@ -103,16 +104,24 @@ const Testimonial: React.FC = () => {
             }}
             autoplay={{ delay: 5000, disableOnInteraction: false }}
             breakpoints={{
-              640: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              768: {
+                slidesPerView: 2,
+                centeredSlides: false,
+              },
+              1024: {
+                slidesPerView: 3,
+                centeredSlides: true,
+              },
             }}
-            className="overflow-visible!"
+            className="overflow-hidden! py-12 px-4"
           >
             {Feedback.map((item) => (
-              <SwiperSlide key={item.id} className="h-auto pt-12 pb-12">
-                <div className="bg-white rounded-3xl p-8 pt-16 shadow-[0_15px_40px_rgba(0,0,0,0.04)] border border-gray-100 text-center relative flex flex-col h-full min-h-80 transition-transform duration-300 hover:-translate-y-2">
-                  {/* Floating Avatar Container */}
-                  <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24">
+              <SwiperSlide key={item.id} className="h-auto">
+                <div className="bg-white rounded-3xl p-8 pt-24 shadow-[0_15px_40px_rgba(0,0,0,0.04)] border border-gray-100 text-center relative flex flex-col h-full min-h-[350px] transition-transform duration-300 hover:-translate-y-2 mx-1 my-1">
+                  
+                  {/* Floating Avatar Container - LOWERED POSITION */}
+                  {/* Changed -top-12 to -top-6 to bring it downward */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-24">
                     <div className="relative w-full h-full rounded-full border-[6px] border-white shadow-xl overflow-hidden bg-gray-100">
                       <Image
                         src={item.image}
@@ -131,7 +140,7 @@ const Testimonial: React.FC = () => {
 
                   {/* Content Body */}
                   <div className="flex flex-col grow items-center justify-between space-y-6">
-                    <div className="space-y-2">
+                    <div className="space-y-2 mt-2">
                       <h4 className="text-xl font-bold text-gray-900 tracking-tight">
                         {item.name}
                       </h4>
@@ -140,11 +149,11 @@ const Testimonial: React.FC = () => {
                       </p>
                     </div>
 
-                    <p className="text-gray-600 text-[16px] leading-relaxed italic grow">
+                    <p className="text-gray-600 text-[16px] leading-relaxed italic grow max-w-xs mx-auto">
                       &quot;{item.content}&quot;
                     </p>
 
-                    {/* Star Rating Fixed at Bottom */}
+                    {/* Star Rating */}
                     <div className="flex justify-center gap-1.5 pt-4 border-t border-gray-50 w-full">
                       {[...Array(5)].map((_, i) => (
                         <Star
