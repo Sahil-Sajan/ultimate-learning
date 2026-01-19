@@ -86,7 +86,7 @@ export default function BlogPage() {
             {/* LEFT IMAGE */}
             <div className="relative h-100 lg:h-auto w-full overflow-hidden">
               <Image
-                src="/bloghero.avif"
+                src="/blog8.webp"
                 alt="MyCase Transforming Legal Practice"
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
