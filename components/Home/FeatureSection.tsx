@@ -17,7 +17,7 @@ interface Category {
 const categories: Category[] = [
   { title: "Javascript Developer", imageSrc: "/javascript.webp" },
   { title: "Nodejs Developer", imageSrc: "/node js.webp" },
-  { title: "Figma Developer", imageSrc: "/figma.webp" },
+  { title: "Figma Developer", imageSrc: "/figmalogo.webp" },
   { title: "Wordpress Developer", imageSrc: "/wordpress.webp" },
   { title: "Java Developer", imageSrc: "/java.webp" },
   { title: "Reactjs Developer", imageSrc: "/react.webp" },
