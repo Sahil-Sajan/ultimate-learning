@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Heart, Star } from "lucide-react";
+import Link from "next/link";
 
 interface Course {
   id: number;
@@ -79,7 +80,6 @@ const CourseGrid: React.FC = () => {
           in-demand skills
         </p>
       </div>
-
       {/* Grid Container with Navigation Arrows */}
       <div className="relative group">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -136,7 +136,7 @@ const CourseGrid: React.FC = () => {
 
               {/* Action Button */}
               <button
-                className={`mt-4 w-full py-2.5 rounded-xl text-xs font-bold transition-colors ${
+                className={`mt-4 w-full py-2.5 rounded-xl text-xs cursor-pointer font-bold transition-colors ${
                   course.isActive
                     ? "bg-[#ff4d6d] text-white hover:bg-[#e63958]"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -148,12 +148,13 @@ const CourseGrid: React.FC = () => {
           ))}
         </div>
       </div>
-
       {/* Footer Button */}
       <div className="text-center mt-12">
-        <button className="bg-[#3b2d83] text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-[#2e2366] transition-colors shadow-lg shadow-purple-200">
-          View All Categories
-        </button>
+        <Link href="/courses">
+          <button className="bg-[#3b2d83] text-white px-8 py-3 cursor-pointer rounded-xl font-bold text-sm hover:bg-[#2e2366] transition-colors shadow-lg shadow-purple-200">
+            View All Categories
+          </button>
+        </Link>
       </div>
     </section>
   );
