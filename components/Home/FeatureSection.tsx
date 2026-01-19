@@ -11,12 +11,12 @@ interface Category {
 }
 
 const categories: Category[] = [
-  { title: "Frontend Developer", imageSrc: "/bootstrap.webp" },
-  { title: "Nextjs Developer", imageSrc: "/next.svg" },
+  { title: "Javascript Developer", imageSrc: "/javascript.webp" },
+  { title: "Nodejs Developer", imageSrc: "/node js.webp" },
   { title: "Figma Developer", imageSrc: "/figma.webp" },
-  { title: "Framer Developer", imageSrc: "/framer.webp" },
-  { title: "Vue js Developer", imageSrc: "/vuejs.webp" },
-  { title: "Shopify Developer", imageSrc: "/shopify3.webp", scale: 5.5 },
+  { title: "Wordpress Developer", imageSrc: "/wordpress.webp" },
+  { title: "Java Developer", imageSrc: "/java.webp" },
+  { title: "Reactjs Developer", imageSrc: "/react.webp" },
 ];
 
 // 1. Fixed Type Error for Container
