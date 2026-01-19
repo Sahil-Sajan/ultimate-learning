@@ -53,11 +53,15 @@ const Navbar = () => {
   if (!mounted) return null;
 
   return (
+    // "relative" here is the anchor for the absolute mega menu
     <header className="w-full bg-[#392C7D] text-white relative z-[100]">
       <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
-        
         {/* LOGO */}
-        <Link href="/" className="flex items-center gap-3 shrink-0 group z-[110]" onClick={closeAllMenus}>
+        <Link
+          href="/"
+          className="flex items-center gap-3 shrink-0 group z-[110]"
+          onClick={closeAllMenus}
+        >
           <div className="bg-white p-2 rounded-xl transition-transform group-hover:rotate-6 shadow-sm">
             <GraduationCap className="text-[#FF5B5C]" size={24} />
           </div>
@@ -76,6 +80,7 @@ const Navbar = () => {
           {navLinks.map((link) => (
             <div
               key={link.name}
+              // static ensures the absolute child looks at the <header> for width
               className="static flex items-center h-full"
               onMouseEnter={() => link.megaType && setActiveMenu(link.megaType)}
               onMouseLeave={() => setActiveMenu(null)}
@@ -100,11 +105,18 @@ const Navbar = () => {
                 )}
               </Link>
 
-              {/* DESKTOP MEGA MENU */}
+              {/* FULL WIDTH DESKTOP MEGA MENU */}
               {link.megaType && (
-                <div className={`absolute top-full left-0 right-0 w-full pt-2 transition-all duration-300 ease-out z-50 ${activeMenu === link.megaType ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-4"}`}>
-                  <div className="max-w-[1440px] mx-auto px-6">
-                    <div className="bg-[#2D2264] border border-white/10 rounded-[32px] p-10 shadow-[0_30px_100px_rgba(0,0,0,0.6)]">
+                <div
+                  className={`absolute top-full left-0 w-full transition-all duration-300 ease-out z-50 ${
+                    activeMenu === link.megaType
+                      ? "opacity-100 visible translate-y-0"
+                      : "opacity-0 invisible -translate-y-2"
+                  }`}
+                >
+                  {/* The actual background container that takes full screen width */}
+                  <div className="w-full bg-[#2D2264] border-t border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
+                    <div className="max-w-[1440px] mx-auto px-6 py-10">
                       <div className="grid grid-cols-12 gap-8">
                         {/* 1. SIDEBAR */}
                         <div className="col-span-3 border-r border-white/5 pr-6">
@@ -337,7 +349,8 @@ const Navbar = () => {
                                 <Star key={i} size={10} fill="currentColor" />
                               ))}
                               <span className="text-[10px] text-white ml-2 opacity-60">
-                                4.9 (2.4k Reviews)
+                                {" "}
+                                4.9 (2.4k Reviews){" "}
                               </span>
                             </div>
                           </Link>
@@ -353,10 +366,7 @@ const Navbar = () => {
 
         {/* RIGHT ACTIONS */}
         <div className="flex items-center gap-2 z-[110]">
-          
-          {/* FIXED: Added 'isMobileMenuOpen ? "hidden" : "flex"' */}
-          {/* Ye Desktop/Zoom par dikhega, lekin mobile menu khulne par hide ho jayega */}
-          <div className={`${isMobileMenuOpen ? "hidden" : "hidden lg:flex"} items-center gap-1.5 mr-2`}>
+          <div className="hidden xl:flex gap-1.5 mr-2">
             <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
             <NavCircleBtn icon={<DollarSign size={14} />} />
             <NavCircleBtn icon={<Moon size={16} fill="currentColor" />} />
@@ -368,46 +378,69 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Auth Buttons */}
           <div className="hidden sm:flex items-center gap-2">
             <Link href="/login" onClick={closeAllMenus}>
-              <button className="text-white bg-[#392C7D] border border-white/20 cursor-pointer px-6 py-2.5 rounded-full font-bold text-sm hover:bg-white/10 transition-all active:scale-95">
+              <button className="text-white bg-[#392C7D] border border-white/20 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-white/10 transition-all active:scale-95">
                 Sign In
               </button>
             </Link>
             <Link href="/register" onClick={closeAllMenus}>
-              <button className="bg-[#FF5B5C] text-white cursor-pointer px-7 py-2.5 rounded-full font-bold text-sm shadow-lg hover:shadow-[#FF5B5C]/20 hover:bg-[#ff4646] transition-all active:scale-95">
+              <button className="bg-[#FF5B5C] text-white px-7 py-2.5 rounded-full font-bold text-sm shadow-lg hover:shadow-[#FF5B5C]/20 hover:bg-[#ff4646] transition-all active:scale-95">
                 Register
               </button>
             </Link>
           </div>
 
-          {/* Hamburger Button */}
-          <button className="lg:hidden p-2 text-white hover:text-[#FF5B5C] transition-colors ml-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <button
+            className="lg:hidden p-2 text-white hover:text-[#FF5B5C] transition-colors ml-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
             {isMobileMenuOpen ? <X size={32} /> : <Menu size={32} />}
           </button>
         </div>
       </div>
 
       {/* MOBILE MENU (Full Overlay) */}
-      <div className={`fixed inset-0 bg-[#2D2264]/98 backdrop-blur-xl z-[105] lg:hidden transition-all duration-500 ${isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"}`}>
+      <div
+        className={`fixed inset-0 bg-[#2D2264]/98 backdrop-blur-xl z-[105] lg:hidden transition-all duration-500 ${
+          isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        }`}
+      >
         <div className="flex flex-col h-full pt-24 px-6 pb-10 overflow-y-auto">
-          
           <div className="space-y-4">
             {navLinks.map((link) => (
               <div key={link.name} className="border-b border-white/10 pb-4">
                 <div className="flex items-center justify-between py-2">
-                  <Link href={link.href} className="text-2xl font-bold text-white tracking-tight grow" onClick={closeAllMenus}>
+                  <Link
+                    href={link.href}
+                    className="text-2xl font-bold text-white tracking-tight grow"
+                    onClick={closeAllMenus}
+                  >
                     {link.name}
                   </Link>
                   {link.megaType && (
-                    <div className="p-3 -mr-3 cursor-pointer" onClick={() => setMobileAccordion(mobileAccordion === link.megaType ? null : link.megaType)}>
-                      <ChevronDown className={`transition-transform duration-300 size-6 ${mobileAccordion === link.megaType ? "rotate-180 text-[#FF5B5C]" : "text-white/40"}`} />
+                    <div
+                      className="p-3 -mr-3 cursor-pointer"
+                      onClick={() =>
+                        setMobileAccordion(
+                          mobileAccordion === link.megaType
+                            ? null
+                            : link.megaType
+                        )
+                      }
+                    >
+                      <ChevronDown
+                        className={`transition-transform duration-300 size-6 ${
+                          mobileAccordion === link.megaType
+                            ? "rotate-180 text-[#FF5B5C]"
+                            : "text-white/40"
+                        }`}
+                      />
                     </div>
                   )}
                 </div>
                 {link.megaType && mobileAccordion === link.megaType && (
-                  <div className="mt-4 grid grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-4">
+                  <div className="mt-4 grid grid-cols-2 gap-4">
                     {(link.megaType === "courses"
                       ? [
                           "Web Design",
@@ -445,16 +478,16 @@ const Navbar = () => {
               </div>
             ))}
           </div>
-
-          {/* MOBILE ICONS: Bottom Section Inside Hamburger */}
           <div className="mt-auto space-y-4 pt-10">
             <div className="grid grid-cols-4 gap-4 border-t border-white/10 pt-10">
               <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
               <NavCircleBtn icon={<DollarSign size={20} />} />
               <NavCircleBtn icon={<Moon size={20} fill="currentColor" />} />
               <div className="relative flex justify-center">
-                  <NavCircleBtn icon={<ShoppingCart size={20} />} />
-                  <span className="absolute -top-1 right-2 sm:right-6 bg-[#FF5B5C] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#392C7D]">0</span>
+                <NavCircleBtn icon={<ShoppingCart size={20} />} />
+                <span className="absolute -top-1 right-2 sm:right-6 bg-[#FF5B5C] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#392C7D]">
+                  0
+                </span>
               </div>
             </div>
             <div className="flex flex-col gap-3">
@@ -476,8 +509,7 @@ const Navbar = () => {
   );
 };
 
-// --- HELPERS ---
-
+// --- HELPERS (Keep these as they are or move to separate files) ---
 const MegaSidebarItem = ({ icon, label, href, onClick }: any) => (
   <Link
     href={href}
@@ -515,7 +547,15 @@ const CourseThumb = ({ title, instructor, img, href, onClick }: any) => (
 
 const NavCircleBtn = ({ icon, img }: any) => (
   <button className="w-10 h-10 flex items-center justify-center bg-white/10 rounded-full text-white hover:bg-white hover:text-[#392C7D] transition-all shadow-sm overflow-hidden border border-white/5 shrink-0">
-    {img ? <img src={img} className="w-full h-full object-cover p-1.5 rounded-full" alt="flag" /> : icon}
+    {img ? (
+      <img
+        src={img}
+        className="w-full h-full object-cover p-1.5 rounded-full"
+        alt="flag"
+      />
+    ) : (
+      icon
+    )}
   </button>
 );
 
