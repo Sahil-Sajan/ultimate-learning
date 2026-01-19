@@ -8,17 +8,20 @@ import {
   Youtube,
   Linkedin,
 } from "lucide-react";
+import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0b1219] text-gray-400 py-16 px-6 md:px-12 font-sans border-t border-white/5">
-      <div className="max-w-360 mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-          {/* Brand Column */}
-          <div className="lg:col-span-1.5 space-y-6">
+    <footer className="bg-gray-50 text-gray-600 py-16 px-6 md:px-12 font-sans border-t border-gray-200">
+      <div className="max-w-7xl mx-auto">
+        {/* Main Grid Content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
+          
+          {/* Brand Column - Spans 4 columns on large screens */}
+          <div className="lg:col-span-4 space-y-6">
             <div className="flex items-center gap-3">
-              {/* EXACT SAME LOGO ICON FROM NAVBAR */}
-              <div className="relative flex items-center justify-center bg-white rounded-lg w-10 h-10 shadow-sm">
+              {/* Logo Icon */}
+              <div className="relative flex items-center justify-center bg-white rounded-lg w-10 h-10 shadow-sm border border-gray-100">
                 <svg
                   width="24"
                   height="24"
@@ -42,8 +45,9 @@ const Footer = () => {
                   />
                 </svg>
               </div>
+              {/* Logo Text - Adapted for Light Mode */}
               <div className="flex flex-col">
-                <span className="text-xl font-semibold text-white leading-none">
+                <span className="text-xl font-bold text-gray-900 leading-none">
                   Ultimate{" "}
                   <span className="text-[#FF5B5C] font-bold uppercase text-sm block mt-0.5">
                     Learning
@@ -52,29 +56,38 @@ const Footer = () => {
               </div>
             </div>
 
-            <p className="text-sm leading-relaxed max-w-xs">
+            <p className="text-sm leading-relaxed text-gray-500 max-w-sm">
               Platform designed to help organizations, educators, and learners
-              manage, deliver, and track learning and training activities.
+              manage, deliver, and track learning and training activities seamlessly.
             </p>
 
-            <div className="flex gap-4">
-              <img
-                src="/appstore.webp"
-                alt="App Store"
-                className="h-10 w-15 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
-              />
-              <img
-                src="/google-play.webp"
-                alt="Google Play"
-                className="h-10 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
-              />
-            </div>
+          <div className="flex gap-4">
+  <Image
+    width={200}
+    height={200}
+    src="/App_Store.svg"
+    alt="Download on App Store"
+    // REMOVED: grayscale hover:grayscale-0
+    className="h-10 w-auto cursor-pointer opacity-90 hover:opacity-100 transition-all"
+  />
+  <Image
+    width={200}
+    height={200}
+    src="/googleplay-logo.webp"
+    alt="Get it on Google Play"
+    // REMOVED: grayscale hover:grayscale-0
+    className="h-10 w-auto cursor-pointer opacity-90 hover:opacity-100 transition-all"
+  />
+</div>
           </div>
 
-          {/* Links Columns */}
-          <div>
-            <h2 className="text-white font-bold text-lg mb-6">Support</h2>
-            <ul className="space-y-4 text-sm">
+          {/* Spacer Column (Optional for layout balance) */}
+          <div className="hidden lg:block lg:col-span-1"></div>
+
+          {/* Links Section - Spans remaining columns */}
+          <div className="lg:col-span-2">
+            <h2 className="text-gray-900 font-bold text-base mb-6">Support</h2>
+            <ul className="space-y-3 text-sm">
               {[
                 "Education",
                 "Enroll a Course",
@@ -84,7 +97,7 @@ const Footer = () => {
               ].map((item) => (
                 <li
                   key={item}
-                  className="hover:text-[#FF5B5C] cursor-pointer transition-colors"
+                  className="hover:text-[#FF5B5C] cursor-pointer transition-colors duration-200"
                 >
                   {item}
                 </li>
@@ -92,14 +105,14 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
-            <h2 className="text-white font-bold text-lg mb-6">Pages</h2>
-            <ul className="space-y-4 text-sm">
-              {["Categories", "Courses", "About us", "FAQ", "Contacts"].map(
+          <div className="lg:col-span-2">
+            <h2 className="text-gray-900 font-bold text-base mb-6">Company</h2>
+            <ul className="space-y-3 text-sm">
+              {["About Us", "Categories", "Courses", "FAQ", "Contacts"].map(
                 (item) => (
                   <li
                     key={item}
-                    className="hover:text-[#FF5B5C] cursor-pointer transition-colors"
+                    className="hover:text-[#FF5B5C] cursor-pointer transition-colors duration-200"
                   >
                     {item}
                   </li>
@@ -108,77 +121,58 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
-            <h2 className="text-white font-bold text-lg mb-6">Useful Links</h2>
-            <ul className="space-y-4 text-sm">
-              {[
-                "Our values",
-                "Our advisory board",
-                "Our partners",
-                "Become a partner",
-                "Work at Future Learn",
-              ].map((item) => (
-                <li
-                  key={item}
-                  className="hover:text-[#FF5B5C] cursor-pointer transition-colors"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Newsletter Column */}
-          <div>
-            <h2 className="text-white font-bold text-lg mb-6">
-              Subscribe Newsletter
+          {/* Newsletter Column - Spans 3 columns */}
+          <div className="lg:col-span-3">
+            <h2 className="text-gray-900 font-bold text-base mb-6">
+              Stay Updated
             </h2>
-            <p className="text-sm mb-4">Sign up to get updates & news.</p>
-            <div className="space-y-3">
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 w-4 h-4" />
+            <p className="text-sm mb-4 text-gray-500">
+              Subscribe to get the latest news and updates.
+            </p>
+            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+              <div className="relative group">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#FF5B5C] transition-colors w-4 h-4" />
                 <input
                   type="email"
                   placeholder="Email Address"
-                  className="w-full bg-white text-gray-800 py-3 pl-12 pr-4 rounded-full text-sm outline-none"
+                  className="w-full bg-white border border-gray-200 text-gray-800 py-3 pl-12 pr-4 rounded-full text-sm outline-none focus:border-[#FF5B5C] focus:ring-1 focus:ring-[#FF5B5C] transition-all placeholder:text-gray-400"
                 />
               </div>
 
-              <button className="w-full bg-[#FF5B5C] hover:bg-[#ff4646] text-white font-bold py-3 rounded-full transition-all shadow-lg active:scale-95">
-                Subscribe
+              <button className="w-full bg-[#FF5B5C] hover:bg-[#ff4646] text-white font-semibold py-3 rounded-full transition-all shadow-md hover:shadow-lg active:scale-95 text-sm">
+                Subscribe Now
               </button>
-            </div>
+            </form>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
-          <div className="text-sm">
-            Copyright 2025 ©{" "}
-            <span className="text-[#FF5B5C] font-semibold">
+        <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="text-sm text-gray-500 text-center md:text-left">
+            © 2025{" "}
+            <span className="text-gray-900 font-semibold">
               UltimateLearning
             </span>
             . All rights reserved.
           </div>
 
-          <div className="flex gap-4 text-sm">
-            <span className="hover:text-white cursor-pointer">
+          <div className="flex gap-6 text-sm">
+            <span className="hover:text-[#FF5B5C] cursor-pointer transition-colors">
               Terms & Conditions
             </span>
-            <span className="text-gray-700">|</span>
-            <span className="hover:text-white cursor-pointer">
+            <span className="hover:text-[#FF5B5C] cursor-pointer transition-colors">
               Privacy Policy
             </span>
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             {[Facebook, Instagram, Twitter, Youtube, Linkedin].map(
               (Icon, idx) => (
                 <div
                   key={idx}
-                  className="p-2 border border-gray-800 rounded-full hover:bg-[#FF5B5C] hover:border-[#FF5B5C] hover:text-white transition-all cursor-pointer"
+                  className="p-2 text-gray-400 border border-gray-200 rounded-full hover:bg-[#FF5B5C] hover:border-[#FF5B5C] hover:text-white transition-all cursor-pointer group"
                 >
-                  <Icon size={16} />
+                  <Icon size={16} className="group-hover:scale-110 transition-transform" />
                 </div>
               )
             )}
