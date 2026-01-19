@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useParams } from "next/navigation";
+import Link from "next/link"; // Added for navigation
 import { courses } from "../page";
 
 import {
@@ -33,7 +34,7 @@ export default function CourseDetailPage() {
 
   return (
     <>
-      {/* --- ENROLLMENT MODAL (RESPONSIVE) --- */}
+      {/* --- ENROLLMENT MODAL (UPDATED FOR FREE ACCESS) --- */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
           <div
@@ -50,27 +51,30 @@ export default function CourseDetailPage() {
 
             <div className="p-6 md:p-8">
               <h2 className="text-2xl md:text-[32px] font-bold text-slate-900 leading-tight mb-4 pr-8">
-                Start your 7-day free trial
+                Enroll in this Course for Free
               </h2>
               <p className="text-slate-700 text-sm md:text-[15px] mb-8">
-                {course.title} is part of the Specialization.
+                Get full access to "{course.title}" and start learning today.
               </p>
 
               <div className="space-y-6">
                 {[
                   {
-                    h: "Unlimited access",
-                    p: "Watch lectures, try assignments, and more.",
+                    h: "100% Free Access",
+                    p: "Watch lectures, try assignments, and more without any cost.",
                   },
                   {
-                    h: "Cancel anytime.",
-                    p: "Simply cancel before the trial ends.",
+                    h: "No Subscription Required",
+                    p: "Simply enroll and start learning. No credit card needed.",
                   },
                   {
-                    h: "$20/month",
-                    p: "Continue learning after your trial ends.",
+                    h: "Lifetime Access",
+                    p: "Learn at your own pace with permanent access to materials.",
                   },
-                  { h: "Certificate", p: "Share on your resume and LinkedIn." },
+                  {
+                    h: "Certificate",
+                    p: "Earn a certificate to share on your resume and LinkedIn.",
+                  },
                 ].map((item, i) => (
                   <div key={i} className="flex gap-3 md:gap-4">
                     <Check size={18} className="text-blue-600 mt-1 shrink-0" />
@@ -87,9 +91,13 @@ export default function CourseDetailPage() {
               </div>
 
               <div className="mt-8">
-                <button className="w-full md:w-auto bg-[#0056D2] text-white px-8 py-3.5 rounded-lg font-bold text-base hover:bg-[#00419e] transition-colors mb-6">
-                  Start Free Trial
-                </button>
+                {/* Updated Button to Link for Checkout */}
+                <Link
+                  href="/checkout"
+                  className="inline-block text-center w-full md:w-auto bg-[#0056D2] text-white px-8 py-3.5 rounded-lg font-bold text-base hover:bg-[#00419e] transition-colors mb-6"
+                >
+                  Enroll Now
+                </Link>
               </div>
             </div>
           </div>
@@ -151,7 +159,7 @@ export default function CourseDetailPage() {
 
         {/* MAIN CONTENT AREA */}
         <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 lg:grid-cols-3 gap-8 -mt-8 pb-20">
-          {/* RIGHT SIDEBAR (Moved to top on mobile using 'order' classes) */}
+          {/* RIGHT SIDEBAR */}
           <aside className="order-1 lg:order-2">
             <div className="lg:sticky lg:top-6 bg-white rounded-xl shadow-xl overflow-hidden border border-slate-100">
               <div className="hidden md:block relative group p-4">
@@ -224,7 +232,6 @@ export default function CourseDetailPage() {
 
           {/* LEFT CONTENT */}
           <div className="lg:col-span-2 space-y-6 order-2 lg:order-1 lg:mt-16">
-            {/* OVERVIEW */}
             <div className="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-slate-100">
               <h2 className="text-xl font-bold mb-6">Overview</h2>
               <div className="space-y-6">
@@ -256,7 +263,6 @@ export default function CourseDetailPage() {
               </div>
             </div>
 
-            {/* CURRICULUM */}
             <div className="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-slate-100">
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-6">
                 <h2 className="text-xl font-bold">Course Content</h2>
@@ -317,7 +323,6 @@ export default function CourseDetailPage() {
               </div>
             </div>
 
-            {/* INSTRUCTOR */}
             <div className="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-slate-100">
               <h2 className="text-xl font-bold mb-6">About the Instructor</h2>
               <div className="flex items-center gap-4 mb-6">
@@ -351,7 +356,6 @@ export default function CourseDetailPage() {
               </p>
             </div>
 
-            {/* COMMENT FORM */}
             <div className="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-slate-100">
               <h2 className="text-xl font-bold mb-6">Post A comment</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
