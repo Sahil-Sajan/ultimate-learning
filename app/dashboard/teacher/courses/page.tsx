@@ -100,7 +100,7 @@ export default function MyCoursesPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <CourseCard
             title="Prompt Engineering - Section B"
-            image="/prompeng.webp"
+            image="/cg-1.webp"
             students={125}
             lastActive="3 days ago"
             modulesCompleted={5}
@@ -284,7 +284,7 @@ function CourseCard({
         <button className="p-1 text-slate-300 hover:text-slate-600 transition-colors">
           <MoreVertical size={18} />
         </button>
-      </div>
+     </div>
     </div>
   );
 }
