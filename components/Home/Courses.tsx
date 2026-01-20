@@ -69,7 +69,7 @@ const CourseGrid: React.FC = () => {
     <section className="py-16 bg-white px-8 max-w-7xl mx-auto font-sans">
       {/* Header Section */}
       <div className="text-center mb-12">
-        <span className="text-pink-500 font-semibold text-sm tracking-wide">
+        <span className="text-red-500 font-semibold text-sm tracking-wide">
           Featured Courses
         </span>
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
@@ -123,7 +123,7 @@ const CourseGrid: React.FC = () => {
                         className="object-cover"
                       />
                     </div>
-                    <span className="text-xs text-blue-600 font-medium">
+                    <span className="text-xs text-gray-700 font-medium">
                       {course.instructor}
                     </span>
                   </div>
@@ -135,15 +135,11 @@ const CourseGrid: React.FC = () => {
               </div>
 
               {/* Action Button */}
-              <button
-                className={`mt-4 w-full py-2.5 rounded-xl text-xs cursor-pointer font-bold transition-colors ${
-                  course.isActive
-                    ? "bg-[#ff4d6d] text-white hover:bg-[#e63958]"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                Buy Course Now
-              </button>
+             <button
+  className="mt-4 w-full py-2.5 rounded-xl text-xs cursor-pointer font-bold transition-colors bg-[#ff4d6d] text-white hover:bg-[#e63958]"
+>
+  Buy Course Now
+</button>
             </div>
           ))}
         </div>

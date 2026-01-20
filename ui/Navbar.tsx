@@ -21,6 +21,7 @@ import {
   Zap,
   Users,
 } from "lucide-react";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -29,6 +30,7 @@ const Navbar = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -54,12 +56,12 @@ const Navbar = () => {
 
   return (
     // "relative" here is the anchor for the absolute mega menu
-    <header className="w-full bg-[#392C7D] text-white relative z-[100]">
-      <div className="max-w-[1440px] mx-auto flex items-center justify-between px-6 py-4">
+    <header className="w-full bg-[#392C7D] text-white relative z-100">
+      <div className="max-w-360 mx-auto flex items-center justify-between px-6 py-4">
         {/* LOGO */}
         <Link
           href="/"
-          className="flex items-center gap-3 shrink-0 group z-[110]"
+          className="flex items-center gap-3 shrink-0 group z-110"
           onClick={closeAllMenus}
         >
           <div className="bg-white p-2 rounded-xl transition-transform group-hover:rotate-6 shadow-sm">
@@ -116,7 +118,7 @@ const Navbar = () => {
                 >
                   {/* The actual background container that takes full screen width */}
                   <div className="w-full bg-[#2D2264] border-t border-white/10 shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
-                    <div className="max-w-[1440px] mx-auto px-6 py-10">
+                    <div className="max-w-360 mx-auto px-6 py-10">
                       <div className="grid grid-cols-12 gap-8">
                         {/* 1. SIDEBAR */}
                         <div className="col-span-3 border-r border-white/5 pr-6">
@@ -329,7 +331,9 @@ const Navbar = () => {
                             className="block bg-white/5 border border-white/10 p-5 rounded-[28px] group/card cursor-pointer transition-all hover:border-[#FF5B5C]/50"
                           >
                             <div className="aspect-video bg-[#392C7D] rounded-2xl mb-4 overflow-hidden">
-                              <img
+                              <Image
+                                width={200}
+                                height={200}
                                 src={
                                   link.megaType === "courses"
                                     ? "/instructor6.webp"
@@ -365,7 +369,7 @@ const Navbar = () => {
         </nav>
 
         {/* RIGHT ACTIONS */}
-        <div className="flex items-center gap-2 z-[110]">
+        <div className="flex items-center gap-2 z-110">
           <div className="hidden xl:flex gap-1.5 mr-2">
             <NavCircleBtn img="https://flagcdn.com/w80/iq.png" />
             <NavCircleBtn icon={<DollarSign size={14} />} />
@@ -402,7 +406,7 @@ const Navbar = () => {
 
       {/* MOBILE MENU (Full Overlay) */}
       <div
-        className={`fixed inset-0 bg-[#2D2264]/98 backdrop-blur-xl z-[105] lg:hidden transition-all duration-500 ${
+        className={`fixed inset-0 bg-[#2D2264]/98 backdrop-blur-xl z-105 lg:hidden transition-all duration-500 ${
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
@@ -425,7 +429,7 @@ const Navbar = () => {
                         setMobileAccordion(
                           mobileAccordion === link.megaType
                             ? null
-                            : link.megaType
+                            : link.megaType,
                         )
                       }
                     >
@@ -532,7 +536,9 @@ const CourseThumb = ({ title, instructor, img, href, onClick }: any) => (
     className="flex flex-col gap-2 p-3 bg-white/5 rounded-2xl hover:bg-white/10 transition-all cursor-pointer border border-white/5 group"
   >
     <div className="w-full h-24 overflow-hidden rounded-xl bg-[#392C7D]">
-      <img
+      <Image
+        height={200}
+        width={200}
         src={img}
         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         alt={title}
