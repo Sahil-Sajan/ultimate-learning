@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -18,6 +18,8 @@ import {
   Search,
   Bell,
   ChevronDown,
+  Menu,
+  X,
 } from "lucide-react";
 
 export default function DashboardLayout({
@@ -26,6 +28,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const parentMenuItems = [
     {
@@ -71,12 +74,26 @@ export default function DashboardLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] font-sans flex">
-      {/* SIDEBAR */}
-      <aside className="w-64 bg-white border-r border-slate-100 flex flex-col sticky top-0 h-screen shrink-0">
-        <div className="p-6">
+    <div className="min-h-screen bg-[#F8FAFC] font-sans flex items-start">
+      {/* MOBILE OVERLAY */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-[60] lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      {/* SIDEBAR - STICKY */}
+      <aside
+        className={`
+        fixed inset-y-0 left-0 z-[70] w-64 bg-white border-r border-slate-100 flex flex-col transition-transform duration-300 ease-in-out
+        lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:shrink-0
+        ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
+      `}
+      >
+        <div className="p-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="bg-white p-2 rounded-xl transition-transform group-hover:rotate-6 shadow-sm border border-slate-50">
+            <div className="bg-white p-2 rounded-xl shadow-sm border border-slate-50">
               <GraduationCap className="text-[#FF5B5C]" size={24} />
             </div>
             <div className="flex flex-col leading-none">
@@ -88,10 +105,15 @@ export default function DashboardLayout({
               </span>
             </div>
           </Link>
+          <button
+            onClick={() => setIsSidebarOpen(false)}
+            className="lg:hidden p-2 text-slate-500"
+          >
+            <X size={20} />
+          </button>
         </div>
 
-        {/* Scrollbar hidden via CSS utility */}
-        <div className="px-4 py-4 overflow-y-auto flex-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+        <div className="px-4 py-4 overflow-y-auto flex-1 [&::-webkit-scrollbar]:hidden">
           <p className="text-[11px] font-bold text-slate-400 tracking-[0.2em] mb-4 px-4">
             MENU
           </p>
@@ -102,7 +124,8 @@ export default function DashboardLayout({
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-300 ${
+                  onClick={() => setIsSidebarOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all ${
                     isActive
                       ? "bg-[#FF5364]/10 text-[#FF5364]"
                       : "text-slate-500 hover:bg-slate-50"
@@ -121,6 +144,7 @@ export default function DashboardLayout({
           <nav className="space-y-1">
             <Link
               href="/dashboard/parent/settings"
+              onClick={() => setIsSidebarOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all ${
                 pathname === "/dashboard/parent/settings"
                   ? "text-[#FF5364] bg-[#FF5364]/10"
@@ -136,22 +160,31 @@ export default function DashboardLayout({
         </div>
       </aside>
 
-      {/* MAIN LAYOUT */}
+      {/* MAIN CONTENT AREA */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* HEADER */}
-        <header className="h-20 bg-white border-b border-slate-100 flex items-center justify-between px-8 sticky top-0 z-50">
-          <div className="relative w-96">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-              <Search size={18} />
-            </span>
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-full bg-[#F8FAFC] border-none rounded-xl py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-[#FF5364]/20 outline-none"
-            />
+        {/* HEADER - NON-STICKY */}
+        <header className="h-20 bg-white border-b border-slate-100 flex items-center justify-between px-4 lg:px-8 z-50">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsSidebarOpen(true)}
+              className="lg:hidden p-2 text-slate-600 hover:bg-slate-50 rounded-lg"
+            >
+              <Menu size={24} />
+            </button>
+
+            <div className="relative hidden sm:block lg:w-96 w-64">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+                <Search size={18} />
+              </span>
+              <input
+                type="text"
+                placeholder="Search"
+                className="w-full bg-[#F8FAFC] border-none rounded-xl py-2.5 pl-12 pr-4 text-sm focus:ring-2 focus:ring-[#FF5364]/20 outline-none"
+              />
+            </div>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 lg:gap-6">
             <div className="flex items-center gap-3 px-3 py-1.5 hover:bg-slate-50 rounded-xl cursor-pointer transition-colors">
               <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center overflow-hidden">
                 <img
@@ -160,10 +193,13 @@ export default function DashboardLayout({
                   className="w-full h-full object-cover"
                 />
               </div>
-              <span className="text-sm font-bold text-[#1D1B26]">
+              <span className="text-sm font-bold text-[#1D1B26] hidden md:block">
                 Kristein Watson
               </span>
-              <ChevronDown size={16} className="text-slate-400" />
+              <ChevronDown
+                size={16}
+                className="text-slate-400 hidden md:block"
+              />
             </div>
             <button className="relative p-2 text-slate-400 hover:bg-slate-50 rounded-xl transition-colors">
               <Bell size={20} />
@@ -172,8 +208,7 @@ export default function DashboardLayout({
           </div>
         </header>
 
-        {/* CONTENT AREA - Heading removed to match reference image */}
-        <main className="p-8">{children}</main>
+        <main className="p-4 lg:p-8">{children}</main>
       </div>
     </div>
   );
