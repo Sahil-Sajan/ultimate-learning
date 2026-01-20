@@ -229,7 +229,7 @@ function CourseCard({
 
       <div className="flex-1 space-y-4">
         <div>
-          <h4 className="text-sm font-bold text-slate-800 leading-snug group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-[40px]">
+          <h4 className="text-sm font-bold text-slate-800 leading-snug group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-10">
             {title}
           </h4>
           <div className="flex items-center gap-4 mt-3">
