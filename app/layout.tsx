@@ -5,6 +5,7 @@ import Navbar from "@/ui/Navbar";
 import TopNav from "@/ui/TopNav";
 import ProfessionalFooter from "@/ui/Footer";
 
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -32,13 +33,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        
         <Navbar />
         {children}
         <ProfessionalFooter />
+       
       </body>
     </html>
   );

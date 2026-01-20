@@ -58,6 +58,24 @@ const Feedback: TestimonialData[] = [
       "Great insights and a very professional approach to teaching technical skills in modern tech.",
     rating: 5,
   },
+  {
+    id: 5,
+    name: "John Doe",
+    role: "Engineer",
+    image: "/cs-4.webp",
+    content:
+      "Great insights and a very professional approach to teaching technical skills in modern tech.",
+    rating: 5,
+  },
+  {
+    id: 6,
+    name: "John Doe",
+    role: "Engineer",
+    image: "/cs-4.webp",
+    content:
+      "Great insights and a very professional approach to teaching technical skills in modern tech.",
+    rating: 5,
+  },
 ];
 
 const Testimonial: React.FC = () => {
@@ -102,7 +120,7 @@ const Testimonial: React.FC = () => {
               prevEl: ".testimonial-prev",
               nextEl: ".testimonial-next",
             }}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
             breakpoints={{
               768: {
                 slidesPerView: 2,
