@@ -1,355 +1,323 @@
 "use client";
-
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import {
-  Check,
-  BookOpen,
-  ClipboardList,
-  MessageSquare,
-  Bell,
-  UserCheck,
-  Calendar,
-  Lock,
-  ShieldCheck,
-  PlusCircle,
-  ArrowRight,
+  User,
   Mail,
-  FileText,
-  Video,
+  Lock,
+  Bell,
+  Globe,
+  Camera,
+  ShieldCheck,
+  BookOpen,
   GraduationCap,
-  Volume2,
-  Smartphone,
-  ShieldAlert,
-  UserPlus,
+  Save,
+  Trash2,
+  CreditCard,
+  History,
+  Briefcase,
+  MapPin,
+  Check,
 } from "lucide-react";
 
-export default function TeacherSettingsPage() {
-  const [activeTab, setActiveTab] = useState("classroom");
+const TeacherSettings = () => {
+  const [activeTab, setActiveTab] = useState("general");
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const tabs = [
-    { id: "classroom", label: "Classroom", icon: <BookOpen size={16} /> },
-    { id: "grading", label: "Grading", icon: <ClipboardList size={16} /> },
-    { id: "comms", label: "Comms", icon: <MessageSquare size={16} /> },
-    { id: "account", label: "Account", icon: <GraduationCap size={16} /> },
-    { id: "alerts", label: "Alerts", icon: <Bell size={16} /> },
-  ];
+  // Styling logic based on dark mode toggle
+  const bgClass = isDarkMode ? "bg-[#0b1219]" : "bg-[#f8fafc]";
+  const cardClass = isDarkMode
+    ? "bg-[#161f28] border-gray-800"
+    : "bg-white border-slate-100";
+  const textPrimary = isDarkMode ? "text-white" : "text-[#0b1219]";
+  const textSecondary = isDarkMode ? "text-gray-400" : "text-gray-500";
+  const inputBg = isDarkMode
+    ? "bg-[#1c2631] border-gray-700 text-white"
+    : "bg-[#fcfdfe] border-slate-100 text-gray-900";
 
   return (
-    <div className="min-h-screen bg-[#F4F7FA] font-sans text-[#1D1B26] flex items-center justify-center py-10">
-      <div className="w-full max-w-5xl p-4 md:p-10">
-        {/* HEADER */}
-        <header className="mb-8 px-2">
-          <div className="flex items-center gap-3 mb-2">
-            <span className="bg-[#FF5364] text-white text-[10px] font-black px-2 py-1 rounded tracking-widest uppercase">
-              Educator Portal
-            </span>
+    <div
+      className={`min-h-screen ${bgClass} p-4 md:p-8 lg:p-12 font-sans transition-colors duration-300`}
+    >
+      <div
+        className={`max-w-5xl mx-auto rounded-[40px] shadow-xl border ${cardClass} overflow-hidden transition-colors duration-300`}
+      >
+        {/* --- HEADER --- */}
+        <div className="p-8 border-b border-opacity-10 border-gray-500 flex justify-between items-center">
+          <div>
+            <h1 className={`text-2xl font-black ${textPrimary}`}>
+              Account Settings
+            </h1>
+            <p className={`text-sm ${textSecondary} font-medium`}>
+              Manage your professional instructor profile and preferences.
+            </p>
           </div>
-          <h1 className="text-3xl font-black tracking-tight text-slate-900">
-            Settings & Configuration
-          </h1>
-          <p className="text-slate-500 text-sm font-medium mt-1">
-            Manage your digital classroom, grading logic, and communication
-            channels.
-          </p>
-        </header>
+          <div className="flex items-center gap-3">
+            <div className="bg-[#fff5f6] p-2 rounded-xl">
+              <GraduationCap className="text-[#ff4667]" size={20} />
+            </div>
+          </div>
+        </div>
 
-        {/* NAVIGATION */}
-        <nav className="bg-white p-2 rounded-[24px] shadow-sm border border-slate-200 mb-8">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
-            {tabs.map((tab) => (
+        {/* --- NAVIGATION TABS --- */}
+        <div className="px-8 flex gap-8 border-b border-opacity-10 border-gray-500 overflow-x-auto">
+          {["general", "profile", "notifications"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`py-5 text-sm font-bold capitalize transition-all relative whitespace-nowrap ${
+                activeTab === tab
+                  ? "text-[#ff4667]"
+                  : "text-gray-400 hover:text-gray-600"
+              }`}
+            >
+              {tab}
+              {activeTab === tab && (
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-[#ff4667] rounded-t-full" />
+              )}
+            </button>
+          ))}
+        </div>
+
+        <div className="p-8">
+          {/* --- TAB: GENERAL --- */}
+          {activeTab === "general" && (
+            <div className="space-y-8 animate-in fade-in duration-500">
+              <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[11px] font-black uppercase tracking-wider text-gray-400">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Dr. Sarah Connor"
+                    className={`w-full rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#ff4667] ${inputBg}`}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-black uppercase tracking-wider text-gray-400">
+                    Professional Title
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Senior Mathematics Professor"
+                    className={`w-full rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#ff4667] ${inputBg}`}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-black uppercase tracking-wider text-gray-400">
+                    Work Email
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="sarah.c@ultimate.edu"
+                    className={`w-full rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#ff4667] ${inputBg}`}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-black uppercase tracking-wider text-gray-400">
+                    Language
+                  </label>
+                  <select
+                    className={`w-full rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-[#ff4667] ${inputBg}`}
+                  >
+                    <option>English (US)</option>
+                    <option>Spanish</option>
+                    <option>French</option>
+                  </select>
+                </div>
+              </section>
+
+              <section className="pt-6 border-t border-opacity-5 border-gray-500">
+                <div className="flex items-center gap-2 mb-6">
+                  <ShieldCheck size={18} className="text-[#ff4667]" />
+                  <h2 className={`text-lg font-bold ${textPrimary}`}>
+                    Security
+                  </h2>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <input
+                    type="password"
+                    placeholder="Current Password"
+                    className={`w-full rounded-2xl px-4 py-3.5 text-sm ${inputBg}`}
+                  />
+                  <input
+                    type="password"
+                    placeholder="New Password"
+                    className={`w-full rounded-2xl px-4 py-3.5 text-sm ${inputBg}`}
+                  />
+                </div>
+              </section>
+            </div>
+          )}
+
+          {/* --- TAB: PROFILE (Instructor Details) --- */}
+          {activeTab === "profile" && (
+            <div className="space-y-8 animate-in fade-in duration-500">
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="relative group mx-auto md:mx-0">
+                  <div className="w-32 h-32 rounded-[32px] bg-slate-200 overflow-hidden border-4 border-white shadow-lg">
+                    <img
+                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
+                      alt="Avatar"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <button className="absolute -bottom-2 -right-2 p-3 bg-[#ff4667] text-white rounded-2xl shadow-xl hover:scale-110 transition-transform">
+                    <Camera size={16} />
+                  </button>
+                </div>
+                <div className="flex-1 space-y-4">
+                  <h3 className={`text-xl font-bold ${textPrimary}`}>
+                    Public Instructor Profile
+                  </h3>
+                  <p className={`text-sm ${textSecondary}`}>
+                    This information will be visible to students on course
+                    pages.
+                  </p>
+                  <div className="flex gap-2">
+                    <span className="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1 rounded-full uppercase">
+                      Verified Educator
+                    </span>
+                    <span className="bg-amber-50 text-amber-600 text-[10px] font-black px-3 py-1 rounded-full uppercase">
+                      Top Rated
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-6">
+                <div className="space-y-2">
+                  <label className="text-[11px] font-black uppercase tracking-wider text-gray-400">
+                    Expertise / Specialized Subjects
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Quantum Physics, Applied Mathematics, Logic"
+                    className={`w-full rounded-2xl px-4 py-3.5 text-sm ${inputBg}`}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-black uppercase tracking-wider text-gray-400">
+                    Biography
+                  </label>
+                  <textarea
+                    rows={4}
+                    placeholder="Tell your students about your journey..."
+                    className={`w-full rounded-2xl px-4 py-3.5 text-sm resize-none ${inputBg}`}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* --- TAB: NOTIFICATIONS --- */}
+          {activeTab === "notifications" && (
+            <div className="space-y-6 animate-in fade-in duration-500">
+              <div className="bg-[#fff5f6] p-6 rounded-3xl border border-[#ffe4e8] mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-white rounded-2xl shadow-sm">
+                    <Bell className="text-[#ff4667]" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-[#ff4667]">
+                      Notification Hub
+                    </h4>
+                    <p className="text-xs text-gray-600">
+                      Control how and when you receive updates about your
+                      classes.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {[
+                  {
+                    title: "Student Inquiries",
+                    desc: "Receive email when a student asks a question",
+                    icon: <Mail size={16} />,
+                  },
+                  {
+                    title: "Grading Reminders",
+                    desc: "Get notified about pending assignments to grade",
+                    icon: <Briefcase size={16} />,
+                  },
+                  {
+                    title: "Platform Updates",
+                    desc: "News about new teaching tools and features",
+                    icon: <Globe size={16} />,
+                  },
+                  {
+                    title: "Course Reviews",
+                    desc: "Weekly digest of student feedback and ratings",
+                    icon: <BookOpen size={16} />,
+                  },
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className={`flex items-center justify-between p-4 rounded-2xl border transition-colors ${
+                      isDarkMode ? "border-gray-800" : "border-slate-50"
+                    }`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div
+                        className={`p-2 rounded-xl ${
+                          isDarkMode
+                            ? "bg-gray-800 text-gray-400"
+                            : "bg-slate-50 text-slate-500"
+                        }`}
+                      >
+                        {item.icon}
+                      </div>
+                      <div>
+                        <h5 className={`text-sm font-bold ${textPrimary}`}>
+                          {item.title}
+                        </h5>
+                        <p className="text-xs text-gray-500">{item.desc}</p>
+                      </div>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        className="sr-only peer"
+                        defaultChecked={idx !== 2}
+                      />
+                      <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#ff4667]"></div>
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* --- FOOTER ACTIONS --- */}
+          <div className="mt-12 pt-8 flex flex-col md:flex-row gap-4 justify-between items-center">
+            <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-red-500 transition-colors">
+              <Trash2 size={14} /> Delete Account
+            </button>
+            <div className="flex gap-4 w-full md:w-auto">
               <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center justify-center gap-2 py-3.5 rounded-[18px] transition-all font-bold text-xs uppercase tracking-widest ${
-                  activeTab === tab.id
-                    ? "bg-[#FF5364] text-white shadow-lg shadow-red-100"
-                    : "text-slate-400 hover:bg-red-50 hover:text-[#FF5364]"
+                className={`flex-1 md:flex-none px-8 py-3.5 rounded-2xl font-bold text-sm transition-all ${
+                  isDarkMode
+                    ? "bg-gray-800 text-gray-300"
+                    : "bg-slate-100 text-slate-600"
                 }`}
               >
-                {tab.icon} {tab.label}
+                Discard
               </button>
-            ))}
+              <button className="flex-1 md:flex-none px-10 py-3.5 rounded-2xl bg-[#ff4667] text-white font-bold text-sm shadow-lg shadow-red-200 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                <Save size={18} /> Save Settings
+              </button>
+            </div>
           </div>
-        </nav>
-
-        {/* CONTENT BOX - FIXED HEIGHT & HIDDEN SCROLLBAR */}
-        <main className="min-h-150 relative">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 10 }}
-              transition={{ duration: 0.2 }}
-              /* The classes below handle hiding the scrollbar while allowing scrolling:
-                 - overflow-y-auto: allows scrolling
-                 - [&::-webkit-scrollbar]:display-none: hides scrollbar for Chrome/Safari
-                 - [ms-overflow-style:none]: hides for IE/Edge
-                 - [scrollbar-width:none]: hides for Firefox
-              */
-              className="bg-white rounded-[32px] p-8 border border-slate-200 shadow-sm h-150 overflow-y-auto [&::-webkit-scrollbar]:display-none [ms-overflow-style:none] [scrollbar-width:none]"
-            >
-              {/* CLASSROOM TAB */}
-              {activeTab === "classroom" && (
-                <div className="space-y-6">
-                  <SectionHeader
-                    icon={<BookOpen size={20} />}
-                    title="Active Classes"
-                  />
-                  <div className="space-y-4">
-                    {[
-                      "Advanced Biology - Period 4",
-                      "General Science - Period 1",
-                      "Anatomy Lab - Period 6",
-                      "Bio-Chemistry - Period 2",
-                    ].map((className, i) => (
-                      <div
-                        key={i}
-                        className="flex items-center justify-between p-5 bg-slate-50 rounded-2xl border border-slate-100 group hover:border-red-200 transition-all"
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center font-black text-[#FF5364] shadow-sm border border-red-50">
-                            {className[0]}
-                          </div>
-                          <div>
-                            <p className="text-sm font-black text-slate-800">
-                              {className}
-                            </p>
-                            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                              28 Students Enrolled
-                            </p>
-                          </div>
-                        </div>
-                        <button className="p-2 bg-white group-hover:bg-[#FF5364] group-hover:text-white rounded-xl transition-all shadow-sm">
-                          <ArrowRight size={18} />
-                        </button>
-                      </div>
-                    ))}
-                    <button className="w-full py-5 border-2 border-dashed border-red-100 bg-red-50/30 rounded-2xl text-[#FF5364] font-black text-[10px] uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-red-50 hover:border-red-300 transition-all">
-                      <PlusCircle size={16} /> Create New Class
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* GRADING TAB */}
-              {activeTab === "grading" && (
-                <div className="space-y-6">
-                  <SectionHeader
-                    icon={<ClipboardList size={20} />}
-                    title="Evaluation Metrics"
-                  />
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <ToggleSetting
-                      title="Auto-Grade Quizzes"
-                      desc="Instantly grade multiple choice questions."
-                      icon={<FileText size={18} />}
-                      defaultOn
-                    />
-                    <ToggleSetting
-                      title="Late Submission Penalty"
-                      desc="Automatically deduct 10% per day."
-                      icon={<Calendar size={18} />}
-                    />
-                    <ToggleSetting
-                      title="Peer Review Mode"
-                      desc="Enable anonymous student feedback."
-                      icon={<UserCheck size={18} />}
-                    />
-                    <ToggleSetting
-                      title="Plagiarism Checker"
-                      desc="Scan all essays via Turnitin."
-                      icon={<ShieldCheck size={18} />}
-                      defaultOn
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* COMMS TAB */}
-              {activeTab === "comms" && (
-                <div className="space-y-6">
-                  <SectionHeader
-                    icon={<MessageSquare size={20} />}
-                    title="Communication Channels"
-                  />
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <ToggleSetting
-                      title="Parent Portal Access"
-                      desc="Allow parents to message you directly."
-                      icon={<UserPlus size={18} />}
-                      defaultOn
-                    />
-                    <ToggleSetting
-                      title="Weekly Progress Digest"
-                      desc="Auto-email grade reports to students."
-                      icon={<Mail size={18} />}
-                      defaultOn
-                    />
-                    <ToggleSetting
-                      title="Virtual Office Hours"
-                      desc="Show 'Available' status on student dash."
-                      icon={<Video size={18} />}
-                    />
-                    <ToggleSetting
-                      title="Group Chat"
-                      desc="Enable class-wide discussion boards."
-                      icon={<MessageSquare size={18} />}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* ALERTS TAB */}
-              {activeTab === "alerts" && (
-                <div className="space-y-6">
-                  <SectionHeader
-                    icon={<Bell size={20} />}
-                    title="Notifications"
-                  />
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <ToggleSetting
-                      title="Emergency Broadcasts"
-                      desc="Campus safety and weather alerts."
-                      icon={<ShieldAlert size={18} />}
-                      defaultOn
-                    />
-                    <ToggleSetting
-                      title="Grade Drop Alerts"
-                      desc="Notify me if student drops below 65%."
-                      icon={<ClipboardList size={18} />}
-                      defaultOn
-                    />
-                    <ToggleSetting
-                      title="SMS Notifications"
-                      desc="Critical updates via text message."
-                      icon={<Smartphone size={18} />}
-                    />
-                    <ToggleSetting
-                      title="Sound Alerts"
-                      desc="Play chime for new submissions."
-                      icon={<Volume2 size={18} />}
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* ACCOUNT TAB */}
-              {activeTab === "account" && (
-                <div className="space-y-6">
-                  <SectionHeader
-                    icon={<GraduationCap size={20} />}
-                    title="Profile Information"
-                  />
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-4">
-                      <InputBlock label="Staff ID" value="EDU-99283" disabled />
-                      <InputBlock label="Work Email" value="j.doe@school.edu" />
-                    </div>
-                    <div className="p-6 bg-red-50/50 rounded-2xl border border-red-100 self-start">
-                      <p className="text-xs font-black uppercase tracking-widest text-[#FF5364] mb-3">
-                        Security & Privacy
-                      </p>
-                      <button className="text-[10px] font-bold text-[#FF5364] hover:text-red-700 transition-colors flex items-center gap-2 tracking-widest uppercase text-left">
-                        <Lock size={14} className="inline mr-2" /> Change
-                        Security Credentials
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </motion.div>
-          </AnimatePresence>
-        </main>
-
-        {/* ACTION BAR */}
-        <div className="mt-8 bg-white rounded-[28px] p-5 border border-slate-200 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3 px-2">
-            <div className="w-2 h-2 rounded-full bg-[#FF5364] animate-pulse" />
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-              Live Cloud Sync Active
-            </span>
-          </div>
-          <button className="w-full sm:w-auto px-10 py-4 bg-[#FF5364] text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-red-100 flex items-center justify-center gap-2 hover:bg-[#e44a59] transition-all active:scale-95">
-            <Check size={18} strokeWidth={3} /> Save Configuration
-          </button>
         </div>
       </div>
+
+      <p className="text-center mt-8 text-[11px] font-black uppercase tracking-[2px] text-gray-400">
+        Ultimate Learning • Version 2.0.4
+      </p>
     </div>
   );
-}
+};
 
-/* HELPER COMPONENTS */
-
-function SectionHeader({
-  icon,
-  title,
-}: {
-  icon: React.ReactNode;
-  title: string;
-}) {
-  return (
-    <div className="flex items-center gap-3 mb-6">
-      <div className="p-2 bg-red-50 text-[#FF5364] rounded-xl">{icon}</div>
-      <h3 className="font-black text-sm uppercase tracking-widest text-slate-700">
-        {title}
-      </h3>
-    </div>
-  );
-}
-
-function InputBlock({
-  label,
-  value,
-  disabled = false,
-}: {
-  label: string;
-  value: string;
-  disabled?: boolean;
-}) {
-  return (
-    <div className="space-y-1">
-      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
-        {label}
-      </label>
-      <input
-        type="text"
-        defaultValue={value}
-        disabled={disabled}
-        className={`w-full border rounded-xl px-4 py-3 text-sm font-bold outline-none transition-all ${
-          disabled
-            ? "bg-slate-100 border-slate-100 opacity-70 cursor-not-allowed"
-            : "bg-slate-50 border-slate-100 focus:border-[#FF5364] focus:bg-white"
-        }`}
-      />
-    </div>
-  );
-}
-
-function ToggleSetting({ title, desc, icon, defaultOn = false }: any) {
-  const [on, setOn] = useState(defaultOn);
-  return (
-    <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100 flex items-start justify-between hover:bg-white hover:border-red-100 transition-all group">
-      <div className="flex gap-4">
-        <div className="text-slate-400 group-hover:text-[#FF5364] transition-colors mt-1">
-          {icon}
-        </div>
-        <div>
-          <p className="text-sm font-bold text-slate-800">{title}</p>
-          <p className="text-[11px] text-slate-500 font-medium leading-tight mt-0.5">
-            {desc}
-          </p>
-        </div>
-      </div>
-      <button
-        onClick={() => setOn(!on)}
-        className={`w-10 h-5 rounded-full flex items-center px-1 transition-all shrink-0 ${
-          on ? "bg-[#FF5364] justify-end" : "bg-slate-300 justify-start"
-        }`}
-      >
-        <div className="w-3.5 h-3.5 bg-white rounded-full shadow-md" />
-      </button>
-    </div>
-  );
-}
+export default TeacherSettings;
