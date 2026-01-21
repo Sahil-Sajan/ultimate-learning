@@ -20,7 +20,7 @@ import {
 import promptImg from "@/public/promp.webp";
 import algoImg from "@/public/blog5.webp";
 import dataImg from "@/public/bootstrap.webp";
-import uiuxImg from "@/public/fs-3.avif";
+import uiuxImg from "@/public/Microsoftlogo.svg";
 import blockchainImg from "@/public/gitlab.webp";
 import marketingImg from "@/public/java.webp";
 import cyberImg from "@/public/javascript.webp";

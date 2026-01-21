@@ -22,12 +22,12 @@ export default function DetailedReportPage() {
         {/* HEADER SECTION */}
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm">
           <div className="flex items-center gap-5">
-            <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-blue-200">
-              AS
+            <div className="w-16 h-16 bg-[#FF5364] rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-blue-200">
+              RR
             </div>
             <div>
               <h1 className="text-2xl font-black tracking-tight">
-                Alice Smith
+                Ronald Richard
               </h1>
               <p className="text-slate-400 font-bold text-xs uppercase tracking-widest mt-0.5">
                 Grade 11 • Student ID: #22901
@@ -38,7 +38,7 @@ export default function DetailedReportPage() {
             <button className="flex-1 md:flex-none px-6 py-3 bg-slate-100 text-slate-600 rounded-xl font-bold text-sm hover:bg-slate-200 transition-all flex items-center justify-center gap-2">
               <Download size={18} /> Export
             </button>
-            <button className="flex-1 md:flex-none px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">
+            <button className="flex-1 md:flex-none px-6 py-3 bg-[#FF5364]  text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-all shadow-lg shadow-blue-100">
               Print Report
             </button>
           </div>
@@ -71,7 +71,7 @@ export default function DetailedReportPage() {
           {/* PERFORMANCE BREAKDOWN (CUSTOM CSS BARS) */}
           <div className="lg:col-span-2 bg-white p-8 rounded-[32px] border border-slate-200 shadow-sm">
             <h3 className="text-sm font-black uppercase tracking-widest text-slate-400 mb-8 flex items-center gap-2">
-              <TrendingUp size={16} className="text-blue-500" /> Subject
+              <TrendingUp size={16} className="text-[#FF5364] " /> Subject
               Performance
             </h3>
             <div className="space-y-8">
