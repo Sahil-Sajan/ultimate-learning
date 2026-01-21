@@ -11,7 +11,7 @@ export default function ProfileView() {
     phoneNumber: "90154-91036",
     email: "studentdemo@example.com",
     gender: "Male",
-    dob: "16 Jan 2020",
+    dob: "16 Jan 2002",
     age: "24",
     bio: "Hello! I'm Ronald Richard. I'm passionate about developing innovative software solutions, analyzing classic literature. I aspire to become a software developer, work as an editor. In my free time, I enjoy coding, reading, hiking etc.",
   };

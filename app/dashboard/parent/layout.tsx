@@ -194,7 +194,7 @@ export default function DashboardLayout({
                 />
               </div>
               <span className="text-sm font-bold text-[#1D1B26] hidden md:block">
-                Kristein Watson
+                Jane Smith
               </span>
               <ChevronDown
                 size={16}
