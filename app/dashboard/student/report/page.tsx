@@ -5,14 +5,14 @@ import { motion } from "framer-motion";
 import {
   FileText,
   Award,
-  Clock,
+  
   CheckCircle2,
   TrendingUp,
   Calendar,
-  BookOpen,
+  
   Download,
   AlertCircle,
-  MoreVertical,
+  
 } from "lucide-react";
 
 export default function DetailedReportPage() {
@@ -181,7 +181,9 @@ export default function DetailedReportPage() {
 
 // --- UI COMPONENTS ---
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function SimpleMetric({ label, value, trend, color }: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const colors: any = {
     blue: "bg-blue-50 text-blue-600",
     green: "bg-green-50 text-green-600",
@@ -206,6 +208,7 @@ function SimpleMetric({ label, value, trend, color }: any) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function DetailBar({ label, score, lastScore }: any) {
   return (
     <div className="space-y-3">
@@ -229,6 +232,7 @@ function DetailBar({ label, score, lastScore }: any) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StatusItem({ icon, label, status }: any) {
   return (
     <div className="flex items-center justify-between">
@@ -243,6 +247,7 @@ function StatusItem({ icon, label, status }: any) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function TableRow({ name, cat, date, status, score }: any) {
   return (
     <tr className="border-b border-slate-50 hover:bg-slate-50 transition-colors group">

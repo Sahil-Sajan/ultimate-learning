@@ -344,6 +344,7 @@ function InputBlock({
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ToggleSetting({ title, desc, icon, defaultOn = false }: any) {
   const [on, setOn] = useState(defaultOn);
   return (

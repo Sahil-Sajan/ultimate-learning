@@ -73,7 +73,7 @@ const CourseGrid: React.FC = () => {
           Featured Courses
         </span>
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
-          What's New in Ultimate Learning
+          What&apos;s New in Ultimate Learning
         </h2>
         <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
           Discover our featured courses, specially curated to help you gain
