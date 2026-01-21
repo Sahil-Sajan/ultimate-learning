@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+// 1. ADD THIS IMPORT
+import Image from "next/image"; 
 import {
   BookOpen,
   Users,
@@ -13,6 +15,15 @@ import {
   CheckCircle2,
   Calendar,
 } from "lucide-react";
+
+// 2. Your image imports remain the same
+import promptImg from "@/public/promp.webp";
+import algoImg from "@/public/blog5.webp";
+import dataImg from "@/public/bootstrap.webp";
+import uiuxImg from "@/public/fs-3.avif";
+import blockchainImg from "@/public/gitlab.webp";
+import marketingImg from "@/public/java.webp";
+import cyberImg from "@/public/javascript.webp";
 
 /* ---------------- TYPES ---------------- */
 
@@ -31,6 +42,7 @@ interface CourseCardProps {
   totalModules: number;
   isNew?: boolean;
   status: "Teaching" | "Upcoming";
+  image: any; // Changed to any to accept Next.js StaticImageData object
 }
 
 /* ---------------- MAIN COMPONENT ---------------- */
@@ -93,7 +105,7 @@ export default function MyCoursesPage() {
       <section className="space-y-6">
         <div className="flex items-center justify-between px-2">
           <h3 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-            Courses I'm Teaching
+            Courses I&apos;m Teaching
             <span className="bg-slate-100 text-slate-500 text-xs px-2.5 py-1 rounded-full">
               4 Active
             </span>
@@ -101,6 +113,7 @@ export default function MyCoursesPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <CourseCard
+            image={promptImg}
             title="Prompt Engineering - Section B"
             students={125}
             lastActive="3 days ago"
@@ -109,6 +122,7 @@ export default function MyCoursesPage() {
             status="Teaching"
           />
           <CourseCard
+            image={algoImg}
             title="Advanced Algorithms"
             students={84}
             lastActive="Today"
@@ -118,6 +132,7 @@ export default function MyCoursesPage() {
             status="Teaching"
           />
           <CourseCard
+            image={dataImg}
             title="Data Science Fundamentals"
             students={156}
             lastActive="5 days ago"
@@ -126,6 +141,7 @@ export default function MyCoursesPage() {
             status="Teaching"
           />
           <CourseCard
+            image={uiuxImg}
             title="UI/UX Design Systems"
             students={92}
             lastActive="1 day ago"
@@ -148,6 +164,7 @@ export default function MyCoursesPage() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <CourseCard
+            image={blockchainImg}
             title="Blockchain Technologies"
             students={0}
             lastActive="Fall 2024"
@@ -156,6 +173,7 @@ export default function MyCoursesPage() {
             status="Upcoming"
           />
           <CourseCard
+            image={marketingImg}
             title="Digital Marketing Strategies"
             students={0}
             lastActive="Summer 2024"
@@ -164,6 +182,7 @@ export default function MyCoursesPage() {
             status="Upcoming"
           />
           <CourseCard
+            image={cyberImg}
             title="Cybersecurity Stressing"
             students={0}
             lastActive="Winter 2024"
@@ -206,23 +225,33 @@ function CourseCard({
   totalModules,
   isNew,
   status,
+  image,
 }: CourseCardProps) {
   const progress = (modulesCompleted / totalModules) * 100;
 
   return (
     <div className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex flex-col hover:border-rose-200 transition-all group relative overflow-hidden">
       {isNew && (
-        <span className="absolute top-4 right-4 bg-rose-500 text-white text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm">
+        <span className="z-10 absolute top-4 right-4 bg-rose-500 text-white text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm">
           NEW!
         </span>
       )}
 
-      {/* Course Thumbnail Placeholder */}
+      {/* Course Thumbnail - UPDATED */}
       <div className="w-full aspect-video bg-slate-50 rounded-2xl mb-5 flex items-center justify-center relative overflow-hidden">
-        <Layers className="text-slate-200" size={48} />
+        {/* We use Next.js Image component here with 'fill' to cover the parent aspect-ratio div */}
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+        />
+        
+        {/* Overlay for Upcoming Status */}
         {status === "Upcoming" && (
-          <div className="absolute inset-0 bg-slate-900/5 flex items-center justify-center backdrop-blur-[1px]">
-            <Calendar className="text-slate-400" size={24} />
+          <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center backdrop-blur-[1px] z-10">
+            <Calendar className="text-white drop-shadow-md" size={24} />
           </div>
         )}
       </div>
