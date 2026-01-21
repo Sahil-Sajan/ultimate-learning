@@ -2,7 +2,7 @@
 
 import React from "react";
 // 1. ADD THIS IMPORT
-import Image from "next/image"; 
+import Image from "next/image";
 import {
   BookOpen,
   Users,
@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 // 2. Your image imports remain the same
-import promptImg from "@/public/promp.webp";
+import promptImg from "@/public/parent.avif";
 import algoImg from "@/public/blog5.webp";
 import dataImg from "@/public/bootstrap.webp";
 import uiuxImg from "@/public/fs-3.avif";
@@ -247,7 +247,7 @@ function CourseCard({
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
         />
-        
+
         {/* Overlay for Upcoming Status */}
         {status === "Upcoming" && (
           <div className="absolute inset-0 bg-slate-900/10 flex items-center justify-center backdrop-blur-[1px] z-10">
