@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Star,
   ChevronDown,
@@ -25,7 +26,7 @@ export const courses: any[] = [
     status: "Special",
     rating: 4.8,
     reviews: 154,
-    image: "blog1.webp",
+    image: "/blog1.webp",
   },
   {
     id: 2,
@@ -38,7 +39,7 @@ export const courses: any[] = [
     status: "Hot",
     rating: 4.5,
     reviews: 82,
-    image: "blog2.avif",
+    image: "/blog2.avif",
   },
   {
     id: 3,
@@ -51,7 +52,7 @@ export const courses: any[] = [
     status: "New",
     rating: 4.2,
     reviews: 210,
-    image: "blog3.webp",
+    image: "/blog3.webp",
   },
   {
     id: 4,
@@ -64,7 +65,7 @@ export const courses: any[] = [
     status: "Normal",
     rating: 3.8,
     reviews: 45,
-    image: "blog4.webp",
+    image: "/blog4.webp",
   },
   {
     id: 5,
@@ -77,7 +78,7 @@ export const courses: any[] = [
     status: "Hot",
     rating: 4.9,
     reviews: 512,
-    image: "blog5.webp",
+    image: "/blog5.webp",
   },
   {
     id: 6,
@@ -90,7 +91,7 @@ export const courses: any[] = [
     status: "Special",
     rating: 4.6,
     reviews: 98,
-    image: "blog6.webp",
+    image: "/blog6.webp",
   },
   {
     id: 7,
@@ -103,7 +104,7 @@ export const courses: any[] = [
     status: "New",
     rating: 4.7,
     reviews: 320,
-    image: "blog7.avif",
+    image: "/blog7.avif",
   },
   {
     id: 8,
@@ -116,7 +117,7 @@ export const courses: any[] = [
     status: "Hot",
     rating: 4.8,
     reviews: 415,
-    image: "blog8.webp",
+    image: "/blog8.webp",
   },
   {
     id: 9,
@@ -129,7 +130,7 @@ export const courses: any[] = [
     status: "Normal",
     rating: 4.4,
     reviews: 76,
-    image: "blog9.avif",
+    image: "/blog9.avif",
   },
 ];
 
@@ -170,7 +171,7 @@ export default function CourseCatalog() {
               checked={ins === "Nicole Brown"}
               count={10}
             />
-          )
+          ),
         )}
       </FilterBox>
 
@@ -317,10 +318,13 @@ export default function CourseCatalog() {
                   <div className="p-5">
                     <div className="flex justify-between items-center mb-3">
                       <div className="flex items-center gap-2">
-                        <img
+                        <Image
+                          height={200}
+                          width={200}
                           src={`https://i.pravatar.cc/150?u=${course.id}`}
                           className="w-8 h-8 rounded-full"
                           alt="ins"
+                          unoptimized // <--- Add this line
                         />
                         <span className="text-xs text-gray-500 font-medium">
                           {course.instructor}

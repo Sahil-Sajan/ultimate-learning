@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, ReactNode } from "react";
+import Image from "next/image";
+// 1. CHANGE: Import 'motion' instead of 'm'
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Check,
@@ -134,15 +136,17 @@ const faqs: FAQItem[] = [
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
-    "monthly"
+    "monthly",
   );
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
       {/* HERO SECTION */}
+      {/* 2. CHANGE: Updated gradient syntax to standard Tailwind 'bg-gradient-to-r' */}
       <section className="bg-gradient-to-r from-[#FFF0F0] to-[#E5F3FF] py-20 px-6 md:px-20 overflow-hidden">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          {/* 3. CHANGE: Replaced all 'm.div' etc with 'motion.div' */}
           <motion.div
             initial="initial"
             animate="animate"
@@ -193,7 +197,10 @@ export default function PricingPage() {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="relative z-10 w-full max-w-[400px]"
             >
-              <img
+              {/* NOTE: Make sure this image exists in your /public folder */}
+              <Image
+                width={200}
+                height={200}
                 src="/pricing-hero.png"
                 alt="Pricing Preview"
                 className="w-full h-auto rounded-2xl drop-shadow-2xl"
@@ -230,7 +237,7 @@ export default function PricingPage() {
               <button
                 onClick={() =>
                   setBillingCycle(
-                    billingCycle === "monthly" ? "yearly" : "monthly"
+                    billingCycle === "monthly" ? "yearly" : "monthly",
                   )
                 }
                 className="w-16 h-8 bg-white/10 rounded-full relative p-1 transition-colors hover:bg-white/20"
@@ -278,8 +285,10 @@ export default function PricingPage() {
             >
               <HelpCircle size={48} />
             </motion.div>
-            <h2 className="text-4xl font-black text-[#1D1B26] mb-4">FAQs</h2>
-            <p className="text-slate-500">
+            <h2 className="text-4xl font-black text-[#1D1B26] mb-4 text-center">
+              FAQs
+            </h2>
+            <p className="text-slate-500 text-center">
               Everything you need to know about our subscriptions.
             </p>
           </div>
@@ -473,14 +482,16 @@ function PricingCard({
 function FeatureItem({ icon, title, desc }: FeatureItemProps) {
   return (
     <motion.div whileHover={{ x: 5 }} className="flex items-center gap-4">
-      <div className="w-14 h-14 bg-[#FF5364]/5 rounded-2xl flex items-center justify-center text-[#FF5364] shadow-inner">
+      <div className="shrink-0 w-14 h-14 bg-[#FF5364]/5 rounded-2xl flex items-center justify-center text-[#FF5364] shadow-inner">
         {icon}
       </div>
       <div>
         <h4 className="font-black text-slate-900 text-sm tracking-tight">
           {title}
         </h4>
-        <p className="text-xs text-slate-400 font-medium">{desc}</p>
+        <p className="text-xs text-slate-400 font-medium whitespace-nowrap">
+          {desc}
+        </p>
       </div>
     </motion.div>
   );
