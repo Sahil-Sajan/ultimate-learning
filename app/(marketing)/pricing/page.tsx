@@ -136,7 +136,7 @@ const faqs: FAQItem[] = [
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">(
-    "monthly"
+    "monthly",
   );
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -195,13 +195,13 @@ export default function PricingPage() {
             <motion.div
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-10 w-full max-w-md"
+              className="relative z-10 w-full max-w-100"
             >
               {/* NOTE: Make sure this image exists in your /public folder */}
               <Image
                 width={200}
                 height={200}
-                src="/pricing-hero.png" 
+                src="/pricing-hero.png"
                 alt="Pricing Preview"
                 className="w-full h-auto rounded-2xl drop-shadow-2xl"
               />
@@ -237,7 +237,7 @@ export default function PricingPage() {
               <button
                 onClick={() =>
                   setBillingCycle(
-                    billingCycle === "monthly" ? "yearly" : "monthly"
+                    billingCycle === "monthly" ? "yearly" : "monthly",
                   )
                 }
                 className="w-16 h-8 bg-white/10 rounded-full relative p-1 transition-colors hover:bg-white/20"
@@ -312,8 +312,7 @@ export default function PricingPage() {
                   <motion.div
                     animate={{
                       rotate: openFaq === idx ? 180 : 0,
-                      backgroundColor:
-                        openFaq === idx ? "#FF5364" : "#f1f5f9",
+                      backgroundColor: openFaq === idx ? "#FF5364" : "#f1f5f9",
                     }}
                     className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-slate-400 active:scale-90"
                   >
