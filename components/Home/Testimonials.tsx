@@ -8,8 +8,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 // Swiper Styles
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
+// @ts-ignore
 import "swiper/css";
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
