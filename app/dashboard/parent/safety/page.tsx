@@ -9,26 +9,20 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  BarChart,
-  Bar,
-  Cell,
 } from "recharts";
 import {
   ShieldCheck,
-  Smartphone,
-  Globe,
-  Lock,
   Clock,
   ShieldAlert,
   User,
   ChevronRight,
   MapPin,
-  History,
   Info,
 } from "lucide-react";
 
 /* ===================== ENHANCED DATASETS ===================== */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const controlData: any = {
   Alice: {
     dailyLimit: 3,
@@ -242,6 +236,7 @@ export default function DetailedSafetyPage() {
               Category Breakdown
             </h3>
             <div className="space-y-6">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {data.appBreakdown.map((app: any, i: number) => (
                 <div key={i} className="flex items-center justify-between">
                   <div className="flex items-center gap-4 w-1/3">
@@ -367,6 +362,7 @@ function ToggleItem({ label, active }: { label: string; active: boolean }) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomChartTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (

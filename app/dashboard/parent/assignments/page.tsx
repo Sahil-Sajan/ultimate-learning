@@ -2,10 +2,6 @@
 
 import React, { useState, useMemo } from "react";
 import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
   ResponsiveContainer,
   BarChart,
   Bar,
@@ -20,7 +16,6 @@ import {
 import {
   BookOpen,
   Star,
-  Clock,
   User,
   Award,
   GraduationCap,
@@ -28,6 +23,7 @@ import {
 
 /* ===================== DETAILED DATASETS ===================== */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const childrenData: any = {
   Alice: {
     fullName: "Alice Smith",
@@ -235,7 +231,7 @@ export default function DetailedAcademicDashboard() {
             <h3 className="font-black text-slate-800 mb-8">
               Subject Grade Overview
             </h3>
-            <div className="h-[280px]">
+            <div className="h-70">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart
                   data={subjectScores}
@@ -282,7 +278,7 @@ export default function DetailedAcademicDashboard() {
         <div className="bg-white rounded-[32px] shadow-sm border border-slate-100 overflow-hidden">
           <div className="p-8 border-b border-slate-50 flex justify-between items-center">
             <h3 className="font-black text-slate-800 italic">
-              {activeChild}'s Current Assignments
+              {activeChild}&apos;s Current Assignments
             </h3>
             <span className="text-[10px] font-black bg-blue-50 text-blue-600 px-3 py-1 rounded-full uppercase">
               Term 1
@@ -300,6 +296,7 @@ export default function DetailedAcademicDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {current.assignments.map((item: any, i: number) => (
                   <tr
                     key={i}
@@ -345,9 +342,10 @@ export default function DetailedAcademicDashboard() {
 
 /* ===================== HELPER COMPONENTS ===================== */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StatCard({ title, value, sub, icon }: any) {
   return (
-    <div className="bg-white p-6 rounded-[28px] shadow-sm border border-slate-100 flex items-center gap-5 hover:translate-y-[-2px] transition-transform cursor-default">
+    <div className="bg-white p-6 rounded-[28px] shadow-sm border border-slate-100 flex items-center gap-5 hover:-translate-y-0.5 transition-transform cursor-default">
       <div className="bg-slate-50 p-4 rounded-2xl">{icon}</div>
       <div>
         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">

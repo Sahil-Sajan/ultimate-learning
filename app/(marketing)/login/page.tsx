@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
 // Added GraduationCap to the imports below
-import { Mail, Lock, Eye, EyeOff, Facebook, GraduationCap } from "lucide-react";
+import { Mail,  Eye, EyeOff, Facebook, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +30,9 @@ const LoginPage = () => {
       {/* --- LEFT SIDE: PROMOTIONAL SECTION --- */}
       <div className="hidden md:flex md:w-[45%] lg:w-[50%] bg-[#fff5f6] flex-col items-center justify-center p-8 lg:p-12 text-center">
         <div className="relative w-full max-w-105 mb-10">
-          <img
+          <Image
+          height={200}
+          width={200}
             src="/login.jpeg"
             alt="Welcome Illustration"
             className="w-full h-auto object-contain"
@@ -165,7 +168,7 @@ const LoginPage = () => {
                 type="button"
                 className="flex items-center justify-center gap-3 border-[1.5px] border-gray-100 py-3.5 rounded-2xl hover:bg-gray-50 hover:border-gray-200 transition-all active:scale-95"
               >
-                <img src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
+                <Image width={200} height={200} src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
                 <span className="text-[14px] font-bold text-[#0b1219]">
                   Google
                 </span>
@@ -182,7 +185,7 @@ const LoginPage = () => {
             </div>
 
             <p className="text-center text-[15px] text-[#686f7c] pt-6">
-              Don't you have an account?{" "}
+              Don&apos;t you have an account?{" "}
               <Link
                 href="/register"
                 className="text-[#ff4667] font-extrabold hover:underline"

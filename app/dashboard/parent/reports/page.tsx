@@ -16,13 +16,9 @@ import {
   Cell,
 } from "recharts";
 import {
-  Users,
   BookOpen,
-  Award,
   Calendar,
   Clock,
-  ChevronRight,
-  TrendingUp,
   Trophy,
 } from "lucide-react";
 

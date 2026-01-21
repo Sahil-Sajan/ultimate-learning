@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowUpRight,  Clock } from "lucide-react";
 import Image from "next/image";
 
@@ -97,7 +97,7 @@ export default function BlogPage() {
         </header>
 
         {/* --- FEATURED ARTICLE (LMS THEMED) --- */}
-        <motion.article
+        <m.article
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -147,12 +147,12 @@ export default function BlogPage() {
               </button>
             </div>
           </div>
-        </motion.article>
+        </m.article>
 
         {/* --- BLOG GRID --- */}
         <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
           {blogPosts.map((post, index) => (
-            <motion.article
+            <m.article
               key={post.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -212,7 +212,7 @@ export default function BlogPage() {
                   </div>
                 </div>
               </div>
-            </motion.article>
+            </m.article>
           ))}
         </div>
 

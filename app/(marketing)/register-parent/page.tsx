@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Mail,
-  Lock,
   User,
   Eye,
   EyeOff,
@@ -16,7 +15,7 @@ import { useRouter } from "next/navigation";
 
 const RegisterPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [childInfo, setChildInfo] = useState("");
 
@@ -50,7 +49,7 @@ const RegisterPage = () => {
         </h2>
         <p className="text-gray-700 max-w-sm leading-relaxed">
           The ultimate dashboard for parents to track progress, link student
-          accounts, and manage their children's educational journey in one
+          accounts, and manage their children&apos;s educational journey in one
           place.
         </p>
 
@@ -212,7 +211,7 @@ const RegisterPage = () => {
                 type="button"
                 className="flex items-center justify-center gap-3 border-[1.5px] border-gray-100 py-3.5 rounded-2xl hover:bg-gray-50 hover:border-gray-200 transition-all active:scale-95"
               >
-                <img src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
+                <Image width={200} height={200} src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
                 <span className="text-[14px] font-bold text-[#0b1219]">
                   Google
                 </span>

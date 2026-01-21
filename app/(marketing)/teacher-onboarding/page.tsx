@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import { 
   Code, Palette, Briefcase, 
   ArrowRight, Check, ChevronLeft,
-  Layout, PenTool, Monitor
+  
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import router from "next/router";
 import Link from "next/link";
 
 // --- TYPES ---
@@ -19,22 +18,6 @@ const TeacherOnboarding = () => {
   const [details, setDetails] = useState<string[]>([]);
 
   // --- ANIMATION VARIANTS ---
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0
-    })
-  };
 
   // --- HANDLERS ---
   const handleDomainSelect = (domain: DomainType) => {
@@ -81,7 +64,7 @@ const TeacherOnboarding = () => {
             </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">Welcome, Instructor!</h1>
             <p className="text-gray-500 text-lg mb-8 leading-relaxed">
-              We're thrilled to have you. Let's set up your profile to help us understand what you'd like to teach. It only takes a minute.
+              We&apos;re thrilled to have you. Let&apos;s set up your profile to help us understand what you&apos;d like to teach. It only takes a minute.
             </p>
             <button 
               onClick={() => setCurrentStep("domain")}
@@ -188,9 +171,9 @@ const TeacherOnboarding = () => {
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
               <Check className="text-green-600 w-10 h-10" strokeWidth={3} />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">You're All Set!</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">You&apos;re All Set!</h2>
             <p className="text-gray-500 mb-8">
-              We've created your instructor dashboard based on your <strong>{selectedDomain}</strong> profile.
+              We&apos;ve created your instructor dashboard based on your <strong>{selectedDomain}</strong> profile.
             </p>
         <Link href="/dashboard/teacher" className="w-full block">
   <button className="w-full bg-[#0f172a] text-white font-bold py-3 rounded-xl hover:bg-[#1e293b] transition-colors">
@@ -207,6 +190,7 @@ const TeacherOnboarding = () => {
 
 // --- SUB COMPONENTS ---
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SelectionCard = ({ icon, title, desc, selected, onClick }: any) => (
   <div 
     onClick={onClick}
@@ -226,6 +210,7 @@ const SelectionCard = ({ icon, title, desc, selected, onClick }: any) => (
   </div>
 );
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DetailChip = ({ label, selected, onClick }: any) => (
   <div 
     onClick={onClick}

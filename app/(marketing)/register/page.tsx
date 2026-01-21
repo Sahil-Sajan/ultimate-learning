@@ -4,13 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Mail,
-  Lock,
   User,
   Eye,
   EyeOff,
   Facebook,
   GraduationCap,
 } from "lucide-react";
+
 
 const RegisterPage = () => {
   // States to toggle visibility
@@ -205,7 +205,7 @@ const RegisterPage = () => {
                 type="button"
                 className="flex items-center justify-center gap-3 border-[1.5px] border-gray-100 py-3.5 rounded-2xl hover:bg-gray-50 hover:border-gray-200 transition-all active:scale-95"
               >
-                <img src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
+                <Image width={200} height={200} src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
                 <span className="text-[14px] font-bold text-[#0b1219]">
                   Google
                 </span>

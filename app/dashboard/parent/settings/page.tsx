@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { m, AnimatePresence } from "framer-motion";
 import {
   User,
   Mail,
@@ -12,8 +13,18 @@ import {
   Trash2,
   Users,
   CreditCard,
-  Eye,
-  Settings,
+  MessageCircle,
+  Bell,
+  User,
+  ShieldCheck,
+  
+  Lock,
+  
+  ArrowRight,
+  Mail,
+  History,
+  Phone,
+  Backpack,
   Heart,
   Activity,
   ChevronRight,
@@ -44,22 +55,44 @@ const ParentSettings = () => {
               Manage your family account, billing, and child supervision tools.
             </p>
           </div>
-          <div className="bg-[#fff5f6] p-3 rounded-2xl">
-            <Users className="text-[#ff4667]" size={24} />
+          <h1 className="text-3xl font-black tracking-tight text-slate-900">
+            Parental Controls
+          </h1>
+          <p className="text-slate-500 text-sm font-medium mt-1">
+            Manage your children&apos;s enrollment, school finances, and security
+            preferences.
+          </p>
+        </header>
+
+        {/* NAVIGATION */}
+        <nav className="bg-white p-2 rounded-[24px] shadow-sm border border-slate-200 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center justify-center gap-2 py-3.5 rounded-[18px] transition-all font-bold text-xs uppercase tracking-widest ${
+                  activeTab === tab.id
+                    ? "bg-[#FF5B5C] text-white shadow-lg shadow-red-100"
+                    : "text-slate-400 hover:bg-red-50 hover:text-[#FF5B5C]"
+                }`}
+              >
+                {tab.icon} {tab.label}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* --- NAVIGATION TABS --- */}
-        <div className="px-8 flex gap-8 border-b border-slate-100 overflow-x-auto">
-          {["general", "family", "billing", "notifications"].map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`py-5 text-sm font-bold capitalize transition-all relative whitespace-nowrap ${
-                activeTab === tab
-                  ? "text-[#ff4667]"
-                  : "text-gray-400 hover:text-gray-600"
-              }`}
+        {/* CONTENT BOX */}
+        <main className="min-h-150 relative">
+          <AnimatePresence mode="wait">
+            <m.div
+              key={activeTab}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 10 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white rounded-[32px] p-8 border border-slate-200 shadow-sm h-150 overflow-y-auto [&::-webkit-scrollbar]:display-none [ms-overflow-style:none] [scrollbar-width:none]"
             >
               {tab}
               {activeTab === tab && (
@@ -231,13 +264,10 @@ const ParentSettings = () => {
                     <p className="text-sm font-bold">12/28</p>
                   </div>
                 </div>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#ff4667] rounded-full -mr-16 -mt-16 blur-3xl opacity-20"></div>
-              </div>
-              <button className="w-full py-4 rounded-2xl border-2 border-dashed border-slate-100 text-sm font-bold text-slate-400 hover:border-[#ff4667] hover:text-[#ff4667] transition-all">
-                Update Payment Method
-              </button>
-            </div>
-          )}
+              )}
+            </m.div>
+          </AnimatePresence>
+        </main>
 
           {/* --- TAB: NOTIFICATIONS --- */}
           {activeTab === "notifications" && (
@@ -316,4 +346,77 @@ const ParentSettings = () => {
   );
 };
 
-export default ParentSettings;
+/* HELPER COMPONENTS */
+
+function SectionHeader({
+  icon,
+  title,
+}: {
+  icon: React.ReactNode;
+  title: string;
+}) {
+  return (
+    <div className="flex items-center gap-3 mb-6">
+      <div className="p-2 bg-red-50 text-[#FF5B5C] rounded-xl">{icon}</div>
+      <h3 className="font-black text-sm uppercase tracking-widest text-slate-700">
+        {title}
+      </h3>
+    </div>
+  );
+}
+
+function InputBlock({
+  label,
+  value,
+  disabled = false,
+}: {
+  label: string;
+  value: string;
+  disabled?: boolean;
+}) {
+  return (
+    <div className="space-y-1">
+      <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">
+        {label}
+      </label>
+      <input
+        type="text"
+        defaultValue={value}
+        disabled={disabled}
+        className={`w-full border rounded-xl px-4 py-3 text-sm font-bold outline-none transition-all ${
+          disabled
+            ? "bg-slate-100 border-slate-100 opacity-70 cursor-not-allowed"
+            : "bg-slate-50 border-slate-100 focus:border-[#FF5B5C] focus:bg-white"
+        }`}
+      />
+    </div>
+  );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function ToggleSetting({ title, desc, icon, defaultOn = false }: any) {
+  const [on, setOn] = useState(defaultOn);
+  return (
+    <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100 flex items-start justify-between hover:bg-white hover:border-red-100 transition-all group">
+      <div className="flex gap-4">
+        <div className="text-slate-400 group-hover:text-[#FF5B5C] transition-colors mt-1">
+          {icon}
+        </div>
+        <div>
+          <p className="text-sm font-bold text-slate-800">{title}</p>
+          <p className="text-[11px] text-slate-500 font-medium leading-tight mt-0.5">
+            {desc}
+          </p>
+        </div>
+      </div>
+      <button
+        onClick={() => setOn(!on)}
+        className={`w-10 h-5 rounded-full flex items-center px-1 transition-all shrink-0 ${
+          on ? "bg-[#FF5B5C] justify-end" : "bg-slate-300 justify-start"
+        }`}
+      >
+        <div className="w-3.5 h-3.5 bg-white rounded-full shadow-md" />
+      </button>
+    </div>
+  );
+}

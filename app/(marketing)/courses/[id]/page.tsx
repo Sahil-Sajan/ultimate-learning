@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link"; // Added for navigation
 import { courses } from "../page";
+import Image from "next/image";
 
 import {
   Star,
@@ -12,10 +13,10 @@ import {
   Video,
   Users,
   FileText,
-  Monitor,
+ 
   Award,
   ChevronDown,
-  MessageSquare,
+  
   Share2,
   Heart,
   X,
@@ -36,12 +37,12 @@ export default function CourseDetailPage() {
     <>
       {/* --- ENROLLMENT MODAL (UPDATED FOR FREE ACCESS) --- */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-999 flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setIsModalOpen(false)}
           />
-          <div className="relative bg-white w-full max-w-[500px] max-h-[90vh] overflow-y-auto rounded-xl shadow-2xl animate-in fade-in zoom-in duration-200">
+          <div className="relative bg-white w-full max-w-125 max-h-[90vh] overflow-y-auto rounded-xl shadow-2xl animate-in fade-in zoom-in duration-200">
             <button
               onClick={() => setIsModalOpen(false)}
               className="absolute top-4 right-4 text-slate-500 p-2"
@@ -54,7 +55,7 @@ export default function CourseDetailPage() {
                 Enroll in this Course for Free
               </h2>
               <p className="text-slate-700 text-sm md:text-[15px] mb-8">
-                Get full access to "{course.title}" and start learning today.
+                Get full access to &quot;{course.title}&quot; and start learning today.
               </p>
 
               <div className="space-y-6">
@@ -136,7 +137,9 @@ export default function CourseDetailPage() {
               </div>
 
               <div className="flex items-center gap-3">
-                <img
+                <Image
+                width={200}
+                height={200}
                   src="/professor.avif"
                   className="w-10 h-10 rounded-full border border-slate-700"
                   alt="Nicole"
@@ -164,7 +167,9 @@ export default function CourseDetailPage() {
             <div className="lg:sticky lg:top-6 bg-white rounded-xl shadow-xl overflow-hidden border border-slate-100">
               <div className="hidden md:block relative group p-4">
                 <div className="relative aspect-video rounded-lg overflow-hidden">
-                  <img
+                  <Image
+                  width={200}
+                  height={200}
                     src="/blog8.webp"
                     alt="Preview"
                     className="w-full h-full object-cover"
@@ -326,7 +331,9 @@ export default function CourseDetailPage() {
             <div className="bg-white p-6 md:p-8 rounded-lg shadow-sm border border-slate-100">
               <h2 className="text-xl font-bold mb-6">About the Instructor</h2>
               <div className="flex items-center gap-4 mb-6">
-                <img
+                <Image
+                width={200}
+                height={200}
                   src="/professor.avif"
                   className="w-16 h-16 rounded-full object-cover"
                   alt="Nicole"
