@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, ReactNode } from "react";
-import Image from "next/image";
 // 1. CHANGE: Import 'motion' instead of 'm'
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import {
   Check,
   ArrowRight,
