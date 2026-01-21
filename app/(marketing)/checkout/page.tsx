@@ -200,7 +200,6 @@ export default function CheckoutPage() {
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100"
               className="w-12 h-12 rounded-full object-cover grayscale"
               alt="Elena"
-              unoptimized
             />
             <div className="space-y-1">
               <p className="text-[11px] text-slate-500 italic leading-relaxed">

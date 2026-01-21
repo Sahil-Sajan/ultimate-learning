@@ -81,7 +81,7 @@ export default function StudentMessagingView() {
   };
 
   return (
-    <div className="h-[calc(100vh-40px)] md:h-[800px] flex flex-col md:flex-row gap-0 md:gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700 overflow-hidden">
+    <div className="h-[calc(100vh-40px)] md:h-200 flex flex-col md:flex-row gap-0 md:gap-6 animate-in fade-in slide-in-from-bottom-4 duration-700 overflow-hidden">
       {/* --- SIDEBAR: INBOX LIST --- */}
       <div
         className={`${
@@ -128,7 +128,7 @@ export default function StudentMessagingView() {
           </div>
         </div>
 
-        <div className="flex-grow overflow-y-auto p-3 md:p-4 pt-0 space-y-2">
+        <div className="grow overflow-y-auto p-3 md:p-4 pt-0 space-y-2">
           {STUDENT_CONTACTS.map((contact) => (
             <div
               key={contact.id}
@@ -158,7 +158,7 @@ export default function StudentMessagingView() {
                 )}
               </div>
 
-              <div className="flex-grow overflow-hidden">
+              <div className="grow overflow-hidden">
                 <div className="flex justify-between items-start mb-0.5">
                   <h4 className="text-xs md:text-sm font-bold text-[#1D1B26] truncate">
                     {contact.name}
@@ -185,7 +185,7 @@ export default function StudentMessagingView() {
       <div
         className={`${
           !showMobileChat ? "hidden" : "flex"
-        } w-full md:flex flex-grow bg-white md:rounded-[42px] border border-slate-100 shadow-sm flex-col overflow-hidden h-full`}
+        } w-full md:flex grow bg-white md:rounded-[42px] border border-slate-100 shadow-sm flex-col overflow-hidden h-full`}
       >
         {/* Chat Header */}
         <div className="p-4 md:p-6 border-b border-slate-50 flex justify-between items-center bg-white shrink-0">
@@ -226,7 +226,7 @@ export default function StudentMessagingView() {
         </div>
 
         {/* Messages Area */}
-        <div className="flex-grow overflow-y-auto p-4 md:p-8 space-y-4 md:space-y-6 bg-slate-50/20">
+        <div className="grow overflow-y-auto p-4 md:p-8 space-y-4 md:space-y-6 bg-slate-50/20">
           {STUDENT_MESSAGES.map((msg) => (
             <div
               key={msg.id}
@@ -234,7 +234,7 @@ export default function StudentMessagingView() {
             >
               <div className={`max-w-[85%] md:max-w-[65%] space-y-1`}>
                 <div
-                  className={`p-3 md:p-4 rounded-[20px] md:rounded-[28px] text-xs md:text-sm font-semibold shadow-sm ${
+                  className={`p-3 md:p-4 rounded-4xl md:rounded-[28px] text-xs md:text-sm font-semibold shadow-sm ${
                     msg.sender === "me"
                       ? "bg-[#FF5B5C] text-white rounded-tr-none shadow-rose-200"
                       : "bg-white text-[#1D1B26] border border-slate-100 rounded-tl-none"
@@ -278,7 +278,7 @@ export default function StudentMessagingView() {
             <input
               type="text"
               placeholder="Message professor or group..."
-              className="flex-grow bg-transparent border-none focus:ring-0 text-xs md:text-sm font-bold text-[#1D1B26] outline-none min-w-0"
+              className="grow bg-transparent border-none focus:ring-0 text-xs md:text-sm font-bold text-[#1D1B26] outline-none min-w-0"
             />
             <button className="bg-[#FF5B5C] text-white p-2.5 md:p-3.5 rounded-xl md:rounded-2xl hover:bg-[#ff4647] transition-all shadow-lg shadow-rose-500/20 shrink-0">
               <Send size={18} />

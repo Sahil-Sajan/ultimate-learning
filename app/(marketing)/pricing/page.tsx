@@ -195,7 +195,7 @@ export default function PricingPage() {
             <motion.div
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="relative z-10 w-full max-w-[400px]"
+              className="relative z-10 w-full max-w-100"
             >
               {/* NOTE: Make sure this image exists in your /public folder */}
               <Image
