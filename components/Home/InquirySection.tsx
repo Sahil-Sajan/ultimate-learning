@@ -13,37 +13,52 @@ const CommunitySection: React.FC = () => {
     "https://i.pravatar.cc/150?u=4",
   ];
 
-  // 1. Text Left se Right aane ke liye
+  // 1. Text Left to Right
   const textVariants: Variants = {
-    hidden: { opacity: 0, x: -100 },
+    hidden: { opacity: 0, x: -50 },
     visible: { 
       opacity: 1, 
       x: 0, 
-      transition: { duration: 1.5, ease: [0.22, 1, 0.36, 1],
-      staggerChildren: 0.25 } 
+      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.2 } 
     }
   };
 
-  // 2. Image Right se Left aane ke liye
+  // 2. Main Image Section Right to Left
   const imageContainerVariants: Variants = {
-    hidden: { opacity: 0, x: 100 },
+    hidden: { opacity: 0, x: 50 },
     visible: { 
       opacity: 1, 
       x: 0, 
-      transition: { duration: 1.5, ease: [0.22, 1, 0.36, 1] } 
+      transition: { duration: 0.8, ease: "easeOut" } 
     }
   };
 
   const childVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
+  // 3. New "Pop" Animation for the 2nd Image
+  const popUpVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.5, y: 50 },
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      y: 0,
+      transition: { 
+        type: "spring", 
+        stiffness: 100, 
+        damping: 15, 
+        delay: 0.5 
+      } 
+    }
   };
 
   return (
     <section className="w-full bg-[#f8f9fb] py-12 md:py-20 px-4 md:px-12 lg:px-24 overflow-hidden font-sans">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         
-        {/* Left Column: Content (Coming from LEFT) */}
+        {/* Left Column: Content */}
         <motion.div 
           variants={textVariants}
           initial="hidden"
@@ -91,7 +106,7 @@ const CommunitySection: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Right Column: Image Composition (Coming from RIGHT) */}
+        {/* Right Column: Image Composition */}
         <motion.div 
           variants={imageContainerVariants}
           initial="hidden"
@@ -100,7 +115,7 @@ const CommunitySection: React.FC = () => {
           className="relative h-100 md:h-125 lg:h-150 w-full max-w-125 lg:max-w-none mx-auto order-1 lg:order-2"
         >
           {/* Main Large Image */}
-          <div className="absolute top-0 right-0 w-[80%] lg:w-[85%] h-[85%] lg:h-[90%] rounded-[40px] overflow-hidden shadow-2xl z-10 border-4 border-white">
+          <div className="absolute top-0 right-0 w-[80%] lg:w-[85%] h-[85%] lg:h-[90%] rounded-[40px] overflow-hidden shadow-2xl z-10 border-4 border-white bg-white">
             <Image
               src="/cg-1.webp"
               alt="Student writing"
@@ -112,19 +127,26 @@ const CommunitySection: React.FC = () => {
 
           {/* Smaller Overlapping Image */}
           <motion.div 
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="absolute bottom-4 left-4 lg:bottom-0 lg:right-10 w-[55%] lg:w-[50%] h-[50%] lg:h-[55%] bg-blue-600 rounded-4xl lg:rounded-[30px] overflow-hidden shadow-2xl z-30 border-4 lg:border-10 border-white"
+            variants={popUpVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            // REMOVED bg-slate-100/bg-blue-600 here to prevent color flash
+            className="absolute bottom-4 left-4 lg:bottom-0 lg:right-10 w-[55%] lg:w-[50%] h-[50%] lg:h-[55%] rounded-4xl lg:rounded-[30px] overflow-hidden shadow-2xl z-30 border-4 lg:border-10 border-white bg-white"
           >
-            <Image src="/homecard2.png" alt="Student" fill className="object-cover" />
+            <Image 
+              src="/homecard2.png" 
+              alt="Student" 
+              fill 
+              className="object-cover" 
+            />
           </motion.div>
 
           {/* Floating Enrolled Badge */}
           <motion.div 
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.8 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
             className="absolute top-8 right-0 lg:-right-6 bg-white p-3 lg:p-4 rounded-2xl lg:rounded-3xl shadow-2xl z-40 flex flex-col items-center gap-2 border border-gray-50 min-w-35 lg:min-w-45"
           >
             <div className="flex -space-x-2 lg:-space-x-3">
@@ -140,7 +162,7 @@ const CommunitySection: React.FC = () => {
           </motion.div>
 
           {/* Decorative Square */}
-          <div className="absolute bottom-1/4 right-0 w-24 h-24 lg:w-32 lg:h-32 bg-[#00d084] rounded-3xl -z-10 translate-x-8 translate-y-8 lg:translate-x-12 lg:translate-y-12"></div>
+          <div className="absolute bottom-1/4 right-0 w-24 h-24 lg:w-32 lg:h-32  rounded-3xl -z-10 translate-x-8 translate-y-8 lg:translate-x-12 lg:translate-y-12"></div>
         </motion.div>
       </div>
     </section>

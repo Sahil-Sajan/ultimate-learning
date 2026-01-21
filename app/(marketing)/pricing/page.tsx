@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, ReactNode } from "react";
-import { m, AnimatePresence } from "framer-motion";
+// 1. CHANGE: Import 'motion' instead of 'm'
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Check,
   ArrowRight,
@@ -142,34 +143,36 @@ export default function PricingPage() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
       {/* HERO SECTION */}
-      <section className="bg-linear-to-r from-[#FFF0F0] to-[#E5F3FF] py-20 px-6 md:px-20 overflow-hidden">
+      {/* 2. CHANGE: Updated gradient syntax to standard Tailwind 'bg-gradient-to-r' */}
+      <section className="bg-gradient-to-r from-[#FFF0F0] to-[#E5F3FF] py-20 px-6 md:px-20 overflow-hidden">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <m.div
+          {/* 3. CHANGE: Replaced all 'm.div' etc with 'motion.div' */}
+          <motion.div
             initial="initial"
             animate="animate"
             variants={staggerContainer}
             className="space-y-4 text-center lg:text-left"
           >
-            <m.div
+            <motion.div
               variants={fadeInUp}
               className="inline-block bg-[#FF5364]/10 text-[#FF5364] px-4 py-1 rounded-full font-bold uppercase tracking-widest text-xs"
             >
               Pricing & Plans
-            </m.div>
-            <m.h1
+            </motion.div>
+            <motion.h1
               variants={fadeInUp}
               className="text-4xl md:text-6xl font-black text-[#1D1B26] leading-[1.1]"
             >
               Flexible Pricing <br /> For Every Learner
-            </m.h1>
-            <m.p
+            </motion.h1>
+            <motion.p
               variants={fadeInUp}
               className="text-slate-500 text-lg max-w-md mx-auto lg:mx-0 leading-relaxed"
             >
               We&apos;re dedicated to transforming education by providing
               high-quality courses that cater to learners of all levels.
-            </m.p>
-            <m.div
+            </motion.p>
+            <motion.div
               variants={fadeInUp}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4"
             >
@@ -179,34 +182,32 @@ export default function PricingPage() {
               <button className="w-full sm:w-auto bg-[#1D1B26] text-white px-10 py-4 rounded-full font-bold hover:bg-black transition-all">
                 Learn More
               </button>
-            </m.div>
-          </m.div>
+            </motion.div>
+          </motion.div>
 
           {/* IMAGE SECTION */}
-          <m.div
+          <motion.div
             initial={{ opacity: 0, scale: 0.8, x: 50 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="relative flex justify-center lg:justify-end items-center"
           >
-            <m.div
+            <motion.div
               animate={{ y: [0, -15, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="relative z-10 w-full max-w-md"
             >
-              
-                 <Image
-                 width={200}
-                 height={200}
-                src="/pricing-hero.png"
+              {/* NOTE: Make sure this image exists in your /public folder */}
+              <Image
+                width={200}
+                height={200}
+                src="/pricing-hero.png" 
                 alt="Pricing Preview"
                 className="w-full h-auto rounded-2xl drop-shadow-2xl"
               />
-                 
-              
-            </m.div>
+            </motion.div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#4E3796]/5 rounded-full blur-3xl z-0" />
-          </m.div>
+          </motion.div>
         </div>
       </section>
 
@@ -214,14 +215,14 @@ export default function PricingPage() {
       <section className="bg-[#4E3796] py-24 px-4 md:px-6 relative">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 space-y-6">
-            <m.h2
+            <motion.h2
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               className="text-white text-3xl md:text-5xl font-black"
             >
               Simple, Transparent Pricing
-            </m.h2>
+            </motion.h2>
 
             <div className="flex items-center justify-center gap-4">
               <span
@@ -241,7 +242,7 @@ export default function PricingPage() {
                 }
                 className="w-16 h-8 bg-white/10 rounded-full relative p-1 transition-colors hover:bg-white/20"
               >
-                <m.div
+                <motion.div
                   animate={{ x: billingCycle === "yearly" ? 32 : 0 }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   className="w-6 h-6 bg-[#FF5364] rounded-full shadow-lg"
@@ -259,7 +260,7 @@ export default function PricingPage() {
             </div>
           </div>
 
-          <m.div
+          <motion.div
             variants={staggerContainer}
             initial="initial"
             whileInView="animate"
@@ -269,7 +270,7 @@ export default function PricingPage() {
             {pricingPlans.map((plan, idx) => (
               <PricingCard key={idx} plan={plan} cycle={billingCycle} />
             ))}
-          </m.div>
+          </motion.div>
         </div>
       </section>
 
@@ -277,14 +278,16 @@ export default function PricingPage() {
       <section className="py-24 px-6 bg-[#F8F9FB]">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-16">
-            <m.div
+            <motion.div
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               className="flex justify-center mb-4 text-[#FF5364]"
             >
               <HelpCircle size={48} />
-            </m.div>
-            <h2 className="text-4xl font-black text-[#1D1B26] mb-4 text-center">FAQs</h2>
+            </motion.div>
+            <h2 className="text-4xl font-black text-[#1D1B26] mb-4 text-center">
+              FAQs
+            </h2>
             <p className="text-slate-500 text-center">
               Everything you need to know about our subscriptions.
             </p>
@@ -292,7 +295,7 @@ export default function PricingPage() {
 
           <div className="space-y-4">
             {faqs.map((faq, idx) => (
-              <m.div
+              <motion.div
                 key={idx}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -306,10 +309,11 @@ export default function PricingPage() {
                   <span className="font-bold text-[#1D1B26] text-lg group-hover:text-[#FF5364] transition-colors pr-4">
                     {faq.question}
                   </span>
-                  <m.div
+                  <motion.div
                     animate={{
                       rotate: openFaq === idx ? 180 : 0,
-                      backgroundColor: openFaq === idx ? "#FF5364" : "#f1f5f9",
+                      backgroundColor:
+                        openFaq === idx ? "#FF5364" : "#f1f5f9",
                     }}
                     className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-slate-400 active:scale-90"
                   >
@@ -318,11 +322,11 @@ export default function PricingPage() {
                     ) : (
                       <Plus size={18} />
                     )}
-                  </m.div>
+                  </motion.div>
                 </button>
                 <AnimatePresence>
                   {openFaq === idx && (
-                    <m.div
+                    <motion.div
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -331,10 +335,10 @@ export default function PricingPage() {
                       <div className="px-6 pb-6 text-slate-500 leading-relaxed border-t border-slate-50 pt-4">
                         {faq.answer}
                       </div>
-                    </m.div>
+                    </motion.div>
                   )}
                 </AnimatePresence>
-              </m.div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -382,7 +386,7 @@ function PricingCard({
     cycle === "yearly" ? Math.floor(Number(plan.price) * 0.8) : plan.price;
 
   return (
-    <m.div
+    <motion.div
       variants={fadeInUp}
       whileHover={{ y: -10 }}
       className={`p-8 rounded-[40px] border transition-all relative flex flex-col h-full ${
@@ -392,13 +396,13 @@ function PricingCard({
       }`}
     >
       {plan.popular && (
-        <m.span
+        <motion.span
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           className="bg-[#FF5364] text-white text-[10px] font-black uppercase px-6 py-1.5 rounded-full absolute -top-4 left-1/2 -translate-x-1/2 shadow-xl shadow-pink-500/20 whitespace-nowrap"
         >
           Most Popular
-        </m.span>
+        </motion.span>
       )}
 
       <h3
@@ -409,7 +413,7 @@ function PricingCard({
         {plan.name}
       </h3>
       <div className="flex items-baseline gap-1 mb-6">
-        <m.span
+        <motion.span
           key={price}
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -418,7 +422,7 @@ function PricingCard({
           }`}
         >
           ${price}
-        </m.span>
+        </motion.span>
         <span
           className={
             plan.popular ? "text-slate-400 font-medium" : "text-white/50"
@@ -472,13 +476,13 @@ function PricingCard({
           className="group-hover:translate-x-1 transition-transform"
         />
       </button>
-    </m.div>
+    </motion.div>
   );
 }
 
 function FeatureItem({ icon, title, desc }: FeatureItemProps) {
   return (
-    <m.div whileHover={{ x: 5 }} className="flex items-center gap-4">
+    <motion.div whileHover={{ x: 5 }} className="flex items-center gap-4">
       <div className="shrink-0 w-14 h-14 bg-[#FF5364]/5 rounded-2xl flex items-center justify-center text-[#FF5364] shadow-inner">
         {icon}
       </div>
@@ -486,8 +490,10 @@ function FeatureItem({ icon, title, desc }: FeatureItemProps) {
         <h4 className="font-black text-slate-900 text-sm tracking-tight">
           {title}
         </h4>
-        <p className="text-xs text-slate-400 font-medium whitespace-nowrap">{desc}</p>
+        <p className="text-xs text-slate-400 font-medium whitespace-nowrap">
+          {desc}
+        </p>
       </div>
-    </m.div>
+    </motion.div>
   );
 }
