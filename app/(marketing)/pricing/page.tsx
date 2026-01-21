@@ -144,7 +144,7 @@ export default function PricingPage() {
     <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
       {/* HERO SECTION */}
       {/* 2. CHANGE: Updated gradient syntax to standard Tailwind 'bg-gradient-to-r' */}
-      <section className="bg-gradient-to-r from-[#FFF0F0] to-[#E5F3FF] py-20 px-6 md:px-20 overflow-hidden">
+      <section className="bg-linear-to-r from-[#FFF0F0] to-[#E5F3FF] py-20 px-6 md:px-20 overflow-hidden">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           {/* 3. CHANGE: Replaced all 'm.div' etc with 'motion.div' */}
           <motion.div
