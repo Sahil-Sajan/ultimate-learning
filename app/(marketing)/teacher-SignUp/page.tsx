@@ -227,7 +227,7 @@ const TeacherRegisterPage = () => {
                 className="flex items-center justify-center gap-3 border-[1.5px] border-gray-100 py-3.5 rounded-2xl hover:bg-gray-50 hover:border-gray-200 transition-all active:scale-95"
               >
                 {/* Ensure you have this logo or change src */}
-                <img src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
+                <Image width={200} height={200} src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
                 <span className="text-[14px] font-bold text-[#0b1219]">
                   Google
                 </span>

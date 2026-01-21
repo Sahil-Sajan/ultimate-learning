@@ -16,6 +16,7 @@ import {
   X,
   LayoutGrid,
 } from "lucide-react";
+import Image from "next/image";
 
 /* ---------------- TYPES & DATA ---------------- */
 
@@ -234,7 +235,9 @@ function InstructorCard({ instructor }: { instructor: Instructor }) {
       className="group bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-xl hover:border-slate-200 transition-all duration-300 flex flex-col"
     >
       <div className="relative h-56 overflow-hidden shrink-0">
-        <img
+        <Image
+        height={200}
+        width={200}
           src={instructor.image}
           alt={instructor.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

@@ -4,21 +4,15 @@ import React, { useState } from "react";
 import {
   BarChart,
   Bar,
-  XAxis,
-  YAxis,
   ResponsiveContainer,
-  Tooltip,
   Cell,
 } from "recharts";
 import {
-  CheckCircle2,
   BookOpen,
   Calendar,
-  ChevronRight,
   User,
-  Clock,
-  GraduationCap,
 } from "lucide-react";
+import Image from "next/image";
 
 // --- DATA ---
 const childrenData = {
@@ -130,6 +124,7 @@ export default function ChildProfilePage() {
             {Object.keys(childrenData).map((name) => (
               <button
                 key={name}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 onClick={() => setActiveChild(name as any)}
                 className={`px-6 py-2.5 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
                   activeChild === name
@@ -147,7 +142,9 @@ export default function ChildProfilePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex items-center gap-6">
             <div className="w-24 h-24 rounded-full border-[6px] border-blue-50 overflow-hidden shadow-md">
-              <img
+              <Image
+              height={200}
+              width={200}
                 src={child.img}
                 alt={child.name}
                 className="w-full h-full object-cover"
@@ -328,6 +325,7 @@ export default function ChildProfilePage() {
 
 // --- SUB-COMPONENTS ---
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function MetricCard({ label, value, sub, color }: any) {
   return (
     <div className="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm text-center space-y-2 group hover:border-blue-200 transition-colors">

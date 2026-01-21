@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   Check,
   Users,
@@ -10,9 +10,9 @@ import {
   Bell,
   User,
   ShieldCheck,
-  Calendar,
+  
   Lock,
-  PlusCircle,
+  
   ArrowRight,
   Mail,
   History,
@@ -49,7 +49,7 @@ export default function ParentSettingsPage() {
             Parental Controls
           </h1>
           <p className="text-slate-500 text-sm font-medium mt-1">
-            Manage your children's enrollment, school finances, and security
+            Manage your children&apos;s enrollment, school finances, and security
             preferences.
           </p>
         </header>
@@ -76,7 +76,7 @@ export default function ParentSettingsPage() {
         {/* CONTENT BOX */}
         <main className="min-h-150 relative">
           <AnimatePresence mode="wait">
-            <motion.div
+            <m.div
               key={activeTab}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -271,7 +271,7 @@ export default function ParentSettingsPage() {
                   </div>
                 </div>
               )}
-            </motion.div>
+            </m.div>
           </AnimatePresence>
         </main>
 
@@ -339,6 +339,7 @@ function InputBlock({
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ToggleSetting({ title, desc, icon, defaultOn = false }: any) {
   const [on, setOn] = useState(defaultOn);
   return (

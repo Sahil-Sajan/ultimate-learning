@@ -12,6 +12,7 @@ import {
   Filter,
   X,
 } from "lucide-react";
+import Image from "next/image";
 
 export const courses: any[] = [
   {
@@ -301,7 +302,9 @@ export default function CourseCatalog() {
                     href={`/courses/${course.id}`}
                     className="relative h-52 block overflow-hidden"
                   >
-                    <img
+                    <Image
+                    height={200}
+                    width={200}
                       src={course.image}
                       alt={course.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
@@ -317,7 +320,9 @@ export default function CourseCatalog() {
                   <div className="p-5">
                     <div className="flex justify-between items-center mb-3">
                       <div className="flex items-center gap-2">
-                        <img
+                        <Image
+                        height={200}
+                        width={200}
                           src={`https://i.pravatar.cc/150?u=${course.id}`}
                           className="w-8 h-8 rounded-full"
                           alt="ins"

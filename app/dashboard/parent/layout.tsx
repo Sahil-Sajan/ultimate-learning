@@ -21,6 +21,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import Image from "next/image";
 
 export default function DashboardLayout({
   children,
@@ -78,7 +79,7 @@ export default function DashboardLayout({
       {/* MOBILE OVERLAY */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-[60] lg:hidden"
+          className="fixed inset-0 bg-black/50 z-60 lg:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
@@ -86,7 +87,7 @@ export default function DashboardLayout({
       {/* SIDEBAR - STICKY */}
       <aside
         className={`
-        fixed inset-y-0 left-0 z-[70] w-64 bg-white border-r border-slate-100 flex flex-col transition-transform duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-70 w-64 bg-white border-r border-slate-100 flex flex-col transition-transform duration-300 ease-in-out
         lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:shrink-0
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
       `}
@@ -187,7 +188,9 @@ export default function DashboardLayout({
           <div className="flex items-center gap-2 lg:gap-6">
             <div className="flex items-center gap-3 px-3 py-1.5 hover:bg-slate-50 rounded-xl cursor-pointer transition-colors">
               <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center overflow-hidden">
-                <img
+                <Image
+                height={200}
+                width={200}
                   src="/parent.avif"
                   alt="User"
                   className="w-full h-full object-cover"

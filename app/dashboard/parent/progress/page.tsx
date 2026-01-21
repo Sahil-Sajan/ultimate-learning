@@ -29,6 +29,7 @@ import {
 
 /* ===================== EXTENDED DATASETS ===================== */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const childrenData: any = {
   Alice: {
     gpa: "3.89",
@@ -140,12 +141,12 @@ export default function DetailedParentDashboard() {
 
   return (
     <div className="min-h-screen bg-[#F1F5F9] p-4 md:p-8 text-slate-900 font-sans">
-      <div className="max-w-[1600px] mx-auto space-y-6">
+      <div className="max-w-400 mx-auto space-y-6">
         {/* HEADER */}
         <header className="bg-white p-6 rounded-[32px] border border-slate-200/60 flex flex-col md:row justify-between items-center gap-4 shadow-sm">
           <div>
             <h1 className="text-3xl font-black">
-              {activeChild}'s Academic Insights
+              {activeChild}&apos;s Academic Insights
             </h1>
             <p className="text-slate-500 font-medium">
               Real-time performance tracking for 2026 Academic Session
@@ -204,7 +205,7 @@ export default function DetailedParentDashboard() {
             <h2 className="text-xl font-black mb-6">
               Subject Proficiency Matrix
             </h2>
-            <div className="h-[380px]">
+            <div className="h-95">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data.performance}>
                   <CartesianGrid
@@ -247,7 +248,7 @@ export default function DetailedParentDashboard() {
           {/* RADAR CHART: SKILLS */}
           <div className="lg:col-span-4 bg-white p-8 rounded-[40px] border border-slate-200/60 shadow-sm">
             <h2 className="text-xl font-black mb-6">Cognitive Mastery</h2>
-            <div className="h-[340px]">
+            <div className="h-85">
               <ResponsiveContainer width="100%" height="100%">
                 <RadarChart data={data.skills}>
                   <PolarGrid stroke="#e2e8f0" />
@@ -271,7 +272,7 @@ export default function DetailedParentDashboard() {
           {/* LINE CHART: PROGRESSION */}
           <div className="lg:col-span-7 bg-white p-8 rounded-[40px] border border-slate-200/60 shadow-sm">
             <h2 className="text-xl font-black mb-6">Monthly GPA Progression</h2>
-            <div className="h-[320px]">
+            <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={data.monthly}>
                   <CartesianGrid
@@ -312,7 +313,7 @@ export default function DetailedParentDashboard() {
           {/* PIE CHART: DISTRIBUTION (WITH CENTER TEXT) */}
           <div className="lg:col-span-5 bg-white p-8 rounded-[40px] border border-slate-200/60 shadow-sm relative">
             <h2 className="text-xl font-black mb-6">Study Time Distribution</h2>
-            <div className="h-[320px] relative">
+            <div className="h-80 relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -322,6 +323,7 @@ export default function DetailedParentDashboard() {
                     paddingAngle={8}
                     dataKey="value"
                   >
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     {data.distribution.map((_: any, i: number) => (
                       <Cell key={i} fill={COLORS[i % COLORS.length]} />
                     ))}
@@ -370,6 +372,7 @@ export default function DetailedParentDashboard() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-50">
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {data.recent.map((row: any, i: number) => (
                   <AssignmentRow key={i} {...row} />
                 ))}
@@ -384,6 +387,7 @@ export default function DetailedParentDashboard() {
 
 /* ===================== SUB COMPONENTS ===================== */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StatCard({ title, value, sub, icon }: any) {
   return (
     <div className="bg-white p-6 rounded-[32px] border border-slate-200/60 flex items-center gap-5 shadow-sm hover:shadow-md transition-shadow">
@@ -401,7 +405,9 @@ function StatCard({ title, value, sub, icon }: any) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function AssignmentRow({ subject, task, score, status }: any) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const colors: any = {
     Completed: "bg-emerald-100 text-emerald-700",
     Graded: "bg-blue-100 text-blue-700",

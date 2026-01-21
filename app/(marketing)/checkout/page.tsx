@@ -2,10 +2,12 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ShieldCheck } from "lucide-react";
+import Image from "next/image";
+
 
 export default function CheckoutPage() {
   const router = useRouter();
+
 
   const dummyCourse = {
     title: "Prompt Engineering Masterclass",
@@ -91,18 +93,24 @@ export default function CheckoutPage() {
                     Expiration Date
                   </label>
                   <div className="flex items-center gap-2 p-3.5 border border-slate-200 rounded-lg">
-                    <img
+                    <Image
+                    width={200}
+                    height={200}
                       src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
                       alt="paypal"
                       className="h-4"
                     />
                     <span className="text-sm text-slate-400 ml-auto flex gap-1">
-                      <img
+                      <Image
+                      width={200}
+                      height={200}
                         src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
                         className="h-3"
                         alt="v"
                       />
-                      <img
+                      <Image
+                      height={200}
+                      width={200}
                         src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
                         className="h-3"
                         alt="m"
@@ -149,7 +157,9 @@ export default function CheckoutPage() {
           {/* Course Card */}
           <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex gap-4 relative overflow-hidden ring-4 ring-[#ff5374]/5">
             <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
-              <img
+              <Image
+              height={200}
+              width={200}
                 src={dummyCourse.image}
                 alt="course"
                 className="w-full h-full object-cover"
@@ -196,15 +206,17 @@ export default function CheckoutPage() {
 
           {/* Testimonial Box */}
           <div className="bg-[#F8FAFC] rounded-2xl p-5 border border-slate-100 flex gap-4 items-center">
-            <img
+            <Image
+            height={200}
+            width={200}
               src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100"
               className="w-12 h-12 rounded-full object-cover grayscale"
               alt="Elena"
             />
             <div className="space-y-1">
               <p className="text-[11px] text-slate-500 italic leading-relaxed">
-                "The course content is incredibly detailed and well structured.
-                Best investment for my career."
+                &quot;The course content is incredibly detailed and well structured.
+                Best investment for my career.&quot;
               </p>
               <p className="text-[10px] font-bold text-slate-400">— Elena M.</p>
             </div>

@@ -4,8 +4,6 @@ import React, { useState, useMemo } from "react";
 import {
   AreaChart,
   Area,
-  XAxis,
-  YAxis,
   Tooltip,
   ResponsiveContainer,
   PieChart,
@@ -17,13 +15,12 @@ import {
   Calendar,
   CheckCircle,
   Star,
-  Clock,
-  ChevronRight,
   TrendingUp,
 } from "lucide-react";
 
 /* ===================== DATASETS ===================== */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const attendanceData: any = {
   Alice: {
     totalClasses: 120,
@@ -143,7 +140,7 @@ export default function AttendanceDashboard() {
               </div>
             </div>
 
-            <div className="h-[250px] -ml-5 -mr-5 -mb-2">
+            <div className="h-62.5 -ml-5 -mr-5 -mb-2">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={data.sparkline}>
                   <defs>
@@ -211,6 +208,7 @@ export default function AttendanceDashboard() {
               Course Attendance Rate
             </h3>
             <div className="space-y-6">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {data.subjectProgress.map((subject: any, i: number) => (
                 <div key={i}>
                   <div className="flex justify-between mb-2">
@@ -263,6 +261,7 @@ export default function AttendanceDashboard() {
 
 /* ===================== SUB-COMPONENTS ===================== */
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StatCard({ title, value, icon }: any) {
   return (
     <div className="bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm flex items-center gap-5 hover:shadow-md transition-shadow">
@@ -279,6 +278,7 @@ function StatCard({ title, value, icon }: any) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function LegendItem({ color, label }: any) {
   return (
     <div className="flex items-center gap-2">
@@ -290,6 +290,7 @@ function LegendItem({ color, label }: any) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     return (
