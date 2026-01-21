@@ -87,7 +87,7 @@ export default function DashboardLayout({
       {/* MOBILE OVERLAY */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-[60] lg:hidden"
+          className="fixed inset-0 bg-black/50 z-60 lg:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
@@ -95,7 +95,7 @@ export default function DashboardLayout({
       {/* SIDEBAR - STICKY */}
       <aside
         className={`
-        fixed inset-y-0 left-0 z-[70] w-64 bg-white border-r border-slate-100 flex flex-col transition-transform duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-70 w-64 bg-white border-r border-slate-100 flex flex-col transition-transform duration-300 ease-in-out
         lg:translate-x-0 lg:sticky lg:top-0 lg:h-screen lg:shrink-0
         ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
       `}
