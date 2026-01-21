@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
@@ -29,44 +29,189 @@ interface Instructor {
   lessons: number;
   hours: string;
   image: string;
+  // Added for filtering logic
+  category: string;
+  level: string;
+  hourlyRate: number; 
 }
 
-const instructors: Instructor[] = [
-  { id: 1, name: "Rolands Granger", role: "Developer", rating: 4.9, reviews: 200, lessons: 12, hours: "169hr 20min", image: "/instructor1.webp" },
-  { id: 2, name: "Lisa Lopez", role: "Finance", rating: 4.4, reviews: 130, lessons: 22, hours: "15hr 06min", image: "/instructor2.webp" },
-  { id: 3, name: "Charles Ruiz", role: "Cloud Engineer", rating: 4.5, reviews: 120, lessons: 16, hours: "2hr 25min", image: "/instructor3.webp" },
-  { id: 4, name: "Rogerina Grogan", role: "Vocational", rating: 4.6, reviews: 180, lessons: 6, hours: "19hr 30min", image: "/instructor4.webp" },
-  { id: 5, name: "Ivana Tow", role: "Corporate Trainer", rating: 4.2, reviews: 210, lessons: 25, hours: "4hr 20min", image: "/instructor5.webp" },
-  { id: 6, name: "Kevin Leonard", role: "Developer", rating: 4.5, reviews: 140, lessons: 11, hours: "7hr 10min", image: "/instructor6.webp" },
+const instructorsData: Instructor[] = [
+  { 
+    id: 1, 
+    name: "Rolands Granger", 
+    role: "Developer", 
+    rating: 4.9, 
+    reviews: 200, 
+    lessons: 12, 
+    hours: "169hr 20min", 
+    image: "/instructor1.webp",
+    category: "Backend",
+    level: "Expert",
+    hourlyRate: 50 
+  },
+  { 
+    id: 2, 
+    name: "Lisa Lopez", 
+    role: "Finance", 
+    rating: 4.4, 
+    reviews: 130, 
+    lessons: 22, 
+    hours: "15hr 06min", 
+    image: "/instructor2.webp",
+    category: "General",
+    level: "Intermediate",
+    hourlyRate: 30
+  },
+  { 
+    id: 3, 
+    name: "Charles Ruiz", 
+    role: "Cloud Engineer", 
+    rating: 4.5, 
+    reviews: 120, 
+    lessons: 16, 
+    hours: "2hr 25min", 
+    image: "/instructor3.webp",
+    category: "IT & Software",
+    level: "Advanced",
+    hourlyRate: 75
+  },
+  { 
+    id: 4, 
+    name: "Rogerina Grogan", 
+    role: "Vocational", 
+    rating: 4.6, 
+    reviews: 180, 
+    lessons: 6, 
+    hours: "19hr 30min", 
+    image: "/instructor4.webp",
+    category: "General",
+    level: "Beginner",
+    hourlyRate: 20
+  },
+  { 
+    id: 5, 
+    name: "Ivana Tow", 
+    role: "Corporate Trainer", 
+    rating: 4.2, 
+    reviews: 210, 
+    lessons: 25, 
+    hours: "4hr 20min", 
+    image: "/instructor5.webp",
+    category: "IT & Software",
+    level: "Expert",
+    hourlyRate: 100
+  },
+  { 
+    id: 6, 
+    name: "Kevin Leonard", 
+    role: "Developer", 
+    rating: 4.5, 
+    reviews: 140, 
+    lessons: 11, 
+    hours: "7hr 10min", 
+    image: "/instructor6.webp",
+    category: "Frontend",
+    level: "Intermediate",
+    hourlyRate: 45
+  },
 ];
 
 /* ---------------- PAGE COMPONENT ---------------- */
 
 export default function InstructorGridPage() {
+  // 1. FILTER STATES
+  const [selectedCats, setSelectedCats] = useState<string[]>([]);
+  const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<number>(150); // Default max covers most
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortOption, setSortOption] = useState("Best Rated");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  // 2. FILTER LOGIC
+  const filteredInstructors = useMemo(() => {
+    return instructorsData.filter((ins) => {
+      // Category Filter
+      if (selectedCats.length > 0 && !selectedCats.includes(ins.category)) {
+        return false;
+      }
+      // Level Filter
+      if (selectedLevels.length > 0 && !selectedLevels.includes(ins.level)) {
+        return false;
+      }
+      // Price/Hourly Rate Filter
+      if (ins.hourlyRate > priceRange) {
+        return false;
+      }
+      // Search Query
+      if (searchQuery && !ins.name.toLowerCase().includes(searchQuery.toLowerCase()) && !ins.role.toLowerCase().includes(searchQuery.toLowerCase())) {
+        return false;
+      }
+      return true;
+    }).sort((a, b) => {
+      if (sortOption === "Best Rated") return b.rating - a.rating;
+      if (sortOption === "Most Reviews") return b.reviews - a.reviews;
+      return 0;
+    });
+  }, [selectedCats, selectedLevels, priceRange, searchQuery, sortOption]);
+
+  // Handlers
+  const toggleCategory = (cat: string) => {
+    setSelectedCats((prev) =>
+      prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat]
+    );
+  };
+
+  const toggleLevel = (lvl: string) => {
+    setSelectedLevels((prev) =>
+      prev.includes(lvl) ? prev.filter((l) => l !== lvl) : [...prev, lvl]
+    );
+  };
+
+  // Helper Lists
+  const allCategories = ["Backend", "CSS", "Frontend", "General", "IT & Software"];
+  const allLevels = ["Beginner", "Intermediate", "Advanced", "Expert"];
 
   const SidebarContent = () => (
     <div className="flex flex-col gap-6">
       <FilterBox title="Categories">
-        {["Backend", "CSS", "Frontend", "General", "IT & Software"].map((item) => (
-          <FilterCheckbox key={item} label={item} count={Math.floor(Math.random() * 5) + 1} />
+        {allCategories.map((item) => (
+          <FilterCheckbox 
+            key={item} 
+            label={item} 
+            count={instructorsData.filter(i => i.category === item).length}
+            checked={selectedCats.includes(item)}
+            onChange={() => toggleCategory(item)}
+          />
         ))}
-        <button className="text-[#FF5364] text-sm font-semibold mt-2 text-left">See More</button>
+        <button className="text-[#FF5364] text-sm font-semibold mt-2 text-left hover:underline">See More</button>
       </FilterBox>
 
-      <FilterBox title="Price Range">
+      <FilterBox title="Hourly Rate">
         <div className="py-2">
-          <input type="range" className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]" />
+          <input 
+            type="range" 
+            min={0} 
+            max={200} 
+            value={priceRange}
+            onChange={(e) => setPriceRange(Number(e.target.value))}
+            className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]" 
+          />
           <div className="flex justify-between mt-2 text-xs text-gray-500">
             <span>$0</span>
-            <span>$2985.0</span>
+            <span>Max: ${priceRange}/hr</span>
           </div>
         </div>
       </FilterBox>
 
       <FilterBox title="Level">
-        {["Beginner", "Intermediate", "Advanced", "Expert"].map((item) => (
-          <FilterCheckbox key={item} label={item} count={Math.floor(Math.random() * 20)} />
+        {allLevels.map((item) => (
+          <FilterCheckbox 
+            key={item} 
+            label={item} 
+            count={instructorsData.filter(i => i.level === item).length} 
+            checked={selectedLevels.includes(item)}
+            onChange={() => toggleLevel(item)}
+          />
         ))}
       </FilterBox>
     </div>
@@ -85,14 +230,14 @@ export default function InstructorGridPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-6 mt-8 md:-mt-12">
-        {/* 2. FILTER TOP BAR (Courses Style) */}
+        {/* 2. FILTER TOP BAR */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
           <div className="flex items-center justify-between w-full md:w-auto gap-4">
             <div className="flex items-center gap-2 text-[#6E7485] font-medium">
               <span className="bg-[#FF5B5C] text-white p-2 rounded-md hidden md:block shadow-lg shadow-rose-100">
                 <LayoutGrid size={18} />
               </span>
-              <span className="text-sm md:text-base">Showing 1-6 results</span>
+              <span className="text-sm md:text-base">Showing {filteredInstructors.length} results</span>
             </div>
 
             {/* MOBILE FILTER TOGGLE */}
@@ -106,14 +251,24 @@ export default function InstructorGridPage() {
 
           <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
             <div className="relative w-full sm:w-auto">
-              <select className="w-full appearance-none bg-white border border-gray-200 px-4 py-2.5 pr-10 rounded-lg text-sm text-[#1D2026] outline-none shadow-sm">
-                <option>Newly Published</option>
+              <select 
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+                className="w-full appearance-none bg-white border border-gray-200 px-4 py-2.5 pr-10 rounded-lg text-sm text-[#1D2026] outline-none shadow-sm cursor-pointer"
+              >
                 <option>Best Rated</option>
+                <option>Most Reviews</option>
               </select>
               <ChevronDown className="absolute right-3 top-3.5 text-gray-400 pointer-events-none" size={14} />
             </div>
             <div className="relative w-full sm:w-auto">
-              <input type="text" placeholder="Search instructors..." className="w-full md:w-64 border border-gray-200 px-4 py-2.5 rounded-lg text-sm outline-none shadow-sm focus:border-[#FF5B5C] transition-all" />
+              <input 
+                type="text" 
+                placeholder="Search instructors..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full md:w-64 border border-gray-200 px-4 py-2.5 rounded-lg text-sm outline-none shadow-sm focus:border-[#FF5B5C] transition-all" 
+              />
               <Search className="absolute right-3 top-3 text-gray-400" size={16} />
             </div>
           </div>
@@ -121,14 +276,14 @@ export default function InstructorGridPage() {
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* 3. DESKTOP SIDEBAR */}
-          <aside className="hidden lg:block w-[300px] shrink-0">
+          <aside className="hidden lg:block w-75 shrink-0">
             <SidebarContent />
           </aside>
 
           {/* 4. MOBILE DRAWER FILTER */}
           <AnimatePresence>
             {isFilterOpen && (
-              <div className="fixed inset-0 z-[200] lg:hidden">
+              <div className="fixed inset-0 z-200 lg:hidden">
                 <motion.div 
                   initial={{ opacity: 0 }} 
                   animate={{ opacity: 1 }} 
@@ -163,26 +318,49 @@ export default function InstructorGridPage() {
 
           {/* 5. INSTRUCTOR GRID */}
           <main className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {instructors.map((ins) => (
-                <InstructorCard key={ins.id} instructor={ins} />
-              ))}
-            </div>
+            {filteredInstructors.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filteredInstructors.map((ins) => (
+                  <InstructorCard key={ins.id} instructor={ins} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-20 flex flex-col items-center">
+                <div className="bg-gray-50 p-6 rounded-full mb-4">
+                   <Search className="text-gray-300" size={48} />
+                </div>
+                <h3 className="text-xl font-bold text-gray-800">No instructors found</h3>
+                <p className="text-gray-500 mt-2">Try adjusting your filters or search terms.</p>
+                <button 
+                   onClick={() => {
+                     setSelectedCats([]);
+                     setSelectedLevels([]);
+                     setPriceRange(200);
+                     setSearchQuery("");
+                   }}
+                   className="mt-6 text-[#FF5B5C] font-bold hover:underline"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            )}
 
             {/* Pagination */}
-            <div className="mt-16 flex justify-center items-center gap-3">
-              <PaginationButton icon={<ChevronLeft size={18} />} />
-              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FF5B5C] text-white font-bold shadow-lg shadow-rose-100">
-                1
-              </button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100 border border-slate-100 transition-all">
-                2
-              </button>
-              <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100 border border-slate-100 transition-all">
-                3
-              </button>
-              <PaginationButton icon={<ChevronRight size={18} />} />
-            </div>
+            {filteredInstructors.length > 0 && (
+                <div className="mt-16 flex justify-center items-center gap-3">
+                <PaginationButton icon={<ChevronLeft size={18} />} />
+                <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FF5B5C] text-white font-bold shadow-lg shadow-rose-100">
+                    1
+                </button>
+                <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100 border border-slate-100 transition-all">
+                    2
+                </button>
+                <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white text-gray-400 font-bold hover:bg-gray-100 border border-slate-100 transition-all">
+                    3
+                </button>
+                <PaginationButton icon={<ChevronRight size={18} />} />
+                </div>
+            )}
           </main>
         </div>
       </div>
@@ -208,12 +386,14 @@ function FilterBox({ title, children }: { title: string; children: React.ReactNo
   );
 }
 
-function FilterCheckbox({ label, count = 0 }: { label: string; count?: number }) {
-  const [checked, setChecked] = useState(false);
+function FilterCheckbox({ label, count = 0, checked = false, onChange }: { label: string; count?: number, checked?: boolean, onChange?: () => void }) {
   return (
     <label 
       className="flex items-center justify-between group cursor-pointer"
-      onClick={() => setChecked(!checked)}
+      onClick={(e) => {
+        e.preventDefault();
+        if(onChange) onChange();
+      }}
     >
       <div className="flex items-center gap-3">
         <div className={`w-5 h-5 rounded border transition-all flex items-center justify-center ${checked ? "bg-[#FF5B5C] border-[#FF5B5C]" : "border-gray-300 group-hover:border-[#FF5B5C]"}`}>
@@ -236,8 +416,8 @@ function InstructorCard({ instructor }: { instructor: Instructor }) {
     >
       <div className="relative h-56 overflow-hidden shrink-0">
         <Image
-        height={200}
-        width={200}
+          height={200}
+          width={200}
           src={instructor.image}
           alt={instructor.name}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
