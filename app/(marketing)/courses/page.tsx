@@ -15,6 +15,7 @@ import {
 import Image from "next/image";
 
 // --- DATA ---
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const courses: any[] = [
   {
     id: 1,
@@ -87,7 +88,7 @@ export const courses: any[] = [
     description: "Overcome stage fright effectively.",
     instructor: "Dale Carnegie",
     price: 45.0,
-    category: "Material Design", // Kept purely for data consistency with your snippet
+    category: "Material Design", 
     level: "Intermediate",
     status: "Special",
     rating: 4.6,
@@ -141,7 +142,7 @@ export default function CourseCatalog() {
   const [selectedCats, setSelectedCats] = useState<string[]>([]);
   const [selectedInstructors, setSelectedInstructors] = useState<string[]>([]);
   const [selectedPriceType, setSelectedPriceType] = useState<"All" | "Free" | "Paid">("All");
-  const [priceRange, setPriceRange] = useState<number>(100); // Default covers all
+  const [priceRange, setPriceRange] = useState<number>(100); 
   const [searchQuery, setSearchQuery] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
@@ -187,86 +188,10 @@ export default function CourseCatalog() {
     );
   };
 
-  // Dynamic Lists derived from Data (so filters actually work)
-  const uniqueCategories = Array.from(new Set(courses.map(c => c.category)));
-  const uniqueInstructors = Array.from(new Set(courses.map(c => c.instructor)));
-
-  // --- SIDEBAR UI ---
-  const SidebarContent = () => (
-    <div className="flex flex-col gap-6">
-      {/* Category Filter */}
-      <FilterBox title="Categories">
-        {uniqueCategories.map((cat, index) => (
-          <FilterCheckbox
-            key={`${cat}-${index}`}
-            label={cat}
-            checked={selectedCats.includes(cat)}
-            // Count logic: how many in total data match this category
-            count={courses.filter(c => c.category === cat).length}
-            onChange={() => toggleCategory(cat)}
-          />
-        ))}
-      </FilterBox>
-
-      {/* Instructor Filter */}
-      <FilterBox title="Instructors">
-        {uniqueInstructors.map((ins) => (
-          <FilterCheckbox
-            key={ins}
-            label={ins}
-            checked={selectedInstructors.includes(ins)}
-            count={courses.filter(c => c.instructor === ins).length}
-            onChange={() => toggleInstructor(ins)}
-          />
-        ))}
-      </FilterBox>
-
-      {/* Price Type Filter */}
-      <FilterBox title="Price">
-        <div className="space-y-3">
-          <FilterCheckbox
-            label="All"
-            count={courses.length}
-            checked={selectedPriceType === "All"}
-            onChange={() => setSelectedPriceType("All")}
-          />
-          <FilterCheckbox
-            label="Free"
-            count={courses.filter((c) => c.price === 0).length}
-            checked={selectedPriceType === "Free"}
-            onChange={() => setSelectedPriceType("Free")}
-          />
-          <FilterCheckbox
-            label="Paid"
-            count={courses.filter((c) => c.price > 0).length}
-            checked={selectedPriceType === "Paid"}
-            onChange={() => setSelectedPriceType("Paid")}
-          />
-        </div>
-      </FilterBox>
-
-      {/* Range Filter */}
-      <FilterBox title="Range">
-        <input
-          type="range"
-          min={0}
-          max={100}
-          value={priceRange}
-          onChange={(e) => setPriceRange(Number(e.target.value))}
-          className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]"
-        />
-        <div className="flex justify-between mt-2 text-xs text-gray-500">
-          <span>$0</span>
-          <span>Current Max: ${priceRange}</span>
-        </div>
-      </FilterBox>
-    </div>
-  );
-
   return (
     <div className="min-h-screen bg-[#FDFCFD] pb-20">
       {/* 1. TOP BREADCRUMB */}
-      <div className="w-full bg-gradient-to-r from-pink-50 to-blue-50 py-10 md:py-16 text-center px-4">
+      <div className="w-full bg-linear-to-r from-pink-50 to-blue-50 py-10 md:py-16 text-center px-4">
         <h1 className="text-2xl md:text-3xl font-bold text-[#1D2026] mb-2">
           Course Grid
         </h1>
@@ -279,7 +204,7 @@ export default function CourseCatalog() {
         </div>
       </div>
 
-      <div className="max-w-[1440px] mx-auto px-4 md:px-6 mt-8 md:-mt-12">
+      <div className="max-w-360 mx-auto px-4 md:px-6 mt-8 md:-mt-12">
         {/* 2. FILTER TOP BAR */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
           <div className="flex items-center justify-between w-full md:w-auto gap-4">
@@ -332,12 +257,21 @@ export default function CourseCatalog() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* 3. DESKTOP SIDEBAR (Hidden on mobile) */}
           <aside className="hidden lg:block w-75 shrink-0">
-            <SidebarContent />
+            <SidebarFilters 
+                selectedCats={selectedCats}
+                toggleCategory={toggleCategory}
+                selectedInstructors={selectedInstructors}
+                toggleInstructor={toggleInstructor}
+                selectedPriceType={selectedPriceType}
+                setSelectedPriceType={setSelectedPriceType}
+                priceRange={priceRange}
+                setPriceRange={setPriceRange}
+            />
           </aside>
 
           {/* 4. MOBILE DRAWER FILTER */}
           {isFilterOpen && (
-            <div className="fixed inset-0 z-[200] lg:hidden">
+            <div className="fixed inset-0 z-200 lg:hidden">
               <div
                 className="absolute inset-0 bg-black/50 backdrop-blur-sm"
                 onClick={() => setIsFilterOpen(false)}
@@ -352,7 +286,18 @@ export default function CourseCatalog() {
                     <X size={20} />
                   </button>
                 </div>
-                <SidebarContent />
+                
+                <SidebarFilters 
+                    selectedCats={selectedCats}
+                    toggleCategory={toggleCategory}
+                    selectedInstructors={selectedInstructors}
+                    toggleInstructor={toggleInstructor}
+                    selectedPriceType={selectedPriceType}
+                    setSelectedPriceType={setSelectedPriceType}
+                    priceRange={priceRange}
+                    setPriceRange={setPriceRange}
+                />
+
                 <button
                   onClick={() => setIsFilterOpen(false)}
                   className="w-full bg-[#FF5B5C] text-white py-4 rounded-xl font-bold mt-8"
@@ -365,99 +310,92 @@ export default function CourseCatalog() {
 
           {/* 5. COURSE GRID */}
           <main className="flex-1">
-            {filteredCourses.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredCourses.map((course) => (
-                  <div
-                    key={course.id}
-                    className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group"
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+              {filteredCourses.map((course) => (
+                <div
+                  key={course.id}
+                  className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 group"
+                >
+                  <Link
+                    href={`/courses/${course.id}`}
+                    className="relative h-52 block overflow-hidden"
                   >
-                    <Link
-                      href={`/courses/${course.id}`}
-                      className="relative h-52 block overflow-hidden"
+                    <Image
+                      height={200}
+                      width={200}
+                      src={course.image}
+                      alt={course.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <button
+                      className="absolute top-3 left-3 bg-white/90 p-2 rounded-full text-gray-600 hover:text-red-500 shadow-sm"
+                      onClick={(e) => e.preventDefault()}
                     >
-                      <Image
-                        height={200}
-                        width={200}
-                        src={course.image}
-                        alt={course.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <button
-                        className="absolute top-3 left-3 bg-white/90 p-2 rounded-full text-gray-600 hover:text-red-500 shadow-sm"
-                        onClick={(e) => e.preventDefault()}
-                      >
-                        <Heart size={18} />
-                      </button>
+                      <Heart size={18} />
+                    </button>
+                  </Link>
+
+                  <div className="p-5">
+                    <div className="flex justify-between items-center mb-3">
+                      <div className="flex items-center gap-2">
+                        <Image
+                          height={200}
+                          width={200}
+                          src={`https://i.pravatar.cc/150?u=${course.id}`}
+                          className="w-8 h-8 rounded-full"
+                          alt="ins"
+                          unoptimized
+                        />
+                        <span className="text-xs text-gray-500 font-medium">
+                          {course.instructor}
+                        </span>
+                      </div>
+                      <span className="bg-gray-50 text-gray-500 text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-wider">
+                        {course.category}
+                      </span>
+                    </div>
+
+                    <Link href={`/courses/${course.id}`}>
+                      <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-11">
+                        {course.title}
+                      </h3>
                     </Link>
 
-                    <div className="p-5">
-                      <div className="flex justify-between items-center mb-3">
-                        <div className="flex items-center gap-2">
-                          <Image
-                            height={200}
-                            width={200}
-                            src={`https://i.pravatar.cc/150?u=${course.id}`}
-                            className="w-8 h-8 rounded-full"
-                            alt="ins"
-                            unoptimized
+                    <div className="flex items-center gap-1 mb-4">
+                      <div className="flex items-center gap-0.5">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            size={14}
+                            fill={i < Math.floor(course.rating) ? "#FFB133" : "none"}
+                            stroke={i < Math.floor(course.rating) ? "#FFB133" : "#D1D5DB"}
                           />
-                          <span className="text-xs text-gray-500 font-medium">
-                            {course.instructor}
-                          </span>
-                        </div>
-                        <span className="bg-gray-50 text-gray-500 text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-wider">
-                          {course.category}
-                        </span>
+                        ))}
                       </div>
+                      <span className="text-sm font-bold text-[#1D2026] ml-1">
+                        {course.rating}
+                      </span>
+                      <span className="text-xs text-gray-400">
+                        ({course.reviews})
+                      </span>
+                    </div>
 
+                    <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+                      <span className="text-xl font-bold text-[#FF5B5C]">
+                        {course.price === 0 ? "Free" : `$${course.price}`}
+                      </span>
                       <Link href={`/courses/${course.id}`}>
-                        <h3 className="text-[16px] font-bold text-[#1D2026] leading-snug mb-3 group-hover:text-[#FF5B5C] transition-colors line-clamp-2 min-h-11">
-                          {course.title}
-                        </h3>
+                        <button className="flex items-center gap-1 bg-[#1D2026] text-white text-[11px] font-bold px-4 py-2 rounded-full hover:bg-[#FF5B5C] transition-all">
+                          View Course <ChevronRight size={14} />
+                        </button>
                       </Link>
-
-                      <div className="flex items-center gap-1 mb-4">
-                        <div className="flex items-center gap-0.5">
-                          {[...Array(5)].map((_, i) => (
-                            <Star
-                              key={i}
-                              size={14}
-                              fill={i < Math.floor(course.rating) ? "#FFB133" : "none"}
-                              stroke={i < Math.floor(course.rating) ? "#FFB133" : "#D1D5DB"}
-                            />
-                          ))}
-                        </div>
-                        <span className="text-sm font-bold text-[#1D2026] ml-1">
-                          {course.rating}
-                        </span>
-                        <span className="text-xs text-gray-400">
-                          ({course.reviews})
-                        </span>
-                      </div>
-
-                      <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
-                        <span className="text-xl font-bold text-[#FF5B5C]">
-                          {course.price === 0 ? "Free" : `$${course.price}`}
-                        </span>
-                        <Link href={`/courses/${course.id}`}>
-                          <button className="flex items-center gap-1 bg-[#1D2026] text-white text-[11px] font-bold px-4 py-2 rounded-full hover:bg-[#FF5B5C] transition-all">
-                            View Course <ChevronRight size={14} />
-                          </button>
-                        </Link>
-                      </div>
                     </div>
                   </div>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-20">
-                <h3 className="text-xl font-bold text-gray-800">No courses found</h3>
-                <p className="text-gray-500">Try adjusting your filters.</p>
-              </div>
-            )}
+                </div>
+              ))}
+            </div>
 
-            {/* Pagination UI - Kept visual */}
+            {/* Pagination */}
             <div className="flex justify-center mt-12 gap-2">
               <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FF5B5C] text-white font-bold">
                 1
@@ -476,7 +414,105 @@ export default function CourseCatalog() {
   );
 }
 
-// Sidebar Helper Components //
+// --- HELPER COMPONENTS ---
+
+// Extracted to prevent re-renders
+function SidebarFilters({
+    selectedCats,
+    toggleCategory,
+    selectedInstructors,
+    toggleInstructor,
+    selectedPriceType,
+    setSelectedPriceType,
+    priceRange,
+    setPriceRange
+}: {
+    selectedCats: string[];
+    toggleCategory: (cat: string) => void;
+    selectedInstructors: string[];
+    toggleInstructor: (ins: string) => void;
+    selectedPriceType: "All" | "Free" | "Paid";
+    setSelectedPriceType: (type: "All" | "Free" | "Paid") => void;
+    priceRange: number;
+    setPriceRange: (val: number) => void;
+}) {
+    // Dynamic Lists derived from Data 
+    const uniqueCategories = Array.from(new Set(courses.map(c => c.category)));
+    const uniqueInstructors = Array.from(new Set(courses.map(c => c.instructor)));
+
+    return (
+        <div className="flex flex-col gap-6">
+        {/* Category Filter */}
+        <FilterBox title="Categories">
+        {uniqueCategories.map((cat, index) => (
+            <FilterCheckbox
+            key={`${cat}-${index}`}
+            label={cat}
+            checked={selectedCats.includes(cat)}
+            // Count logic: how many in total data match this category
+            count={courses.filter(c => c.category === cat).length}
+            onChange={() => toggleCategory(cat)}
+            />
+        ))}
+        </FilterBox>
+
+        {/* Instructor Filter */}
+        <FilterBox title="Instructors">
+        {uniqueInstructors.map((ins) => (
+            <FilterCheckbox
+            key={ins}
+            label={ins}
+            checked={selectedInstructors.includes(ins)}
+            count={courses.filter(c => c.instructor === ins).length}
+            onChange={() => toggleInstructor(ins)}
+            />
+        ))}
+        </FilterBox>
+
+        {/* Price Type Filter */}
+        <FilterBox title="Price">
+        <div className="space-y-3">
+            <FilterCheckbox
+            label="All"
+            count={courses.length}
+            checked={selectedPriceType === "All"}
+            onChange={() => setSelectedPriceType("All")}
+            />
+            <FilterCheckbox
+            label="Free"
+            count={courses.filter((c) => c.price === 0).length}
+            checked={selectedPriceType === "Free"}
+            onChange={() => setSelectedPriceType("Free")}
+            />
+            <FilterCheckbox
+            label="Paid"
+            count={courses.filter((c) => c.price > 0).length}
+            checked={selectedPriceType === "Paid"}
+            onChange={() => setSelectedPriceType("Paid")}
+            />
+        </div>
+        </FilterBox>
+
+        {/* Range Filter */}
+        <FilterBox title="Range">
+        <input
+            type="range"
+            min={0}
+            max={100}
+            value={priceRange}
+            onChange={(e) => setPriceRange(Number(e.target.value))}
+            className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]"
+        />
+        <div className="flex justify-between mt-2 text-xs text-gray-500">
+            <span>$0</span>
+            <span>Current Max: ${priceRange}</span>
+        </div>
+        </FilterBox>
+    </div>
+    )
+}
+
+
 function FilterBox({
   title,
   children,
@@ -508,7 +544,7 @@ function FilterCheckbox({
   label,
   checked = false,
   count = 0,
-  onChange, // Added onChange prop
+  onChange,
 }: {
   label: string;
   checked?: boolean;
@@ -516,11 +552,14 @@ function FilterCheckbox({
   onChange?: () => void;
 }) {
   return (
-    <label className="flex items-center justify-between group cursor-pointer" onClick={(e) => {
+    <label
+      className="flex items-center justify-between group cursor-pointer"
+      onClick={(e) => {
         // Prevent default label behavior to ensure custom click handling works cleanly
         e.preventDefault();
-        if(onChange) onChange();
-    }}>
+        if (onChange) onChange();
+      }}
+    >
       <div className="flex items-center gap-3">
         <div
           className={`w-5 h-5 rounded border transition-all flex items-center justify-center ${

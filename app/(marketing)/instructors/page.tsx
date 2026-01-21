@@ -29,7 +29,6 @@ interface Instructor {
   lessons: number;
   hours: string;
   image: string;
-  // Added for filtering logic
   category: string;
   level: string;
   hourlyRate: number; 
@@ -122,7 +121,7 @@ export default function InstructorGridPage() {
   // 1. FILTER STATES
   const [selectedCats, setSelectedCats] = useState<string[]>([]);
   const [selectedLevels, setSelectedLevels] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState<number>(150); // Default max covers most
+  const [priceRange, setPriceRange] = useState<number>(150); 
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("Best Rated");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -166,56 +165,6 @@ export default function InstructorGridPage() {
       prev.includes(lvl) ? prev.filter((l) => l !== lvl) : [...prev, lvl]
     );
   };
-
-  // Helper Lists
-  const allCategories = ["Backend", "CSS", "Frontend", "General", "IT & Software"];
-  const allLevels = ["Beginner", "Intermediate", "Advanced", "Expert"];
-
-  const SidebarContent = () => (
-    <div className="flex flex-col gap-6">
-      <FilterBox title="Categories">
-        {allCategories.map((item) => (
-          <FilterCheckbox 
-            key={item} 
-            label={item} 
-            count={instructorsData.filter(i => i.category === item).length}
-            checked={selectedCats.includes(item)}
-            onChange={() => toggleCategory(item)}
-          />
-        ))}
-        <button className="text-[#FF5364] text-sm font-semibold mt-2 text-left hover:underline">See More</button>
-      </FilterBox>
-
-      <FilterBox title="Hourly Rate">
-        <div className="py-2">
-          <input 
-            type="range" 
-            min={0} 
-            max={200} 
-            value={priceRange}
-            onChange={(e) => setPriceRange(Number(e.target.value))}
-            className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]" 
-          />
-          <div className="flex justify-between mt-2 text-xs text-gray-500">
-            <span>$0</span>
-            <span>Max: ${priceRange}/hr</span>
-          </div>
-        </div>
-      </FilterBox>
-
-      <FilterBox title="Level">
-        {allLevels.map((item) => (
-          <FilterCheckbox 
-            key={item} 
-            label={item} 
-            count={instructorsData.filter(i => i.level === item).length} 
-            checked={selectedLevels.includes(item)}
-            onChange={() => toggleLevel(item)}
-          />
-        ))}
-      </FilterBox>
-    </div>
-  );
 
   return (
     <div className="min-h-screen bg-[#FDFCFD] pb-20 font-sans">
@@ -277,7 +226,14 @@ export default function InstructorGridPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* 3. DESKTOP SIDEBAR */}
           <aside className="hidden lg:block w-75 shrink-0">
-            <SidebarContent />
+            <SidebarFilters 
+               selectedCats={selectedCats}
+               toggleCategory={toggleCategory}
+               priceRange={priceRange}
+               setPriceRange={setPriceRange}
+               selectedLevels={selectedLevels}
+               toggleLevel={toggleLevel}
+            />
           </aside>
 
           {/* 4. MOBILE DRAWER FILTER */}
@@ -304,7 +260,16 @@ export default function InstructorGridPage() {
                       <X size={20}/>
                     </button>
                   </div>
-                  <SidebarContent />
+                  
+                  <SidebarFilters 
+                     selectedCats={selectedCats}
+                     toggleCategory={toggleCategory}
+                     priceRange={priceRange}
+                     setPriceRange={setPriceRange}
+                     selectedLevels={selectedLevels}
+                     toggleLevel={toggleLevel}
+                  />
+
                   <button 
                     onClick={() => setIsFilterOpen(false)}
                     className="w-full bg-[#FF5B5C] text-white py-4 rounded-xl font-black uppercase tracking-widest text-xs mt-8 shadow-lg shadow-rose-200 active:scale-95 transition-all"
@@ -369,6 +334,72 @@ export default function InstructorGridPage() {
 }
 
 /* ---------------- UI COMPONENTS ---------------- */
+
+// Extracted Component to prevent re-render focus loss
+function SidebarFilters({
+    selectedCats,
+    toggleCategory,
+    priceRange,
+    setPriceRange,
+    selectedLevels,
+    toggleLevel
+}: {
+    selectedCats: string[];
+    toggleCategory: (c: string) => void;
+    priceRange: number;
+    setPriceRange: (n: number) => void;
+    selectedLevels: string[];
+    toggleLevel: (l: string) => void;
+}) {
+    const allCategories = ["Backend", "CSS", "Frontend", "General", "IT & Software"];
+    const allLevels = ["Beginner", "Intermediate", "Advanced", "Expert"];
+
+    return (
+        <div className="flex flex-col gap-6">
+        <FilterBox title="Categories">
+            {allCategories.map((item) => (
+            <FilterCheckbox 
+                key={item} 
+                label={item} 
+                count={instructorsData.filter(i => i.category === item).length}
+                checked={selectedCats.includes(item)}
+                onChange={() => toggleCategory(item)}
+            />
+            ))}
+            <button className="text-[#FF5364] text-sm font-semibold mt-2 text-left hover:underline">See More</button>
+        </FilterBox>
+
+        <FilterBox title="Hourly Rate">
+            <div className="py-2">
+            <input 
+                type="range" 
+                min={0} 
+                max={200} 
+                value={priceRange}
+                onChange={(e) => setPriceRange(Number(e.target.value))}
+                className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#FF5B5C]" 
+            />
+            <div className="flex justify-between mt-2 text-xs text-gray-500">
+                <span>$0</span>
+                <span>Max: ${priceRange}/hr</span>
+            </div>
+            </div>
+        </FilterBox>
+
+        <FilterBox title="Level">
+            {allLevels.map((item) => (
+            <FilterCheckbox 
+                key={item} 
+                label={item} 
+                count={instructorsData.filter(i => i.level === item).length} 
+                checked={selectedLevels.includes(item)}
+                onChange={() => toggleLevel(item)}
+            />
+            ))}
+        </FilterBox>
+        </div>
+    );
+}
 
 function FilterBox({ title, children }: { title: string; children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(true);

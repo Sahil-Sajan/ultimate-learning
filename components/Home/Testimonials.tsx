@@ -8,10 +8,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 // Swiper Styles
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import "swiper/css";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import "swiper/css/navigation";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import "swiper/css/pagination";
-
 interface TestimonialData {
   id: number;
   name: string;
@@ -135,7 +140,7 @@ const Testimonial: React.FC = () => {
           >
             {Feedback.map((item) => (
               <SwiperSlide key={item.id} className="h-auto">
-                <div className="bg-white rounded-3xl p-8 pt-24 shadow-[0_15px_40px_rgba(0,0,0,0.04)] border border-gray-100 text-center relative flex flex-col h-full min-h-[350px] transition-transform duration-300 hover:-translate-y-2 mx-1 my-1">
+                <div className="bg-white rounded-3xl p-8 pt-24 shadow-[0_15px_40px_rgba(0,0,0,0.04)] border border-gray-100 text-center relative flex flex-col h-full min-h-87.5 transition-transform duration-300 hover:-translate-y-2 mx-1 my-1">
                   
                   {/* Floating Avatar Container - LOWERED POSITION */}
                   {/* Changed -top-12 to -top-6 to bring it downward */}

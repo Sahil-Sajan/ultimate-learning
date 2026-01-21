@@ -11,7 +11,7 @@ import {
   Plus,
   Search,
   Filter,
-  Layers,
+  
   CheckCircle2,
   Calendar,
 } from "lucide-react";
@@ -42,6 +42,7 @@ interface CourseCardProps {
   totalModules: number;
   isNew?: boolean;
   status: "Teaching" | "Upcoming";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   image: any; // Changed to any to accept Next.js StaticImageData object
 }
 
