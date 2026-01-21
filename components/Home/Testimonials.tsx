@@ -58,6 +58,24 @@ const Feedback: TestimonialData[] = [
       "Great insights and a very professional approach to teaching technical skills in modern tech.",
     rating: 5,
   },
+  {
+    id: 5,
+    name: "John Doe",
+    role: "Engineer",
+    image: "/cs-4.webp",
+    content:
+      "Great insights and a very professional approach to teaching technical skills in modern tech.",
+    rating: 5,
+  },
+  {
+    id: 6,
+    name: "John Doe",
+    role: "Engineer",
+    image: "/cs-4.webp",
+    content:
+      "Great insights and a very professional approach to teaching technical skills in modern tech.",
+    rating: 5,
+  },
 ];
 
 const Testimonial: React.FC = () => {
@@ -102,7 +120,7 @@ const Testimonial: React.FC = () => {
               prevEl: ".testimonial-prev",
               nextEl: ".testimonial-next",
             }}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
             breakpoints={{
               768: {
                 slidesPerView: 2,
@@ -118,7 +136,6 @@ const Testimonial: React.FC = () => {
             {Feedback.map((item) => (
               <SwiperSlide key={item.id} className="h-auto">
                 <div className="bg-white rounded-3xl p-8 pt-24 shadow-[0_15px_40px_rgba(0,0,0,0.04)] border border-gray-100 text-center relative flex flex-col h-full min-h-[350px] transition-transform duration-300 hover:-translate-y-2 mx-1 my-1">
-                  
                   {/* Floating Avatar Container - LOWERED POSITION */}
                   {/* Changed -top-12 to -top-6 to bring it downward */}
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-24">

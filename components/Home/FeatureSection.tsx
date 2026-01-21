@@ -2,11 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-
-interface Category {
-  title: string;
-  imageSrc: string;
-}
+import Link from "next/link";
 
 interface Category {
   title: string;
@@ -77,9 +73,11 @@ const CourseCategories = () => {
 
         {/* Bottom Button */}
         <div className="mt-16">
-          <button className="bg-[#392C7D] text-white px-10 py-4 rounded-full font-semibold text-[15px] hover:bg-[#2D2264] transition-all shadow-lg hover:shadow-purple-200 active:scale-95">
-            View All Categories
-          </button>
+          <Link href="/courses">
+            <button className="bg-[#392C7D] text-white px-10 py-4 rounded-full font-semibold text-[15px] hover:bg-[#2D2264] transition-all shadow-lg hover:shadow-purple-200 active:scale-95 inline-block">
+              View All Categories
+            </button>
+          </Link>
         </div>
       </div>
     </section>
