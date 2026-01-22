@@ -4,10 +4,8 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-
 export default function CheckoutPage() {
   const router = useRouter();
-
 
   const dummyCourse = {
     title: "Prompt Engineering Masterclass",
@@ -15,7 +13,7 @@ export default function CheckoutPage() {
     price: 49.99,
     tax: 3.0,
     total: 52.99,
-    image: "/blog8.webp", // Replace with your actual image path
+    image: "/blog8.webp", // Ensure this has a leading slash
   };
 
   return (
@@ -52,6 +50,9 @@ export default function CheckoutPage() {
                 </label>
                 <select className="w-full p-3.5 bg-white border border-slate-200 rounded-lg outline-none focus:border-slate-400 transition-all text-sm text-slate-500 appearance-none">
                   <option>Select your country</option>
+                  <option>United States</option>
+                  <option>United Kingdom</option>
+                  <option>Canada</option>
                 </select>
               </div>
             </div>
@@ -90,30 +91,31 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-slate-500 uppercase tracking-tight">
-                    Expiration Date
+                    Payment Provider
                   </label>
                   <div className="flex items-center gap-2 p-3.5 border border-slate-200 rounded-lg">
+                    {/* FIXED: Added leading slash to src */}
                     <Image
-                    width={200}
-                    height={200}
-                      src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
+                      width={40}
+                      height={20}
+                      src="/blog3.webp"
                       alt="paypal"
-                      className="h-4"
+                      className="h-4 w-auto"
                     />
                     <span className="text-sm text-slate-400 ml-auto flex gap-1">
                       <Image
-                      width={200}
-                      height={200}
-                        src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
-                        className="h-3"
-                        alt="v"
+                        width={20}
+                        height={12}
+                        src="/blog6.webp"
+                        className="h-3 w-auto"
+                        alt="visa"
                       />
                       <Image
-                      height={200}
-                      width={200}
-                        src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
-                        className="h-3"
-                        alt="m"
+                        height={12}
+                        width={20}
+                        src="/blog5.webp"
+                        className="h-3 w-auto"
+                        alt="mastercard"
                       />
                     </span>
                   </div>
@@ -154,12 +156,11 @@ export default function CheckoutPage() {
             Your Order Summary
           </h2>
 
-          {/* Course Card */}
           <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex gap-4 relative overflow-hidden ring-4 ring-[#ff5374]/5">
             <div className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
               <Image
-              height={200}
-              width={200}
+                height={80}
+                width={80}
                 src={dummyCourse.image}
                 alt="course"
                 className="w-full h-full object-cover"
@@ -204,19 +205,18 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {/* Testimonial Box */}
           <div className="bg-[#F8FAFC] rounded-2xl p-5 border border-slate-100 flex gap-4 items-center">
             <Image
-            height={200}
-            width={200}
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100"
+              height={48}
+              width={48}
+              src="/blog7.avif"
               className="w-12 h-12 rounded-full object-cover grayscale"
               alt="Elena"
             />
             <div className="space-y-1">
               <p className="text-[11px] text-slate-500 italic leading-relaxed">
-                &quot;The course content is incredibly detailed and well structured.
-                Best investment for my career.&quot;
+                &quot;The course content is incredibly detailed and well
+                structured. Best investment for my career.&quot;
               </p>
               <p className="text-[10px] font-bold text-slate-400">— Elena M.</p>
             </div>
