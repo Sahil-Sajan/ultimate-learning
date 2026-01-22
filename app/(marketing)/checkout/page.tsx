@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, ShieldCheck } from "lucide-react";
+import Image from "next/image";
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -192,21 +193,24 @@ export default function CheckoutPage() {
                 <span>${dummyCourse.total} USD</span>
               </div>
             </div>
-          </div>
 
-          {/* Testimonial Box */}
-          <div className="bg-[#F8FAFC] rounded-2xl p-5 border border-slate-100 flex gap-4 items-center">
-            <img
-              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100"
-              className="w-12 h-12 rounded-full object-cover grayscale"
-              alt="Elena"
-            />
-            <div className="space-y-1">
-              <p className="text-[11px] text-slate-500 italic leading-relaxed">
-                "The course content is incredibly detailed and well structured.
-                Best investment for my career."
-              </p>
-              <p className="text-[10px] font-bold text-slate-400">— Elena M.</p>
+            <div className="bg-[#F8FAFC] rounded-2xl p-5 border border-slate-100 flex gap-4 items-center">
+              <Image
+                height={200}
+                width={200}
+                src="/blog1.webp"
+                className="w-12 h-12 rounded-full object-cover grayscale"
+                alt="Elena"
+              />
+              <div className="space-y-1">
+                <p className="text-[11px] text-slate-500 italic leading-relaxed">
+                  &quot;The course content is incredibly detailed and well
+                  structured. Best investment for my career.&quot;
+                </p>
+                <p className="text-[10px] font-bold text-slate-400">
+                  — Elena M.
+                </p>
+              </div>
             </div>
           </div>
         </div>

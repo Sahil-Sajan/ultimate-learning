@@ -200,13 +200,13 @@ export default function DashboardLayout({
                 <Image
                 width={200}
                 height={200}
-                  src="/teacher.avif"
+                  src="/professor.avif"
                   alt="User"
                   className="w-full h-full object-cover"
                 />
               </div>
               <span className="text-sm font-bold text-[#1D1B26] hidden md:block">
-                Dr. Sarah Jenkins
+               Sir Ahmed
               </span>
               <ChevronDown
                 size={16}
