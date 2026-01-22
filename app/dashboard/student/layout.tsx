@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Menu,
   X,
@@ -37,7 +36,44 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+  // --- 1. STATE FOR USER DATA ---
+  const [user, setUser] = useState({
+    name: "Guest User",
+    role: "Student",
+    email: "",
+    initials: "GU"
+  });
+
+  // --- 2. SYNC WITH LOGIN DATA ---
+  useEffect(() => {
+    // Check if running on client side
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem("currentUser");
+      if (storedUser) {
+        const parsedUser = JSON.parse(storedUser);
+        const nameParts = parsedUser.name.split(" ");
+        const initials = nameParts.length > 1 
+          ? `${nameParts[0][0]}${nameParts[1][0]}` 
+          : nameParts[0][0];
+
+        setUser({
+          name: parsedUser.name,
+          role: parsedUser.role,
+          email: parsedUser.email,
+          initials: initials.toUpperCase()
+        });
+      }
+    }
+  }, []);
+
+  // --- 3. LOGOUT FUNCTION ---
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    router.push("/"); // Redirect to Login Page
+  };
 
   const StudentmenuItems: MenuItem[] = [
     {
@@ -132,7 +168,6 @@ export default function DashboardLayout({
             MENU
           </p>
           <nav className="space-y-1">
-            {/* FIXED: Using StudentmenuItems with correct casing */}
             {StudentmenuItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -161,14 +196,19 @@ export default function DashboardLayout({
               href="/dashboard/student/settings"
               onClick={() => setIsSidebarOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all ${
-                pathname === "/dashboard/parent/settings"
+                pathname === "/dashboard/student/settings"
                   ? "text-[#FF5364] bg-[#FF5364]/10"
                   : "text-slate-500 hover:bg-slate-50"
               }`}
             >
               <Settings size={18} /> Settings
             </Link>
-            <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 font-bold text-sm hover:text-red-500 hover:bg-red-50 transition-all text-left">
+            
+            {/* LOGOUT BUTTON */}
+            <button 
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 font-bold text-sm hover:text-red-500 hover:bg-red-50 transition-all text-left"
+            >
               <LogOut size={18} /> Logout
             </button>
           </nav>
@@ -200,24 +240,30 @@ export default function DashboardLayout({
           </div>
 
           <div className="flex items-center gap-2 lg:gap-6">
-            <div className="flex items-center gap-3 px-3 py-1.5 hover:bg-slate-50 rounded-xl cursor-pointer transition-colors">
-              <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center overflow-hidden">
-                <Image
-                  src="/fs-1.avif"
-                  alt="User"
-                  className="w-full h-full object-cover"
-                  width={200}
-                  height={200}
-                />
+            
+            {/* DYNAMIC USER PROFILE SECTION */}
+            <div className="flex items-center gap-3 px-3 py-1.5 hover:bg-slate-50 rounded-xl cursor-pointer transition-colors group">
+              
+              {/* Initials Avatar (Replaces static image) */}
+              <div className="w-9 h-9 rounded-full bg-orange-100 border border-orange-200 flex items-center justify-center text-[#FF5B5C] font-bold text-sm">
+                {user.initials}
               </div>
-              <span className="text-sm font-bold text-[#1D1B26] hidden md:block">
-                Ronald Richard
-              </span>
+
+              <div className="hidden md:flex flex-col items-start">
+                <span className="text-sm font-bold text-[#1D1B26] leading-tight">
+                  {user.name}
+                </span>
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">
+                  {user.role}
+                </span>
+              </div>
+              
               <ChevronDown
                 size={16}
-                className="text-slate-400 hidden md:block"
+                className="text-slate-400 hidden md:block group-hover:text-slate-600 transition-colors"
               />
             </div>
+
             <button className="relative p-2 text-slate-400 hover:bg-slate-50 rounded-xl transition-colors">
               <Bell size={20} />
               <span className="absolute top-2 right-2 w-2 h-2 bg-[#FF5364] rounded-full border-2 border-white"></span>
