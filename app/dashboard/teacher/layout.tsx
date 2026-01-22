@@ -198,6 +198,8 @@ export default function DashboardLayout({
             <div className="flex items-center gap-3 px-3 py-1.5 hover:bg-slate-50 rounded-xl cursor-pointer transition-colors">
               <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center overflow-hidden">
                 <Image
+                width={200}
+                height={200}
                   src="/teacher.avif"
                   alt="User"
                   className="w-full h-full object-cover"
