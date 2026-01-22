@@ -59,6 +59,7 @@ export default function DashboardLayout({
           ? `${nameParts[0][0]}${nameParts[1][0]}` 
           : nameParts[0][0];
 
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setUser({
           name: parsedUser.name,
           role: parsedUser.role,
