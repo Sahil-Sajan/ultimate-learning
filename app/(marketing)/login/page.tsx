@@ -1,26 +1,82 @@
 "use client";
 import React, { useState } from "react";
-// Added GraduationCap to the imports below
-import { Mail, Lock, Eye, EyeOff, Facebook, GraduationCap } from "lucide-react";
+import { Mail, Eye, EyeOff, Facebook, GraduationCap } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+
+// --- 1. MOCK DATABASE (Acts as your temporary Backend) ---
+// You can add as many users here as you want with different roles.
+const MOCK_USERS = [
+  {
+    email: "student@gmail.com",
+    password: "123",
+    role: "student",
+    name: "Ali Student",
+  },
+  {
+    email: "teacher@gmail.com",
+    password: "123",
+    role: "teacher",
+    name: "Sir Ahmed",
+  },
+  {
+    email: "parent@gmail.com",
+    password: "123",
+    role: "parent",
+    name: "Mrs. Fatima",
+  },
+];
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
+  // State for form inputs
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState(""); // To show error messages
+
   const router = useRouter();
 
+  // Handle Input Changes
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.type === "email" ? "email" : "password"]: e.target.value,
+    });
+    setError(""); // Clear error when user types
+  };
+
+  // --- 2. NEW LOGIN LOGIC ---
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password === "student") {
-      router.push("/dashboard/student");
-    } else if (password === "teacher") {
-      router.push("/dashboard/teacher");
-    } else if (password === "parent") {
-      router.push("/dashboard/parent");
+    // A. Search for the user in our Mock Database
+    const foundUser = MOCK_USERS.find(
+      (user) =>
+        user.email === formData.email && user.password === formData.password,
+    );
+
+    if (foundUser) {
+      // B. Success! Save to LocalStorage (Simulate a Session)
+      // We save the whole user object so the dashboard knows who they are.
+      localStorage.setItem("currentUser", JSON.stringify(foundUser));
+
+      // C. Redirect based on Role
+      switch (foundUser.role) {
+        case "student":
+          router.push("/dashboard/student");
+          break;
+        case "teacher":
+          router.push("/dashboard/teacher");
+          break;
+        case "parent":
+          router.push("/dashboard/parent");
+          break;
+        default:
+          router.push("/");
+      }
     } else {
-      router.push("/");
+      // D. Failed! Show error
+      setError("Invalid email or password. Please try again.");
     }
   };
 
@@ -29,7 +85,9 @@ const LoginPage = () => {
       {/* --- LEFT SIDE: PROMOTIONAL SECTION --- */}
       <div className="hidden md:flex md:w-[45%] lg:w-[50%] bg-[#fff5f6] flex-col items-center justify-center p-8 lg:p-12 text-center">
         <div className="relative w-full max-w-105 mb-10">
-          <img
+          <Image
+            height={200}
+            width={200}
             src="/login.jpeg"
             alt="Welcome Illustration"
             className="w-full h-auto object-contain"
@@ -54,7 +112,6 @@ const LoginPage = () => {
         <div className="flex justify-between items-center mb-12">
           <div className="flex items-center gap-3">
             <div className="bg-white p-2 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center">
-              {/* This component will now be correctly typed */}
               <GraduationCap
                 className="w-7 h-7 text-[#ff4667]"
                 strokeWidth={2.5}
@@ -86,6 +143,13 @@ const LoginPage = () => {
           </p>
 
           <form onSubmit={handleLogin} className="space-y-7">
+            {/* Show Error Message if Login Fails */}
+            {error && (
+              <div className="p-3 text-sm text-red-500 bg-red-50 rounded-lg border border-red-100">
+                {error}
+              </div>
+            )}
+
             <div className="space-y-2">
               <label className="text-[11px] font-extrabold text-[#333] uppercase tracking-[1px]">
                 Email <span className="text-[#ff4667]">*</span>
@@ -93,7 +157,9 @@ const LoginPage = () => {
               <div className="relative group">
                 <input
                   type="email"
+                  name="email"
                   placeholder="Enter your email address"
+                  onChange={handleChange}
                   className="w-full border-b-[1.5px] border-gray-100 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-[15px] placeholder:text-gray-300"
                   required
                 />
@@ -108,9 +174,9 @@ const LoginPage = () => {
               <div className="relative group">
                 <input
                   type={showPassword ? "text" : "password"}
-                  placeholder="passowrd"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
                   className="w-full border-b-[1.5px] border-gray-100 py-3 pr-10 outline-none focus:border-[#ff4667] transition-all text-[15px] placeholder:text-gray-300"
                   required
                 />
@@ -165,7 +231,13 @@ const LoginPage = () => {
                 type="button"
                 className="flex items-center justify-center gap-3 border-[1.5px] border-gray-100 py-3.5 rounded-2xl hover:bg-gray-50 hover:border-gray-200 transition-all active:scale-95"
               >
-                <img src="/googlr-logo.jpg" alt="Google" className="w-5 h-5" />
+                <Image
+                  width={20}
+                  height={20}
+                  src="/googlr-logo.jpg"
+                  alt="Google"
+                  className="w-5 h-5"
+                />
                 <span className="text-[14px] font-bold text-[#0b1219]">
                   Google
                 </span>

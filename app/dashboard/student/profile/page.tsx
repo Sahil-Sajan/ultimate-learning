@@ -1,66 +1,122 @@
 "use client";
-import React from "react";
-import { Pencil } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Pencil, Mail, Phone, Calendar, MapPin } from "lucide-react";
 
 export default function ProfileView() {
-  const profileData = {
+  // 1. Profile State
+  const [user, setUser] = useState({
     firstName: "Ronald",
     lastName: "Richard",
-    registrationDate: "16 Jan 2024, 11:15 AM",
-    userName: "studentdemo",
-    phoneNumber: "90154-91036",
-    email: "studentdemo@example.com",
+    email: "student@example.com",
+    role: "Student",
+    phone: "+92 300 1234567",
     gender: "Male",
     dob: "16 Jan 2002",
-    age: "24",
-    bio: "Hello! I'm Ronald Richard. I'm passionate about developing innovative software solutions, analyzing classic literature. I aspire to become a software developer, work as an editor. In my free time, I enjoy coding, reading, hiking etc.",
-  };
+    address: "Hyderabad, Pakistan",
+    bio: "Passionate about developing innovative software solutions. I aspire to become a software developer and work on large-scale applications.",
+    avatar: "" // Empty string will trigger the Initials fallback
+  });
+
+  // 2. Sync with Login Data
+  useEffect(() => {
+    const storedUser = localStorage.getItem("currentUser");
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser((prev) => ({
+        ...prev,
+        firstName: parsedUser.name.split(" ")[0] || prev.firstName,
+        lastName: parsedUser.name.split(" ")[1] || prev.lastName,
+        email: parsedUser.email || prev.email,
+        role: parsedUser.role || prev.role,
+      }));
+    }
+  }, []);
 
   return (
-    <div className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-sm">
-      <div className="flex justify-between items-center border-b border-slate-50 pb-6 mb-8">
-        <h3 className="text-2xl font-black text-[#1D1B26]">My Profile</h3>
-        <button className="p-2 bg-slate-50 text-slate-400 rounded-lg hover:bg-slate-100 transition-colors">
-          <Pencil size={18} />
-        </button>
-      </div>
+    <div className="w-full max-w-5xl mx-auto">
+      
+      {/* --- Main Card --- */}
+      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+        
+        {/* 1. Header Section: Avatar & Primary Info */}
+        <div className="p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 border-b border-slate-100">
+          
+          {/* Avatar (Simple & Clean) */}
+          <div className="h-24 w-24 md:h-28 md:w-28 rounded-full bg-slate-100 border-4 border-white shadow-sm flex items-center justify-center shrink-0">
+            <span className="text-3xl font-bold text-slate-400">
+              {user.firstName[0]}{user.lastName[0]}
+            </span>
+          </div>
 
-      <div className="grid md:grid-cols-3 gap-y-10 gap-x-6">
-        <ProfileItem label="First Name" value={profileData.firstName} />
-        <ProfileItem label="Last Name" value={profileData.lastName} />
-        <ProfileItem
-          label="Registration Date"
-          value={profileData.registrationDate}
-        />
+          {/* User Info Stack */}
+          <div className="flex-grow space-y-2">
+            <div className="flex flex-col md:flex-row md:items-center gap-3">
+              <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
+                {user.firstName} {user.lastName}
+              </h1>
+              <span className="w-fit px-3 py-1 rounded-full bg-[#ff4667]/10 text-[#ff4667] text-xs font-bold uppercase tracking-wide">
+                {user.role}
+              </span>
+            </div>
+            
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-500 font-medium">
+              <div className="flex items-center gap-2">
+                <Mail size={16} /> {user.email}
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin size={16} /> {user.address}
+              </div>
+            </div>
+          </div>
 
-        <ProfileItem label="User Name" value={profileData.userName} />
-        <ProfileItem label="Phone Number" value={profileData.phoneNumber} />
-        <ProfileItem label="Email" value={profileData.email} />
+          {/* Edit Button (Top Right) */}
+          <button className="shrink-0 flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm font-bold text-slate-700 hover:bg-slate-50 hover:text-[#ff4667] transition-all">
+            <Pencil size={14} />
+            Edit Profile
+          </button>
+        </div>
 
-        <ProfileItem label="Gender" value={profileData.gender} />
-        <ProfileItem label="DOB" value={profileData.dob} />
-        <ProfileItem label="Age" value={profileData.age} />
-      </div>
+        {/* 2. Details Grid */}
+        <div className="p-8 md:p-10">
+          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-6">
+            Personal Information
+          </h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            <InfoField label="First Name" value={user.firstName} />
+            <InfoField label="Last Name" value={user.lastName} />
+            <InfoField label="Phone" value={user.phone} />
+            
+            <InfoField label="Date of Birth" value={user.dob} />
+            <InfoField label="Gender" value={user.gender} />
+            <InfoField label="Location" value={user.address} />
+          </div>
 
-      <div className="mt-12 pt-8 border-t border-slate-50">
-        <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">
-          Bio
-        </h4>
-        <p className="text-slate-600 leading-relaxed font-medium">
-          {profileData.bio}
-        </p>
+          {/* 3. Bio Section */}
+          <div className="pt-8 border-t border-slate-100">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider mb-4">
+              Bio
+            </h3>
+            <p className="text-slate-600 leading-relaxed text-[15px] max-w-3xl">
+              {user.bio}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
 
-function ProfileItem({ label, value }: { label: string; value: string }) {
+// --- Reusable Component for Fields ---
+function InfoField({ label, value }: { label: string; value: string }) {
   return (
-    <div className="space-y-1">
-      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
+    <div className="flex flex-col gap-1">
+      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
         {label}
-      </h4>
-      <p className="text-slate-700 font-bold">{value}</p>
+      </span>
+      <span className="text-[15px] font-semibold text-slate-800">
+        {value}
+      </span>
     </div>
   );
 }
