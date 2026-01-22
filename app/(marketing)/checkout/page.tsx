@@ -203,22 +203,22 @@ export default function CheckoutPage() {
                 <span>${dummyCourse.total} USD</span>
               </div>
             </div>
-          </div>
 
-          <div className="bg-[#F8FAFC] rounded-2xl p-5 border border-slate-100 flex gap-4 items-center">
-            <Image
-              height={48}
-              width={48}
-              src="/blog7.avif"
-              className="w-12 h-12 rounded-full object-cover grayscale"
-              alt="Elena"
-            />
-            <div className="space-y-1">
-              <p className="text-[11px] text-slate-500 italic leading-relaxed">
-                &quot;The course content is incredibly detailed and well
-                structured. Best investment for my career.&quot;
-              </p>
-              <p className="text-[10px] font-bold text-slate-400">— Elena M.</p>
+            <div className="bg-[#F8FAFC] rounded-2xl p-5 border border-slate-100 flex gap-4 items-center">
+              <Image
+                height={200}
+                width={200}
+                src="/blog1.webp"
+                className="w-12 h-12 rounded-full object-cover grayscale"
+                alt="Elena"
+              />
+              <div className="space-y-1">
+                <p className="text-[11px] text-slate-500 italic leading-relaxed">
+                  &quot;The course content is incredibly detailed and well
+                  structured. Best investment for my career.&quot;
+                </p>
+                <p className="text-[10px] font-bold text-slate-400">— Elena M.</p>
+              </div>
             </div>
           </div>
         </div>
