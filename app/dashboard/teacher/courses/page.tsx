@@ -3,15 +3,18 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Plus, BookOpen, BarChart, PlayCircle, Trash2 } from "lucide-react";
+import Image from "next/image";
 
 const STORAGE_KEY = "published-courses";
 
 export default function MyCoursesPage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [courses, setCourses] = useState<any[]>([]);
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCourses(JSON.parse(saved));
     }
   }, []);
@@ -59,7 +62,9 @@ export default function MyCoursesPage() {
                 className="group bg-white rounded-[32px] border border-slate-100 overflow-hidden hover:shadow-xl transition-all relative"
               >
                 <div className="aspect-video relative overflow-hidden">
-                  <img
+                  <Image
+                  height={200}
+                  width={200}
                     src={course.thumbnail || "/api/placeholder/400/225"}
                     alt={course.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
