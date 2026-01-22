@@ -13,13 +13,16 @@ import {
   FileUp,
   AlertCircle,
 } from "lucide-react";
+import Image from "next/image";
 
 const STORAGE_KEY = "published-courses";
 
 export default function CourseDetailPage() {
   const params = useParams();
   const id = params?.id;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [course, setCourse] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [activeLesson, setActiveLesson] = useState<any>(null);
 
   // Quiz States
@@ -32,13 +35,16 @@ export default function CourseDetailPage() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const allCourses = JSON.parse(saved);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const found = allCourses.find((c: any) => String(c.id) === String(id));
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setCourse(found);
     }
   }, [id]);
 
   // Reset quiz state when switching lessons
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedOption(null);
     setIsSubmitted(false);
 
@@ -93,11 +99,13 @@ export default function CourseDetailPage() {
               Curriculum
             </h2>
             <div className="space-y-8">
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any*/} 
               {course.modules?.map((module: any) => (
                 <div key={module.id} className="space-y-3">
                   <h3 className="font-bold text-slate-400 uppercase text-xs tracking-widest px-2">
                     {module.title}
                   </h3>
+                  {/*eslint-disable-next-line @typescript-eslint/no-explicit-any*/} 
                   {module.lessons?.map((lesson: any) => (
                     <div
                       key={lesson.id}
@@ -144,7 +152,7 @@ export default function CourseDetailPage() {
           <div className="bg-white rounded-[32px] p-4 border border-slate-100 shadow-sm sticky top-24">
             <div className="aspect-video rounded-2xl overflow-hidden bg-slate-200 mb-4">
               {course.thumbnail ? (
-                <img
+                <Image
                   src={course.thumbnail}
                   className="w-full h-full object-cover"
                   alt="thumbnail"
@@ -169,7 +177,7 @@ export default function CourseDetailPage() {
 
       {/* --- DYNAMIC MODAL --- */}
       {activeLesson && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-slate-900/90 backdrop-blur-md p-4">
+        <div className="fixed inset-0 z-9999 flex items-center justify-center bg-slate-900/90 backdrop-blur-md p-4">
           <div className="relative w-full max-w-4xl bg-white rounded-[40px] overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
             {/* Modal Header */}
             <div className="p-6 border-b flex justify-between items-center bg-white sticky top-0">

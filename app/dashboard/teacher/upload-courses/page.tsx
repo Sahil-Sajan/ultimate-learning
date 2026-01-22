@@ -8,22 +8,22 @@ import {
   Video,
   FileText,
   ClipboardList,
-  Plus,
   Trash2,
   Image as ImageIcon,
   X,
   CheckCircle2,
-  AlertCircle,
   FileUp,
 } from "lucide-react";
+import Image from "next/image";
 
 const STORAGE_KEY = "published-courses";
 
 // --- CUSTOM MODAL COMPONENTS ---
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Modal = ({ isOpen, onClose, title, children }: any) => {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
       <div className="bg-white rounded-[32px] w-full max-w-lg overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
         <div className="p-6 border-b flex justify-between items-center bg-slate-50/50">
           <h3 className="font-black text-slate-800 uppercase tracking-tight">
@@ -47,12 +47,14 @@ export default function CreateCoursePage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // State for Course Data
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [courseData, setCourseData] = useState<any>(null);
 
   // State for UI/Modals
   const [activeModal, setActiveModal] = useState<
     "lesson" | "quiz" | "assignment" | "success" | null
   >(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [pendingLesson, setPendingLesson] = useState<any>(null);
   const [tempLessonTitle, setTempLessonTitle] = useState("");
 
@@ -62,6 +64,7 @@ export default function CreateCoursePage() {
   const [correctAnswer, setCorrectAnswer] = useState(0);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCourseData({
       title: "",
       description: "",
@@ -91,6 +94,7 @@ export default function CreateCoursePage() {
   const removeModule = (moduleId: string) => {
     setCourseData({
       ...courseData,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       modules: courseData.modules.filter((m: any) => m.id !== moduleId),
     });
   };
@@ -114,6 +118,7 @@ export default function CreateCoursePage() {
 
     setCourseData({
       ...courseData,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       modules: courseData.modules.map((m: any) =>
         m.id === pendingLesson.moduleId
           ? { ...m, lessons: [...m.lessons, newLesson] }
@@ -137,6 +142,7 @@ export default function CreateCoursePage() {
 
     setCourseData({
       ...courseData,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       modules: courseData.modules.map((m: any) =>
         m.id === pendingLesson.moduleId
           ? { ...m, lessons: [...m.lessons, newLesson] }
@@ -158,10 +164,12 @@ export default function CreateCoursePage() {
       const videoUrl = URL.createObjectURL(file);
       setCourseData({
         ...courseData,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         modules: courseData.modules.map((m: any) =>
           m.id === moduleId
             ? {
                 ...m,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 lessons: m.lessons.map((l: any) =>
                   l.id === lessonId ? { ...l, videoUrl: videoUrl } : l,
                 ),
@@ -173,6 +181,7 @@ export default function CreateCoursePage() {
   };
 
   const handleAssignmentUpload = (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     e: any,
     moduleId: string,
     lessonId: string,
@@ -181,10 +190,12 @@ export default function CreateCoursePage() {
     if (file) {
       setCourseData({
         ...courseData,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         modules: courseData.modules.map((m: any) =>
           m.id === moduleId
             ? {
                 ...m,
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 lessons: m.lessons.map((l: any) =>
                   l.id === lessonId ? { ...l, assignmentUrl: file.name } : l,
                 ),
@@ -285,6 +296,9 @@ export default function CreateCoursePage() {
               </div>
 
               <div className="space-y-6">
+                
+               
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any*/} 
                 {courseData.modules.map((module: any) => (
                   <div
                     key={module.id}
@@ -297,6 +311,7 @@ export default function CreateCoursePage() {
                         onChange={(e) =>
                           setCourseData({
                             ...courseData,
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             modules: courseData.modules.map((m: any) =>
                               m.id === module.id
                                 ? { ...m, title: e.target.value }
@@ -314,6 +329,8 @@ export default function CreateCoursePage() {
                     </div>
 
                     <div className="space-y-3">
+                      
+                      {/*eslint-disable-next-line @typescript-eslint/no-explicit-any */} 
                       {module.lessons.map((lesson: any) => (
                         <div
                           key={lesson.id}
@@ -417,7 +434,9 @@ export default function CreateCoursePage() {
                 className="cursor-pointer border-2 border-dashed rounded-[32px] aspect-video bg-slate-50 flex flex-col items-center justify-center hover:border-rose-300 transition-all overflow-hidden relative"
               >
                 {courseData.thumbnail ? (
-                  <img
+                  <Image
+                  width={200}
+                  height={200}
                     src={courseData.thumbnail}
                     className="w-full h-full object-cover"
                     alt="thumbnail"

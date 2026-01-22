@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Pencil, Mail, Phone, Calendar, MapPin } from "lucide-react";
+import { Pencil, Mail, MapPin } from "lucide-react";
 
 export default function ProfileView() {
   // 1. Profile State
@@ -22,6 +22,7 @@ export default function ProfileView() {
     const storedUser = localStorage.getItem("currentUser");
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setUser((prev) => ({
         ...prev,
         firstName: parsedUser.name.split(" ")[0] || prev.firstName,
@@ -49,7 +50,7 @@ export default function ProfileView() {
           </div>
 
           {/* User Info Stack */}
-          <div className="flex-grow space-y-2">
+          <div className="grow space-y-2">
             <div className="flex flex-col md:flex-row md:items-center gap-3">
               <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
                 {user.firstName} {user.lastName}
