@@ -16,11 +16,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto">
         {/* Main Grid Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
-          
-          {/* Brand Column - Spans 4 columns on large screens */}
+          {/* Brand Column */}
           <div className="lg:col-span-4 space-y-6">
             <div className="flex items-center gap-3">
-              {/* Logo Icon */}
               <div className="relative flex items-center justify-center bg-white rounded-lg w-10 h-10 shadow-sm border border-gray-100">
                 <svg
                   width="24"
@@ -45,7 +43,6 @@ const Footer = () => {
                   />
                 </svg>
               </div>
-              {/* Logo Text - Adapted for Light Mode */}
               <div className="flex flex-col">
                 <span className="text-xl font-bold text-gray-900 leading-none">
                   Ultimate{" "}
@@ -58,33 +55,38 @@ const Footer = () => {
 
             <p className="text-sm leading-relaxed text-gray-500 max-w-sm">
               Platform designed to help organizations, educators, and learners
-              manage, deliver, and track learning and training activities seamlessly.
+              manage, deliver, and track learning and training activities
+              seamlessly.
             </p>
 
-          <div className="flex gap-4">
-  <Image
-    width={200}
-    height={200}
-    src="/App_Store.svg"
-    alt="Download on App Store"
-    // REMOVED: grayscale hover:grayscale-0
-    className="h-10 w-auto cursor-pointer opacity-90 hover:opacity-100 transition-all"
-  />
-  <Image
-    width={200}
-    height={200}
-    src="/googleplay-logo.webp"
-    alt="Get it on Google Play"
-    // REMOVED: grayscale hover:grayscale-0
-    className="h-10 w-auto cursor-pointer opacity-90 hover:opacity-100 transition-all"
-  />
-</div>
+            {/* FIXED STORE LOGOS SECTION */}
+            <div className="flex items-center gap-11">
+              <div className="relative cursor-pointer hover:opacity-100 opacity-90 transition-opacity">
+                <Image
+                  width={135}
+                  height={44}
+                  src="/apple-as-logo.svg"
+                  alt="Download on App Store"
+                  className="w-auto h-10 object-contain"
+                  priority
+                />
+              </div>
+              <div className="relative cursor-pointer hover:opacity-100 opacity-90 transition-opacity">
+                <Image
+                  width={135}
+                  height={40}
+                  src="/google-ps-logo.svg"
+                  alt="Get it on Google Play"
+                  className="w-auto h-10 object-contain"
+                  priority
+                />
+              </div>
+            </div>
           </div>
 
-          {/* Spacer Column (Optional for layout balance) */}
           <div className="hidden lg:block lg:col-span-1"></div>
 
-          {/* Links Section - Spans remaining columns */}
+          {/* Links Section */}
           <div className="lg:col-span-2">
             <h2 className="text-gray-900 font-bold text-base mb-6">Support</h2>
             <ul className="space-y-3 text-sm">
@@ -116,12 +118,12 @@ const Footer = () => {
                   >
                     {item}
                   </li>
-                )
+                ),
               )}
             </ul>
           </div>
 
-          {/* Newsletter Column - Spans 3 columns */}
+          {/* Newsletter Column */}
           <div className="lg:col-span-3">
             <h2 className="text-gray-900 font-bold text-base mb-6">
               Stay Updated
@@ -172,9 +174,12 @@ const Footer = () => {
                   key={idx}
                   className="p-2 text-gray-400 border border-gray-200 rounded-full hover:bg-[#FF5B5C] hover:border-[#FF5B5C] hover:text-white transition-all cursor-pointer group"
                 >
-                  <Icon size={16} className="group-hover:scale-110 transition-transform" />
+                  <Icon
+                    size={16}
+                    className="group-hover:scale-110 transition-transform"
+                  />
                 </div>
-              )
+              ),
             )}
           </div>
         </div>

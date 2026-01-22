@@ -23,7 +23,7 @@ const STORAGE_KEY = "published-courses";
 const Modal = ({ isOpen, onClose, title, children }: any) => {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
       <div className="bg-white rounded-[32px] w-full max-w-lg overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-200">
         <div className="p-6 border-b flex justify-between items-center bg-slate-50/50">
           <h3 className="font-black text-slate-800 uppercase tracking-tight">
