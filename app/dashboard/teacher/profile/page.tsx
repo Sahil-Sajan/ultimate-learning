@@ -2,13 +2,10 @@
 import React, { useState, useEffect } from "react";
 import { 
   Pencil, 
-  Mail, 
-  Phone, 
-  Calendar, 
+  Mail,  
   Briefcase, 
   GraduationCap, 
   Clock, 
-  MapPin 
 } from "lucide-react";
 
 export default function TeacherProfileView() {
@@ -67,6 +64,7 @@ export default function TeacherProfileView() {
       const parsedUser = JSON.parse(storedUser);
       // Only override if the logged-in user is actually a teacher
       if(parsedUser.role === 'teacher') {
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setUser((prev) => ({
             ...prev,
             firstName: parsedUser.name.split(" ")[0] || prev.firstName,
@@ -95,7 +93,7 @@ export default function TeacherProfileView() {
           </div>
 
           {/* User Info Stack */}
-          <div className="flex-grow space-y-2">
+          <div className="grow space-y-2">
             <div className="flex flex-col md:flex-row md:items-center gap-3">
               <h1 className="text-2xl md:text-3xl font-bold text-slate-900">
                 {user.firstName} {user.lastName}

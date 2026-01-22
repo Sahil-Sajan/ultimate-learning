@@ -4,24 +4,16 @@ import {
   Star,
   FileText,
   Heart,
-  Users,
-  BookOpen,
-  GraduationCap,
 } from "lucide-react";
+import Image from "next/image";
 
 // --- MAIN PAGE SWITCHER ---
 export default function DashboardPage({ activeTab }: { activeTab: string }) {
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       {(activeTab === "Dashboard" || !activeTab) && <DashboardOverview />}
-
-      {activeTab !== "Dashboard" && activeTab !== "" && (
-        <div className="bg-white p-20 rounded-[40px] text-center border border-dashed border-slate-200">
-          <h2 className="text-2xl font-black text-slate-300 italic uppercase tracking-widest">
-            {activeTab}
-          </h2>
-        </div>
-      )}
+      
+      {/* The white placeholder box for other tabs has been removed from here */}
     </div>
   );
 }
@@ -117,6 +109,7 @@ function DashboardOverview() {
 
 // --- SUB-COMPONENTS ---
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function StatCard({ label, value, icon, color }: any) {
   return (
     <div className="bg-white p-8 rounded-[32px] border border-slate-100 flex items-center gap-6 shadow-sm">
@@ -143,7 +136,8 @@ function CourseCard({
   reviews,
   price,
   category,
-  isStatus,
+  
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 }: any) {
   return (
     <div className="bg-white rounded-[40px] overflow-hidden border border-slate-100 shadow-sm group">
@@ -154,7 +148,9 @@ function CourseCard({
             className="text-slate-400 hover:text-red-500 transition-colors"
           />
         </div>
-        <img
+        <Image
+        width={200}
+        height={200}
           src={image}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           alt=""
