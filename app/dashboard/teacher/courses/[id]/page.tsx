@@ -153,6 +153,8 @@ export default function CourseDetailPage() {
             <div className="aspect-video rounded-2xl overflow-hidden bg-slate-200 mb-4">
               {course.thumbnail ? (
                 <Image
+                height={200}
+                width={200}
                   src={course.thumbnail}
                   className="w-full h-full object-cover"
                   alt="thumbnail"
